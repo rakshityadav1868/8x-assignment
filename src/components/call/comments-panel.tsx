@@ -85,7 +85,9 @@ export function CommentsPanel({ active }: { active: boolean }) {
         <p className="text-[13px] font-medium">
           {total} {total === 1 ? "comment" : "comments"}
         </p>
-        <span className="ml-auto text-[11px] text-muted-foreground">Timestamped · @mention teammates</span>
+        <span className="ml-auto text-[11px] text-muted-foreground">
+          {readOnly ? "View only" : "Timestamped · @mention teammates"}
+        </span>
       </div>
       <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto px-3 pb-6 pt-3 [scrollbar-width:thin]">
         {comments.status === "loading" ? (

@@ -26,9 +26,9 @@ export function extractMentions(body: string, candidates: MentionCandidate[]): s
 /** Render body text with "@Name" tokens for known candidates styled as mention pills. */
 export function renderWithMentions(body: string, names: string[]): React.ReactNode {
   const sorted = [...new Set(names)].filter(Boolean).sort((a, b) => b.length - a.length);
-  if (sorted.length === 0) return body;
   const esc = sorted.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  const re = new RegExp(`@(${esc.join("|")})`, "g");
+  // Known names first; otherwise fall back to "@First Last" (e.g. teammates unknown to a public viewer).
+  const re = new RegExp(`@(${[...esc, "\\p{Lu}[\\p{L}'-]+(?: \\p{Lu}[\\p{L}'-]+)?"].join("|")})`, "gu");
   const out: React.ReactNode[] = [];
   let last = 0;
   for (const m of body.matchAll(re)) {

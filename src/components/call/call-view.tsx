@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronDown } from "lucide-react";
@@ -90,6 +90,16 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
   }, [initialSeconds, store, setTab]);
 
   const openHelp = useCallback(() => setShortcutsOpen(true), []);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const panelWidth = useElementWidth(tabsRef);
+  // Tabs that don't fit the panel go into a "More" menu (Summary/Transcript/Action items always stay visible).
+  const compact = !!panelWidth && panelWidth < 560;
+  const overflow = useMemo<CallTab[]>(() => {
+    if (!panelWidth || panelWidth >= 560) return [];
+    if (readOnly) return panelWidth < 400 ? ["comments"] : [];
+    if (panelWidth < 440) return shareMode ? ["ask", "comments"] : ["ask", "comments", "coaching"];
+    return shareMode ? [] : ["coaching"];
+  }, [panelWidth, readOnly, shareMode]);
   useKeyboardShortcuts(openHelp);
 
   const openItems = actionItems.filter((a) => !a.completed).length;
@@ -124,32 +134,32 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
         <Tabs
           value={tab}
           onValueChange={(v) => setTab(v as CallTab)}
-          className="glass @container flex h-[72dvh] min-h-0 flex-col gap-0 overflow-hidden rounded-2xl lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-auto"
+          ref={tabsRef}
+          className="glass flex h-[72dvh] min-h-0 flex-col gap-0 overflow-hidden rounded-2xl lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-auto"
         >
           <TabsList
             variant="line"
-            className="h-11! w-full shrink-0 justify-start gap-0 overflow-x-auto rounded-none border-b border-white/[0.06] px-1 [scrollbar-width:none] sm:px-2"
+            data-compact={compact}
+            className="group/tl h-11! w-full shrink-0 justify-start gap-0 overflow-x-auto rounded-none border-b border-white/[0.06] px-1 [scrollbar-width:none] sm:px-2 data-[compact=true]:px-1"
           >
             <PanelTab value="summary">Summary</PanelTab>
             <PanelTab value="transcript">Transcript</PanelTab>
             <PanelTab value="actions">
-              Action items
+              {compact ? "Actions" : "Action items"}
               {openItems > 0 && (
                 <span className="ml-1 rounded-full bg-white/10 px-1.5 text-[10px] tabular-nums text-white/80">{openItems}</span>
               )}
             </PanelTab>
-            {!readOnly && <PanelTab value="ask">Ask</PanelTab>}
-            {/* Wide panels show every tab; narrow ones fold Comments/Coaching into "More". */}
-            <PanelTab value="comments" className="hidden @min-[560px]:inline-flex">
-              Comments
-              <CommentCount />
-            </PanelTab>
-            {!shareMode && (
-              <PanelTab value="coaching" className="hidden @min-[560px]:inline-flex">
-                Coaching
+            {!readOnly && !overflow.includes("ask") && <PanelTab value="ask">Ask</PanelTab>}
+            {/* Wide panels show every tab; narrow ones fold the tail into "More". */}
+            {!overflow.includes("comments") && (
+              <PanelTab value="comments">
+                Comments
+                {!compact && <CommentCount />}
               </PanelTab>
             )}
-            <MoreTabs tab={tab} setTab={setTab} showCoaching={!shareMode} />
+            {!shareMode && !overflow.includes("coaching") && <PanelTab value="coaching">Coaching</PanelTab>}
+            {overflow.length > 0 && <MoreTabs tab={tab} setTab={setTab} items={overflow} />}
           </TabsList>
           <TabsContent value="summary" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">
             <SummaryPanel />
@@ -186,7 +196,7 @@ const TAB_CLASS =
 
 function PanelTab({ value, children, className }: { value: CallTab; children: React.ReactNode; className?: string }) {
   return (
-    <TabsTrigger value={value} className={cn(TAB_CLASS, className)}>
+    <TabsTrigger value={value} className={cn(TAB_CLASS, "group-data-[compact=true]/tl:px-2", className)}>
       {children}
     </TabsTrigger>
   );
@@ -199,18 +209,29 @@ function CommentCount() {
   return <span className="ml-1 rounded-full bg-white/10 px-1.5 text-[10px] tabular-nums text-white/80">{n}</span>;
 }
 
-const OVERFLOW_LABEL: Partial<Record<CallTab, string>> = { comments: "Comments", coaching: "Coaching" };
+const TAB_LABEL: Partial<Record<CallTab, string>> = { ask: "Ask", comments: "Comments", coaching: "Coaching" };
 
-function MoreTabs({ tab, setTab, showCoaching }: { tab: CallTab; setTab: (t: CallTab) => void; showCoaching: boolean }) {
-  const activeOverflow = OVERFLOW_LABEL[tab];
+function useElementWidth(ref: React.RefObject<HTMLElement | null>): number {
+  const [w, setW] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => setW(Math.round(entries[0].contentRect.width)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+  return w;
+}
+
+function MoreTabs({ tab, setTab, items }: { tab: CallTab; setTab: (t: CallTab) => void; items: CallTab[] }) {
+  const activeOverflow = items.includes(tab) ? TAB_LABEL[tab] : undefined;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          data-active={activeOverflow ? "" : undefined}
           className={cn(
-            "relative inline-flex h-full shrink-0 items-center gap-1 px-2.5 text-[13px] font-medium text-white/55 hover:text-white @min-[560px]:hidden",
+            "relative inline-flex h-full shrink-0 items-center gap-1 px-2 text-[13px] font-medium text-white/55 hover:text-white",
             activeOverflow &&
               "text-white after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-sky-400 after:shadow-[0_0_10px_rgba(56,189,248,0.8)]",
           )}
@@ -219,10 +240,11 @@ function MoreTabs({ tab, setTab, showCoaching }: { tab: CallTab; setTab: (t: Cal
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44">
-        <DropdownMenuItem onSelect={() => setTab("comments")}>
-          Comments <CommentCount />
-        </DropdownMenuItem>
-        {showCoaching && <DropdownMenuItem onSelect={() => setTab("coaching")}>Coaching</DropdownMenuItem>}
+        {items.map((t) => (
+          <DropdownMenuItem key={t} onSelect={() => setTab(t)}>
+            {TAB_LABEL[t]} {t === "comments" && <CommentCount />}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
