@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   AlertCircle,
@@ -21,6 +21,8 @@ import { AvatarStack } from "@/components/common/participant-avatar";
 import { EmptyState, ErrorState, MeetingTypeBadge } from "@/components/common/bits";
 import { useTimeZone } from "@/components/common/time-zone";
 import { ROUTES } from "@/lib/routes";
+import type { ListMeetingsResponse } from "@/lib/contracts";
+import { api } from "@/lib/ui/api";
 import { MEETING_TYPE_LABELS } from "@/lib/templates";
 import { dayKey, dayLabel, formatDuration, timeOfDay } from "@/lib/ui/format";
 import type { MeetingListItem, UpcomingMeeting } from "@/lib/types";
@@ -28,7 +30,7 @@ import { cn } from "@/lib/utils";
 import { CallThumb } from "./call-thumb";
 
 export function CallsView({
-  meetings,
+  meetings: initialMeetings,
   upcoming,
   error,
   nowIso,
@@ -41,6 +43,16 @@ export function CallsView({
 }) {
   const tz = useTimeZone();
   const [q, setQ] = useState("");
+  const [meetings, setMeetings] = useState(initialMeetings);
+  // Re-read the API after hydration (demo mode keeps state per serverless instance).
+  useEffect(() => {
+    if (error) return;
+    const ctrl = new AbortController();
+    api<ListMeetingsResponse>(ROUTES.api.meetings, { signal: ctrl.signal, cache: "no-store" })
+      .then((r) => setMeetings(r.meetings))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, [error]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();

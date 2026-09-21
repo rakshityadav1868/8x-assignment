@@ -11,6 +11,7 @@ import { AskPanel } from "@/components/summary/ask-panel";
 import { PlayerProvider, usePlayerStore } from "@/hooks/use-player";
 import type { AiMode, MeetingDetail } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { ApiClientError, api } from "@/lib/ui/api";
 import { CallProvider, useCall, type CallTab } from "./call-context";
 import { CallHeader } from "./call-header";
 import { MediaStage } from "./media-stage";
@@ -24,6 +25,8 @@ export function CallView({
   readOnly = false,
   shareMode = false,
   fullHeightClass = "lg:h-[calc(100dvh-3.5rem)]",
+  syncUrl,
+  onSyncError,
 }: {
   detail: MeetingDetail;
   aiMode: AiMode;
@@ -31,6 +34,9 @@ export function CallView({
   readOnly?: boolean;
   shareMode?: boolean;
   fullHeightClass?: string;
+  /** When set, re-fetch MeetingDetail from this API URL after hydration and merge it (API is the source of truth). */
+  syncUrl?: string | null;
+  onSyncError?: (err: ApiClientError) => void;
 }) {
   const durationMs = Math.max(detail.meeting.duration_sec * 1000, detail.segments.at(-1)?.end_ms ?? 0);
   return (
@@ -43,9 +49,24 @@ export function CallView({
         shareMode={shareMode}
       >
         <CallLayout initialSeconds={initialSeconds ?? null} fullHeightClass={fullHeightClass} />
+        {syncUrl && <ApiSync url={syncUrl} onError={onSyncError} />}
       </CallProvider>
     </PlayerProvider>
   );
+}
+
+function ApiSync({ url, onError }: { url: string; onError?: (err: ApiClientError) => void }) {
+  const { reconcile } = useCall();
+  useEffect(() => {
+    const ctrl = new AbortController();
+    api<MeetingDetail>(url, { signal: ctrl.signal, cache: "no-store" })
+      .then(reconcile)
+      .catch((e: unknown) => {
+        if (!ctrl.signal.aborted && e instanceof ApiClientError) onError?.(e);
+      });
+    return () => ctrl.abort();
+  }, [url, reconcile, onError]);
+  return null;
 }
 
 function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: number | null; fullHeightClass: string }) {

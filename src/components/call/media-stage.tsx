@@ -107,7 +107,7 @@ export function MediaStage({
 
       {/* Top overlay: chapter */}
       {chapter && !compact && (
-        <div className="pointer-events-none absolute left-3 top-3 max-w-[70%] truncate rounded-full border border-white/10 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
+        <div className="pointer-events-none absolute left-3 top-3 hidden max-w-[70%] truncate rounded-full sm:block border border-white/10 bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
           {chapter.title}
         </div>
       )}

@@ -1,8 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Link2, ListVideo, Loader2, Play, Plus, SkipBack, SkipForward, Sparkles, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { EmptyState, ErrorState, HIGHLIGHT_META } from "@/components/common/bits";
 import { ClipView } from "@/components/public/clip-view";
 import { ROUTES } from "@/lib/routes";
+import type { ListPlaylistsResponse } from "@/lib/contracts";
 import { api, copyText } from "@/lib/ui/api";
 import { alpha, formatClock } from "@/lib/ui/format";
 import { HIGHLIGHT_TYPES, type ClipDetail, type HighlightType, type Playlist } from "@/lib/types";
@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 type PlaylistRow = Playlist & { item_count: number };
 
 export function PlaylistsView({
-  playlists,
+  playlists: initialPlaylists,
   clips: initialClips,
   error,
 }: {
@@ -28,6 +28,16 @@ export function PlaylistsView({
   error: string | null;
 }) {
   const [clips, setClips] = useState(initialClips);
+  const [playlists, setPlaylists] = useState(initialPlaylists);
+  const refreshPlaylists = (signal?: AbortSignal) =>
+    api<ListPlaylistsResponse>(ROUTES.api.playlists, { signal, cache: "no-store" })
+      .then((r) => setPlaylists(r.playlists))
+      .catch(() => {});
+  useEffect(() => {
+    const ctrl = new AbortController();
+    void refreshPlaylists(ctrl.signal);
+    return () => ctrl.abort();
+  }, []);
   const removeClip = async (c: ClipDetail) => {
     setPlaying(null);
     setClips((prev) => prev.filter((x) => x.highlight.id !== c.highlight.id));
@@ -58,7 +68,7 @@ export function PlaylistsView({
           <h1 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">Playlists</h1>
           <p className="mt-1 text-sm text-muted-foreground">Collections of the moments that matter, ready to share or binge.</p>
         </div>
-        <NewPlaylistDialog />
+        <NewPlaylistDialog onCreated={() => void refreshPlaylists()} />
       </div>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -217,8 +227,7 @@ function TypeChip({ t, label, active, onClick }: { t?: HighlightType; label: str
   );
 }
 
-function NewPlaylistDialog() {
-  const router = useRouter();
+function NewPlaylistDialog({ onCreated }: { onCreated: () => void }) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -231,7 +240,7 @@ function NewPlaylistDialog() {
       setOpen(false);
       setName("");
       setDesc("");
-      router.refresh();
+      onCreated();
     } catch (e) {
       toast.error("Couldn't create playlist", { description: e instanceof Error ? e.message : undefined });
     } finally {

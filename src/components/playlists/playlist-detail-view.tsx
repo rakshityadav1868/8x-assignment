@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Link2, ListVideo, Play, SkipBack, SkipForward, Trash2, Video, X } from "lucide-react";
 import { toast } from "sonner";
@@ -17,6 +17,14 @@ type Item = GetPlaylistResponse["items"][number];
 
 export function PlaylistDetailView({ data }: { data: GetPlaylistResponse }) {
   const [items, setItems] = useState<Item[]>(data.items);
+  // API is the source of truth (demo mode may render the page on a different instance than the API).
+  useEffect(() => {
+    const ctrl = new AbortController();
+    api<GetPlaylistResponse>(ROUTES.api.playlist(data.playlist.id), { signal: ctrl.signal, cache: "no-store" })
+      .then((r) => setItems(r.items))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, [data.playlist.id]);
   const [playing, setPlaying] = useState<number | null>(null);
   const clips = items.filter((i) => i.clip);
   const totalMs = items.reduce(

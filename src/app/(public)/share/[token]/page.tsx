@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getRepo } from "@/lib/db";
-import { CallView } from "@/components/call/call-view";
+import { ShareView } from "@/components/public/share-view";
+import { getCapabilities } from "@/lib/capabilities";
 import { PublicGate } from "@/components/public/gate";
 
 export const dynamic = "force-dynamic";
@@ -38,5 +39,7 @@ export default async function SharePage(props: PageProps<"/share/[token]">) {
   const t = tRaw != null && /^\d+(\.\d+)?$/.test(tRaw) ? Number(tRaw) : null;
   // Strip workspace-internal bits the public page doesn't need.
   const publicDetail = { ...detail, meeting: { ...detail.meeting, share_token: token } };
-  return <CallView detail={publicDetail} aiMode="live" initialSeconds={t} readOnly shareMode />;
+  return (
+    <ShareView token={token} detail={publicDetail} initialSeconds={t} sync={getCapabilities().data_mode === "seed"} />
+  );
 }

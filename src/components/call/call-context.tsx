@@ -40,6 +40,8 @@ export interface CallContextValue {
   setTab: (t: CallTab) => void;
   aiMode: AiMode;
   noteAiMode: (m: AiMode) => void;
+  /** Merge a fresher MeetingDetail from the API (demo mode: pages and API may run on different instances). */
+  reconcile: (d: MeetingDetail) => void;
   readOnly: boolean;
   shareMode: boolean; // rendered on the public /share page
 }
@@ -134,6 +136,16 @@ export function CallProvider({
   );
   const addSummary = useCallback((s: Summary) => setSummaries((prev) => [s, ...prev.filter((x) => x.id !== s.id)]), []);
   const noteAiMode = useCallback((m: AiMode) => setAiMode(m), []);
+  const reconcile = useCallback((d: MeetingDetail) => {
+    setMeeting(d.meeting);
+    setSegments(d.segments);
+    setHighlights(d.highlights);
+    setActionItems(d.action_items);
+    setSummaries((prev) => {
+      const ids = new Set(d.summaries.map((x) => x.id));
+      return [...prev.filter((x) => !ids.has(x.id)), ...d.summaries].sort((a, b) => b.created_at.localeCompare(a.created_at));
+    });
+  }, []);
 
   const value = useMemo<CallContextValue>(
     () => ({
@@ -159,6 +171,7 @@ export function CallProvider({
       setTab,
       aiMode,
       noteAiMode,
+      reconcile,
       readOnly,
       shareMode,
     }),
@@ -178,6 +191,7 @@ export function CallProvider({
       tab,
       aiMode,
       noteAiMode,
+      reconcile,
       readOnly,
       shareMode,
     ],

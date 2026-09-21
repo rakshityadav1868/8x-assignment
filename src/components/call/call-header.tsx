@@ -77,7 +77,7 @@ export function CallHeader({ onShowShortcuts }: { onShowShortcuts: () => void })
         )}
         <div className="min-w-0">
           <h1 className="text-balance text-lg font-semibold leading-tight tracking-[-0.02em] md:text-xl">{meeting.title}</h1>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xs text-muted-foreground">
+          <div className="-mx-1 mt-1.5 flex h-6 flex-nowrap items-center gap-x-2.5 overflow-x-auto whitespace-nowrap px-1 text-xs text-muted-foreground [scrollbar-width:none] *:shrink-0 md:h-auto md:flex-wrap md:gap-y-1.5 md:overflow-visible">
             <span suppressHydrationWarning>
               {longDate(new Date(when), tz)} · {timeOfDay(new Date(when), tz)}
             </span>
