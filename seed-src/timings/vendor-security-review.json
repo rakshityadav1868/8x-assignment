@@ -1,0 +1,272 @@
+{
+  "slug": "vendor-security-review",
+  "media": "/media/vendor-security-review.m4a",
+  "duration_ms": 392210,
+  "sample_rate": 24000,
+  "lines": [
+    {
+      "index": 0,
+      "speaker": "kevin",
+      "start_ms": 600,
+      "end_ms": 16373
+    },
+    {
+      "index": 1,
+      "speaker": "laura",
+      "start_ms": 16966,
+      "end_ms": 26135
+    },
+    {
+      "index": 2,
+      "speaker": "aman",
+      "start_ms": 26826,
+      "end_ms": 34326
+    },
+    {
+      "index": 3,
+      "speaker": "laura",
+      "start_ms": 34956,
+      "end_ms": 38920
+    },
+    {
+      "index": 4,
+      "speaker": "kevin",
+      "start_ms": 39358,
+      "end_ms": 48891
+    },
+    {
+      "index": 5,
+      "speaker": "laura",
+      "start_ms": 49172,
+      "end_ms": 61649
+    },
+    {
+      "index": 6,
+      "speaker": "kevin",
+      "start_ms": 61942,
+      "end_ms": 68259
+    },
+    {
+      "index": 7,
+      "speaker": "aman",
+      "start_ms": 68645,
+      "end_ms": 72354
+    },
+    {
+      "index": 8,
+      "speaker": "laura",
+      "start_ms": 72973,
+      "end_ms": 76371
+    },
+    {
+      "index": 9,
+      "speaker": "kevin",
+      "start_ms": 77691,
+      "end_ms": 80420
+    },
+    {
+      "index": 10,
+      "speaker": "laura",
+      "start_ms": 81051,
+      "end_ms": 92057
+    },
+    {
+      "index": 11,
+      "speaker": "kevin",
+      "start_ms": 92754,
+      "end_ms": 108162
+    },
+    {
+      "index": 12,
+      "speaker": "laura",
+      "start_ms": 108662,
+      "end_ms": 122151
+    },
+    {
+      "index": 13,
+      "speaker": "aman",
+      "start_ms": 122830,
+      "end_ms": 128747
+    },
+    {
+      "index": 14,
+      "speaker": "laura",
+      "start_ms": 129204,
+      "end_ms": 138479
+    },
+    {
+      "index": 15,
+      "speaker": "kevin",
+      "start_ms": 138870,
+      "end_ms": 149436
+    },
+    {
+      "index": 16,
+      "speaker": "aman",
+      "start_ms": 149818,
+      "end_ms": 152342
+    },
+    {
+      "index": 17,
+      "speaker": "kevin",
+      "start_ms": 153584,
+      "end_ms": 163164
+    },
+    {
+      "index": 18,
+      "speaker": "laura",
+      "start_ms": 163573,
+      "end_ms": 174750
+    },
+    {
+      "index": 19,
+      "speaker": "kevin",
+      "start_ms": 175811,
+      "end_ms": 188542
+    },
+    {
+      "index": 20,
+      "speaker": "aman",
+      "start_ms": 189207,
+      "end_ms": 191897
+    },
+    {
+      "index": 21,
+      "speaker": "laura",
+      "start_ms": 192233,
+      "end_ms": 202464
+    },
+    {
+      "index": 22,
+      "speaker": "kevin",
+      "start_ms": 202981,
+      "end_ms": 212066
+    },
+    {
+      "index": 23,
+      "speaker": "laura",
+      "start_ms": 212528,
+      "end_ms": 214936
+    },
+    {
+      "index": 24,
+      "speaker": "kevin",
+      "start_ms": 216315,
+      "end_ms": 227648
+    },
+    {
+      "index": 25,
+      "speaker": "laura",
+      "start_ms": 227934,
+      "end_ms": 242729
+    },
+    {
+      "index": 26,
+      "speaker": "aman",
+      "start_ms": 243312,
+      "end_ms": 250725
+    },
+    {
+      "index": 27,
+      "speaker": "laura",
+      "start_ms": 251306,
+      "end_ms": 260493
+    },
+    {
+      "index": 28,
+      "speaker": "aman",
+      "start_ms": 261057,
+      "end_ms": 271115
+    },
+    {
+      "index": 29,
+      "speaker": "kevin",
+      "start_ms": 271367,
+      "end_ms": 276651
+    },
+    {
+      "index": 30,
+      "speaker": "kevin",
+      "start_ms": 276910,
+      "end_ms": 283222
+    },
+    {
+      "index": 31,
+      "speaker": "laura",
+      "start_ms": 283831,
+      "end_ms": 295250
+    },
+    {
+      "index": 32,
+      "speaker": "kevin",
+      "start_ms": 295926,
+      "end_ms": 303755
+    },
+    {
+      "index": 33,
+      "speaker": "laura",
+      "start_ms": 304081,
+      "end_ms": 309812
+    },
+    {
+      "index": 34,
+      "speaker": "aman",
+      "start_ms": 310448,
+      "end_ms": 313868
+    },
+    {
+      "index": 35,
+      "speaker": "laura",
+      "start_ms": 314177,
+      "end_ms": 318617
+    },
+    {
+      "index": 36,
+      "speaker": "kevin",
+      "start_ms": 319231,
+      "end_ms": 331016
+    },
+    {
+      "index": 37,
+      "speaker": "laura",
+      "start_ms": 331464,
+      "end_ms": 339508
+    },
+    {
+      "index": 38,
+      "speaker": "kevin",
+      "start_ms": 339881,
+      "end_ms": 357775
+    },
+    {
+      "index": 39,
+      "speaker": "laura",
+      "start_ms": 358923,
+      "end_ms": 365450
+    },
+    {
+      "index": 40,
+      "speaker": "kevin",
+      "start_ms": 365750,
+      "end_ms": 379126
+    },
+    {
+      "index": 41,
+      "speaker": "aman",
+      "start_ms": 379393,
+      "end_ms": 384160
+    },
+    {
+      "index": 42,
+      "speaker": "laura",
+      "start_ms": 384597,
+      "end_ms": 388457
+    },
+    {
+      "index": 43,
+      "speaker": "kevin",
+      "start_ms": 389012,
+      "end_ms": 391410
+    }
+  ]
+}

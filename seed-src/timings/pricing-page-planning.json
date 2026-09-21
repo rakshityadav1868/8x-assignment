@@ -1,0 +1,398 @@
+{
+  "slug": "pricing-page-planning",
+  "media": "/media/pricing-page-planning.m4a",
+  "duration_ms": 586197,
+  "sample_rate": 24000,
+  "lines": [
+    {
+      "index": 0,
+      "speaker": "tom",
+      "start_ms": 600,
+      "end_ms": 11542
+    },
+    {
+      "index": 1,
+      "speaker": "james",
+      "start_ms": 11839,
+      "end_ms": 16965
+    },
+    {
+      "index": 2,
+      "speaker": "tom",
+      "start_ms": 17487,
+      "end_ms": 20318
+    },
+    {
+      "index": 3,
+      "speaker": "sofia",
+      "start_ms": 20618,
+      "end_ms": 37881
+    },
+    {
+      "index": 4,
+      "speaker": "sofia",
+      "start_ms": 38102,
+      "end_ms": 53989
+    },
+    {
+      "index": 5,
+      "speaker": "leah",
+      "start_ms": 54495,
+      "end_ms": 68559
+    },
+    {
+      "index": 6,
+      "speaker": "james",
+      "start_ms": 69109,
+      "end_ms": 71368
+    },
+    {
+      "index": 7,
+      "speaker": "leah",
+      "start_ms": 71653,
+      "end_ms": 74751
+    },
+    {
+      "index": 8,
+      "speaker": "james",
+      "start_ms": 75168,
+      "end_ms": 85548
+    },
+    {
+      "index": 9,
+      "speaker": "tom",
+      "start_ms": 86174,
+      "end_ms": 94045
+    },
+    {
+      "index": 10,
+      "speaker": "sofia",
+      "start_ms": 94325,
+      "end_ms": 110372
+    },
+    {
+      "index": 11,
+      "speaker": "james",
+      "start_ms": 110779,
+      "end_ms": 128253
+    },
+    {
+      "index": 12,
+      "speaker": "sofia",
+      "start_ms": 128595,
+      "end_ms": 137104
+    },
+    {
+      "index": 13,
+      "speaker": "james",
+      "start_ms": 137211,
+      "end_ms": 143970
+    },
+    {
+      "index": 14,
+      "speaker": "tom",
+      "start_ms": 144256,
+      "end_ms": 153758
+    },
+    {
+      "index": 15,
+      "speaker": "james",
+      "start_ms": 154293,
+      "end_ms": 158978
+    },
+    {
+      "index": 16,
+      "speaker": "leah",
+      "start_ms": 159622,
+      "end_ms": 175611
+    },
+    {
+      "index": 17,
+      "speaker": "sofia",
+      "start_ms": 175985,
+      "end_ms": 179262
+    },
+    {
+      "index": 18,
+      "speaker": "james",
+      "start_ms": 179519,
+      "end_ms": 186335
+    },
+    {
+      "index": 19,
+      "speaker": "tom",
+      "start_ms": 186614,
+      "end_ms": 202308
+    },
+    {
+      "index": 20,
+      "speaker": "sofia",
+      "start_ms": 202739,
+      "end_ms": 209602
+    },
+    {
+      "index": 21,
+      "speaker": "james",
+      "start_ms": 210206,
+      "end_ms": 217585
+    },
+    {
+      "index": 22,
+      "speaker": "tom",
+      "start_ms": 218751,
+      "end_ms": 227900
+    },
+    {
+      "index": 23,
+      "speaker": "sofia",
+      "start_ms": 228252,
+      "end_ms": 242955
+    },
+    {
+      "index": 24,
+      "speaker": "james",
+      "start_ms": 243986,
+      "end_ms": 252021
+    },
+    {
+      "index": 25,
+      "speaker": "sofia",
+      "start_ms": 252276,
+      "end_ms": 264178
+    },
+    {
+      "index": 26,
+      "speaker": "tom",
+      "start_ms": 264642,
+      "end_ms": 271681
+    },
+    {
+      "index": 27,
+      "speaker": "sofia",
+      "start_ms": 272225,
+      "end_ms": 285088
+    },
+    {
+      "index": 28,
+      "speaker": "leah",
+      "start_ms": 285695,
+      "end_ms": 295838
+    },
+    {
+      "index": 29,
+      "speaker": "james",
+      "start_ms": 296471,
+      "end_ms": 304970
+    },
+    {
+      "index": 30,
+      "speaker": "leah",
+      "start_ms": 305222,
+      "end_ms": 310485
+    },
+    {
+      "index": 31,
+      "speaker": "tom",
+      "start_ms": 311139,
+      "end_ms": 321665
+    },
+    {
+      "index": 32,
+      "speaker": "james",
+      "start_ms": 321944,
+      "end_ms": 324824
+    },
+    {
+      "index": 33,
+      "speaker": "tom",
+      "start_ms": 325130,
+      "end_ms": 333449
+    },
+    {
+      "index": 34,
+      "speaker": "sofia",
+      "start_ms": 334124,
+      "end_ms": 348347
+    },
+    {
+      "index": 35,
+      "speaker": "james",
+      "start_ms": 349023,
+      "end_ms": 363305
+    },
+    {
+      "index": 36,
+      "speaker": "tom",
+      "start_ms": 364756,
+      "end_ms": 367409
+    },
+    {
+      "index": 37,
+      "speaker": "james",
+      "start_ms": 367866,
+      "end_ms": 378379
+    },
+    {
+      "index": 38,
+      "speaker": "sofia",
+      "start_ms": 379028,
+      "end_ms": 384833
+    },
+    {
+      "index": 39,
+      "speaker": "james",
+      "start_ms": 386078,
+      "end_ms": 388940
+    },
+    {
+      "index": 40,
+      "speaker": "leah",
+      "start_ms": 390349,
+      "end_ms": 393868
+    },
+    {
+      "index": 41,
+      "speaker": "tom",
+      "start_ms": 394286,
+      "end_ms": 409933
+    },
+    {
+      "index": 42,
+      "speaker": "sofia",
+      "start_ms": 410486,
+      "end_ms": 417301
+    },
+    {
+      "index": 43,
+      "speaker": "tom",
+      "start_ms": 418428,
+      "end_ms": 421946
+    },
+    {
+      "index": 44,
+      "speaker": "james",
+      "start_ms": 422297,
+      "end_ms": 425427
+    },
+    {
+      "index": 45,
+      "speaker": "leah",
+      "start_ms": 425700,
+      "end_ms": 438614
+    },
+    {
+      "index": 46,
+      "speaker": "james",
+      "start_ms": 439305,
+      "end_ms": 447341
+    },
+    {
+      "index": 47,
+      "speaker": "leah",
+      "start_ms": 447644,
+      "end_ms": 453457
+    },
+    {
+      "index": 48,
+      "speaker": "james",
+      "start_ms": 454056,
+      "end_ms": 455201
+    },
+    {
+      "index": 49,
+      "speaker": "tom",
+      "start_ms": 455774,
+      "end_ms": 464604
+    },
+    {
+      "index": 50,
+      "speaker": "leah",
+      "start_ms": 464963,
+      "end_ms": 475130
+    },
+    {
+      "index": 51,
+      "speaker": "sofia",
+      "start_ms": 475457,
+      "end_ms": 487086
+    },
+    {
+      "index": 52,
+      "speaker": "tom",
+      "start_ms": 487526,
+      "end_ms": 497140
+    },
+    {
+      "index": 53,
+      "speaker": "leah",
+      "start_ms": 497409,
+      "end_ms": 500866
+    },
+    {
+      "index": 54,
+      "speaker": "tom",
+      "start_ms": 501519,
+      "end_ms": 510542
+    },
+    {
+      "index": 55,
+      "speaker": "leah",
+      "start_ms": 510898,
+      "end_ms": 517241
+    },
+    {
+      "index": 56,
+      "speaker": "tom",
+      "start_ms": 517804,
+      "end_ms": 528091
+    },
+    {
+      "index": 57,
+      "speaker": "sofia",
+      "start_ms": 528600,
+      "end_ms": 536725
+    },
+    {
+      "index": 58,
+      "speaker": "tom",
+      "start_ms": 537161,
+      "end_ms": 546423
+    },
+    {
+      "index": 59,
+      "speaker": "james",
+      "start_ms": 546811,
+      "end_ms": 554463
+    },
+    {
+      "index": 60,
+      "speaker": "tom",
+      "start_ms": 555130,
+      "end_ms": 564824
+    },
+    {
+      "index": 61,
+      "speaker": "sofia",
+      "start_ms": 565243,
+      "end_ms": 570025
+    },
+    {
+      "index": 62,
+      "speaker": "tom",
+      "start_ms": 570686,
+      "end_ms": 580524
+    },
+    {
+      "index": 63,
+      "speaker": "james",
+      "start_ms": 581201,
+      "end_ms": 583711
+    },
+    {
+      "index": 64,
+      "speaker": "leah",
+      "start_ms": 584402,
+      "end_ms": 585397
+    }
+  ]
+}

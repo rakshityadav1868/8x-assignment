@@ -1,0 +1,530 @@
+{
+  "slug": "acme-discovery",
+  "media": "/media/acme-discovery.m4a",
+  "duration_ms": 827816,
+  "sample_rate": 24000,
+  "lines": [
+    {
+      "index": 0,
+      "speaker": "ethan",
+      "start_ms": 600,
+      "end_ms": 8407
+    },
+    {
+      "index": 1,
+      "speaker": "rachel",
+      "start_ms": 8706,
+      "end_ms": 17113
+    },
+    {
+      "index": 2,
+      "speaker": "ethan",
+      "start_ms": 17652,
+      "end_ms": 25763
+    },
+    {
+      "index": 3,
+      "speaker": "rachel",
+      "start_ms": 26152,
+      "end_ms": 33874
+    },
+    {
+      "index": 4,
+      "speaker": "ethan",
+      "start_ms": 34339,
+      "end_ms": 46801
+    },
+    {
+      "index": 5,
+      "speaker": "rachel",
+      "start_ms": 47109,
+      "end_ms": 53646
+    },
+    {
+      "index": 6,
+      "speaker": "ethan",
+      "start_ms": 54328,
+      "end_ms": 64886
+    },
+    {
+      "index": 7,
+      "speaker": "rachel",
+      "start_ms": 65283,
+      "end_ms": 80197
+    },
+    {
+      "index": 8,
+      "speaker": "ethan",
+      "start_ms": 80527,
+      "end_ms": 83725
+    },
+    {
+      "index": 9,
+      "speaker": "rachel",
+      "start_ms": 84152,
+      "end_ms": 100947
+    },
+    {
+      "index": 10,
+      "speaker": "ethan",
+      "start_ms": 101225,
+      "end_ms": 104615
+    },
+    {
+      "index": 11,
+      "speaker": "rachel",
+      "start_ms": 105180,
+      "end_ms": 117755
+    },
+    {
+      "index": 12,
+      "speaker": "ethan",
+      "start_ms": 118240,
+      "end_ms": 123577
+    },
+    {
+      "index": 13,
+      "speaker": "rachel",
+      "start_ms": 124200,
+      "end_ms": 139172
+    },
+    {
+      "index": 14,
+      "speaker": "ethan",
+      "start_ms": 139733,
+      "end_ms": 144676
+    },
+    {
+      "index": 15,
+      "speaker": "rachel",
+      "start_ms": 144818,
+      "end_ms": 152761
+    },
+    {
+      "index": 16,
+      "speaker": "ethan",
+      "start_ms": 153063,
+      "end_ms": 160582
+    },
+    {
+      "index": 17,
+      "speaker": "rachel",
+      "start_ms": 160879,
+      "end_ms": 179073
+    },
+    {
+      "index": 18,
+      "speaker": "ethan",
+      "start_ms": 179719,
+      "end_ms": 182181
+    },
+    {
+      "index": 19,
+      "speaker": "rachel",
+      "start_ms": 183264,
+      "end_ms": 191741
+    },
+    {
+      "index": 20,
+      "speaker": "ethan",
+      "start_ms": 192180,
+      "end_ms": 204611
+    },
+    {
+      "index": 21,
+      "speaker": "rachel",
+      "start_ms": 204907,
+      "end_ms": 216930
+    },
+    {
+      "index": 22,
+      "speaker": "ethan",
+      "start_ms": 217184,
+      "end_ms": 222781
+    },
+    {
+      "index": 23,
+      "speaker": "rachel",
+      "start_ms": 223411,
+      "end_ms": 226443
+    },
+    {
+      "index": 24,
+      "speaker": "ethan",
+      "start_ms": 227806,
+      "end_ms": 237036
+    },
+    {
+      "index": 25,
+      "speaker": "rachel",
+      "start_ms": 237677,
+      "end_ms": 252602
+    },
+    {
+      "index": 26,
+      "speaker": "ethan",
+      "start_ms": 253300,
+      "end_ms": 262355
+    },
+    {
+      "index": 27,
+      "speaker": "rachel",
+      "start_ms": 262795,
+      "end_ms": 273349
+    },
+    {
+      "index": 28,
+      "speaker": "ethan",
+      "start_ms": 273763,
+      "end_ms": 274865
+    },
+    {
+      "index": 29,
+      "speaker": "rachel",
+      "start_ms": 275366,
+      "end_ms": 293363
+    },
+    {
+      "index": 30,
+      "speaker": "ethan",
+      "start_ms": 294018,
+      "end_ms": 309200
+    },
+    {
+      "index": 31,
+      "speaker": "rachel",
+      "start_ms": 309829,
+      "end_ms": 315356
+    },
+    {
+      "index": 32,
+      "speaker": "ethan",
+      "start_ms": 316666,
+      "end_ms": 324712
+    },
+    {
+      "index": 33,
+      "speaker": "rachel",
+      "start_ms": 325303,
+      "end_ms": 331689
+    },
+    {
+      "index": 34,
+      "speaker": "ethan",
+      "start_ms": 331972,
+      "end_ms": 339330
+    },
+    {
+      "index": 35,
+      "speaker": "rachel",
+      "start_ms": 339803,
+      "end_ms": 352151
+    },
+    {
+      "index": 36,
+      "speaker": "ethan",
+      "start_ms": 352636,
+      "end_ms": 356667
+    },
+    {
+      "index": 37,
+      "speaker": "rachel",
+      "start_ms": 357053,
+      "end_ms": 370285
+    },
+    {
+      "index": 38,
+      "speaker": "ethan",
+      "start_ms": 370940,
+      "end_ms": 376714
+    },
+    {
+      "index": 39,
+      "speaker": "rachel",
+      "start_ms": 377083,
+      "end_ms": 386743
+    },
+    {
+      "index": 40,
+      "speaker": "ethan",
+      "start_ms": 387300,
+      "end_ms": 393683
+    },
+    {
+      "index": 41,
+      "speaker": "rachel",
+      "start_ms": 394205,
+      "end_ms": 408875
+    },
+    {
+      "index": 42,
+      "speaker": "ethan",
+      "start_ms": 409136,
+      "end_ms": 416367
+    },
+    {
+      "index": 43,
+      "speaker": "rachel",
+      "start_ms": 416757,
+      "end_ms": 428403
+    },
+    {
+      "index": 44,
+      "speaker": "ethan",
+      "start_ms": 429895,
+      "end_ms": 442197
+    },
+    {
+      "index": 45,
+      "speaker": "rachel",
+      "start_ms": 442678,
+      "end_ms": 448554
+    },
+    {
+      "index": 46,
+      "speaker": "ethan",
+      "start_ms": 448946,
+      "end_ms": 457242
+    },
+    {
+      "index": 47,
+      "speaker": "rachel",
+      "start_ms": 457624,
+      "end_ms": 470570
+    },
+    {
+      "index": 48,
+      "speaker": "ethan",
+      "start_ms": 471099,
+      "end_ms": 477769
+    },
+    {
+      "index": 49,
+      "speaker": "rachel",
+      "start_ms": 478149,
+      "end_ms": 487427
+    },
+    {
+      "index": 50,
+      "speaker": "ethan",
+      "start_ms": 487696,
+      "end_ms": 495103
+    },
+    {
+      "index": 51,
+      "speaker": "rachel",
+      "start_ms": 495797,
+      "end_ms": 504471
+    },
+    {
+      "index": 52,
+      "speaker": "ethan",
+      "start_ms": 504810,
+      "end_ms": 510937
+    },
+    {
+      "index": 53,
+      "speaker": "rachel",
+      "start_ms": 512126,
+      "end_ms": 522779
+    },
+    {
+      "index": 54,
+      "speaker": "ethan",
+      "start_ms": 523111,
+      "end_ms": 529654
+    },
+    {
+      "index": 55,
+      "speaker": "rachel",
+      "start_ms": 531111,
+      "end_ms": 543211
+    },
+    {
+      "index": 56,
+      "speaker": "ethan",
+      "start_ms": 544285,
+      "end_ms": 548092
+    },
+    {
+      "index": 57,
+      "speaker": "rachel",
+      "start_ms": 548432,
+      "end_ms": 554692
+    },
+    {
+      "index": 58,
+      "speaker": "ethan",
+      "start_ms": 555138,
+      "end_ms": 565569
+    },
+    {
+      "index": 59,
+      "speaker": "rachel",
+      "start_ms": 565852,
+      "end_ms": 581248
+    },
+    {
+      "index": 60,
+      "speaker": "ethan",
+      "start_ms": 581932,
+      "end_ms": 591115
+    },
+    {
+      "index": 61,
+      "speaker": "rachel",
+      "start_ms": 591590,
+      "end_ms": 597715
+    },
+    {
+      "index": 62,
+      "speaker": "ethan",
+      "start_ms": 598160,
+      "end_ms": 608335
+    },
+    {
+      "index": 63,
+      "speaker": "rachel",
+      "start_ms": 608847,
+      "end_ms": 619889
+    },
+    {
+      "index": 64,
+      "speaker": "ethan",
+      "start_ms": 621111,
+      "end_ms": 629429
+    },
+    {
+      "index": 65,
+      "speaker": "rachel",
+      "start_ms": 629959,
+      "end_ms": 634785
+    },
+    {
+      "index": 66,
+      "speaker": "ethan",
+      "start_ms": 635265,
+      "end_ms": 639967
+    },
+    {
+      "index": 67,
+      "speaker": "rachel",
+      "start_ms": 640471,
+      "end_ms": 641685
+    },
+    {
+      "index": 68,
+      "speaker": "ethan",
+      "start_ms": 642212,
+      "end_ms": 661250
+    },
+    {
+      "index": 69,
+      "speaker": "rachel",
+      "start_ms": 661625,
+      "end_ms": 664203
+    },
+    {
+      "index": 70,
+      "speaker": "ethan",
+      "start_ms": 664588,
+      "end_ms": 684889
+    },
+    {
+      "index": 71,
+      "speaker": "rachel",
+      "start_ms": 685298,
+      "end_ms": 690204
+    },
+    {
+      "index": 72,
+      "speaker": "ethan",
+      "start_ms": 690849,
+      "end_ms": 696304
+    },
+    {
+      "index": 73,
+      "speaker": "rachel",
+      "start_ms": 696639,
+      "end_ms": 702039
+    },
+    {
+      "index": 74,
+      "speaker": "ethan",
+      "start_ms": 702701,
+      "end_ms": 724684
+    },
+    {
+      "index": 75,
+      "speaker": "rachel",
+      "start_ms": 725250,
+      "end_ms": 735995
+    },
+    {
+      "index": 76,
+      "speaker": "ethan",
+      "start_ms": 736686,
+      "end_ms": 748956
+    },
+    {
+      "index": 77,
+      "speaker": "rachel",
+      "start_ms": 749652,
+      "end_ms": 754959
+    },
+    {
+      "index": 78,
+      "speaker": "ethan",
+      "start_ms": 755257,
+      "end_ms": 765462
+    },
+    {
+      "index": 79,
+      "speaker": "rachel",
+      "start_ms": 766022,
+      "end_ms": 776588
+    },
+    {
+      "index": 80,
+      "speaker": "ethan",
+      "start_ms": 777047,
+      "end_ms": 786885
+    },
+    {
+      "index": 81,
+      "speaker": "rachel",
+      "start_ms": 787162,
+      "end_ms": 792823
+    },
+    {
+      "index": 82,
+      "speaker": "ethan",
+      "start_ms": 793117,
+      "end_ms": 804283
+    },
+    {
+      "index": 83,
+      "speaker": "rachel",
+      "start_ms": 804783,
+      "end_ms": 811583
+    },
+    {
+      "index": 84,
+      "speaker": "ethan",
+      "start_ms": 812159,
+      "end_ms": 818557
+    },
+    {
+      "index": 85,
+      "speaker": "rachel",
+      "start_ms": 819167,
+      "end_ms": 822297
+    },
+    {
+      "index": 86,
+      "speaker": "ethan",
+      "start_ms": 822921,
+      "end_ms": 827016
+    }
+  ]
+}

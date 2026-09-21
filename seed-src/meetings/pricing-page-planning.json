@@ -1,0 +1,304 @@
+{
+  "slug": "pricing-page-planning",
+  "title": "Pricing Page Redesign Planning",
+  "meeting_type": "planning",
+  "days_ago": 4,
+  "start_time": "15:30",
+  "recorded_by": "Tom Okafor",
+  "participants": [
+    {
+      "key": "tom",
+      "name": "Tom Okafor",
+      "title": "Head of Product",
+      "email": "tom@northwindlabs.io",
+      "is_external": false,
+      "voice": "Reed (English (UK))"
+    },
+    {
+      "key": "sofia",
+      "name": "Sofia Alvarez",
+      "title": "Senior PM",
+      "email": "sofia@northwindlabs.io",
+      "is_external": false,
+      "voice": "Flo (English (US))"
+    },
+    {
+      "key": "leah",
+      "name": "Leah Botha",
+      "title": "Product Designer",
+      "email": "leah@northwindlabs.io",
+      "is_external": false,
+      "voice": "Tessa"
+    },
+    {
+      "key": "james",
+      "name": "James Whitaker",
+      "title": "VP Sales",
+      "email": "james@northwindlabs.io",
+      "is_external": false,
+      "voice": "Fred"
+    }
+  ],
+  "lines": [
+    {
+      "speaker": "tom",
+      "text": "Alright, let us get going, James has a hard stop at four. The goal today is to lock the structure of the new pricing page so Leah can start on high fidelity designs this week."
+    },
+    {
+      "speaker": "james",
+      "text": "Hard stop at four ten, technically. But yeah, let us be quick."
+    },
+    {
+      "speaker": "tom",
+      "text": "Sofia, do you want to start with the data?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "Sure. So quick context. The pricing page gets about eighteen thousand visits a month. Visit to trial conversion is two point one percent, which is below the benchmark we keep quoting, which is somewhere around three to four percent for B2B analytics."
+    },
+    {
+      "speaker": "sofia",
+      "text": "And from the session recordings, the thing that jumps out is people scrolling back and forth between Growth and Enterprise. Like, a lot. The average time on page is almost three minutes, which sounds good but I think it means people are confused."
+    },
+    {
+      "speaker": "leah",
+      "text": "Yeah, I watched maybe forty of those recordings. People hover over the Enterprise column, then click contact sales, then bounce off the form. The form has nine fields, which, honestly, is a crime."
+    },
+    {
+      "speaker": "james",
+      "text": "Hey, I need those fields."
+    },
+    {
+      "speaker": "leah",
+      "text": "Do you need company revenue range though? Really?"
+    },
+    {
+      "speaker": "james",
+      "text": "Okay, fine, not that one. But I need company size and monthly event volume, otherwise my reps waste the first call on qualification."
+    },
+    {
+      "speaker": "tom",
+      "text": "Let us park the form for a second, we will come back to it. The first big question is whether we show a price for Enterprise."
+    },
+    {
+      "speaker": "sofia",
+      "text": "My view is we should show a starting price. Something like starting at two thousand dollars a month. Right now there is a massive gap between Growth at four ninety nine and a black box, and people do not know if Enterprise is three thousand or thirty thousand."
+    },
+    {
+      "speaker": "james",
+      "text": "I really do not love that. The moment you put a number up, every deal anchors on it. Our median Enterprise deal last quarter was around forty two thousand a year, so about thirty five hundred a month, and some of those started as conversations about fifteen hundred."
+    },
+    {
+      "speaker": "sofia",
+      "text": "But that is kind of my point. If the median is thirty five hundred and we say starting at two thousand, we are not underselling anything --"
+    },
+    {
+      "speaker": "james",
+      "text": "-- you are, though. Because procurement will grab the two thousand and say, your own website says two thousand."
+    },
+    {
+      "speaker": "tom",
+      "text": "What about the customers who never contact us at all because they assume it is too expensive? We do not see them in the pipeline, so we do not count them."
+    },
+    {
+      "speaker": "james",
+      "text": "Sure, but those folks are probably not Enterprise buyers anyway."
+    },
+    {
+      "speaker": "leah",
+      "text": "Can I throw out a middle ground? What if we do not show a price, but we show what drives the price. Like, priced on annual event volume and seats, with typical plans for teams of fifty plus. It at least tells people how it works."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Hmm. That is better than today, for sure."
+    },
+    {
+      "speaker": "james",
+      "text": "I could live with that. I would even be okay saying most customers start with a twelve month agreement."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay, let us do this. We ship Leah's version, the explanation of what drives price, no number. And Sofia, can you set it up as an A B test against a version with a starting at price? Then we let the data settle it instead of us arguing."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Yes. We need about six weeks to get significance at our traffic levels, just so everyone knows."
+    },
+    {
+      "speaker": "james",
+      "text": "Fine. But if the starting price version wins on trials and my average deal size drops, we revisit."
+    },
+    {
+      "speaker": "tom",
+      "text": "Deal. We measure trial starts and qualified pipeline, not just clicks. Okay, second topic. The usage based events tier."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Right. So today Growth includes five million events a month, and above that we bill forty dollars per extra million, in arrears. Customers find out when the invoice lands. It is super manual and everyone hates it."
+    },
+    {
+      "speaker": "james",
+      "text": "It is a nightmare. My team spent, I kid you not, about sixty hours last month on overage conversations."
+    },
+    {
+      "speaker": "sofia",
+      "text": "So the proposal is a cheaper, predictable overage on Growth. Something like twenty five dollars per additional million events, billed monthly, with alerts at eighty and a hundred percent."
+    },
+    {
+      "speaker": "tom",
+      "text": "What is the margin on that? Arjun mentioned our cost per million events is going up because of the ClickHouse cluster."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Arjun estimated our fully loaded cost at about three dollars per million today. So twenty five gives us healthy margin. I checked Mixpanel and Amplitude, and twenty five is roughly in the middle."
+    },
+    {
+      "speaker": "leah",
+      "text": "Design wise, I would love a little calculator on the page. You drag a slider for your monthly events and it shows you the estimated bill. People love those."
+    },
+    {
+      "speaker": "james",
+      "text": "As long as the slider tops out at like fifty million and then says talk to us. Anyone above that is an Enterprise conversation."
+    },
+    {
+      "speaker": "leah",
+      "text": "Yep, that works. Above fifty million it switches to a contact sales card."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay, I think that is a decision. Growth gets overage at twenty five per million, calculator on the page capped at fifty million. Any objections?"
+    },
+    {
+      "speaker": "james",
+      "text": "None. Please ship it yesterday."
+    },
+    {
+      "speaker": "tom",
+      "text": "Ha. Okay, third thing, annual discount. Today it is twenty percent. Sofia, you wanted to change it?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "Yeah. So twenty percent is generous. Most of our peers are at fifteen or seventeen. And our annual uptake is already sixty one percent on Growth, so I do not think we need to bribe people that hard."
+    },
+    {
+      "speaker": "james",
+      "text": "I disagree, strongly. The twenty percent is one of the main reasons we get annual commitments, and annual customers churn at less than half the rate of monthly. Cash up front is also, you know, nice for runway."
+    },
+    {
+      "speaker": "tom",
+      "text": "Do we have the numbers on that churn claim?"
+    },
+    {
+      "speaker": "james",
+      "text": "Siobhan pulled them last month. Monthly Growth logos churn about three point four percent a month. Annual is closer to one point two, annualized to monthly."
+    },
+    {
+      "speaker": "sofia",
+      "text": "But that is correlation. The people who pick annual were probably more committed anyway."
+    },
+    {
+      "speaker": "james",
+      "text": "Sure, but you cannot prove that either."
+    },
+    {
+      "speaker": "leah",
+      "text": "This feels like another candidate for a test, honestly."
+    },
+    {
+      "speaker": "tom",
+      "text": "I do not want to run two pricing tests at the same time, it muddies the results. Here is my call. We keep twenty percent for now. We revisit in Q1 once the Enterprise test is done. Sofia, I know that is not what you wanted."
+    },
+    {
+      "speaker": "sofia",
+      "text": "It is fine. I would just like it noted that I think we are leaving roughly forty thousand a year on the table."
+    },
+    {
+      "speaker": "tom",
+      "text": "Noted. Literally, it is being recorded."
+    },
+    {
+      "speaker": "james",
+      "text": "Ha. Okay, back to the form?"
+    },
+    {
+      "speaker": "leah",
+      "text": "Yes please. I want to cut it from nine fields to four. Name, work email, company size, and monthly event volume as a dropdown. Everything else we can enrich from the email domain."
+    },
+    {
+      "speaker": "james",
+      "text": "I can accept that if we keep a free text field for what are you trying to solve. My reps actually read those."
+    },
+    {
+      "speaker": "leah",
+      "text": "Optional free text field. Five fields total, one optional. Final offer."
+    },
+    {
+      "speaker": "james",
+      "text": "Sold."
+    },
+    {
+      "speaker": "tom",
+      "text": "Great. One more small thing, the comparison table. It currently has forty two rows. Nobody reads forty two rows."
+    },
+    {
+      "speaker": "leah",
+      "text": "I want to collapse it to eight key rows by default with a show all features toggle. And I want to put AI Insights in there as coming soon for Growth and Enterprise."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Hmm, careful with that. We have not decided if AI Insights is going to be included in Growth or an add on. If we say it is included and then charge for it, people will be annoyed."
+    },
+    {
+      "speaker": "tom",
+      "text": "Good call. Leave AI Insights off the page until the Q4 roadmap meeting settles packaging. Just put a teaser banner, no tier assignment."
+    },
+    {
+      "speaker": "leah",
+      "text": "Okay, teaser banner, no tiers. Got it."
+    },
+    {
+      "speaker": "tom",
+      "text": "Let me recap owners and dates. Leah, high fidelity designs for the new page including the calculator, by next Wednesday, the fourteenth."
+    },
+    {
+      "speaker": "leah",
+      "text": "Yep, I can do that. I will share a Figma link in the pricing channel Monday for early feedback."
+    },
+    {
+      "speaker": "tom",
+      "text": "Sofia, write the experiment brief for the Enterprise price A B test, with the success metrics, by Friday. And work with Aman on the billing side of overage."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Brief by Friday, yes. I will book time with Aman tomorrow, I think the Stripe metered billing work is about two sprints."
+    },
+    {
+      "speaker": "tom",
+      "text": "James, update the sales playbook and the lead routing for the new five field form, and give the reps a heads up about overage pricing before we launch."
+    },
+    {
+      "speaker": "james",
+      "text": "Will do. I will have the playbook updated by the twentieth and I will do a fifteen minute walkthrough at the Monday sales sync."
+    },
+    {
+      "speaker": "tom",
+      "text": "And I will write the pricing change announcement for existing Growth customers, since overage affects them. Target launch for the whole thing is November third."
+    },
+    {
+      "speaker": "sofia",
+      "text": "November third is tight with two sprints of billing work, just flagging."
+    },
+    {
+      "speaker": "tom",
+      "text": "Noted. Let us check in on it next Thursday and move the date if billing slips. Okay, James, you have made your hard stop with four minutes to spare."
+    },
+    {
+      "speaker": "james",
+      "text": "A miracle. Thanks all."
+    },
+    {
+      "speaker": "leah",
+      "text": "Bye everyone."
+    }
+  ]
+}

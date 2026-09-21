@@ -1,0 +1,2848 @@
+{
+  "slug": "q4-roadmap-planning",
+  "title": "Q4 Roadmap Planning",
+  "meeting_type": "planning",
+  "days_ago": 0,
+  "start_time": "10:00",
+  "recorded_by": "Priya Raman",
+  "participants": [
+    {
+      "key": "priya",
+      "name": "Priya Raman",
+      "title": "VP Engineering",
+      "email": "priya@northwindlabs.io",
+      "is_external": false,
+      "voice": "Samantha",
+      "rate": 178
+    },
+    {
+      "key": "dana",
+      "name": "Dana Whitfield",
+      "title": "CEO",
+      "email": "dana@northwindlabs.io",
+      "is_external": false,
+      "voice": "Karen",
+      "rate": 180
+    },
+    {
+      "key": "tom",
+      "name": "Tom Okafor",
+      "title": "Head of Product",
+      "email": "tom@northwindlabs.io",
+      "is_external": false,
+      "voice": "Reed (English (UK))",
+      "rate": 182
+    },
+    {
+      "key": "sofia",
+      "name": "Sofia Alvarez",
+      "title": "Senior PM",
+      "email": "sofia@northwindlabs.io",
+      "is_external": false,
+      "voice": "Flo (English (US))",
+      "rate": 176
+    },
+    {
+      "key": "james",
+      "name": "James Whitaker",
+      "title": "VP Sales",
+      "email": "james@northwindlabs.io",
+      "is_external": false,
+      "voice": "Fred",
+      "rate": 175
+    },
+    {
+      "key": "siobhan",
+      "name": "Siobhan Kelly",
+      "title": "Head of Customer Success",
+      "email": "siobhan@northwindlabs.io",
+      "is_external": false,
+      "voice": "Moira",
+      "rate": 177
+    },
+    {
+      "key": "arjun",
+      "name": "Arjun Mehta",
+      "title": "Staff Engineer (Platform)",
+      "email": "arjun@northwindlabs.io",
+      "is_external": false,
+      "voice": "Rishi",
+      "rate": 179
+    },
+    {
+      "key": "hannah",
+      "name": "Hannah Price",
+      "title": "ML Lead",
+      "email": "hannah@northwindlabs.io",
+      "is_external": false,
+      "voice": "Shelley (English (UK))",
+      "rate": 175
+    }
+  ],
+  "lines": [
+    {
+      "speaker": "dana",
+      "text": "Okay, I think that's most of us. Can everyone hear me alright?"
+    },
+    {
+      "speaker": "tom",
+      "text": "Loud and clear. Morning, everyone."
+    },
+    {
+      "speaker": "priya",
+      "text": "Yep, you're good."
+    },
+    {
+      "speaker": "james",
+      "text": "I can hear you, I just can't find my headphones, so if there's a dog barking in the background, that's Biscuit, and I apologize in advance."
+    },
+    {
+      "speaker": "dana",
+      "text": "Biscuit is welcome. Biscuit has more tenure than half of this company."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Biscuit has better retention numbers than we do, too."
+    },
+    {
+      "speaker": "dana",
+      "text": "Ouch. Okay, we'll get to that. Are we waiting on anyone? I see Arjun, Hannah, Sofia. Where's, oh there's Sofia."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Sorry, sorry, I was in the wrong link. The calendar invite had two links on it for some reason."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's on me, I edited it last night and it duplicated the conference thing. Okay. So, is Priya recording this?"
+    },
+    {
+      "speaker": "priya",
+      "text": "I am. It's recording now, and the notes will go out automatically afterwards, so nobody needs to take minutes. Just talk."
+    },
+    {
+      "speaker": "tom",
+      "text": "Which is the dream, honestly. Using our own tools, sort of."
+    },
+    {
+      "speaker": "dana",
+      "text": "Well, not our tool, but a tool. Okay, let's get going, because we have a lot to cover and I want to actually leave this meeting with decisions, not just vibes."
+    },
+    {
+      "speaker": "dana",
+      "text": "So the goal of this session. It's the Q4 roadmap planning. We have about an hour."
+    },
+    {
+      "speaker": "dana",
+      "text": "I want us to walk out with three things."
+    },
+    {
+      "speaker": "dana",
+      "text": "One, an agreed list of what we're doing in Q4, and just as important, what we are not doing."
+    },
+    {
+      "speaker": "dana",
+      "text": "Two, a named owner and a date for every big item."
+    },
+    {
+      "speaker": "dana",
+      "text": "And three, some kind of alignment on the AI Insights question, because I know that's been, let's say, a spirited topic on Slack."
+    },
+    {
+      "speaker": "tom",
+      "text": "Spirited is a very diplomatic word."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'd say it's been, yeah, it's been lively."
+    },
+    {
+      "speaker": "dana",
+      "text": "Right. So here's how I want to run it."
+    },
+    {
+      "speaker": "dana",
+      "text": "We'll start with a quick Q3 retro, just the numbers, no finger pointing."
+    },
+    {
+      "speaker": "dana",
+      "text": "Then Siobhan's going to walk us through what customers are actually telling us."
+    },
+    {
+      "speaker": "dana",
+      "text": "Then we'll do the AI Insights debate properly, then platform and reliability with Arjun and Priya, then pricing and packaging with Sofia, then hiring."
+    },
+    {
+      "speaker": "dana",
+      "text": "And then we'll vote and assign owners."
+    },
+    {
+      "speaker": "james",
+      "text": "Are we actually voting? Like, a real vote?"
+    },
+    {
+      "speaker": "dana",
+      "text": "A real vote. Everyone gets three votes. It's not binding, I reserve the right to overrule everybody, but I want to see where the room is."
+    },
+    {
+      "speaker": "james",
+      "text": "Benevolent dictatorship. Love it."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's the startup way. Okay, and one more framing thing before we dive in."
+    },
+    {
+      "speaker": "dana",
+      "text": "The company goal for Q4 is to get from where we ended Q3, which is about 3.58 million in ARR, to 4.2 million by December 31st."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's the number I've told the board. And the second goal is net revenue retention back above 110 percent."
+    },
+    {
+      "speaker": "dana",
+      "text": "Everything we pick today should ladder up to one of those two."
+    },
+    {
+      "speaker": "tom",
+      "text": "And can I add one, just so we're honest about it?"
+    },
+    {
+      "speaker": "tom",
+      "text": "I think there's an implicit third goal, which is we need a story for the market."
+    },
+    {
+      "speaker": "tom",
+      "text": "Every competitor has an AI thing now, and we don't."
+    },
+    {
+      "speaker": "dana",
+      "text": "I'll take that as an input, not a goal, and we'll argue about it in section four."
+    },
+    {
+      "speaker": "tom",
+      "text": "That's fair. I'll hold my fire."
+    },
+    {
+      "speaker": "priya",
+      "text": "For about ten minutes."
+    },
+    {
+      "speaker": "tom",
+      "text": "For about ten minutes, yes."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Q3 retro. Priya, do you want to go first on the engineering side, or James on revenue?"
+    },
+    {
+      "speaker": "james",
+      "text": "I'll go first, because mine's shorter and the news is mostly good."
+    },
+    {
+      "speaker": "dana",
+      "text": "Go for it."
+    },
+    {
+      "speaker": "james",
+      "text": "So, Q3 in one line. We closed 41 new logos, which is our best quarter ever, up from 29 in Q2."
+    },
+    {
+      "speaker": "james",
+      "text": "New ARR booked was about 612 thousand. The bad part is that most of that is Starter and low-end Growth."
+    },
+    {
+      "speaker": "james",
+      "text": "Average deal size actually dropped, from about 18 thousand to just under 15."
+    },
+    {
+      "speaker": "dana",
+      "text": "And why did it drop? Is that the self-serve funnel doing more of the work, or are we discounting?"
+    },
+    {
+      "speaker": "james",
+      "text": "Bit of both. Self-serve is doing more, which is good."
+    },
+    {
+      "speaker": "james",
+      "text": "But honestly, we did discount more than I'd like on Growth deals at the end of the quarter."
+    },
+    {
+      "speaker": "james",
+      "text": "The last two weeks of September were, uh, a little bit of a bazaar."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I noticed. I got three accounts in onboarding with 30 percent off and no annual commitment."
+    },
+    {
+      "speaker": "james",
+      "text": "Yeah, those were my calls, I own that. The logic was, get them in, prove the value, expand them later."
+    },
+    {
+      "speaker": "dana",
+      "text": "Which only works if they stick around. Okay, keep going."
+    },
+    {
+      "speaker": "james",
+      "text": "Enterprise. We closed two Enterprise deals, Harbor Freight Systems and Lumen Health, together about 190 thousand."
+    },
+    {
+      "speaker": "james",
+      "text": "Pipeline for Q4 Enterprise is 1.9 million, weighted it's probably around 560."
+    },
+    {
+      "speaker": "james",
+      "text": "Win rate was 23 percent overall, and that's down from 27."
+    },
+    {
+      "speaker": "tom",
+      "text": "And where are we losing?"
+    },
+    {
+      "speaker": "james",
+      "text": "I'll get to that, it's in Siobhan's section too, but the short version is we lost six deals in Q3 where the stated reason was some version of, the other guys have AI."
+    },
+    {
+      "speaker": "tom",
+      "text": "Six."
+    },
+    {
+      "speaker": "james",
+      "text": "Six that I'm confident about. Might be more where they just didn't tell us."
+    },
+    {
+      "speaker": "tom",
+      "text": "See, this is what I've been saying."
+    },
+    {
+      "speaker": "dana",
+      "text": "Tom."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'm holding my fire. I'm just noting it."
+    },
+    {
+      "speaker": "dana",
+      "text": "Noted. Priya?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay. So engineering Q3. The honest summary is we shipped a lot, but we shipped late, and reliability was not good enough."
+    },
+    {
+      "speaker": "priya",
+      "text": "What shipped. Alerts version two went out in July, and adoption is great, about 44 percent of active workspaces have at least one alert configured now."
+    },
+    {
+      "speaker": "priya",
+      "text": "The Snowflake connector went GA in August. And we did the new onboarding flow, which Sofia can speak to, but I think it moved trial activation a bit."
+    },
+    {
+      "speaker": "sofia",
+      "text": "It did. Activation, meaning a workspace sends events and builds a first dashboard within seven days, went from 31 to 38 percent."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's a big jump."
+    },
+    {
+      "speaker": "sofia",
+      "text": "It is. Trial to paid didn't move as much though. We're at 11.2 percent, target was 14."
+    },
+    {
+      "speaker": "priya",
+      "text": "And then what didn't ship. SSO and SCIM slipped. We said August, it's still not done."
+    },
+    {
+      "speaker": "priya",
+      "text": "The dashboard builder rework slipped about five weeks, and we ended up descoping half of it."
+    },
+    {
+      "speaker": "james",
+      "text": "The SSO one hurts, just so everyone knows. That's come up in every single Enterprise security review."
+    },
+    {
+      "speaker": "priya",
+      "text": "I know. I know. I'll talk about why when we get to platform, but the short version is that the same three people who own auth also got pulled into every incident."
+    },
+    {
+      "speaker": "dana",
+      "text": "Which brings us to incidents."
+    },
+    {
+      "speaker": "priya",
+      "text": "Right. We had three sev ones in Q3."
+    },
+    {
+      "speaker": "priya",
+      "text": "The worst was August 14th, the ingestion lag, where events were delayed up to six hours for about a third of customers."
+    },
+    {
+      "speaker": "priya",
+      "text": "Uptime for the quarter was 99.82 percent, and our contractual SLA for Enterprise is 99.9."
+    },
+    {
+      "speaker": "dana",
+      "text": "So we breached."
+    },
+    {
+      "speaker": "priya",
+      "text": "We breached for the quarter, yes. Technically we owe service credits to the two Enterprise customers who asked, and we've paid them."
+    },
+    {
+      "speaker": "priya",
+      "text": "It was about 4 thousand dollars total. The money isn't the problem, the trust is."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And just to add some color on that. The August 14th thing wasn't a one-off."
+    },
+    {
+      "speaker": "arjun",
+      "text": "It's the same root cause as the June incident."
+    },
+    {
+      "speaker": "arjun",
+      "text": "The ingestion workers are sharing a single Postgres queue table, and when one big customer backfills, everybody else waits."
+    },
+    {
+      "speaker": "tom",
+      "text": "We've known about that for a while though, right?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "We've known since March. It's been on the list. It keeps losing to features."
+    },
+    {
+      "speaker": "tom",
+      "text": "Fair."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay, and I want to be clear, that's on me as much as anyone, because I've been the one pushing features."
+    },
+    {
+      "speaker": "dana",
+      "text": "Let's keep going. Siobhan, retention numbers?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Sure. So net revenue retention for Q3 came in at 104 percent. It was 111 in Q2."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Gross logo churn on Starter is running about 2.9 percent a month, which is high but kind of expected for that tier."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Growth tier churn is 1.4 percent a month, and that's the one that worries me, because those are real companies paying us six grand a year."
+    },
+    {
+      "speaker": "james",
+      "text": "Is that mostly the discounted ones?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Some of them, but no, not mostly. Most of the Growth churn is accounts that have been with us for more than a year."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "They grew, their event volume grew, dashboards got slow, and they left for something that felt faster or smarter."
+    },
+    {
+      "speaker": "dana",
+      "text": "So it's performance."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "It's performance and it's the, what do I do with this data problem. I'll get into it."
+    },
+    {
+      "speaker": "dana",
+      "text": "Perfect segue. Anything else on the retro before we move on? Hannah, anything from the ML side for Q3?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Um, just that the anomaly detection model for alerts is live on about 900 workspaces. Nothing else really."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's great, and that's actually relevant for later. Okay. Siobhan, you're up."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Okay. So for this, my team went through every support ticket from Q3, that's 212 tickets that weren't just password resets, plus the notes from 38 customer interviews, plus the churn exit surveys."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And we tagged all of it. I'll share the doc after, but I want to give you the top four themes, roughly in order."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great, go."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Theme one, and it's the biggest by a lot."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Customers can see that a number moved, but they can't figure out why."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That came up in 71 tickets and in 24 of the 38 interviews."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "The quote I keep coming back to is from the head of growth at Parcelly."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "She said, and I'm reading it, your dashboards are great at telling me something is on fire, and useless at telling me where the fire is."
+    },
+    {
+      "speaker": "tom",
+      "text": "That's a great quote. Can we put that on the wall?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "You can put it on the wall. It's a bit painful for a product called Pulse, though."
+    },
+    {
+      "speaker": "tom",
+      "text": "That's exactly the problem AI Insights solves."
+    },
+    {
+      "speaker": "dana",
+      "text": "Tom."
+    },
+    {
+      "speaker": "tom",
+      "text": "Sorry. Holding. Still holding."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I mean, he's not wrong, but let me get through them. Theme two is speed."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Dashboards on large workspaces are slow. We have eleven accounts where the median dashboard load is over eight seconds."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Globex is one of them, and I'll come back to Globex, because it's a big deal."
+    },
+    {
+      "speaker": "priya",
+      "text": "Is that eleven accounts from the ticket tags or from the telemetry?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Telemetry. Arjun's team gave me the numbers."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Yeah, that's from the query logs. p95 across all workspaces is about 4.1 seconds, which is not great, but for the top fifty workspaces by event volume, p95 is 8.4 seconds."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And a few of them time out entirely on thirty-day ranges."
+    },
+    {
+      "speaker": "james",
+      "text": "I've seen demos go sideways because of that."
+    },
+    {
+      "speaker": "james",
+      "text": "We use the demo workspace, which is small, and then they load their own data in the trial and it crawls."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Theme three is security and admin. SSO, SCIM, audit logs, role-based permissions."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "It's lower volume, only 19 tickets, but it's almost all from our biggest accounts, and it's blocking expansions."
+    },
+    {
+      "speaker": "james",
+      "text": "And new deals. I have two Enterprise deals in the pipe right now, Meridian Freight and Castellan, where the security questionnaire literally has SSO as a hard requirement."
+    },
+    {
+      "speaker": "dana",
+      "text": "What's the combined value of those two?"
+    },
+    {
+      "speaker": "james",
+      "text": "About 240 thousand a year combined."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And then theme four is pricing confusion, specifically the event overages."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "People don't understand what an event is, they don't understand why their bill went up, and they find out after the fact."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "We had 27 tickets that were basically, why is my invoice higher than I expected."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And three of the Growth churns in Q3 explicitly mentioned a surprise overage bill."
+    },
+    {
+      "speaker": "sofia",
+      "text": "That one's mine, and I have a proposal for it later."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Great. So, those are the four. Now, Globex. Globex renews on January 31st."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "They're at 186 thousand a year, they're our second biggest customer."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I had their QBR last week with Greg Holloway and Maya Lindqvist, and I'll be blunt, they are at risk."
+    },
+    {
+      "speaker": "dana",
+      "text": "How at risk?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I'd put it at maybe fifty-fifty right now."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Greg said, pretty directly, that his team is evaluating Amplitude, and that the two things that would keep them are dashboard performance and SSO."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "He also said, and this is interesting, that if we had something that could explain metric changes automatically, they'd pay more for it, not less."
+    },
+    {
+      "speaker": "tom",
+      "text": "Did he say that? He said they'd pay more?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "He said, and again I'm paraphrasing a little, if you could tell my exec team why the numbers moved before they ask me, I would find budget for that."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay, I need everyone to remember that sentence."
+    },
+    {
+      "speaker": "priya",
+      "text": "I also need everyone to remember the first half, which is fix the performance and ship SSO."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Both halves are true. That's kind of my whole point. The AI stuff is a reason to expand."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Performance and SSO are the reason they stay at all."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's a really useful framing. Hannah, you've been quiet. Does the explain-the-change thing match what you've seen?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Yeah. Yes, it does."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. James, the six lost deals?"
+    },
+    {
+      "speaker": "james",
+      "text": "Right. So, six deals, about 310 thousand in total ACV."
+    },
+    {
+      "speaker": "james",
+      "text": "Four went to Amplitude, one went to Mixpanel, one went to, I think, building it in-house on dbt and Hex."
+    },
+    {
+      "speaker": "james",
+      "text": "In five of the six, the AI features came up in the final stage."
+    },
+    {
+      "speaker": "james",
+      "text": "Not necessarily because they'd use them, honestly. In a couple of cases I think it was more that the buyer needed something to show their boss."
+    },
+    {
+      "speaker": "tom",
+      "text": "But that still matters. That's the story for the market point."
+    },
+    {
+      "speaker": "james",
+      "text": "It does matter. I'm not arguing it doesn't."
+    },
+    {
+      "speaker": "james",
+      "text": "I'm just saying, in two of those deals, if we'd had SSO we might have won anyway, because the AI thing was a tiebreaker, not the main reason."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Can I add one more thing from the interviews? It's small but I think it's important."
+    },
+    {
+      "speaker": "dana",
+      "text": "Please."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "When we asked people what they'd want from AI, nobody said a chatbot. Not one person."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "What they said was, tell me what changed, tell me why, and tell me who to ask about it."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "It's very specific. It's basically root cause analysis."
+    },
+    {
+      "speaker": "tom",
+      "text": "Which is exactly the scope of the Explain This Change prototype."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. I think that's a natural place to move into the AI Insights discussion."
+    },
+    {
+      "speaker": "dana",
+      "text": "Siobhan, thank you, that was really clear. Please send the doc around."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Will do. I'll send it right after this."
+    },
+    {
+      "speaker": "dana",
+      "text": "So. AI Insights. Tom, you've been holding your fire for twenty minutes. The floor is yours."
+    },
+    {
+      "speaker": "dana",
+      "text": "And then Priya, I want you to respond, and then everybody else."
+    },
+    {
+      "speaker": "tom",
+      "text": "Thank you. Okay. I'll try to be concise."
+    },
+    {
+      "speaker": "priya",
+      "text": "That'll be a first."
+    },
+    {
+      "speaker": "tom",
+      "text": "Wow. Okay. Fair. So here's the pitch. We build AI Insights as the headline feature for Q4."
+    },
+    {
+      "speaker": "tom",
+      "text": "The core of it is Explain This Change."
+    },
+    {
+      "speaker": "tom",
+      "text": "When a metric on a dashboard moves more than some threshold, you click on it, and we tell you which segments drove the change, which events, which properties, and we write a plain-English explanation."
+    },
+    {
+      "speaker": "tom",
+      "text": "Hannah's prototype already does a version of this."
+    },
+    {
+      "speaker": "tom",
+      "text": "Phase two, which is not Q4, would be proactive."
+    },
+    {
+      "speaker": "tom",
+      "text": "We'd push the explanation into Slack or email before anyone asks, which is literally what Greg at Globex said he'd pay for."
+    },
+    {
+      "speaker": "tom",
+      "text": "And my ask is that we ship a beta to customers by mid November, and that we staff it with, call it, four engineers plus Hannah, for the whole quarter."
+    },
+    {
+      "speaker": "tom",
+      "text": "Because if we don't have something real by the time budgets get set in January, I think we lose more deals like the six James just described."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Thank you. Priya?"
+    },
+    {
+      "speaker": "priya",
+      "text": "So, first, I'm not against AI Insights. I want to say that clearly, because I think Slack made it sound like I am."
+    },
+    {
+      "speaker": "priya",
+      "text": "I think it's the right direction. I think the prototype is really promising."
+    },
+    {
+      "speaker": "priya",
+      "text": "My problem is sequencing and capacity. We have eleven engineers."
+    },
+    {
+      "speaker": "priya",
+      "text": "If four of them go to AI Insights for the whole quarter, plus the three on auth for SSO, that leaves four people for everything else, including the ingestion rework that Arjun described, which is the root cause of two sev ones."
+    },
+    {
+      "speaker": "priya",
+      "text": "And here's the thing that I think gets missed. Explain This Change runs queries. Lots of queries."
+    },
+    {
+      "speaker": "priya",
+      "text": "It's basically going to slice every metric by every dimension to find the driver."
+    },
+    {
+      "speaker": "priya",
+      "text": "If our query layer can't load a dashboard in under eight seconds for Globex, it's definitely not going to run a root cause analysis across fifty segments in any reasonable time."
+    },
+    {
+      "speaker": "tom",
+      "text": "But that's a solvable problem, you can precompute--"
+    },
+    {
+      "speaker": "priya",
+      "text": "You can precompute if you have a working aggregation layer, which we don't yet. That's the ingestion and query work."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Yeah, I want to back that up with numbers, if that's okay."
+    },
+    {
+      "speaker": "dana",
+      "text": "Please."
+    },
+    {
+      "speaker": "arjun",
+      "text": "So Hannah and I actually ran the prototype against the Globex dataset last week, just to see."
+    },
+    {
+      "speaker": "arjun",
+      "text": "On their thirty-day event table, one Explain This Change run took about 94 seconds and scanned around 1.3 billion rows."
+    },
+    {
+      "speaker": "arjun",
+      "text": "The warehouse cost for that one run was about 60 cents."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Plus the LLM call on top, which is small, maybe four cents."
+    },
+    {
+      "speaker": "tom",
+      "text": "Ninety-four seconds."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Ninety-four seconds. And if a customer clicks it on every chart on a dashboard, you do the math."
+    },
+    {
+      "speaker": "james",
+      "text": "Sixty cents a click. Globex would click that a thousand times a month."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And that's one customer."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay, but the competitors are eating that cost. Amplitude isn't charging sixty cents a click."
+    },
+    {
+      "speaker": "james",
+      "text": "Do we actually know that? What their thing costs them?"
+    },
+    {
+      "speaker": "tom",
+      "text": "No. But their customers don't pay per click, I know that much."
+    },
+    {
+      "speaker": "sofia",
+      "text": "They also have, what, eight hundred engineers? We have eleven."
+    },
+    {
+      "speaker": "tom",
+      "text": "Fair. Fair."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Can I say something about the Amplitude thing specifically? Because Greg showed it to me on the QBR."
+    },
+    {
+      "speaker": "dana",
+      "text": "Please."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "He pulled it up on screen share. It's a chat box."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "You ask it a question and it builds you a chart."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And he said, and this is a direct quote, it's a nice party trick, but I don't need a new chart, I need someone to tell me why the old chart went down."
+    },
+    {
+      "speaker": "tom",
+      "text": "Huh."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "So I don't think we're behind on the thing customers actually want. I think we're behind on the demo."
+    },
+    {
+      "speaker": "james",
+      "text": "Which, to be fair, is what wins deals in the final round."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Sure, but it's not what keeps them for three years."
+    },
+    {
+      "speaker": "james",
+      "text": "I have to win them before you can keep them."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And I have to keep them or your new logos just refill a leaky bucket."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay, okay. You're both right, and that's exactly why this is hard."
+    },
+    {
+      "speaker": "arjun",
+      "text": "For what it's worth, the chat-box thing is actually much cheaper to build."
+    },
+    {
+      "speaker": "arjun",
+      "text": "It's text-to-SQL on top of our query layer. The expensive part is the root cause search."
+    },
+    {
+      "speaker": "tom",
+      "text": "So you're saying the thing customers want is the expensive one."
+    },
+    {
+      "speaker": "arjun",
+      "text": "It's always the expensive one."
+    },
+    {
+      "speaker": "priya",
+      "text": "That's basically the first law of product management."
+    },
+    {
+      "speaker": "tom",
+      "text": "I thought the first law was, the customer is always right."
+    },
+    {
+      "speaker": "sofia",
+      "text": "The first law is, the customer is always right about the problem and always wrong about the solution."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay, I'm stealing that."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hannah, can the prototype be made cheaper without the rollups? Like, sample the data?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "A bit. We could sample ten percent of events for the search, and then confirm the top candidates on the full data."
+    },
+    {
+      "speaker": "hannah",
+      "text": "That might get it to, um, maybe fifteen or twenty seconds on Globex."
+    },
+    {
+      "speaker": "hannah",
+      "text": "But the accuracy drops a little."
+    },
+    {
+      "speaker": "dana",
+      "text": "How much?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "I don't know yet. I'd have to test it."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. That's a useful fallback to keep in our back pocket."
+    },
+    {
+      "speaker": "priya",
+      "text": "And to be clear, I think that's a good backup plan, but it's not the main plan."
+    },
+    {
+      "speaker": "priya",
+      "text": "The main plan is the rollups."
+    },
+    {
+      "speaker": "dana",
+      "text": "Understood."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay, but, and I'm genuinely asking, how much of that goes away with the aggregation work?"
+    },
+    {
+      "speaker": "tom",
+      "text": "Like, if Arjun's rework lands, what does that run look like?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Honestly, rough estimate, with pre-aggregated hourly rollups by the top twenty dimensions, it's probably under five seconds and a couple of cents."
+    },
+    {
+      "speaker": "arjun",
+      "text": "But that's the rollup work, and that's six to eight weeks."
+    },
+    {
+      "speaker": "tom",
+      "text": "So the rollups make AI Insights possible."
+    },
+    {
+      "speaker": "arjun",
+      "text": "The rollups make AI Insights possible, and they make dashboards fast, and they make the ingestion lag problem mostly go away. It's the same project."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's interesting. So they're not actually in competition. They're a dependency."
+    },
+    {
+      "speaker": "priya",
+      "text": "That's exactly my point. It's not AI Insights versus reliability. It's reliability, and then AI Insights on top of it."
+    },
+    {
+      "speaker": "tom",
+      "text": "I hear that. My worry is timing. If the rollups take eight weeks, and they start in October, that's end of November."
+    },
+    {
+      "speaker": "tom",
+      "text": "Then AI Insights on top of that is January at the earliest. And we've missed the budget cycle."
+    },
+    {
+      "speaker": "james",
+      "text": "For what it's worth, the budget cycle point is real."
+    },
+    {
+      "speaker": "james",
+      "text": "Most of my Enterprise buyers lock their tooling budgets in December."
+    },
+    {
+      "speaker": "priya",
+      "text": "Right, but they don't lock them based on a beta."
+    },
+    {
+      "speaker": "priya",
+      "text": "They lock them based on a demo and a roadmap commitment. You can sell a credible roadmap."
+    },
+    {
+      "speaker": "priya",
+      "text": "You can't sell an outage."
+    },
+    {
+      "speaker": "james",
+      "text": "Well, I've sold a few roadmaps in my time, that's true."
+    },
+    {
+      "speaker": "dana",
+      "text": "Let's not put that in the recording."
+    },
+    {
+      "speaker": "james",
+      "text": "It's already in the recording."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great. Okay. Hannah, I'm going to put you on the spot, because this is your prototype."
+    },
+    {
+      "speaker": "dana",
+      "text": "How good is it actually, right now?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Um. So. On our internal eval set, which is about 150 historical metric changes where we know the actual cause, the prototype identifies the right driver in the top three about 62 percent of the time."
+    },
+    {
+      "speaker": "tom",
+      "text": "Which is pretty good for a prototype."
+    },
+    {
+      "speaker": "hannah",
+      "text": "It's okay. It's not good enough to put in front of Globex."
+    },
+    {
+      "speaker": "hannah",
+      "text": "If it's wrong a third of the time, people stop trusting it, and then they stop trusting the dashboards too."
+    },
+    {
+      "speaker": "hannah",
+      "text": "I think we'd need to be at 75, maybe 80, before a wide beta."
+    },
+    {
+      "speaker": "dana",
+      "text": "How long to get from 62 to 75?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Maybe six weeks, if I get one more engineer and the rollups."
+    },
+    {
+      "speaker": "hannah",
+      "text": "Without the rollups it's hard to iterate, every eval run takes hours."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. That's really helpful, thank you."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Can I propose something? Because I think there's a middle path here."
+    },
+    {
+      "speaker": "dana",
+      "text": "Please, yes."
+    },
+    {
+      "speaker": "sofia",
+      "text": "What if we do a scoped beta. Not a launch, a design-partner beta."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Ten customers, Growth and Enterprise only, behind a feature flag."
+    },
+    {
+      "speaker": "sofia",
+      "text": "We pick customers whose data is small enough that it runs fine today, or we precompute for just them."
+    },
+    {
+      "speaker": "sofia",
+      "text": "It gives James something real to demo and something to put in the roadmap deck, and it gives Hannah real feedback to improve the model."
+    },
+    {
+      "speaker": "sofia",
+      "text": "But we don't staff it with four engineers. We staff it with Hannah plus one."
+    },
+    {
+      "speaker": "tom",
+      "text": "Ten is small."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Ten is small on purpose. We learn, and we don't put our reputation on the line with a 62 percent model."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And I can find ten. I already have a list of maybe fifteen accounts who've asked for exactly this."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Parcelly would be first in line."
+    },
+    {
+      "speaker": "tom",
+      "text": "And Globex?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Globex, I'm not sure. Their data is huge. If it takes ninety seconds for them, that's worse than nothing."
+    },
+    {
+      "speaker": "arjun",
+      "text": "We could precompute rollups for Globex specifically, as a pilot of the rollup design."
+    },
+    {
+      "speaker": "arjun",
+      "text": "That's actually a nice forcing function for my team. It de-risks the general rollout."
+    },
+    {
+      "speaker": "priya",
+      "text": "I like that. That's a real test on the hardest dataset."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay. I'll be honest, this isn't what I wanted. I wanted a big launch."
+    },
+    {
+      "speaker": "tom",
+      "text": "But I think I can live with the design-partner version, if, and this is my condition, we commit to a date."
+    },
+    {
+      "speaker": "tom",
+      "text": "A real date. Not, when the rollups are done."
+    },
+    {
+      "speaker": "dana",
+      "text": "What date would you want?"
+    },
+    {
+      "speaker": "tom",
+      "text": "Beta live with the first design partners by November 20th."
+    },
+    {
+      "speaker": "priya",
+      "text": "November 20th with Hannah plus one engineer, and it depends on the Globex rollup pilot being done by, what, Arjun?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "If we start Monday, I think the Globex rollups could be ready by November 6th. The general rollout is later."
+    },
+    {
+      "speaker": "priya",
+      "text": "Then November 20th is aggressive but doable. I'll commit to it if the one engineer is Marcus, because he knows the query layer."
+    },
+    {
+      "speaker": "tom",
+      "text": "Marcus is great. Done."
+    },
+    {
+      "speaker": "dana",
+      "text": "Wait, let's not say done yet, Marcus isn't here to be volunteered."
+    },
+    {
+      "speaker": "priya",
+      "text": "He volunteered on Tuesday. His cost doc is one of the pre-reads for today, actually, and he's been asking to work on this for a month."
+    },
+    {
+      "speaker": "priya",
+      "text": "It's part of his growth plan."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay, great. Then let me say it back so it's crisp, because this is the first real decision of the meeting."
+    },
+    {
+      "speaker": "dana",
+      "text": "Decision. AI Insights ships in Q4 as a design-partner beta of Explain This Change only."
+    },
+    {
+      "speaker": "dana",
+      "text": "Ten design partners, Growth and Enterprise tier, behind a feature flag. Staffed by Hannah plus Marcus."
+    },
+    {
+      "speaker": "dana",
+      "text": "Target: live with the first partners by November 20th."
+    },
+    {
+      "speaker": "dana",
+      "text": "We do not do a public launch or general availability in Q4."
+    },
+    {
+      "speaker": "dana",
+      "text": "And the proactive, push-to-Slack piece is explicitly out of scope for this quarter."
+    },
+    {
+      "speaker": "tom",
+      "text": "Agreed. Reluctantly, but agreed."
+    },
+    {
+      "speaker": "priya",
+      "text": "Agreed."
+    },
+    {
+      "speaker": "james",
+      "text": "Can I still talk about it in sales conversations? Like, as a roadmap item?"
+    },
+    {
+      "speaker": "dana",
+      "text": "Yes, as roadmap. Beta for design partners, GA in the first half of next year."
+    },
+    {
+      "speaker": "dana",
+      "text": "Don't promise dates to customers beyond that."
+    },
+    {
+      "speaker": "james",
+      "text": "Got it. First half of next year. I can work with that."
+    },
+    {
+      "speaker": "hannah",
+      "text": "And, sorry, one thing. We need a quality bar before we turn it on for anyone."
+    },
+    {
+      "speaker": "hannah",
+      "text": "I'd like it to be 75 percent top-three accuracy on the eval set."
+    },
+    {
+      "speaker": "dana",
+      "text": "Good. Let's make that part of the decision."
+    },
+    {
+      "speaker": "dana",
+      "text": "No partner sees it until the eval is at 75 percent. Hannah owns that bar."
+    },
+    {
+      "speaker": "hannah",
+      "text": "Okay. Thank you."
+    },
+    {
+      "speaker": "tom",
+      "text": "And what happens if we're at 70 on November 20th?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Then we're at 70, and we wait."
+    },
+    {
+      "speaker": "tom",
+      "text": "Fair enough. I'd rather be late than wrong. I think."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That's the first time I've heard you say that."
+    },
+    {
+      "speaker": "tom",
+      "text": "Don't get used to it."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Let's move to platform and reliability, because I think a lot of this depends on that. Arjun, Priya, who's driving?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Arjun, go ahead, it's your plan. I'll jump in on staffing."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Sure. So I'll try to keep this tight."
+    },
+    {
+      "speaker": "arjun",
+      "text": "There are three problems, and they all have the same shape."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Ingestion lag, slow dashboards, and our on-call load."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And the root cause is, basically, we built the platform for customers sending ten million events a month, and our top fifty customers now send between 200 million and two billion."
+    },
+    {
+      "speaker": "arjun",
+      "text": "So the plan has three parts. Part one, ingestion."
+    },
+    {
+      "speaker": "arjun",
+      "text": "We move off the shared Postgres queue table onto partitioned Kafka topics, partitioned by workspace."
+    },
+    {
+      "speaker": "arjun",
+      "text": "That means one customer's backfill can't block everyone else."
+    },
+    {
+      "speaker": "arjun",
+      "text": "We've already got Kafka running for the Snowflake connector, so it's not a new technology for us."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Part two, the rollups we talked about. Hourly pre-aggregations for the most common metric and dimension combinations."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Dashboards read from rollups first, and only hit raw events when they need to."
+    },
+    {
+      "speaker": "arjun",
+      "text": "That's what gets p95 dashboard load from 8.4 seconds down to, my target is 2.5 seconds for the top fifty workspaces."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Part three is operational. We fix alerting so the on-call person isn't getting paged for things that don't matter."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Last month the on-call rotation got 143 pages. About 70 percent of those were noise."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Kevin has a plan for that."
+    },
+    {
+      "speaker": "dana",
+      "text": "A hundred and forty-three pages in a month."
+    },
+    {
+      "speaker": "arjun",
+      "text": "In a month. Kevin had a week where he got paged at 3 AM four nights in a row."
+    },
+    {
+      "speaker": "priya",
+      "text": "And that's why I'm worried about burnout. Two people on the platform team have mentioned it in one-on-ones."
+    },
+    {
+      "speaker": "priya",
+      "text": "I don't want to lose people over this."
+    },
+    {
+      "speaker": "dana",
+      "text": "Understood. That's not acceptable. What's the timeline on all three parts?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Ingestion migration, I'd say the design doc by October 9th, and cutover done by October 30th."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Rollups, general availability for all workspaces by the end of November, with the Globex pilot by November 6th like I said."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And the alerting cleanup, Kevin thinks two weeks, so by October 17th."
+    },
+    {
+      "speaker": "tom",
+      "text": "And how many people is that?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "The whole platform team, so four, plus I'd want one more from product engineering for the first three weeks."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Basically I'm asking for a code yellow."
+    },
+    {
+      "speaker": "james",
+      "text": "Sorry, what's a code yellow? Is that a Google thing?"
+    },
+    {
+      "speaker": "priya",
+      "text": "It's a Google thing, yeah. It means reliability is the top priority for a fixed period."
+    },
+    {
+      "speaker": "priya",
+      "text": "People can get pulled from feature work, and nothing ships that increases risk unless it's critical."
+    },
+    {
+      "speaker": "james",
+      "text": "Okay, so a feature freeze."
+    },
+    {
+      "speaker": "priya",
+      "text": "Not a full freeze. More like, a soft freeze, for a defined window."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'd propose the first three weeks of October. So Monday October 6th through Friday October 24th."
+    },
+    {
+      "speaker": "tom",
+      "text": "Three weeks of soft freeze. Hmm."
+    },
+    {
+      "speaker": "dana",
+      "text": "Tom, I can see your face."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'm not saying no. I'm doing math. What's frozen, exactly? Because the sharing work is basically done."
+    },
+    {
+      "speaker": "priya",
+      "text": "Sharing is fine, Nina's rolling it out this week. That's already in flight, it's low risk."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay. And the pricing page changes?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "Those are mostly front end and billing config. They land in November anyway."
+    },
+    {
+      "speaker": "priya",
+      "text": "Then they're fine too. What's frozen is anything that touches ingestion, the query layer, or auth, unless it's part of the reliability work or SSO."
+    },
+    {
+      "speaker": "tom",
+      "text": "And the dashboard builder v2?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Frozen. Honestly, I think it should move to Q1 anyway, but let's get to that in the vote."
+    },
+    {
+      "speaker": "tom",
+      "text": "We'll fight about that in the vote."
+    },
+    {
+      "speaker": "priya",
+      "text": "We will."
+    },
+    {
+      "speaker": "james",
+      "text": "What about customer-specific requests? Like if Meridian needs some small thing to close."
+    },
+    {
+      "speaker": "priya",
+      "text": "Come to me. If it's small and it closes a deal, we'll find a way."
+    },
+    {
+      "speaker": "priya",
+      "text": "Just don't promise it on the call first."
+    },
+    {
+      "speaker": "james",
+      "text": "That's fair. I'll try."
+    },
+    {
+      "speaker": "priya",
+      "text": "Try harder than last quarter."
+    },
+    {
+      "speaker": "james",
+      "text": "Ha. Okay. Noted."
+    },
+    {
+      "speaker": "dana",
+      "text": "Arjun, what's the risk on the Kafka migration itself? I don't want the cure to cause another sev one."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Good question. The risk is real. The plan is to dual-write for a week."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Old queue and new topics in parallel, and we compare counts."
+    },
+    {
+      "speaker": "arjun",
+      "text": "We only cut over when the counts match for seven straight days."
+    },
+    {
+      "speaker": "dana",
+      "text": "And rollback?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Rollback is flipping a flag back to the old queue. We'll keep it warm until end of November."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. I like that."
+    },
+    {
+      "speaker": "priya",
+      "text": "And Kevin's adding a canary for the consumer deploys. That was the main action item from last week's incident review."
+    },
+    {
+      "speaker": "dana",
+      "text": "Good. Siobhan, from your side, what would a code yellow mean for customers? Do we tell them?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I'd tell the big ones. Not with the phrase code yellow, obviously."
+    },
+    {
+      "speaker": "dana",
+      "text": "No. Nobody wants to hear their vendor is in code anything."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Right. I'd say something like, we're investing the next month in performance and reliability, here's what you'll see."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "For Globex specifically, I think that message could actually help the renewal."
+    },
+    {
+      "speaker": "arjun",
+      "text": "I can give you a one-pager with the before and after numbers. Once we have them."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That would be perfect. Honestly, the funnel improvement Marcus did already helped. Greg mentioned it on the call."
+    },
+    {
+      "speaker": "priya",
+      "text": "Two point eight seconds to nine hundred milliseconds on their funnels. That was one engineer, one week."
+    },
+    {
+      "speaker": "tom",
+      "text": "See, that's the kind of thing we should shout about."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I did shout about it. Greg was, and I quote, mildly impressed."
+    },
+    {
+      "speaker": "james",
+      "text": "From Greg, that's a standing ovation."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That's basically a parade."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Then let's capture it. Decision two. We run a reliability code yellow from October 6th to October 24th."
+    },
+    {
+      "speaker": "dana",
+      "text": "Platform team full time, plus one product engineer."
+    },
+    {
+      "speaker": "dana",
+      "text": "Feature work that touches ingestion, query, or auth is frozen in that window unless Priya approves it."
+    },
+    {
+      "speaker": "dana",
+      "text": "And the targets are, Arjun, say them again?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "p95 dashboard load under 2.5 seconds for the top fifty workspaces. Ingestion lag under five minutes at p99."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And pages to on-call down by at least 60 percent."
+    },
+    {
+      "speaker": "dana",
+      "text": "And uptime?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "99.9 or better for Q4. That's the SLA, so that's the floor."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'd also like us to add a public status page."
+    },
+    {
+      "speaker": "priya",
+      "text": "We don't have one, and customers find out about incidents from Twitter."
+    },
+    {
+      "speaker": "dana",
+      "text": "Do we really not have a status page?"
+    },
+    {
+      "speaker": "priya",
+      "text": "We have an internal one. The external one has been on the list since, I want to say, February."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Let's do it. Who owns that?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Kevin can own it. It's maybe two days of work with an off-the-shelf tool."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great, Kevin by the end of the code yellow then. Priya, you'll tell him he volunteered?"
+    },
+    {
+      "speaker": "priya",
+      "text": "I'll break it to him gently."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Now SSO and SCIM. Priya, where are we really?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Really? SAML SSO is about 80 percent done. It works with Okta in staging."
+    },
+    {
+      "speaker": "priya",
+      "text": "Azure AD has an issue with group claims. SCIM is maybe 40 percent. Audit logs haven't started."
+    },
+    {
+      "speaker": "james",
+      "text": "What's the date? That's the only thing I need. A date I can put in a security questionnaire."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'll give you a date, but I want to give you one I'll actually hit this time."
+    },
+    {
+      "speaker": "priya",
+      "text": "SAML SSO with Okta and Azure AD, generally available on November 2nd. SCIM provisioning on November 16th."
+    },
+    {
+      "speaker": "priya",
+      "text": "Audit logs slip to Q1."
+    },
+    {
+      "speaker": "james",
+      "text": "Can I say November for both?"
+    },
+    {
+      "speaker": "priya",
+      "text": "You can say SSO in early November and SCIM by mid November."
+    },
+    {
+      "speaker": "priya",
+      "text": "Please don't say November 1st, it's a Sunday and I'll get paged about it."
+    },
+    {
+      "speaker": "james",
+      "text": "Ha. Okay. November 2nd and mid November."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That works for Globex too. Their renewal is January 31st, so that gives them two months of having it before they decide."
+    },
+    {
+      "speaker": "dana",
+      "text": "And the three auth engineers are protected from incidents during that window?"
+    },
+    {
+      "speaker": "priya",
+      "text": "That's the point of the code yellow. Platform takes the incidents. Auth ships."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Decision three, then. SSO GA November 2nd, SCIM November 16th, audit logs to Q1."
+    },
+    {
+      "speaker": "dana",
+      "text": "Priya owns it, weekly status in the eng update."
+    },
+    {
+      "speaker": "priya",
+      "text": "Yep. I'll post it every Friday."
+    },
+    {
+      "speaker": "tom",
+      "text": "Can I say one thing before we leave platform?"
+    },
+    {
+      "speaker": "dana",
+      "text": "Quickly."
+    },
+    {
+      "speaker": "tom",
+      "text": "I just want to acknowledge, I think Priya and Arjun were right about sequencing."
+    },
+    {
+      "speaker": "tom",
+      "text": "I came in wanting AI Insights to be the whole quarter, and I think the rollups argument is correct."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'd rather say that out loud than just quietly lose the argument."
+    },
+    {
+      "speaker": "priya",
+      "text": "Thank you. That's, honestly, that's really nice to hear."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Appreciated, Tom."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's the most grown-up thing anyone has said in a roadmap meeting at this company."
+    },
+    {
+      "speaker": "tom",
+      "text": "Don't worry, I'll ruin it during pricing."
+    },
+    {
+      "speaker": "dana",
+      "text": "I have no doubt. Sofia, pricing. You're up."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Okay. I'll share my screen. Can everyone see the spreadsheet?"
+    },
+    {
+      "speaker": "james",
+      "text": "I see it. I see a lot of yellow cells."
+    },
+    {
+      "speaker": "sofia",
+      "text": "The yellow cells are the ones I'm unsure about. So, ignore those for now."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Okay, the problem, very briefly. Siobhan mentioned it. Growth is $499 a month and includes 5 million events."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Above that, we charge overages at $40 per extra million, billed in arrears."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Customers don't see it coming and they hate it."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Hate is accurate."
+    },
+    {
+      "speaker": "sofia",
+      "text": "And meanwhile, the median Growth customer is now at 11 million events a month."
+    },
+    {
+      "speaker": "sofia",
+      "text": "So the median customer is paying overages, which means the $499 price is basically fiction."
+    },
+    {
+      "speaker": "dana",
+      "text": "What's the median Growth customer actually paying?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "About $740 a month, all in."
+    },
+    {
+      "speaker": "dana",
+      "text": "Huh. Okay."
+    },
+    {
+      "speaker": "sofia",
+      "text": "So the proposal. Growth goes to $599 a month, and includes 20 million events instead of 5."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Above 20 million, it's $25 per extra million, not $40."
+    },
+    {
+      "speaker": "sofia",
+      "text": "And the big change, we show the usage meter in the app and we email at 80 percent and 100 percent of the included volume. No surprises."
+    },
+    {
+      "speaker": "james",
+      "text": "Wait, so for the median customer at 11 million, they'd pay less?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "Yes. They'd go from $740 to $599. That's on purpose."
+    },
+    {
+      "speaker": "james",
+      "text": "That's a revenue cut."
+    },
+    {
+      "speaker": "sofia",
+      "text": "For some existing customers, yes, which is why I'm proposing we don't force-migrate anyone."
+    },
+    {
+      "speaker": "sofia",
+      "text": "But for new customers, the math is different."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Our new Growth customers start at about 3 million events and grow into overages."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Under the new pricing, they start at $599 instead of $499."
+    },
+    {
+      "speaker": "sofia",
+      "text": "So new-customer ACV goes up about 20 percent."
+    },
+    {
+      "speaker": "tom",
+      "text": "And we stop being the vendor with the surprise bill."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Exactly. I modeled it out. Net effect over twelve months is roughly plus 6 percent revenue on Growth, and I think it helps churn, which I haven't put in the model because I can't prove it."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I can basically prove it. Three churns last quarter said surprise overage. That's about 21 thousand in ARR, right there."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. What about existing customers?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "Grandfather them. They keep their current plan for twelve months."
+    },
+    {
+      "speaker": "sofia",
+      "text": "They can opt in to the new plan any time, and for most of them it's cheaper, so a lot of them will."
+    },
+    {
+      "speaker": "james",
+      "text": "And that's the part I'm worried about. If it's cheaper and they opt in, that's a downgrade on my number."
+    },
+    {
+      "speaker": "sofia",
+      "text": "For about 40 percent of existing Growth accounts it's cheaper, yes."
+    },
+    {
+      "speaker": "sofia",
+      "text": "For the rest, it's more expensive, so they won't switch."
+    },
+    {
+      "speaker": "james",
+      "text": "So I lose on 40 percent and gain on zero percent of the existing base."
+    },
+    {
+      "speaker": "sofia",
+      "text": "In the short term. Yeah."
+    },
+    {
+      "speaker": "james",
+      "text": "That's a hard sell to my team. They get paid on net ARR."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hmm. How much are we talking about?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "If every single one of those 40 percent switched on day one, which they won't, it's about 54 thousand in ARR."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Realistically, maybe half that over the year."
+    },
+    {
+      "speaker": "dana",
+      "text": "Twenty-seven thousand against the churn risk and new-customer uplift. James, I hear you, but I think that's worth it."
+    },
+    {
+      "speaker": "james",
+      "text": "I don't disagree with the strategy. I'm worried about the comp plan."
+    },
+    {
+      "speaker": "james",
+      "text": "If a rep's customer switches plans and their number goes down, I'll have a mutiny."
+    },
+    {
+      "speaker": "dana",
+      "text": "Then we fix the comp plan so reps aren't penalized for a customer moving to the new plan."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's a comp problem, not a pricing problem."
+    },
+    {
+      "speaker": "james",
+      "text": "Okay. If we fix comp, I'm in. I want that in writing though."
+    },
+    {
+      "speaker": "dana",
+      "text": "You'll have it in writing. I'll do it with finance."
+    },
+    {
+      "speaker": "sofia",
+      "text": "And just so everyone knows, the pricing page itself is mostly designed."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Tom, Leah, James and I went through it last week."
+    },
+    {
+      "speaker": "sofia",
+      "text": "The $25 overage and the usage calculator came out of that session."
+    },
+    {
+      "speaker": "tom",
+      "text": "It's a good page. Leah did great work on it."
+    },
+    {
+      "speaker": "sofia",
+      "text": "The piece that session couldn't decide was the bigger question, which is the actual Growth price, and what we do with AI Insights in the packaging."
+    },
+    {
+      "speaker": "sofia",
+      "text": "So that's what I need from this room."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Let's take the price first. Anyone against $599 with 20 million included?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Not against. Just a question. Does 20 million events cost us more to serve than 5 million?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Because that's four times the included volume."
+    },
+    {
+      "speaker": "sofia",
+      "text": "It does, a little. I checked with finance."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Our infra cost per million events is about $3.10 today, and after the rollups, you said it'd drop?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "It should drop. Maybe to around $2. Storage is the big piece, and rollups let us tier the raw data to cold storage sooner."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Then the margins are fine either way. Gross margin on Growth stays above 78 percent."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Okay. No objection then."
+    },
+    {
+      "speaker": "dana",
+      "text": "Siobhan?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Strong yes. With the grandfathering. And the 80 percent email is the thing I care most about, honestly."
+    },
+    {
+      "speaker": "dana",
+      "text": "Tom?"
+    },
+    {
+      "speaker": "tom",
+      "text": "Yes. And on AI Insights packaging, my proposal is we don't price it at all in Q4."
+    },
+    {
+      "speaker": "tom",
+      "text": "It's a beta, it's for design partners, it's free."
+    },
+    {
+      "speaker": "tom",
+      "text": "We decide packaging in Q1 when we know what it costs to run."
+    },
+    {
+      "speaker": "james",
+      "text": "I'd love to be able to say it'll be included in Enterprise. That's a real lever in a deal."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'm okay saying Enterprise customers get early access."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'm not okay saying it's included forever, because we don't know the cost yet."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Sixty cents a click, remember."
+    },
+    {
+      "speaker": "tom",
+      "text": "Sixty cents a click today. Two cents after the rollups."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Hopefully."
+    },
+    {
+      "speaker": "james",
+      "text": "Okay. Early access for Enterprise. I'll take it."
+    },
+    {
+      "speaker": "dana",
+      "text": "Good. Then decision four. New Growth pricing, $599 a month with 20 million events included and $25 per additional million, goes live for new customers on November 3rd."
+    },
+    {
+      "speaker": "dana",
+      "text": "Existing customers are grandfathered for twelve months with an opt-in."
+    },
+    {
+      "speaker": "dana",
+      "text": "Usage meter and 80 and 100 percent alerts ship with it."
+    },
+    {
+      "speaker": "dana",
+      "text": "And James and I fix the sales comp plan so reps aren't penalized for plan switches."
+    },
+    {
+      "speaker": "dana",
+      "text": "And AI Insights isn't priced in Q4. Enterprise gets early access, packaging decision in Q1."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Perfect. That's exactly what I needed."
+    },
+    {
+      "speaker": "james",
+      "text": "And the annual discount? That was the other thing we argued about."
+    },
+    {
+      "speaker": "sofia",
+      "text": "We kept it at 20 percent through Q1. That was decided in the pricing page session."
+    },
+    {
+      "speaker": "dana",
+      "text": "Wait, I thought we were going to 15."
+    },
+    {
+      "speaker": "james",
+      "text": "We talked about it. I pushed for keeping 20 until the end of Q1 because I have deals mid-negotiation at 20."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hmm. I'm not thrilled, but fine. Revisit in January."
+    },
+    {
+      "speaker": "dana",
+      "text": "Don't let 20 percent become 30 percent at the end of the quarter, James."
+    },
+    {
+      "speaker": "james",
+      "text": "No bazaars. Understood."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay, hiring. Priya, and I'll jump in on budget."
+    },
+    {
+      "speaker": "priya",
+      "text": "Sure. So we have three open reqs right now."
+    },
+    {
+      "speaker": "priya",
+      "text": "Staff engineer on platform, an ML engineer for Hannah's team, and a customer success manager for Siobhan."
+    },
+    {
+      "speaker": "priya",
+      "text": "The staff engineer is the most urgent. We're mid-process with a really strong candidate. Olivia Grant."
+    },
+    {
+      "speaker": "priya",
+      "text": "Arjun and I interviewed her last week, and it was a strong yes from both of us."
+    },
+    {
+      "speaker": "priya",
+      "text": "She built the ingestion pipeline at a logistics company doing about four billion events a day."
+    },
+    {
+      "speaker": "arjun",
+      "text": "She'd basically be the tech lead for the rollups phase two. She's exactly the person we need."
+    },
+    {
+      "speaker": "dana",
+      "text": "What's she asking for?"
+    },
+    {
+      "speaker": "priya",
+      "text": "A bit above our band. About 235 base. Our band tops out at 220."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hmm. Equity can make up some of it."
+    },
+    {
+      "speaker": "dana",
+      "text": "I'm okay going to 228 base plus a larger grant, if she's the real deal."
+    },
+    {
+      "speaker": "priya",
+      "text": "She's the real deal. I'll put the offer together."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. By when?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Offer out by next Wednesday. She has another offer expiring on the 15th, so we need to move."
+    },
+    {
+      "speaker": "dana",
+      "text": "Do it. Then the CSM?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "The CSM is, honestly, it's urgent for me too. I have three people covering 140 accounts."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Each Enterprise account should really have a dedicated person, and right now I'm personally covering Globex and Lumen Health."
+    },
+    {
+      "speaker": "dana",
+      "text": "What would a CSM cost fully loaded?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "About 130 thousand all in."
+    },
+    {
+      "speaker": "dana",
+      "text": "And the ML engineer?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Um, around 210. Maybe more. It's a hard market."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. So here's my honest position. We have budget for two of the three this quarter, not all three."
+    },
+    {
+      "speaker": "dana",
+      "text": "Unless we beat the ARR plan."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'd argue for the ML engineer. That's the AI Insights bet."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'd argue the beta is scoped for Hannah plus Marcus now. We just decided that."
+    },
+    {
+      "speaker": "priya",
+      "text": "The ML engineer matters for GA, which is next year."
+    },
+    {
+      "speaker": "tom",
+      "text": "But if we hire in January, they're not productive until March."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And if Globex churns in January because nobody's managing the account, AI Insights doesn't matter."
+    },
+    {
+      "speaker": "tom",
+      "text": "That's a little dramatic."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Is it? They're 186 thousand. That's more than the ML engineer and the CSM combined."
+    },
+    {
+      "speaker": "tom",
+      "text": "Okay. Okay. That's a fair point."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hannah, you're the one who'd manage the ML engineer. What do you think?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "I think, um. Honestly, I can do the beta with Marcus."
+    },
+    {
+      "speaker": "hannah",
+      "text": "I'd rather have the right person in February than the wrong person in November."
+    },
+    {
+      "speaker": "tom",
+      "text": "Wow. Okay. Hannah just ended the argument."
+    },
+    {
+      "speaker": "dana",
+      "text": "I think she did. Decision five. We approve the staff engineer and the CSM now."
+    },
+    {
+      "speaker": "dana",
+      "text": "The ML engineer req opens in January, and we'll revisit earlier if we're ahead of plan at the end of November."
+    },
+    {
+      "speaker": "dana",
+      "text": "Priya owns the Olivia offer, Siobhan owns the CSM hire."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Thank you. I'll have the job description out tomorrow."
+    },
+    {
+      "speaker": "dana",
+      "text": "And one more thing on capacity. Someone asked me about contractors for SSO. Priya?"
+    },
+    {
+      "speaker": "priya",
+      "text": "I'd say no. Auth is the one place I don't want someone who's leaving in three months."
+    },
+    {
+      "speaker": "priya",
+      "text": "The ramp-up alone would eat most of the time."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. No contractors on auth. Good."
+    },
+    {
+      "speaker": "dana",
+      "text": "Alright. We have about fifteen minutes left, so let's do the vote."
+    },
+    {
+      "speaker": "dana",
+      "text": "I'm going to read out the candidate priorities, and everyone gets three votes."
+    },
+    {
+      "speaker": "dana",
+      "text": "Just say your three when I call your name."
+    },
+    {
+      "speaker": "james",
+      "text": "Can we pass on one and give two to something?"
+    },
+    {
+      "speaker": "dana",
+      "text": "No stacking. Three different things."
+    },
+    {
+      "speaker": "james",
+      "text": "Worth a shot."
+    },
+    {
+      "speaker": "dana",
+      "text": "The six candidates are. One, the reliability code yellow, meaning ingestion and rollups. Two, SSO and SCIM."
+    },
+    {
+      "speaker": "dana",
+      "text": "Three, AI Insights design-partner beta. Four, the new Growth pricing and usage meter. Five, dashboard builder v2. Six, the mobile app."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Is the mobile app still a thing?"
+    },
+    {
+      "speaker": "tom",
+      "text": "It's my thing. It's a small thing. Customers ask for it."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Two customers ask for it."
+    },
+    {
+      "speaker": "tom",
+      "text": "Two very loud customers."
+    },
+    {
+      "speaker": "dana",
+      "text": "It's on the list because it was on the Q3 list. Let's see what the room says. Priya?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Reliability, SSO, and AI Insights beta."
+    },
+    {
+      "speaker": "dana",
+      "text": "Arjun?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Reliability, SSO, pricing."
+    },
+    {
+      "speaker": "dana",
+      "text": "Tom?"
+    },
+    {
+      "speaker": "tom",
+      "text": "AI Insights beta, reliability, and, ugh, I have to pick between pricing and dashboard builder."
+    },
+    {
+      "speaker": "dana",
+      "text": "You have to pick."
+    },
+    {
+      "speaker": "tom",
+      "text": "Dashboard builder v2. Somebody has to stand up for it."
+    },
+    {
+      "speaker": "dana",
+      "text": "Noted. Sofia?"
+    },
+    {
+      "speaker": "sofia",
+      "text": "Pricing, reliability, AI Insights."
+    },
+    {
+      "speaker": "dana",
+      "text": "James?"
+    },
+    {
+      "speaker": "james",
+      "text": "SSO, AI Insights, pricing."
+    },
+    {
+      "speaker": "dana",
+      "text": "Siobhan?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Reliability, SSO, pricing."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hannah?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "Oh. Um. Reliability, AI Insights, and SSO."
+    },
+    {
+      "speaker": "dana",
+      "text": "And me. Reliability, SSO, and AI Insights. So let me count."
+    },
+    {
+      "speaker": "dana",
+      "text": "Reliability, that's Priya, Arjun, Tom, Sofia, Siobhan, Hannah, me. Seven. SSO is Priya, Arjun, James, Siobhan, Hannah, me."
+    },
+    {
+      "speaker": "dana",
+      "text": "Six. AI Insights is Priya, Tom, Sofia, James, Hannah, me. Six. Pricing is Arjun, Sofia, James, Siobhan. Four."
+    },
+    {
+      "speaker": "dana",
+      "text": "Dashboard builder is Tom. One. And mobile app is zero."
+    },
+    {
+      "speaker": "tom",
+      "text": "Zero. Wow. Not even me."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Not even you."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'm a realist."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. So that's very clear, and it matches the decisions we've already made, which is reassuring."
+    },
+    {
+      "speaker": "dana",
+      "text": "The top four are in. Dashboard builder v2 moves to Q1. And the mobile app is cut."
+    },
+    {
+      "speaker": "dana",
+      "text": "Not deferred, cut. If it comes back, it comes back with real customer demand behind it."
+    },
+    {
+      "speaker": "tom",
+      "text": "Can we say deferred instead of cut? For morale?"
+    },
+    {
+      "speaker": "dana",
+      "text": "No. I think it's healthier to say cut. Deferred things never die, they just haunt the backlog."
+    },
+    {
+      "speaker": "arjun",
+      "text": "The backlog is basically a graveyard with a search bar."
+    },
+    {
+      "speaker": "dana",
+      "text": "Exactly. Decision six. Q4 priorities in order are reliability, SSO and SCIM, AI Insights beta, and Growth pricing."
+    },
+    {
+      "speaker": "dana",
+      "text": "Dashboard builder v2 moves to Q1. Mobile app is cut."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'll tell the two loud customers."
+    },
+    {
+      "speaker": "dana",
+      "text": "Thank you. And Tom, can you tell the whole company at the all-hands on Friday?"
+    },
+    {
+      "speaker": "dana",
+      "text": "I want them to hear what we're not doing, not just what we are."
+    },
+    {
+      "speaker": "tom",
+      "text": "Yeah, I'll do a slide. What we're doing, what we're not doing, and why."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Owners and dates. I'm going to go person by person, and I want you to say the thing and the date out loud, so it's in the recording and nobody can claim they didn't agree to it."
+    },
+    {
+      "speaker": "james",
+      "text": "This is the part where I start sweating."
+    },
+    {
+      "speaker": "dana",
+      "text": "You should. Let's start with Priya."
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay. One, I'll send the code yellow plan to engineering, with who's pulled from what, by end of day tomorrow, Friday October 3rd."
+    },
+    {
+      "speaker": "priya",
+      "text": "Two, SSO GA on November 2nd and SCIM on November 16th, with a status update every Friday in the eng update."
+    },
+    {
+      "speaker": "priya",
+      "text": "Three, the offer to Olivia goes out by Wednesday, October 8th."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great. And the status page?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Right, sorry. Kevin owns the public status page, live by October 24th, the end of the code yellow."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'll confirm with him today."
+    },
+    {
+      "speaker": "dana",
+      "text": "Arjun."
+    },
+    {
+      "speaker": "arjun",
+      "text": "The Kafka ingestion design doc by October 9th. Dual-write starting the week after. Cutover complete by October 30th."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And the Globex rollup pilot ready by November 6th."
+    },
+    {
+      "speaker": "dana",
+      "text": "Good. And the performance one-pager for Siobhan?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Oh, yes. The before and after numbers for Globex, I'll get that to Siobhan by October 27th, once we have a week of post-cutover data. Well, early data."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Early data is fine."
+    },
+    {
+      "speaker": "dana",
+      "text": "Hannah."
+    },
+    {
+      "speaker": "hannah",
+      "text": "Um. So I'll get the Explain This Change eval to 75 percent top-three accuracy before any partner sees it."
+    },
+    {
+      "speaker": "hannah",
+      "text": "And I'll send a progress update every two weeks. The first one on October 16th."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great. And a go or no-go call on the beta when?"
+    },
+    {
+      "speaker": "hannah",
+      "text": "November 13th. A week before the launch date. So there's time to react."
+    },
+    {
+      "speaker": "dana",
+      "text": "Perfect. Tom."
+    },
+    {
+      "speaker": "tom",
+      "text": "So, the AI Insights beta one-pager. What it does, what it doesn't do, and who qualifies as a design partner."
+    },
+    {
+      "speaker": "tom",
+      "text": "By October 10th. And the all-hands slide on what we're doing and not doing, that's this Friday."
+    },
+    {
+      "speaker": "dana",
+      "text": "And talking to the two loud mobile customers?"
+    },
+    {
+      "speaker": "tom",
+      "text": "By the end of next week. I'll do it on a call, not an email. They deserve that."
+    },
+    {
+      "speaker": "dana",
+      "text": "Good. Siobhan."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Okay. First, recruit the ten AI Insights design partners, signed up by October 24th. Parcelly first."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Second, a call with Greg Holloway at Globex to walk him through the reliability plan and the SSO dates, by October 10th."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Third, the CSM job description goes out tomorrow."
+    },
+    {
+      "speaker": "dana",
+      "text": "And Globex as a design partner?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I'll ask Greg on that call. If Arjun's pilot is on track, I think they'll say yes."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Maya already said she was interested in the QBR."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great. Sofia."
+    },
+    {
+      "speaker": "sofia",
+      "text": "The pricing spec with final numbers and the grandfathering rules, by October 15th."
+    },
+    {
+      "speaker": "sofia",
+      "text": "The customer email for existing Growth accounts, drafted by October 20th, and Siobhan reviews it."
+    },
+    {
+      "speaker": "sofia",
+      "text": "And new pricing goes live for new customers on November 3rd."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I'll review it within two days of getting it."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Thank you."
+    },
+    {
+      "speaker": "dana",
+      "text": "James."
+    },
+    {
+      "speaker": "james",
+      "text": "Updated Q4 forecast reflecting all of this, by October 8th."
+    },
+    {
+      "speaker": "james",
+      "text": "Updated security questionnaire answers for Meridian and Castellan with the SSO dates, by October 7th."
+    },
+    {
+      "speaker": "james",
+      "text": "And sales enablement on the new pricing, a training session for the reps, by October 31st."
+    },
+    {
+      "speaker": "dana",
+      "text": "And the comp plan?"
+    },
+    {
+      "speaker": "james",
+      "text": "That's you and me."
+    },
+    {
+      "speaker": "dana",
+      "text": "That's you and me. Comp plan change so reps aren't penalized for plan switches, done with finance, by October 17th."
+    },
+    {
+      "speaker": "dana",
+      "text": "I own that one, James is on the hook to review it."
+    },
+    {
+      "speaker": "james",
+      "text": "Happy to be on the hook for that one."
+    },
+    {
+      "speaker": "dana",
+      "text": "And my other one is the board update."
+    },
+    {
+      "speaker": "dana",
+      "text": "Q4 plan, the decisions from today, and the revised ARR bridge. By October 9th."
+    },
+    {
+      "speaker": "priya",
+      "text": "Can I ask one thing about the board update?"
+    },
+    {
+      "speaker": "dana",
+      "text": "Sure."
+    },
+    {
+      "speaker": "priya",
+      "text": "Can you frame the code yellow as an investment and not as a problem?"
+    },
+    {
+      "speaker": "priya",
+      "text": "The team's already feeling a bit bruised about the incidents."
+    },
+    {
+      "speaker": "priya",
+      "text": "I don't want them to read the board deck and feel like they're the problem."
+    },
+    {
+      "speaker": "dana",
+      "text": "Absolutely. That's a good call. And for what it's worth, I don't think the team is the problem."
+    },
+    {
+      "speaker": "dana",
+      "text": "I think the sequencing was the problem, and that was mostly my call."
+    },
+    {
+      "speaker": "priya",
+      "text": "Thank you. I'll pass that on."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Did I miss anyone? Hannah, Tom, Sofia, Siobhan, James, Priya, Arjun, me."
+    },
+    {
+      "speaker": "dana",
+      "text": "Anybody have something they think should have an owner that doesn't?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Just one thing. The on-call noise reduction. I said Kevin thinks two weeks. Can we put that at October 17th?"
+    },
+    {
+      "speaker": "dana",
+      "text": "Yes. Kevin, alert cleanup, 60 percent fewer pages, by October 17th. Priya, add it to your note to him."
+    },
+    {
+      "speaker": "priya",
+      "text": "Got it. He's going to love me today."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Bring him a coffee."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'll bring him two."
+    },
+    {
+      "speaker": "dana",
+      "text": "Okay. Let me do the wrap-up. We have about three minutes, so I'll be fast."
+    },
+    {
+      "speaker": "dana",
+      "text": "Decisions. One, AI Insights ships in Q4 as a design-partner beta of Explain This Change."
+    },
+    {
+      "speaker": "dana",
+      "text": "Ten partners, Growth and Enterprise, Hannah and Marcus, live by November 20th, only if the eval hits 75 percent. No GA in Q4."
+    },
+    {
+      "speaker": "dana",
+      "text": "Two, reliability code yellow from October 6th to October 24th. Kafka ingestion, rollups, alert cleanup, public status page."
+    },
+    {
+      "speaker": "dana",
+      "text": "Three, SSO on November 2nd, SCIM on November 16th, audit logs in Q1."
+    },
+    {
+      "speaker": "dana",
+      "text": "Four, new Growth pricing live November 3rd, $599 with 20 million events, $25 per extra million."
+    },
+    {
+      "speaker": "dana",
+      "text": "Grandfathering for twelve months. Comp plan fixed."
+    },
+    {
+      "speaker": "dana",
+      "text": "Five, hire the staff engineer and the CSM now, ML engineer in January."
+    },
+    {
+      "speaker": "dana",
+      "text": "Six, priorities in order, reliability, SSO, AI Insights, pricing. Dashboard builder v2 moves to Q1. Mobile app is cut."
+    },
+    {
+      "speaker": "dana",
+      "text": "Anything I got wrong?"
+    },
+    {
+      "speaker": "tom",
+      "text": "No. That's right. Painful, but right."
+    },
+    {
+      "speaker": "sofia",
+      "text": "That's right."
+    },
+    {
+      "speaker": "james",
+      "text": "That's what I heard."
+    },
+    {
+      "speaker": "dana",
+      "text": "Great. Then the last thing. I know this one was intense, and I know not everyone got what they wanted. Tom especially."
+    },
+    {
+      "speaker": "tom",
+      "text": "I'll be fine. I'll just go cry into the mobile app mockups."
+    },
+    {
+      "speaker": "dana",
+      "text": "But I think this is the most honest plan we've had."
+    },
+    {
+      "speaker": "dana",
+      "text": "And if we hit it, we're at 4.2 million and the Globex renewal is signed, and we have an AI story we're not embarrassed by."
+    },
+    {
+      "speaker": "priya",
+      "text": "And nobody gets paged at 3 AM four nights in a row."
+    },
+    {
+      "speaker": "dana",
+      "text": "And nobody gets paged at 3 AM four nights in a row. That too."
+    },
+    {
+      "speaker": "james",
+      "text": "Biscuit would like to add that he's very proud of everyone."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Tell Biscuit he's in the Q4 plan now."
+    },
+    {
+      "speaker": "james",
+      "text": "He'll want equity."
+    },
+    {
+      "speaker": "dana",
+      "text": "Everybody wants equity. Okay. Priya, the notes will go out automatically?"
+    },
+    {
+      "speaker": "priya",
+      "text": "Yep, as soon as I stop the recording. Summary, action items, all of it."
+    },
+    {
+      "speaker": "priya",
+      "text": "I'll share it in the leadership channel."
+    },
+    {
+      "speaker": "dana",
+      "text": "Perfect. Thanks everyone. Great meeting. Go do the things."
+    },
+    {
+      "speaker": "tom",
+      "text": "Thanks, all."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Thanks. Bye."
+    },
+    {
+      "speaker": "hannah",
+      "text": "Bye."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Bye, everyone."
+    }
+  ]
+}

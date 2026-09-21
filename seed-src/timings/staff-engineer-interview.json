@@ -1,0 +1,476 @@
+{
+  "slug": "staff-engineer-interview",
+  "media": "/media/staff-engineer-interview.m4a",
+  "duration_ms": 696251,
+  "sample_rate": 24000,
+  "lines": [
+    {
+      "index": 0,
+      "speaker": "priya",
+      "start_ms": 600,
+      "end_ms": 4743
+    },
+    {
+      "index": 1,
+      "speaker": "olivia",
+      "start_ms": 5054,
+      "end_ms": 13902
+    },
+    {
+      "index": 2,
+      "speaker": "arjun",
+      "start_ms": 14319,
+      "end_ms": 18725
+    },
+    {
+      "index": 3,
+      "speaker": "priya",
+      "start_ms": 19017,
+      "end_ms": 28773
+    },
+    {
+      "index": 4,
+      "speaker": "arjun",
+      "start_ms": 29257,
+      "end_ms": 35048
+    },
+    {
+      "index": 5,
+      "speaker": "priya",
+      "start_ms": 35464,
+      "end_ms": 45673
+    },
+    {
+      "index": 6,
+      "speaker": "olivia",
+      "start_ms": 46094,
+      "end_ms": 47401
+    },
+    {
+      "index": 7,
+      "speaker": "priya",
+      "start_ms": 47772,
+      "end_ms": 52262
+    },
+    {
+      "index": 8,
+      "speaker": "olivia",
+      "start_ms": 52951,
+      "end_ms": 66773
+    },
+    {
+      "index": 9,
+      "speaker": "olivia",
+      "start_ms": 67021,
+      "end_ms": 79747
+    },
+    {
+      "index": 10,
+      "speaker": "priya",
+      "start_ms": 80406,
+      "end_ms": 83358
+    },
+    {
+      "index": 11,
+      "speaker": "olivia",
+      "start_ms": 83717,
+      "end_ms": 99461
+    },
+    {
+      "index": 12,
+      "speaker": "arjun",
+      "start_ms": 99793,
+      "end_ms": 105933
+    },
+    {
+      "index": 13,
+      "speaker": "olivia",
+      "start_ms": 106470,
+      "end_ms": 118511
+    },
+    {
+      "index": 14,
+      "speaker": "olivia",
+      "start_ms": 118818,
+      "end_ms": 133708
+    },
+    {
+      "index": 15,
+      "speaker": "arjun",
+      "start_ms": 133959,
+      "end_ms": 137629
+    },
+    {
+      "index": 16,
+      "speaker": "olivia",
+      "start_ms": 138047,
+      "end_ms": 152816
+    },
+    {
+      "index": 17,
+      "speaker": "priya",
+      "start_ms": 153498,
+      "end_ms": 158012
+    },
+    {
+      "index": 18,
+      "speaker": "olivia",
+      "start_ms": 158270,
+      "end_ms": 166178
+    },
+    {
+      "index": 19,
+      "speaker": "priya",
+      "start_ms": 166569,
+      "end_ms": 170139
+    },
+    {
+      "index": 20,
+      "speaker": "arjun",
+      "start_ms": 170600,
+      "end_ms": 182556
+    },
+    {
+      "index": 21,
+      "speaker": "arjun",
+      "start_ms": 182791,
+      "end_ms": 201504
+    },
+    {
+      "index": 22,
+      "speaker": "olivia",
+      "start_ms": 202029,
+      "end_ms": 206245
+    },
+    {
+      "index": 23,
+      "speaker": "arjun",
+      "start_ms": 206865,
+      "end_ms": 207430
+    },
+    {
+      "index": 24,
+      "speaker": "olivia",
+      "start_ms": 207928,
+      "end_ms": 215371
+    },
+    {
+      "index": 25,
+      "speaker": "arjun",
+      "start_ms": 215698,
+      "end_ms": 228610
+    },
+    {
+      "index": 26,
+      "speaker": "olivia",
+      "start_ms": 229007,
+      "end_ms": 233815
+    },
+    {
+      "index": 27,
+      "speaker": "arjun",
+      "start_ms": 234392,
+      "end_ms": 237211
+    },
+    {
+      "index": 28,
+      "speaker": "olivia",
+      "start_ms": 238377,
+      "end_ms": 253784
+    },
+    {
+      "index": 29,
+      "speaker": "olivia",
+      "start_ms": 254036,
+      "end_ms": 262617
+    },
+    {
+      "index": 30,
+      "speaker": "arjun",
+      "start_ms": 263303,
+      "end_ms": 267271
+    },
+    {
+      "index": 31,
+      "speaker": "olivia",
+      "start_ms": 268393,
+      "end_ms": 281681
+    },
+    {
+      "index": 32,
+      "speaker": "arjun",
+      "start_ms": 281980,
+      "end_ms": 284995
+    },
+    {
+      "index": 33,
+      "speaker": "olivia",
+      "start_ms": 285529,
+      "end_ms": 297860
+    },
+    {
+      "index": 34,
+      "speaker": "arjun",
+      "start_ms": 298276,
+      "end_ms": 301817
+    },
+    {
+      "index": 35,
+      "speaker": "olivia",
+      "start_ms": 302490,
+      "end_ms": 319737
+    },
+    {
+      "index": 36,
+      "speaker": "olivia",
+      "start_ms": 319913,
+      "end_ms": 331170
+    },
+    {
+      "index": 37,
+      "speaker": "arjun",
+      "start_ms": 331494,
+      "end_ms": 334856
+    },
+    {
+      "index": 38,
+      "speaker": "olivia",
+      "start_ms": 335430,
+      "end_ms": 350263
+    },
+    {
+      "index": 39,
+      "speaker": "arjun",
+      "start_ms": 350643,
+      "end_ms": 361210
+    },
+    {
+      "index": 40,
+      "speaker": "olivia",
+      "start_ms": 361483,
+      "end_ms": 379358
+    },
+    {
+      "index": 41,
+      "speaker": "arjun",
+      "start_ms": 379635,
+      "end_ms": 389048
+    },
+    {
+      "index": 42,
+      "speaker": "olivia",
+      "start_ms": 389716,
+      "end_ms": 400317
+    },
+    {
+      "index": 43,
+      "speaker": "priya",
+      "start_ms": 400947,
+      "end_ms": 405216
+    },
+    {
+      "index": 44,
+      "speaker": "arjun",
+      "start_ms": 405911,
+      "end_ms": 416072
+    },
+    {
+      "index": 45,
+      "speaker": "olivia",
+      "start_ms": 416584,
+      "end_ms": 434349
+    },
+    {
+      "index": 46,
+      "speaker": "olivia",
+      "start_ms": 434541,
+      "end_ms": 442141
+    },
+    {
+      "index": 47,
+      "speaker": "arjun",
+      "start_ms": 442622,
+      "end_ms": 448115
+    },
+    {
+      "index": 48,
+      "speaker": "olivia",
+      "start_ms": 448494,
+      "end_ms": 460651
+    },
+    {
+      "index": 49,
+      "speaker": "arjun",
+      "start_ms": 461254,
+      "end_ms": 467045
+    },
+    {
+      "index": 50,
+      "speaker": "priya",
+      "start_ms": 467722,
+      "end_ms": 475574
+    },
+    {
+      "index": 51,
+      "speaker": "olivia",
+      "start_ms": 475933,
+      "end_ms": 488583
+    },
+    {
+      "index": 52,
+      "speaker": "olivia",
+      "start_ms": 488840,
+      "end_ms": 502472
+    },
+    {
+      "index": 53,
+      "speaker": "olivia",
+      "start_ms": 502754,
+      "end_ms": 511927
+    },
+    {
+      "index": 54,
+      "speaker": "priya",
+      "start_ms": 512237,
+      "end_ms": 515140
+    },
+    {
+      "index": 55,
+      "speaker": "olivia",
+      "start_ms": 515745,
+      "end_ms": 533103
+    },
+    {
+      "index": 56,
+      "speaker": "priya",
+      "start_ms": 533364,
+      "end_ms": 539165
+    },
+    {
+      "index": 57,
+      "speaker": "olivia",
+      "start_ms": 539667,
+      "end_ms": 545021
+    },
+    {
+      "index": 58,
+      "speaker": "priya",
+      "start_ms": 545412,
+      "end_ms": 559139
+    },
+    {
+      "index": 59,
+      "speaker": "olivia",
+      "start_ms": 559695,
+      "end_ms": 565211
+    },
+    {
+      "index": 60,
+      "speaker": "arjun",
+      "start_ms": 565710,
+      "end_ms": 579679
+    },
+    {
+      "index": 61,
+      "speaker": "priya",
+      "start_ms": 580192,
+      "end_ms": 589686
+    },
+    {
+      "index": 62,
+      "speaker": "olivia",
+      "start_ms": 590302,
+      "end_ms": 593287
+    },
+    {
+      "index": 63,
+      "speaker": "arjun",
+      "start_ms": 593692,
+      "end_ms": 605500
+    },
+    {
+      "index": 64,
+      "speaker": "olivia",
+      "start_ms": 606034,
+      "end_ms": 612774
+    },
+    {
+      "index": 65,
+      "speaker": "priya",
+      "start_ms": 613363,
+      "end_ms": 623386
+    },
+    {
+      "index": 66,
+      "speaker": "olivia",
+      "start_ms": 623945,
+      "end_ms": 626985
+    },
+    {
+      "index": 67,
+      "speaker": "priya",
+      "start_ms": 627438,
+      "end_ms": 638136
+    },
+    {
+      "index": 68,
+      "speaker": "olivia",
+      "start_ms": 638616,
+      "end_ms": 648075
+    },
+    {
+      "index": 69,
+      "speaker": "arjun",
+      "start_ms": 648675,
+      "end_ms": 652141
+    },
+    {
+      "index": 70,
+      "speaker": "priya",
+      "start_ms": 652521,
+      "end_ms": 654196
+    },
+    {
+      "index": 71,
+      "speaker": "olivia",
+      "start_ms": 654498,
+      "end_ms": 655311
+    },
+    {
+      "index": 72,
+      "speaker": "priya",
+      "start_ms": 655754,
+      "end_ms": 660334
+    },
+    {
+      "index": 73,
+      "speaker": "arjun",
+      "start_ms": 661647,
+      "end_ms": 673242
+    },
+    {
+      "index": 74,
+      "speaker": "priya",
+      "start_ms": 673798,
+      "end_ms": 681702
+    },
+    {
+      "index": 75,
+      "speaker": "arjun",
+      "start_ms": 682189,
+      "end_ms": 686448
+    },
+    {
+      "index": 76,
+      "speaker": "priya",
+      "start_ms": 686799,
+      "end_ms": 693350
+    },
+    {
+      "index": 77,
+      "speaker": "arjun",
+      "start_ms": 693690,
+      "end_ms": 695451
+    }
+  ]
+}

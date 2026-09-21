@@ -1,0 +1,460 @@
+{
+  "slug": "globex-qbr",
+  "title": "Globex Q3 Business Review",
+  "meeting_type": "customer_success",
+  "days_ago": 8,
+  "start_time": "13:00",
+  "recorded_by": "Siobhan Kelly",
+  "participants": [
+    {
+      "key": "siobhan",
+      "name": "Siobhan Kelly",
+      "title": "Head of Customer Success",
+      "email": "siobhan@northwindlabs.io",
+      "is_external": false,
+      "voice": "Moira"
+    },
+    {
+      "key": "ethan",
+      "name": "Ethan Brooks",
+      "title": "Account Executive",
+      "email": "ethan@northwindlabs.io",
+      "is_external": false,
+      "voice": "Eddy (English (US))"
+    },
+    {
+      "key": "greg",
+      "name": "Greg Holloway",
+      "title": "Director of RevOps, Globex",
+      "email": "greg.holloway@globex.com",
+      "is_external": true,
+      "voice": "Ralph"
+    },
+    {
+      "key": "maya",
+      "name": "Maya Lindqvist",
+      "title": "Analytics Manager, Globex",
+      "email": "maya.lindqvist@globex.com",
+      "is_external": true,
+      "voice": "Kathy"
+    }
+  ],
+  "lines": [
+    {
+      "speaker": "siobhan",
+      "text": "Hi Greg, hi Maya. Thanks so much for joining. I think we're all here. Ethan's on as well."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Hey folks, good to see you again."
+    },
+    {
+      "speaker": "greg",
+      "text": "Hey. Sorry, I'm dialing in from the car, so if I cut out, that's why. I'm parked, don't worry."
+    },
+    {
+      "speaker": "maya",
+      "text": "Hi everyone. I'm at my desk and fully caffeinated, so I'll cover for Greg."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Ha, perfect. So the plan for today is about forty five minutes. I'll go through usage and value from Q3, then I'd love to hear from you on what's working and what isn't. And then we'll talk about the renewal, which is coming up November thirtieth."
+    },
+    {
+      "speaker": "greg",
+      "text": "Sounds good. And I'll be upfront, I do have some concerns on the renewal side, so I'm glad we're doing this."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I appreciate you saying that up front. Let's make sure we get to it. Do you want to start with the concerns, or should I run through the numbers first?"
+    },
+    {
+      "speaker": "greg",
+      "text": "Go through the numbers. I want to see if they match my gut."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Okay. So in Q3, you had one hundred forty two weekly active users on Pulse, out of two hundred licensed seats. That's seventy one percent, up from fifty eight percent in Q2."
+    },
+    {
+      "speaker": "maya",
+      "text": "That tracks. We rolled it out to the whole sales ops team in July."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Right. And the dashboards created went from about ninety to two hundred and ten. The most viewed one is Maya's pipeline velocity board, which got about four thousand views in the quarter."
+    },
+    {
+      "speaker": "maya",
+      "text": "Ha, my board is famous. I'm going to put that in my performance review."
+    },
+    {
+      "speaker": "ethan",
+      "text": "You should. Four thousand views is more than most of our blog posts."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Alerts are the other big one. You have thirty eight active alerts, and in Q3 they fired about six hundred times. Maya, your team flagged that one of them caught the lead routing bug in August?"
+    },
+    {
+      "speaker": "maya",
+      "text": "Yeah, that was a big save. The round robin broke after a Salesforce update and inbound leads weren't getting assigned. The alert caught it in about two hours. Before Pulse, we found out about that kind of thing a week later from angry reps."
+    },
+    {
+      "speaker": "greg",
+      "text": "We estimated that saved us around eighty leads, which is roughly two hundred thousand in pipeline. So yes, that one was worth it."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That's great to hear. Okay, so the other side. Query performance. I know it was rough in Q2 and early Q3."
+    },
+    {
+      "speaker": "maya",
+      "text": "Rough is generous. Some of the funnel queries were taking eight, nine seconds. My team started exporting to spreadsheets just to avoid waiting."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Yeah. So the engineering team shipped a query planner rewrite last week. On your dataset specifically, funnel P95 went from two point eight seconds to about nine hundred milliseconds. Have you noticed it?"
+    },
+    {
+      "speaker": "maya",
+      "text": "Oh, actually, yes. I thought it was just a good day. That's real?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That's real. Marcus on our team did most of it and he used your dataset as the benchmark, because it's one of our biggest."
+    },
+    {
+      "speaker": "maya",
+      "text": "Well, tell Marcus thank you. Genuinely."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I will. Okay Greg, so, the concerns. What's on your mind?"
+    },
+    {
+      "speaker": "greg",
+      "text": "So a few things. One, the cost. We're paying about one hundred and eighty six thousand a year right now. And my CFO is going line by line through every SaaS tool. Every tool has to justify itself, and we've already cut four vendors this quarter."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Understood. Is there a specific number you've been asked to hit?"
+    },
+    {
+      "speaker": "greg",
+      "text": "I've been told to cut the analytics stack by twenty percent overall. That includes you, Tableau, and a couple of smaller things."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Okay. What's the second concern?"
+    },
+    {
+      "speaker": "greg",
+      "text": "Two is the sharing thing. We have execs who want to see dashboards but don't want another login. Right now Maya's team screenshots boards into Slack every Monday. It's, frankly, a little embarrassing."
+    },
+    {
+      "speaker": "maya",
+      "text": "It's very embarrassing. I have a calendar reminder called screenshot the boards. That's a real thing in my life."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Oh, that's painful. So good news on that one. We have external dashboard sharing in beta right now, and you're actually one of the three beta customers. Did you get the email?"
+    },
+    {
+      "speaker": "maya",
+      "text": "Wait, is that the share button that showed up last week? I tried it and the preview was a gray box."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Ha, yes, that was you. You found our bug. The team's fixing it this week and it should be generally available by end of next week."
+    },
+    {
+      "speaker": "maya",
+      "text": "Okay, well, I'm glad my suffering was useful."
+    },
+    {
+      "speaker": "greg",
+      "text": "If that works, that solves problem two. That's a real thing for us."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And three?"
+    },
+    {
+      "speaker": "greg",
+      "text": "Three is more strategic. There's a push internally to consolidate on Snowflake native tooling. Our data platform lead thinks we could build most of what Pulse does with Snowflake and Streamlit. I don't fully agree, but he's persuasive, and he's got the CTO's ear."
+    },
+    {
+      "speaker": "ethan",
+      "text": "That's helpful to know. Can I ask, what does he think it would cost to build and maintain?"
+    },
+    {
+      "speaker": "greg",
+      "text": "He says two engineers for a quarter. Which, you know, I've heard that before."
+    },
+    {
+      "speaker": "maya",
+      "text": "Every internal tool is two engineers for a quarter. And then it's one engineer forever, and then it's nobody and it's broken."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, Maya, can I quote you on that?"
+    },
+    {
+      "speaker": "maya",
+      "text": "Please don't. He sits next to me."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Ha. Okay, so let me play back what I heard. One, budget pressure, twenty percent cut across the analytics stack. Two, exec sharing without logins. And three, a build versus buy argument from your data platform lead. Is that everything?"
+    },
+    {
+      "speaker": "greg",
+      "text": "That's everything. Oh, and I guess four. We'd love an easier way to explain what changed week over week. Like, why did conversion drop. Right now Maya's team does that manually every Monday."
+    },
+    {
+      "speaker": "maya",
+      "text": "That's the other half of my Monday. Screenshots and explanations. Mondays are not my favorite."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That's actually a perfect lead in. We're building something called AI Insights. It's still early, but the idea is exactly that, automatically explaining what changed and why, in plain English. We'd love Globex to be a design partner."
+    },
+    {
+      "speaker": "maya",
+      "text": "Oh, I would absolutely be up for that. What does being a design partner involve?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "A couple of feedback sessions a month with our product team, early access, and we'd use anonymized patterns from your data to test it. Tom Okafor, our head of product, would run it."
+    },
+    {
+      "speaker": "greg",
+      "text": "I like that. That's also something I can bring to the CFO, like, we're getting early access to something we'd otherwise have to build."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Can I jump in on the budget side? Because I think there's a way to make this work."
+    },
+    {
+      "speaker": "greg",
+      "text": "Please."
+    },
+    {
+      "speaker": "ethan",
+      "text": "So you have two hundred seats, but about one hundred forty are weekly active. What if we right size to one hundred sixty seats, which gives you headroom, and in exchange you commit to two years instead of one? With the multi year discount, that gets your annual cost to around one hundred forty nine thousand."
+    },
+    {
+      "speaker": "greg",
+      "text": "One forty nine from one eighty six. That's a twenty percent cut. Hmm."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Exactly twenty percent. And the exec viewers, once external sharing is live, don't need seats at all. Viewers are free on Enterprise."
+    },
+    {
+      "speaker": "greg",
+      "text": "Wait, viewers are free? That changes the math on the Tableau side too, because half of our Tableau licenses are just execs looking at things."
+    },
+    {
+      "speaker": "maya",
+      "text": "Oh, that's a really good point, Greg. We could probably drop fifteen or twenty Tableau Viewer licenses."
+    },
+    {
+      "speaker": "greg",
+      "text": "Okay, I'm going to be honest, that's more interesting than I expected. But two years is a big commitment right now. My CFO is allergic to multi year anything."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Totally understand. What if the second year had an opt out clause tied to the AI Insights delivery? Like, if we don't ship it to general availability by end of Q2 next year, you can walk away from year two."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Ethan, I need to check that with Tom before we promise it."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Yeah, fair, I'm floating it, not promising it. Greg, would something like that help?"
+    },
+    {
+      "speaker": "greg",
+      "text": "It would. It takes the risk off the table for the CFO. But I'd need it in writing, obviously."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Of course. Okay, let me also address the build versus buy concern. Would it help if we did a session with your data platform lead? We could walk through the architecture and total cost, honestly, including where Snowflake native might make sense."
+    },
+    {
+      "speaker": "greg",
+      "text": "Yeah. His name is Victor. He'll appreciate being taken seriously. If you come in with a slide deck of why he's wrong, he'll dig in."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Noted. No slide deck of why Victor is wrong. We'll bring Arjun, our staff platform engineer. He's very much a whiteboard person, not a slides person."
+    },
+    {
+      "speaker": "maya",
+      "text": "Victor will love him then. They can nerd out about materialized views."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Before we get to timeline, I want to look at adoption by team, because there's one gap that worries me a bit. Can I share my screen?"
+    },
+    {
+      "speaker": "greg",
+      "text": "Go ahead. I can see it on my phone, barely."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "So sales ops and RevOps are heavy users, no surprise. Marketing is at about sixty percent weekly active. But customer support, which has forty seats, is at eleven percent. Only four or five people log in in a normal week."
+    },
+    {
+      "speaker": "maya",
+      "text": "Yeah, that's on us. Support was kind of forced into it by our old VP, and then he left in June. Nobody really owns their dashboards anymore."
+    },
+    {
+      "speaker": "greg",
+      "text": "Honestly, that's part of why I think we're over licensed. Those forty seats are mostly dead weight."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "That's fair, and it's part of why Ethan's right sizing makes sense. But I'd push back a little. Support is sitting on ticket data that would make Maya's pipeline board way more useful. Like, which accounts file the most tickets before churning."
+    },
+    {
+      "speaker": "maya",
+      "text": "Oh. Huh. We've never connected those two. That's actually a question our CRO asked last quarter and we couldn't answer."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "So here's an offer. We run a free ninety minute enablement session for the support leads, and we build them a starter board, ticket volume by account health. If usage doesn't move in thirty days, we cut those seats, no argument from me."
+    },
+    {
+      "speaker": "greg",
+      "text": "That's reasonable. Who's the new support lead, Maya, is it Priscilla?"
+    },
+    {
+      "speaker": "maya",
+      "text": "Priscilla Duarte, yeah. She's great, and she's been asking for better reporting. I think she'll say yes on the spot."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Great. Maya, could you intro me to Priscilla? I'd love to run the session before the end of October."
+    },
+    {
+      "speaker": "maya",
+      "text": "Sure, I'll send it this week. Probably Thursday, I'm out tomorrow."
+    },
+    {
+      "speaker": "ethan",
+      "text": "And Greg, just so it's clear, the one hundred sixty seat number already assumes support shrinks. If the session works and they grow back, we can true up at the end of year one, not before."
+    },
+    {
+      "speaker": "greg",
+      "text": "Okay, no surprise invoices mid year. That's important to me. We got burned by that with another vendor last year, a surprise overage bill for thirty grand."
+    },
+    {
+      "speaker": "ethan",
+      "text": "No surprise invoices. I'll put that in the proposal explicitly."
+    },
+    {
+      "speaker": "maya",
+      "text": "One more product thing while Siobhan is sharing. The alert emails. They go to a shared inbox and people ignore them. Can they go to Slack channels? Like, per alert?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Yes, actually, that already exists. You can route each alert to a different Slack channel in the alert settings. It was released in August, but I don't think we did a good job announcing it."
+    },
+    {
+      "speaker": "maya",
+      "text": "Wait, seriously? Okay, that's embarrassing for both of us. I'll set that up this afternoon."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Ha, we'll split the embarrassment. I'll send you the help article right after this call."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Perfect. Okay, so on the renewal timeline. January thirty first is the renewal date. What does your internal process look like?"
+    },
+    {
+      "speaker": "greg",
+      "text": "Budget review with the CFO is October twenty second. I need to go in with a proposal by then. After that, procurement usually needs two to three weeks."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Okay. So if I get you a written proposal with the two options, one year and two year with the opt out, by October tenth, does that give you enough time?"
+    },
+    {
+      "speaker": "greg",
+      "text": "October tenth is good. Earlier is better, if you can."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Let's say October eighth then. I'll check the opt out clause with Tom and our finance team this week."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And I'll set up the architecture session with Victor and Arjun for the week of October sixth. Greg, can you intro me to Victor over email?"
+    },
+    {
+      "speaker": "greg",
+      "text": "Yeah, I'll do that today."
+    },
+    {
+      "speaker": "maya",
+      "text": "Can I ask one more thing, while I have you? The CSV exports are capped at fifty thousand rows. Some of my analysts hit that every week. Is that going to change?"
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Good question. I don't know the answer off the top of my head. Let me check with the engineering team and get back to you by Friday."
+    },
+    {
+      "speaker": "maya",
+      "text": "Thanks. It's not a dealbreaker, but it's annoying."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Understood. Annoying things turn into dealbreakers eventually, so I'd rather fix it."
+    },
+    {
+      "speaker": "greg",
+      "text": "That's a good philosophy."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "Okay, let me wrap up so Greg can actually drive somewhere. Here's what I have. Ethan sends a written renewal proposal with a one year option and a two year option with an AI Insights opt out, by October eighth, after checking with Tom and finance."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Yep."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I'll set up the architecture session with Victor and Arjun the week of October sixth, once Greg sends the intro today. Globex joins the AI Insights design partner program, and I'll get Tom to reach out to Maya by next Wednesday. External sharing goes GA by end of next week, and I'll personally let Maya know when it's live."
+    },
+    {
+      "speaker": "maya",
+      "text": "Yay. Goodbye screenshot reminder."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "And I'll get an answer on the CSV row limit by Friday. Greg, you'll take the proposal to the CFO budget review on October twenty second."
+    },
+    {
+      "speaker": "greg",
+      "text": "That's right. And honestly, this was a better conversation than I expected coming in. I was about sixty forty on not renewing, and now I'm more like the other way around."
+    },
+    {
+      "speaker": "siobhan",
+      "text": "I really appreciate you saying that. We'll make sure the follow through matches."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Thanks Greg, thanks Maya. Talk soon."
+    },
+    {
+      "speaker": "maya",
+      "text": "Thanks everyone. Bye!"
+    }
+  ]
+}

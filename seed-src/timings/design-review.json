@@ -1,0 +1,242 @@
+{
+  "slug": "design-review",
+  "media": "/media/design-review.m4a",
+  "duration_ms": 394555,
+  "sample_rate": 24000,
+  "lines": [
+    {
+      "index": 0,
+      "speaker": "leah",
+      "start_ms": 600,
+      "end_ms": 5415
+    },
+    {
+      "index": 1,
+      "speaker": "nina",
+      "start_ms": 5761,
+      "end_ms": 11295
+    },
+    {
+      "index": 2,
+      "speaker": "leah",
+      "start_ms": 11821,
+      "end_ms": 25274
+    },
+    {
+      "index": 3,
+      "speaker": "sofia",
+      "start_ms": 25586,
+      "end_ms": 42218
+    },
+    {
+      "index": 4,
+      "speaker": "leah",
+      "start_ms": 42584,
+      "end_ms": 56547
+    },
+    {
+      "index": 5,
+      "speaker": "nina",
+      "start_ms": 57051,
+      "end_ms": 62361
+    },
+    {
+      "index": 6,
+      "speaker": "leah",
+      "start_ms": 63593,
+      "end_ms": 78837
+    },
+    {
+      "index": 7,
+      "speaker": "nina",
+      "start_ms": 79111,
+      "end_ms": 95589
+    },
+    {
+      "index": 8,
+      "speaker": "sofia",
+      "start_ms": 96101,
+      "end_ms": 104494
+    },
+    {
+      "index": 9,
+      "speaker": "nina",
+      "start_ms": 105087,
+      "end_ms": 116270
+    },
+    {
+      "index": 10,
+      "speaker": "leah",
+      "start_ms": 116861,
+      "end_ms": 130233
+    },
+    {
+      "index": 11,
+      "speaker": "sofia",
+      "start_ms": 130767,
+      "end_ms": 133198
+    },
+    {
+      "index": 12,
+      "speaker": "nina",
+      "start_ms": 133504,
+      "end_ms": 143471
+    },
+    {
+      "index": 13,
+      "speaker": "leah",
+      "start_ms": 144125,
+      "end_ms": 154965
+    },
+    {
+      "index": 14,
+      "speaker": "nina",
+      "start_ms": 155611,
+      "end_ms": 173881
+    },
+    {
+      "index": 15,
+      "speaker": "leah",
+      "start_ms": 174471,
+      "end_ms": 177962
+    },
+    {
+      "index": 16,
+      "speaker": "sofia",
+      "start_ms": 178567,
+      "end_ms": 190645
+    },
+    {
+      "index": 17,
+      "speaker": "leah",
+      "start_ms": 191326,
+      "end_ms": 200320
+    },
+    {
+      "index": 18,
+      "speaker": "nina",
+      "start_ms": 200889,
+      "end_ms": 212952
+    },
+    {
+      "index": 19,
+      "speaker": "leah",
+      "start_ms": 213361,
+      "end_ms": 225293
+    },
+    {
+      "index": 20,
+      "speaker": "sofia",
+      "start_ms": 226497,
+      "end_ms": 234137
+    },
+    {
+      "index": 21,
+      "speaker": "leah",
+      "start_ms": 234397,
+      "end_ms": 236351
+    },
+    {
+      "index": 22,
+      "speaker": "nina",
+      "start_ms": 236801,
+      "end_ms": 246816
+    },
+    {
+      "index": 23,
+      "speaker": "sofia",
+      "start_ms": 247508,
+      "end_ms": 250019
+    },
+    {
+      "index": 24,
+      "speaker": "leah",
+      "start_ms": 250429,
+      "end_ms": 264310
+    },
+    {
+      "index": 25,
+      "speaker": "sofia",
+      "start_ms": 264976,
+      "end_ms": 274047
+    },
+    {
+      "index": 26,
+      "speaker": "nina",
+      "start_ms": 274500,
+      "end_ms": 283011
+    },
+    {
+      "index": 27,
+      "speaker": "leah",
+      "start_ms": 283511,
+      "end_ms": 294585
+    },
+    {
+      "index": 28,
+      "speaker": "sofia",
+      "start_ms": 294859,
+      "end_ms": 304954
+    },
+    {
+      "index": 29,
+      "speaker": "leah",
+      "start_ms": 305617,
+      "end_ms": 310869
+    },
+    {
+      "index": 30,
+      "speaker": "nina",
+      "start_ms": 311879,
+      "end_ms": 320534
+    },
+    {
+      "index": 31,
+      "speaker": "leah",
+      "start_ms": 321058,
+      "end_ms": 333127
+    },
+    {
+      "index": 32,
+      "speaker": "nina",
+      "start_ms": 334456,
+      "end_ms": 343494
+    },
+    {
+      "index": 33,
+      "speaker": "sofia",
+      "start_ms": 344112,
+      "end_ms": 361423
+    },
+    {
+      "index": 34,
+      "speaker": "sofia",
+      "start_ms": 361710,
+      "end_ms": 376253
+    },
+    {
+      "index": 35,
+      "speaker": "nina",
+      "start_ms": 376878,
+      "end_ms": 381965
+    },
+    {
+      "index": 36,
+      "speaker": "leah",
+      "start_ms": 382284,
+      "end_ms": 385511
+    },
+    {
+      "index": 37,
+      "speaker": "nina",
+      "start_ms": 386153,
+      "end_ms": 390343
+    },
+    {
+      "index": 38,
+      "speaker": "sofia",
+      "start_ms": 390652,
+      "end_ms": 393755
+    }
+  ]
+}

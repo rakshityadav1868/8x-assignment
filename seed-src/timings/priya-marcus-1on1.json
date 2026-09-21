@@ -1,0 +1,470 @@
+{
+  "slug": "priya-marcus-1on1",
+  "media": "/media/priya-marcus-1on1.m4a",
+  "duration_ms": 547772,
+  "sample_rate": 24000,
+  "lines": [
+    {
+      "index": 0,
+      "speaker": "priya",
+      "start_ms": 600,
+      "end_ms": 5323
+    },
+    {
+      "index": 1,
+      "speaker": "marcus",
+      "start_ms": 5833,
+      "end_ms": 12668
+    },
+    {
+      "index": 2,
+      "speaker": "priya",
+      "start_ms": 13231,
+      "end_ms": 19115
+    },
+    {
+      "index": 3,
+      "speaker": "marcus",
+      "start_ms": 19390,
+      "end_ms": 21883
+    },
+    {
+      "index": 4,
+      "speaker": "priya",
+      "start_ms": 22379,
+      "end_ms": 27691
+    },
+    {
+      "index": 5,
+      "speaker": "marcus",
+      "start_ms": 28085,
+      "end_ms": 29475
+    },
+    {
+      "index": 6,
+      "speaker": "priya",
+      "start_ms": 30098,
+      "end_ms": 40818
+    },
+    {
+      "index": 7,
+      "speaker": "marcus",
+      "start_ms": 41081,
+      "end_ms": 51034
+    },
+    {
+      "index": 8,
+      "speaker": "priya",
+      "start_ms": 51312,
+      "end_ms": 55266
+    },
+    {
+      "index": 9,
+      "speaker": "marcus",
+      "start_ms": 55742,
+      "end_ms": 67436
+    },
+    {
+      "index": 10,
+      "speaker": "priya",
+      "start_ms": 68013,
+      "end_ms": 72806
+    },
+    {
+      "index": 11,
+      "speaker": "marcus",
+      "start_ms": 73405,
+      "end_ms": 76276
+    },
+    {
+      "index": 12,
+      "speaker": "priya",
+      "start_ms": 76380,
+      "end_ms": 89597
+    },
+    {
+      "index": 13,
+      "speaker": "marcus",
+      "start_ms": 89882,
+      "end_ms": 93667
+    },
+    {
+      "index": 14,
+      "speaker": "priya",
+      "start_ms": 94124,
+      "end_ms": 100016
+    },
+    {
+      "index": 15,
+      "speaker": "marcus",
+      "start_ms": 100476,
+      "end_ms": 109646
+    },
+    {
+      "index": 16,
+      "speaker": "priya",
+      "start_ms": 110299,
+      "end_ms": 111733
+    },
+    {
+      "index": 17,
+      "speaker": "marcus",
+      "start_ms": 112161,
+      "end_ms": 125130
+    },
+    {
+      "index": 18,
+      "speaker": "priya",
+      "start_ms": 125481,
+      "end_ms": 128923
+    },
+    {
+      "index": 19,
+      "speaker": "marcus",
+      "start_ms": 129479,
+      "end_ms": 139258
+    },
+    {
+      "index": 20,
+      "speaker": "priya",
+      "start_ms": 139825,
+      "end_ms": 141438
+    },
+    {
+      "index": 21,
+      "speaker": "marcus",
+      "start_ms": 142125,
+      "end_ms": 145483
+    },
+    {
+      "index": 22,
+      "speaker": "priya",
+      "start_ms": 146927,
+      "end_ms": 152483
+    },
+    {
+      "index": 23,
+      "speaker": "marcus",
+      "start_ms": 153144,
+      "end_ms": 154459
+    },
+    {
+      "index": 24,
+      "speaker": "priya",
+      "start_ms": 154836,
+      "end_ms": 167355
+    },
+    {
+      "index": 25,
+      "speaker": "marcus",
+      "start_ms": 167837,
+      "end_ms": 169932
+    },
+    {
+      "index": 26,
+      "speaker": "priya",
+      "start_ms": 170364,
+      "end_ms": 184194
+    },
+    {
+      "index": 27,
+      "speaker": "marcus",
+      "start_ms": 185680,
+      "end_ms": 191453
+    },
+    {
+      "index": 28,
+      "speaker": "priya",
+      "start_ms": 191729,
+      "end_ms": 203115
+    },
+    {
+      "index": 29,
+      "speaker": "marcus",
+      "start_ms": 203729,
+      "end_ms": 207650
+    },
+    {
+      "index": 30,
+      "speaker": "priya",
+      "start_ms": 208222,
+      "end_ms": 219876
+    },
+    {
+      "index": 31,
+      "speaker": "marcus",
+      "start_ms": 220440,
+      "end_ms": 226631
+    },
+    {
+      "index": 32,
+      "speaker": "priya",
+      "start_ms": 226930,
+      "end_ms": 233090
+    },
+    {
+      "index": 33,
+      "speaker": "marcus",
+      "start_ms": 233526,
+      "end_ms": 236414
+    },
+    {
+      "index": 34,
+      "speaker": "priya",
+      "start_ms": 236669,
+      "end_ms": 246429
+    },
+    {
+      "index": 35,
+      "speaker": "marcus",
+      "start_ms": 246930,
+      "end_ms": 254979
+    },
+    {
+      "index": 36,
+      "speaker": "priya",
+      "start_ms": 255597,
+      "end_ms": 259046
+    },
+    {
+      "index": 37,
+      "speaker": "marcus",
+      "start_ms": 259350,
+      "end_ms": 266855
+    },
+    {
+      "index": 38,
+      "speaker": "priya",
+      "start_ms": 267185,
+      "end_ms": 275342
+    },
+    {
+      "index": 39,
+      "speaker": "marcus",
+      "start_ms": 276759,
+      "end_ms": 279797
+    },
+    {
+      "index": 40,
+      "speaker": "priya",
+      "start_ms": 280231,
+      "end_ms": 283295
+    },
+    {
+      "index": 41,
+      "speaker": "marcus",
+      "start_ms": 283873,
+      "end_ms": 287655
+    },
+    {
+      "index": 42,
+      "speaker": "priya",
+      "start_ms": 288243,
+      "end_ms": 304737
+    },
+    {
+      "index": 43,
+      "speaker": "marcus",
+      "start_ms": 305218,
+      "end_ms": 308082
+    },
+    {
+      "index": 44,
+      "speaker": "priya",
+      "start_ms": 308623,
+      "end_ms": 320274
+    },
+    {
+      "index": 45,
+      "speaker": "marcus",
+      "start_ms": 320550,
+      "end_ms": 325505
+    },
+    {
+      "index": 46,
+      "speaker": "priya",
+      "start_ms": 325763,
+      "end_ms": 328036
+    },
+    {
+      "index": 47,
+      "speaker": "marcus",
+      "start_ms": 328650,
+      "end_ms": 329819
+    },
+    {
+      "index": 48,
+      "speaker": "priya",
+      "start_ms": 330461,
+      "end_ms": 344420
+    },
+    {
+      "index": 49,
+      "speaker": "marcus",
+      "start_ms": 344978,
+      "end_ms": 347110
+    },
+    {
+      "index": 50,
+      "speaker": "priya",
+      "start_ms": 347563,
+      "end_ms": 359568
+    },
+    {
+      "index": 51,
+      "speaker": "marcus",
+      "start_ms": 360097,
+      "end_ms": 363093
+    },
+    {
+      "index": 52,
+      "speaker": "marcus",
+      "start_ms": 363343,
+      "end_ms": 373981
+    },
+    {
+      "index": 53,
+      "speaker": "priya",
+      "start_ms": 374378,
+      "end_ms": 384077
+    },
+    {
+      "index": 54,
+      "speaker": "marcus",
+      "start_ms": 384552,
+      "end_ms": 391201
+    },
+    {
+      "index": 55,
+      "speaker": "priya",
+      "start_ms": 391519,
+      "end_ms": 396562
+    },
+    {
+      "index": 56,
+      "speaker": "marcus",
+      "start_ms": 396975,
+      "end_ms": 401615
+    },
+    {
+      "index": 57,
+      "speaker": "priya",
+      "start_ms": 401933,
+      "end_ms": 409592
+    },
+    {
+      "index": 58,
+      "speaker": "marcus",
+      "start_ms": 410101,
+      "end_ms": 418859
+    },
+    {
+      "index": 59,
+      "speaker": "priya",
+      "start_ms": 419967,
+      "end_ms": 429975
+    },
+    {
+      "index": 60,
+      "speaker": "marcus",
+      "start_ms": 430266,
+      "end_ms": 434094
+    },
+    {
+      "index": 61,
+      "speaker": "priya",
+      "start_ms": 435537,
+      "end_ms": 445386
+    },
+    {
+      "index": 62,
+      "speaker": "marcus",
+      "start_ms": 445972,
+      "end_ms": 452534
+    },
+    {
+      "index": 63,
+      "speaker": "priya",
+      "start_ms": 453164,
+      "end_ms": 463970
+    },
+    {
+      "index": 64,
+      "speaker": "marcus",
+      "start_ms": 464539,
+      "end_ms": 470398
+    },
+    {
+      "index": 65,
+      "speaker": "priya",
+      "start_ms": 471564,
+      "end_ms": 477657
+    },
+    {
+      "index": 66,
+      "speaker": "marcus",
+      "start_ms": 477969,
+      "end_ms": 482221
+    },
+    {
+      "index": 67,
+      "speaker": "priya",
+      "start_ms": 482498,
+      "end_ms": 489070
+    },
+    {
+      "index": 68,
+      "speaker": "marcus",
+      "start_ms": 489371,
+      "end_ms": 499791
+    },
+    {
+      "index": 69,
+      "speaker": "priya",
+      "start_ms": 500478,
+      "end_ms": 510419
+    },
+    {
+      "index": 70,
+      "speaker": "marcus",
+      "start_ms": 510799,
+      "end_ms": 512323
+    },
+    {
+      "index": 71,
+      "speaker": "priya",
+      "start_ms": 512921,
+      "end_ms": 513861
+    },
+    {
+      "index": 72,
+      "speaker": "marcus",
+      "start_ms": 514468,
+      "end_ms": 515834
+    },
+    {
+      "index": 73,
+      "speaker": "priya",
+      "start_ms": 516387,
+      "end_ms": 535793
+    },
+    {
+      "index": 74,
+      "speaker": "marcus",
+      "start_ms": 536116,
+      "end_ms": 540017
+    },
+    {
+      "index": 75,
+      "speaker": "priya",
+      "start_ms": 540440,
+      "end_ms": 543732
+    },
+    {
+      "index": 76,
+      "speaker": "marcus",
+      "start_ms": 544014,
+      "end_ms": 546972
+    }
+  ]
+}

@@ -1,0 +1,348 @@
+{
+  "slug": "staff-engineer-interview",
+  "title": "Staff Engineer Interview: Olivia Grant",
+  "meeting_type": "interview",
+  "days_ago": 6,
+  "start_time": "11:00",
+  "recorded_by": "Priya Raman",
+  "participants": [
+    {
+      "key": "priya",
+      "name": "Priya Raman",
+      "title": "VP Engineering",
+      "email": "priya@northwindlabs.io",
+      "is_external": false,
+      "voice": "Samantha"
+    },
+    {
+      "key": "arjun",
+      "name": "Arjun Mehta",
+      "title": "Staff Engineer (Platform)",
+      "email": "arjun@northwindlabs.io",
+      "is_external": false,
+      "voice": "Rishi"
+    },
+    {
+      "key": "olivia",
+      "name": "Olivia Grant",
+      "title": "Staff Engineer Candidate",
+      "email": "olivia.grant@gmail.com",
+      "is_external": true,
+      "voice": "Kathy"
+    }
+  ],
+  "lines": [
+    {
+      "speaker": "priya",
+      "text": "Hi Olivia, thanks so much for making the time. Can you hear us okay?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "Yep, loud and clear. Sorry, my cat just walked across the keyboard, so if you see a random message in the chat, that was her."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Ha, no worries. She is welcome to apply too, we are hiring."
+    },
+    {
+      "speaker": "priya",
+      "text": "So quick intros. I am Priya, I run engineering here at Northwind Labs. This is Arjun, he is a staff engineer on our platform team and he owns most of the ingestion pipeline."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Which means I get paged when it breaks. Which is, you know, less often than last year."
+    },
+    {
+      "speaker": "priya",
+      "text": "The plan for today is about forty five minutes. Ten minutes on your background, then Arjun will run a system design exercise, and we will save the last ten minutes for your questions. Sound good?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "Sounds great."
+    },
+    {
+      "speaker": "priya",
+      "text": "Cool. So give us the short version. What have you been working on for the last few years?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "Sure. So for the last four years I have been at Relaywave, which is a customer messaging company. I joined as a senior engineer on the data platform team, and for the last two years I have been the tech lead for event ingestion."
+    },
+    {
+      "speaker": "olivia",
+      "text": "When I joined we were doing maybe forty thousand events a second at peak. When I left we were closer to three hundred thousand, and we had moved off a homegrown queue onto Kafka, with Flink doing most of the enrichment."
+    },
+    {
+      "speaker": "priya",
+      "text": "Wait, why did you leave? If that is okay to ask."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Totally fair. Honestly, Relaywave got acquired in March, and the platform team is being folded into the parent company's infrastructure org. The work is mostly migration now, and I want to be somewhere smaller where I can shape the product a bit more."
+    },
+    {
+      "speaker": "arjun",
+      "text": "What was the hardest thing about that Kafka migration? Like the thing that actually kept you up at night."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Ordering guarantees, for sure. We had customers who relied on events arriving in order per user, and the old system gave that to us kind of by accident because it was single threaded per tenant."
+    },
+    {
+      "speaker": "olivia",
+      "text": "So we had to be really deliberate about partition keys. We ended up keying on tenant plus user, and then we found out three big tenants had these bot users generating like forty percent of their traffic, which made some partitions extremely hot."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Oh, we have that exact problem. How did you handle it?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "We added a salting strategy for known hot keys, with a small registry that the producers read from. It broke strict ordering for those users, but we talked to the customers and it turned out none of them actually cared about ordering for bot traffic."
+    },
+    {
+      "speaker": "priya",
+      "text": "I like that you went and asked the customers. That is honestly the answer I was hoping for."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Yeah, it saved us probably two months of engineering. Half the requirements we thought were hard turned out to be assumptions."
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay, I am going to hand it over to Arjun for the design part."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Great. So this is loosely based on our actual system, so do not be surprised if I get opinionated. We want to design an event ingestion pipeline for a product analytics tool."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Customers send track events from web, mobile and servers. Think about fifty thousand events a second average, with bursts up to five times that. Events need to show up in dashboards within, let us say, sixty seconds, and we need to support replaying data when a customer changes their schema."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Okay. Can I ask a few clarifying questions first?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Please do."
+    },
+    {
+      "speaker": "olivia",
+      "text": "What is the average event size, and do we need to support backfill from the customer side, like a historical import?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Average is around one kilobyte, though some enterprise customers send ten kilobyte blobs with nested properties. And yes, historical imports are a thing, usually a few hundred million events at once."
+    },
+    {
+      "speaker": "olivia",
+      "text": "And for the sixty second freshness, is that a p50 or a p99?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Good question. Let us say p95."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Okay. So at the edge, I would put a thin, stateless collector service behind a load balancer. Its only job is auth, basic validation, and writing to a durable log as fast as possible. I would not do any enrichment there."
+    },
+    {
+      "speaker": "olivia",
+      "text": "It should return a two hundred to the client once the write is acknowledged by the log, so the client SDK can drop the event from its local buffer."
+    },
+    {
+      "speaker": "arjun",
+      "text": "What happens if the log is slow? Like Kafka is having a bad day."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Then the collectors apply back pressure. The SDKs already retry with jitter, so I would rather return a four twenty nine or a five oh three than buffer in memory on the collector and risk losing data when the pod dies."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Some people say buffer to local disk on the collector."
+    },
+    {
+      "speaker": "olivia",
+      "text": "You can, and we tried that at Relaywave. It works until a node gets replaced by the autoscaler with forty megabytes of events on its disk. Then you are writing a recovery job at two in the morning."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Yeah, that is, uh, a very specific memory."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Very specific. Anyway. Then from the log, I would split into two paths. A hot path that does enrichment, identity resolution and writes into the columnar store for dashboards, and a cold path that writes raw events to object storage, partitioned by tenant and hour."
+    },
+    {
+      "speaker": "olivia",
+      "text": "The cold path is basically your source of truth for replays. If a customer changes a schema, you replay from object storage through the same enrichment code, just with a different sink."
+    },
+    {
+      "speaker": "arjun",
+      "text": "How do you make sure the replay does not starve live traffic?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "Separate consumer groups with separate compute, and a rate limit on the replay jobs per tenant. I would also want the columnar store to support writing a new version of a partition and swapping it atomically, so dashboards never show half replayed data."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Okay, we use ClickHouse, so that is roughly partition replace. What about identity resolution? Say an anonymous user logs in and we want to merge their history."
+    },
+    {
+      "speaker": "olivia",
+      "text": "That one is tricky. I would not rewrite history in the event store. I would keep an identity mapping table, anonymous id to user id, and resolve at query time, with a materialized view for the heavy dashboards. Rewriting billions of rows every time someone logs in just does not scale."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Interesting. We actually do rewrite, in a nightly batch, and it is one of our biggest costs. Maybe thirty percent of our ClickHouse compute."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Oh wow. Yeah, I would look at that. Query time resolution has its own costs, the joins get expensive, but you can cache the mapping pretty aggressively."
+    },
+    {
+      "speaker": "priya",
+      "text": "Arjun, write that down, that might be the most valuable thing we get out of this hour."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Already did. Okay, last piece. How do you think about multi tenancy? One of our Enterprise customers is doing about a third of our total volume."
+    },
+    {
+      "speaker": "olivia",
+      "text": "I would start with shared infrastructure and noisy neighbor protection. Per tenant quotas at the collector, and weighted fair queuing in the consumers. Then once a tenant crosses some threshold, maybe ten percent of volume, you give them dedicated partitions and possibly a dedicated consumer pool."
+    },
+    {
+      "speaker": "olivia",
+      "text": "The important thing is that the code path is the same. Dedicated should be a config change, not a fork of the pipeline."
+    },
+    {
+      "speaker": "arjun",
+      "text": "And how would you monitor freshness? Like how do you know you are hitting that sixty second target?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "I would inject synthetic canary events per region every ten seconds and measure end to end time until they are queryable. Consumer lag is useful, but it does not tell you whether the dashboards are actually fresh."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Nice. Okay, I think I have what I need. Priya, anything you want to dig into?"
+    },
+    {
+      "speaker": "priya",
+      "text": "One question. Staff engineers here spend maybe half their time not writing code. Tell me about a time you had to influence a decision you did not own."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Sure. Last year our product team wanted to launch real time alerts, and they had promised a big customer a ten second latency. The pipeline could not do that without roughly doubling our infrastructure spend."
+    },
+    {
+      "speaker": "olivia",
+      "text": "I did not own the roadmap, so instead of just saying no, I wrote a two page doc with three options and the cost of each. Ten seconds was about ninety thousand dollars a year extra, thirty seconds was basically free."
+    },
+    {
+      "speaker": "olivia",
+      "text": "We went back to the customer with thirty seconds and they were totally fine with it. The product lead actually started inviting me to planning after that."
+    },
+    {
+      "speaker": "priya",
+      "text": "That is great. And was there a time it did not go your way?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "Oh, definitely. I pushed hard for us to adopt a schema registry, and I lost that argument twice. In hindsight I was pitching it as a technical nicety rather than connecting it to the incidents it would have prevented. The third time I brought the incident list, and it got approved."
+    },
+    {
+      "speaker": "priya",
+      "text": "Ha, third time is the charm. Okay, we have about ten minutes. What questions do you have for us?"
+    },
+    {
+      "speaker": "olivia",
+      "text": "A few. First, how big is the engineering team, and how is it structured?"
+    },
+    {
+      "speaker": "priya",
+      "text": "We are eleven engineers, plus a small ML group. Three product pods, a platform team of four, which Arjun is on, and Hannah's ML folks working on our AI Insights feature. This role would sit on platform, but with a lot of cross team scope."
+    },
+    {
+      "speaker": "olivia",
+      "text": "And what is the biggest technical problem you want this person to solve in the first six months?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Honestly, reliability and cost of ingestion. We had two freshness incidents last quarter where dashboards were more than fifteen minutes behind, and the nightly identity rewrite we just talked about. Those are the two big ones."
+    },
+    {
+      "speaker": "priya",
+      "text": "And there is a bigger bet coming. AI Insights needs a lot of the same data, with different access patterns, and we need someone to make sure we do not build a second pipeline by accident."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Got it. What does on call look like?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "One week in six for platform, with a follow the sun handoff to our contractor in Lisbon overnight. We average maybe two pages a week, and we do a blameless review for anything customer facing."
+    },
+    {
+      "speaker": "olivia",
+      "text": "That is reasonable. Last question. How do you think about remote? The posting said hybrid."
+    },
+    {
+      "speaker": "priya",
+      "text": "We have an office in Austin, and people come in Tuesday and Wednesday if they are local. But about half the team is fully remote, and we fly everyone in once a quarter for planning. You would be fine remote."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Great. That answers everything for now."
+    },
+    {
+      "speaker": "priya",
+      "text": "Awesome. So next steps. We will get back to you by Friday. If it goes well, the next round is a conversation with Dana, our CEO, and a pairing session with one of the product teams."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Perfect. Thanks, both of you. This was genuinely fun, I do not usually get to argue about identity resolution in an interview."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Ha, anytime. I might email you about it anyway."
+    },
+    {
+      "speaker": "priya",
+      "text": "Thanks Olivia. Talk soon."
+    },
+    {
+      "speaker": "olivia",
+      "text": "Bye!"
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay, she dropped. Arjun, quick gut check before we write up the scorecards?"
+    },
+    {
+      "speaker": "arjun",
+      "text": "Strong yes from me. The system design was really solid, and the identity resolution idea alone could save us real money. The only gap is she has not worked much with ClickHouse specifically."
+    },
+    {
+      "speaker": "priya",
+      "text": "I do not think that matters, she clearly understands columnar stores. I am also a strong yes. The influence story was exactly what we need."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Agreed. I will get my scorecard into Greenhouse by end of day today."
+    },
+    {
+      "speaker": "priya",
+      "text": "Great. I will set up the loop with Dana for early next week and ping the recruiter to move fast, I suspect she has other offers."
+    },
+    {
+      "speaker": "arjun",
+      "text": "Sounds good. Nice one."
+    }
+  ]
+}
