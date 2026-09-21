@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { FastForward, Link2, MessageSquareText, Scissors, Search, Sparkles } from "lucide-react";
-import { Logo } from "@/components/brand/logo";
 import { PillLink } from "@/components/brand/pill-link";
 import { AppPreview } from "@/components/marketing/app-preview";
 import { ParticleDome } from "@/components/marketing/particle-dome";
+import { SiteFooter, SiteNav } from "@/components/marketing/site-chrome";
 import { getRepo } from "@/lib/db";
 import { ROUTES } from "@/lib/routes";
 
@@ -32,27 +31,7 @@ export default async function LandingPage() {
   const seeIt = await showcaseHref();
   return (
     <div className="relative min-h-dvh overflow-x-clip bg-[#03050b]">
-      {/* Floating pill nav */}
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-4 py-4 md:px-8">
-        <Logo />
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full border border-white/[0.08] bg-black/55 p-1 pl-4 text-sm shadow-[0_8px_30px_-12px_rgba(0,0,0,0.8)] backdrop-blur-xl md:flex">
-          <a href="#features" className="rounded-full px-3 py-1.5 text-white/75 transition-colors hover:text-white">
-            Features
-          </a>
-          <a href="#how" className="rounded-full px-3 py-1.5 text-white/75 transition-colors hover:text-white">
-            How it works
-          </a>
-          <Link href={ROUTES.pages.search()} className="rounded-full px-3 py-1.5 text-white/75 transition-colors hover:text-white">
-            Search
-          </Link>
-          <PillLink href={ROUTES.pages.calls} className="ml-2 h-9">
-            Open demo
-          </PillLink>
-        </nav>
-        <PillLink href={ROUTES.pages.calls} className="h-9 md:hidden">
-          Demo
-        </PillLink>
-      </header>
+      <SiteNav />
 
       {/* Hero */}
       <section className="relative">
@@ -239,8 +218,8 @@ export default async function LandingPage() {
             A demo workspace with real calls, transcripts and AI notes is one click away. No sign-up.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <PillLink href={ROUTES.pages.upload} variant="secondary" className="h-11 px-5">
-              Upload a recording
+            <PillLink href={ROUTES.pages.pricing} variant="secondary" className="h-11 px-5">
+              See pricing
             </PillLink>
             <PillLink href={ROUTES.pages.calls} className="h-11 pl-5">
               Open the demo workspace
@@ -249,12 +228,7 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-white/[0.06] px-5 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-xs text-white/40 sm:flex-row">
-          <Logo className="text-white/80" />
-          <p>A demo meeting notetaker · built with Next.js, Claude and Deepgram.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
