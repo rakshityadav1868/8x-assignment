@@ -106,11 +106,18 @@ export function TranscriptPanel({ active }: { active: boolean }) {
     [virtualizer],
   );
 
-  // Follow playback.
+  // Follow playback. The first jump (deep link / tab reveal) is instant; later ones glide.
+  const settledRef = useRef(false);
   useEffect(() => {
     if (!active || !autoSync || activeRow < 0) return;
+    if (!settledRef.current) {
+      settledRef.current = true;
+      virtualizer.scrollToIndex(activeRow, { align: "center" });
+      const id = setTimeout(() => virtualizer.scrollToIndex(activeRow, { align: "center" }), 120);
+      return () => clearTimeout(id);
+    }
     scrollToRow(activeRow);
-  }, [active, autoSync, activeRow, scrollToRow]);
+  }, [active, autoSync, activeRow, scrollToRow, virtualizer]);
 
   // Jump to current search match.
   useEffect(() => {
@@ -119,8 +126,10 @@ export function TranscriptPanel({ active }: { active: boolean }) {
 
   // Re-center when the tab becomes visible or the filter changes.
   useEffect(() => {
+    if (!active) settledRef.current = false;
     if (active && autoSync && activeRow >= 0) {
-      requestAnimationFrame(() => scrollToRow(activeRow, false));
+      const id = setTimeout(() => virtualizer.scrollToIndex(activeRow, { align: "center" }), 30);
+      return () => clearTimeout(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, speakerFilter]);

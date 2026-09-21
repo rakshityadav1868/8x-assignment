@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/shell/app-sidebar";
 import { TopBar } from "@/components/shell/top-bar";
+import { CommandPalette } from "@/components/shell/command-palette";
 
 export default function AppLayout({ children }: LayoutProps<"/">) {
   return (
@@ -9,6 +10,7 @@ export default function AppLayout({ children }: LayoutProps<"/">) {
         <TopBar />
         <main className="flex-1">{children}</main>
       </div>
+      <CommandPalette />
     </div>
   );
 }
