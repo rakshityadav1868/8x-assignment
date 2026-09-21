@@ -50,7 +50,7 @@ export function MediaStage({
   const store = usePlayerStore();
   const playing = usePlayer((s) => s.playing);
   const buffering = usePlayer((s) => s.buffering);
-  const atStart = usePlayer((s) => s.currentMs < 50);
+  const atStart = usePlayer((s) => s.currentMs < (store.bounds?.startMs ?? 0) + 50);
   const activeIdx = useActiveSegmentIndex(segments);
   const activeSpeaker = activeIdx >= 0 ? segments[activeIdx].participant_id : null;
   const chapterIdx = usePlayer((s) => indexAt(chapters, s.currentMs));
