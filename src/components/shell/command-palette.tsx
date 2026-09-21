@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Home, ListVideo, Loader2, Search, Settings, Sparkles, Upload } from "lucide-react";
+import { BarChart3, Building2, CalendarDays, Home, ListVideo, Loader2, Mic, Radar, Search, Settings, Sparkles, Upload, Users, Webhook } from "lucide-react";
 import { Command as CommandPrimitive } from "cmdk";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
@@ -20,8 +20,15 @@ const NAV = [
   { label: "My Calls", href: ROUTES.pages.calls, icon: Home },
   { label: "Search all transcripts", href: ROUTES.pages.search(), icon: Search },
   { label: "Ask Fanthom across all calls", href: ROUTES.pages.ask, icon: Sparkles },
+  { label: "Record in the browser", href: ROUTES.pages.record, icon: Mic },
   { label: "Upload a recording", href: ROUTES.pages.upload, icon: Upload },
+  { label: "Calendar & auto-record", href: ROUTES.pages.calendar, icon: CalendarDays },
   { label: "Playlists", href: ROUTES.pages.playlists, icon: ListVideo },
+  { label: "Insights", href: ROUTES.pages.insights, icon: BarChart3 },
+  { label: "Trackers", href: ROUTES.pages.trackers, icon: Radar },
+  { label: "Deals", href: ROUTES.pages.deals, icon: Building2 },
+  { label: "Team", href: ROUTES.pages.team, icon: Users },
+  { label: "Integrations: webhooks & Slack", href: ROUTES.pages.settingsTab("integrations"), icon: Webhook },
   { label: "Settings", href: ROUTES.pages.settings, icon: Settings },
 ];
 
