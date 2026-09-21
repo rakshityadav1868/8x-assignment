@@ -155,6 +155,8 @@ Result click → `/calls/:id?t=<seconds>` which seeks the player.
 | `POST /api/highlights/:id/share` | → `HighlightShareResponse` |
 | `GET /api/clip/:token` | → `ClipResponse` |
 | `POST /api/meetings/:id/action-items` | `CreateActionItemRequest` → `ActionItemResponse` |
+| `GET /api/meetings/:id/action-items` | → `{ action_items: ActionItem[] }` (convenience; additive) |
+| `GET /api/ask` | → `AskHistoryResponse` for cross-meeting Ask (additive) |
 | `PATCH/DELETE /api/action-items/:id` | `UpdateActionItemRequest` → `ActionItemResponse` / `Ok` |
 | `POST/DELETE /api/meetings/:id/share` | `CreateShareRequest` → `CreateShareResponse` / `Ok` |
 | `GET /api/share/:token` | → `ShareAccessResponse` (403 `forbidden` unless `anyone_with_link`) |
@@ -163,10 +165,37 @@ Result click → `/calls/:id?t=<seconds>` which seeks the player.
 | `GET/POST /api/meetings/:id/decisions` | → `DecisionsResponse` (GET cached, POST regenerates) |
 | `POST /api/meetings/:id/commitments` | `CommitmentsRequest` → `CommitmentsResponse` |
 | `PATCH /api/segments/:id` (P3) | `UpdateSegmentRequest` → `UpdateSegmentResponse` |
-| `GET/POST /api/playlists`, `POST /api/playlists/:id/items` (P3) | `ListPlaylistsResponse` / `CreatePlaylistRequest` / `AddPlaylistItemRequest` |
+| `GET/POST /api/playlists`, `POST /api/playlists/:id/items` (P3) | `ListPlaylistsResponse` / `CreatePlaylistRequest` → `{playlist}` (201) / `AddPlaylistItemRequest` → `{item}` (201) |
 
-Errors: always `ApiError {error, code?}` with a 4xx/5xx status. Codes: `not_found`, `forbidden`, `validation`,
-`llm_failed`, `transcription_unavailable`, `storage_unavailable`.
+Errors: always `ApiError {error, code?}` with a 4xx/5xx status. Codes: `not_found` (404), `forbidden` (403), `validation` (400),
+`llm_failed` (502), `transcription_unavailable` (503), `storage_unavailable` (503), `internal` (500).
+Handlers are wrapped with `route()` from `src/lib/server/api.ts`; repos throw `NotFoundError` (`src/lib/server/errors.ts`) → 404.
+Create endpoints (`POST …/highlights`, `…/action-items`, `/api/upload`, playlists) return **201**; `POST …/process` returns **202**.
+
+### Seed data files (keyless demo mode)
+
+- `src/data/seed/meetings/<slug>.json` — one file per meeting: exactly `SeedMeetingFile` (= `MeetingDetail` + `decisions: Decision[]`).
+  Stable string ids: meeting `m_<slug>`, participants `p_<slug>_<key>`, segments `seg_<slug>_<0000>`, summaries `sum_<slug>_<template>_<lang>`,
+  action items `ai_<slug>_<n>`, highlights `hl_<slug>_<n>` (share_token e.g. `clip-<slug>-<n>`), chapters `ch_<slug>_<n>`.
+  `media_url = "/media/<slug>.m4a"`, `synthetic: true`, `status/processing_stage = "ready"`.
+- `src/data/seed/workspace.json` — `SeedWorkspaceFile`: `{ workspace, user, upcoming: UpcomingMeeting[], playlists: (Playlist & {items: PlaylistItem[]})[] }`.
+- `src/data/seed/index.ts` — **generated** barrel that statically imports every JSON (so Vercel bundles them; no fs/glob at runtime)
+  and exports `seedWorkspace` + `seedMeetings`. Whoever adds/removes a meeting file regenerates it.
+- `SeedRepo` deep-clones these into a `globalThis` store; mutations (share, highlights, action items, summaries, chat…) live per server instance.
+
+### Demo-mode AI (no `ANTHROPIC_API_KEY`) — `src/lib/ai/demo.ts`
+
+All responses say `ai_mode: "demo"`; everything is extractive, so every bullet is a real transcript moment.
+- **Summary regenerate**: returns the cached/seeded summary for that template when there are no custom instructions (even with `force`);
+  otherwise builds a template-shaped extractive summary (per-heading cue words + TF-IDF salience; Next steps from action items,
+  Decisions from decisions, Topics from chapters). Custom instructions boost matching lines and add a "Focus: your instructions" section.
+  Demo mode cannot translate: the returned `summary.language` is `"en"` even if another language was requested.
+- **Ask**: intent routing (commitments of a named person, action items, decisions, overview) else BM25 retrieval (+ small synonym map),
+  answer composed from quoted lines with `[n]` citations, streamed a few words at a time.
+- **Catch me up**: chapters overlapping the range + their key lines + decisions/action items in range.
+- **Follow-up email**: templated from the cached summary + action items (tone variants).
+- **Commitments**: the person's action items + their "I'll / I will / I can / let me…" lines. **Decisions POST** keeps seeded decisions.
+- With a key, Claude (`claude-sonnet-5`) is used; if a live call fails the endpoint falls back to demo output (logged) rather than erroring.
 
 ### Contract decisions other agents must know
 
@@ -247,11 +276,14 @@ seed-src/                      human-authored seed scripts/timings (input to aud
 | Agent | Owns |
 |---|---|
 | architect | `ARCHITECTURE.md`, `README.md`, `src/lib/types.ts`, `src/lib/contracts.ts`, `src/lib/templates.ts`, `src/lib/capabilities.ts`, `src/lib/db/repo.ts`, scaffold, theme tokens, app shell, Vercel deploys |
-| database | `supabase/migrations/`, `src/lib/db/{seed-repo,supabase-repo}.ts`, `src/data/seed/`, `scripts/seed*`, seed audio (`public/media/`, `seed-src/`) |
-| backend | `src/app/api/**`, `src/lib/llm/`, `src/lib/prompts/`, `src/lib/deepgram/`, demo AI fallbacks |
+| database | `supabase/migrations/`, `src/lib/db/supabase-repo.ts`, `src/data/seed/`, `scripts/seed*`, seed audio (`public/media/`, `seed-src/`) |
+| backend | `src/app/api/**`, `src/lib/{llm,prompts,deepgram,ai,search,server}/`, `src/lib/db/seed-repo.ts`, demo AI fallbacks |
 | frontend | `src/app/(marketing)`, `src/app/(app)/**` pages, `src/app/(public)/**`, `src/components/{call,transcript,summary,brand,shell}` |
 | reviewer | Acceptance checks per phase, live-URL smoke tests, hand-in checklist |
 
 ## 7. Contract changelog
 
+- **Phase 1 (backend)** — additive: `MeetingDetail.decisions?: Decision[]` (+ `MeetingDetailSchema.decisions` optional);
+  `SeedMeetingFile` / `SeedWorkspaceFile` types; `GET /api/meetings/:id/action-items`; `GET /api/ask` (global history);
+  error code `internal`; playlist create/add-item response shapes `{playlist}` / `{item}`.
 - **Phase 0** — initial contract. Added `ai_mode` on all AI responses, `GET /api/capabilities`, `Repo` interface, dark theme, `/` = landing and My Calls at `/calls` (per SPEC overrides).
