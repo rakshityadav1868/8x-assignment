@@ -8,7 +8,7 @@ import { ApiClientError, api } from "./api";
  * Re-fetches whenever one of `tags` is invalidated via `invalidate(tag)` (cross-component refresh,
  * e.g. the sidebar folder counts after a bulk move on the library page).
  */
-export function useApi<T>(url: string | null, opts?: { tags?: string[]; pollMs?: number }) {
+export function useApi<T>(url: string | null, opts?: { tags?: string[]; pollMs?: number; resetOnChange?: boolean }) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<ApiClientError | Error | null>(null);
   const [nonce, setNonce] = useState(0);
@@ -16,11 +16,11 @@ export function useApi<T>(url: string | null, opts?: { tags?: string[]; pollMs?:
   const tagsKey = (opts?.tags ?? []).join("|");
   const pollMs = opts?.pollMs;
 
-  // Reset when the URL changes (render-time state adjustment, no effect cascade).
+  // URL changed: keep showing the previous data (stale-while-revalidate) unless asked to reset.
   if (prevUrl !== url) {
     setPrevUrl(url);
-    setData(null);
     setError(null);
+    if (opts?.resetOnChange) setData(null);
   }
 
   useEffect(() => {
@@ -78,4 +78,14 @@ export function isNotReady(e: unknown): boolean {
 export function errorMessage(e: unknown, fallback = "Something went wrong"): string {
   if (isNotReady(e)) return "This feature's API is still being deployed. Try again shortly.";
   return e instanceof Error ? e.message : fallback;
+}
+
+/** Debounce a fast-changing value (e.g. a search box) before it hits the network. */
+export function useDebounced<T>(value: T, ms = 250): T {
+  const [v, setV] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setV(value), ms);
+    return () => clearTimeout(t);
+  }, [value, ms]);
+  return v;
 }

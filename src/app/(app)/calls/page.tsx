@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
 import { getRepo } from "@/lib/db";
-import type { MeetingListItem, UpcomingMeeting } from "@/lib/types";
-import { CallsView } from "@/components/calls/calls-view";
+import type { UpcomingMeeting } from "@/lib/types";
+import { LibraryView } from "@/components/calls/library-view";
 
 export const metadata: Metadata = { title: "My Calls · Fanthom" };
 export const dynamic = "force-dynamic";
 
 export default async function CallsPage() {
-  let meetings: MeetingListItem[] = [];
   let upcoming: UpcomingMeeting[] = [];
-  let error: string | null = null;
   try {
-    const repo = getRepo();
-    [meetings, upcoming] = await Promise.all([repo.listMeetings(), repo.listUpcoming()]);
-  } catch (e) {
-    error = e instanceof Error ? e.message : "Failed to load calls";
+    upcoming = await getRepo().listUpcoming();
+  } catch {
+    // The strip is optional; the library itself loads client-side with its own error state.
   }
-  return <CallsView meetings={meetings} upcoming={upcoming} error={error} nowIso={new Date().toISOString()} />;
+  return <LibraryView upcoming={upcoming} nowIso={new Date().toISOString()} />;
 }
