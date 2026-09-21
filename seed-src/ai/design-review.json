@@ -1,0 +1,84 @@
+{
+  "summaries": [
+    {
+      "template": "project_update",
+      "sections": [
+        { "heading": "Status overview", "bullets": [
+          { "text": "The new dashboard builder's empty states and first-run design are ready for sign-off so Nina can start building Monday.", "line": 2 },
+          { "text": "Target metric: 44% of new dashboards never get a single chart.", "line": 3 }
+        ]},
+        { "heading": "Progress since last update", "bullets": [
+          { "text": "The empty dashboard now offers three starter cards: Track signups, Measure retention and Build from scratch.", "line": 4 },
+          { "text": "Loading state shows a skeleton chart with a progress message; p95 is ~6s on large workspaces.", "line": 10 },
+          { "text": "The no-data state shows the install snippet with a copy button and a link to the SDK docs.", "line": 24 }
+        ]},
+        { "heading": "Risks & blockers", "bullets": [
+          { "text": "Smart event detection needs a server endpoint because some workspaces have ~12,000 event names.", "line": 7 },
+          { "text": "Violet link text on navy is 3.1:1 contrast and fails AA; two Enterprise contracts include accessibility requirements.", "line": 14 },
+          { "text": "Sample data shown by default confused users before (the '800,000 users' support ticket).", "line": 27 }
+        ]},
+        { "heading": "Decisions made", "bullets": [
+          { "text": "Text links use violet 200 on dark backgrounds (~5.2:1); buttons keep the main violet.", "line": 19 },
+          { "text": "Sample data goes behind a 'preview with sample data' button with a persistent banner.", "line": 29 },
+          { "text": "v1 ships generic starter copy; smart detection only if Aman's heuristic can become an endpoint.", "line": 9 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Leah: final specs and updated tokens by Friday.", "line": 34 },
+          { "text": "Nina: build from Monday, behind a feature flag by the 26th.", "line": 34 },
+          { "text": "Sofia: set up the experiment that measures the 44% metric.", "line": 34 }
+        ]}
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Review the dashboard builder's empty states and first-run experience before the build starts.", "line": 2 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "Starter cards backed by real event detection versus static copy.", "line": 5 },
+          { "text": "Call-to-action contrast and accessibility.", "line": 13 },
+          { "text": "The no-data state and a sample-data preview.", "line": 24 },
+          { "text": "Mobile stacking for links opened from Slack.", "line": 31 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "Accessibility needs to be caught before review: add it to the design checklist plus an automated Storybook check.", "line": 20 },
+          { "text": "Scope for v1 stays small: generic copy, sample data opt-in, and no automatic sample-to-real transition.", "line": 30 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Specs and tokens by Friday, feature flag by the 26th, and the experiment set up.", "line": 34 },
+          { "text": "Nina checks with Aman about exposing the signup heuristic.", "line": 9 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Deliver final dashboard builder specs and update design tokens (violet 200 for text links) by Friday", "assignee": "leah", "line": 34, "completed": false },
+    { "description": "Add a contrast check to the design review checklist", "assignee": "leah", "line": 21, "completed": true },
+    { "description": "Set up the Storybook accessibility addon to flag contrast failures", "assignee": "nina", "line": 22, "completed": false },
+    { "description": "Ask Aman whether the signup-event heuristic can be exposed as an endpoint", "assignee": "nina", "line": 9, "completed": true },
+    { "description": "Build the new empty states behind a feature flag by the 26th", "assignee": "nina", "line": 34, "completed": false },
+    { "description": "Set up the experiment measuring dashboards with zero charts (44% baseline)", "assignee": "sofia", "line": 34, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Context: the empty dashboard problem", "start_line": 0, "end_line": 3, "summary": "44% of new dashboards never get a chart, and the redesign aims to fix that." },
+    { "title": "Starter cards & loading state", "start_line": 4, "end_line": 12, "summary": "Three starter cards, server-side event detection with a generic fallback, and a skeleton loading message." },
+    { "title": "CTA contrast & accessibility", "start_line": 13, "end_line": 23, "summary": "Violet link text fails AA, so it moves to violet 200, with checklist and Storybook checks added." },
+    { "title": "No-data state & sample data", "start_line": 24, "end_line": 30, "summary": "Install snippet by default, with sample data behind a preview button and a banner." },
+    { "title": "Mobile & recap", "start_line": 31, "end_line": 38, "summary": "Cards stack on phones, then a recap of decisions, owners and the 26th flag date." }
+  ],
+  "highlights": [
+    { "type": "pain_point", "title": "44% of new dashboards stay empty", "note": null, "start_line": 3, "end_line": 3 },
+    { "type": "pain_point", "title": "Link contrast fails AA at 3.1:1", "note": "Two Enterprise contracts include accessibility requirements.", "start_line": 14, "end_line": 16 },
+    { "type": "decision", "title": "Text links move to violet 200", "note": null, "start_line": 18, "end_line": 19 },
+    { "type": "decision", "title": "Sample data behind a preview button", "note": null, "start_line": 28, "end_line": 29 },
+    { "type": "positive", "title": "Loved the install-snippet empty state", "note": null, "start_line": 24, "end_line": 25 },
+    { "type": "action_item", "title": "Specs Friday, feature flag by the 26th", "note": null, "start_line": 34, "end_line": 35 }
+  ],
+  "decisions": [
+    { "text": "Text links use violet 200 on dark backgrounds; buttons keep the main violet.", "line": 19, "speaker": "leah" },
+    { "text": "Sample data is opt-in behind a 'preview with sample data' button with a persistent banner.", "line": 29, "speaker": "leah" },
+    { "text": "v1 ships generic starter-card copy; smart event detection only if Aman's endpoint exists.", "line": 9, "speaker": "nina" },
+    { "text": "Empty-state cards stack at the small breakpoint on mobile.", "line": 32, "speaker": "nina" }
+  ]
+}

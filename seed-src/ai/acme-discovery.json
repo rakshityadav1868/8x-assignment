@@ -1,0 +1,180 @@
+{
+  "summaries": [
+    {
+      "template": "sales",
+      "sections": [
+        { "heading": "Prospect background", "bullets": [
+          { "text": "Rachel Moreno, VP Operations at Acme Logistics, inbound via the website form about shipment delay analytics.", "line": 6 },
+          { "text": "Acme moves about 11,000 shipments a week of regional freight across the Midwest and Southeast.", "line": 7 },
+          { "text": "Data lives in Snowflake (TMS events, warehouse scans, carrier API feeds) with Looker on top; the data team is two people led by Tariq.", "line": 11 }
+        ]},
+        { "heading": "Pain points", "bullets": [
+          { "text": "On-time rate fell from 94% to about 87% over two quarters, and the team cannot prove why (carrier capacity vs. the Memphis warehouse).", "line": 7 },
+          { "text": "Ops questions go into a ticket queue with a ~6 business day turnaround: 'like getting a weather report for last week'.", "line": 13 },
+          { "text": "Late deliveries cost ~$340K last quarter in penalties and credits; Hartwell Foods (~$1.2M/yr) churned partly over reliability.", "line": 17 },
+          { "text": "Wants proactive alerts on leading indicators such as Memphis dwell-time spikes.", "line": 21 }
+        ]},
+        { "heading": "Current solution", "bullets": [
+          { "text": "Looker on Snowflake at ~$45K/yr; contract ends January 31.", "line": 37 },
+          { "text": "A previous tool required re-instrumenting and moving data; the project was abandoned after four months.", "line": 29 }
+        ]},
+        { "heading": "Objections & concerns", "bullets": [
+          { "text": "Tariq will test whether Pulse sits on top of Snowflake or requires data movement; Ethan confirmed a read-only Snowflake connection.", "line": 30 },
+          { "text": "Memphis WMS uses prefixed shipment IDs from an acquisition; needs a mapping join in the model.", "line": 63 },
+          { "text": "112-question security questionnaire; the last vendor took three weeks.", "line": 43 }
+        ]},
+        { "heading": "Pricing & budget", "bullets": [
+          { "text": "$60K to $80K per year set aside, approved in principle by CFO Dan Whitley.", "line": 35 },
+          { "text": "Partly funded by redirecting the ~$45K Looker spend.", "line": 37 },
+          { "text": "Alternative of hiring a third analyst costs about $110K fully loaded.", "line": 55 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Ethan sends a recap email today, sets up a technical deep dive with Tariq and Arjun the week of October 5, and turns the questionnaire around in five business days.", "line": 74 },
+          { "text": "Two-week proof of value on a read-only sample schema right after the technical session.", "line": 76 },
+          { "text": "Ethan to intro Coastline Freight's VP of Ops as a reference by Wednesday.", "line": 80 }
+        ]}
+      ]
+    },
+    {
+      "template": "sales_bant",
+      "sections": [
+        { "heading": "Budget", "bullets": [
+          { "text": "$60K to $80K per year, approved in principle by CFO Dan Whitley.", "line": 35 },
+          { "text": "Can redirect the ~$45K Looker contract ending January 31.", "line": 37 }
+        ]},
+        { "heading": "Authority", "bullets": [
+          { "text": "Rachel owns the problem and makes the recommendation; Dan Whitley signs anything over $50K.", "line": 41 },
+          { "text": "Tariq (data team lead) holds a technical veto; Janet runs procurement.", "line": 43 }
+        ]},
+        { "heading": "Need", "bullets": [
+          { "text": "On-time rate down from 94% to 87%; ~$340K in penalties last quarter and the loss of Hartwell Foods.", "line": 17 },
+          { "text": "Self-serve, same-day answers for ~15 power users and ~30 viewers instead of a 6-day data ticket queue.", "line": 25 },
+          { "text": "Proactive alerting on leading indicators like Memphis dwell time.", "line": 21 }
+        ]},
+        { "heading": "Timeline", "bullets": [
+          { "text": "Decision by December 19 at the latest; Looker ends January 31.", "line": 49 },
+          { "text": "About five weeks from verbal yes to signature (security, MSA redlines, CFO signature).", "line": 47 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Technical deep dive with Tariq and Arjun the week of October 5, then a two-week proof of value.", "line": 74 },
+          { "text": "Janet sends the security questionnaire Monday; Northwind returns it within five business days.", "line": 83 }
+        ]}
+      ]
+    },
+    {
+      "template": "sales_meddpicc",
+      "sections": [
+        { "heading": "Metrics", "bullets": [
+          { "text": "Success = on-time rate back above 92% and late-delivery penalties cut in half (from ~$340K per quarter).", "line": 59 },
+          { "text": "Ops managers never file a ticket for a delay question again.", "line": 59 }
+        ]},
+        { "heading": "Economic buyer", "bullets": [
+          { "text": "CFO Dan Whitley signs anything over $50K; wants payback period and a logistics reference.", "line": 79 }
+        ]},
+        { "heading": "Decision criteria", "bullets": [
+          { "text": "Must sit on top of Snowflake with no data movement.", "line": 29 },
+          { "text": "Must prove value on Acme's own shipment data; ops managers won't trust a generic demo.", "line": 75 }
+        ]},
+        { "heading": "Decision process", "bullets": [
+          { "text": "Rachel recommends, Tariq can veto technically, Dan signs.", "line": 41 },
+          { "text": "Technical session, then proof of value, then decision by December 19.", "line": 77 }
+        ]},
+        { "heading": "Paper process", "bullets": [
+          { "text": "112-question security questionnaire via Janet in procurement.", "line": 43 },
+          { "text": "Acme's own MSA; legal redlines take about two weeks; roughly five weeks end to end.", "line": 47 }
+        ]},
+        { "heading": "Identify pain", "bullets": [
+          { "text": "Six-day turnaround on delay questions from a two-person data team.", "line": 13 },
+          { "text": "$340K in penalties last quarter and the Hartwell Foods loss (~$1.2M/yr).", "line": 19 }
+        ]},
+        { "heading": "Champion", "bullets": [
+          { "text": "Rachel explicitly agreed to champion the deal and asked for help building the business case.", "line": 79 }
+        ]},
+        { "heading": "Competition", "bullets": [
+          { "text": "Amplitude: well known to the board but felt web-product focused ('we don't have signups, we have trucks').", "line": 53 },
+          { "text": "Status quo plus a third data analyst (~$110K), which only shortens the queue.", "line": 55 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Recap email today, reference intro by Wednesday, calendar options for the technical session.", "line": 82 }
+        ]}
+      ]
+    },
+    {
+      "template": "sales_spiced",
+      "sections": [
+        { "heading": "Situation", "bullets": [
+          { "text": "Regional freight carrier with ~11,000 shipments a week; Snowflake plus Looker; two-person data team.", "line": 7 }
+        ]},
+        { "heading": "Pain", "bullets": [
+          { "text": "Can't slice delay data fast enough to find root causes; answers take six business days.", "line": 13 }
+        ]},
+        { "heading": "Impact", "bullets": [
+          { "text": "~$340K in penalties and credits last quarter; lost Hartwell Foods, a ~$1.2M account.", "line": 17 }
+        ]},
+        { "heading": "Critical event", "bullets": [
+          { "text": "Looker contract ends January 31; Rachel wants to avoid another full-year renewal.", "line": 39 },
+          { "text": "Decision needed by December 19 before the holidays.", "line": 49 }
+        ]},
+        { "heading": "Decision", "bullets": [
+          { "text": "Rachel recommends, Tariq has a technical veto, CFO Dan Whitley signs; Janet handles procurement.", "line": 41 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Technical deep dive the week of October 5, then a two-week proof of value on Acme data.", "line": 76 }
+        ]}
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Discovery call with Acme Logistics to understand their shipment delay analytics needs.", "line": 6 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "On-time rate drop from 94% to 87% and the cost of late deliveries.", "line": 7 },
+          { "text": "Looker ticket-queue bottleneck and the need for self-serve answers and alerts.", "line": 13 },
+          { "text": "Budget, sign-off chain, security review and paper process.", "line": 35 },
+          { "text": "Competing options: Amplitude or hiring a third analyst.", "line": 51 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "Qualified opportunity: $60K to $80K budget, clear pain, and a hard date of January 31.", "line": 70 },
+          { "text": "Rachel is a willing champion; Tariq is the key technical gatekeeper.", "line": 79 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Recap email today, technical deep dive the week of October 5, questionnaire back in five business days.", "line": 74 },
+          { "text": "Two-week proof of value and a Coastline Freight reference call.", "line": 80 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Send Rachel a recap email of the discovery call to forward to Dan and Tariq (today)", "assignee": "ethan", "line": 74, "completed": true },
+    { "description": "Schedule technical deep dive with Tariq and Arjun for the week of October 5", "assignee": "ethan", "line": 74, "completed": false },
+    { "description": "Return Acme's security questionnaire within five business days of receipt", "assignee": "ethan", "line": 74, "completed": false },
+    { "description": "Intro Rachel to Coastline Freight's VP of Ops as a reference by Wednesday", "assignee": "ethan", "line": 80, "completed": false },
+    { "description": "Have Janet send the 112-question security questionnaire on Monday", "assignee": "rachel", "line": 83, "completed": true },
+    { "description": "Ask Tariq for a read-only Snowflake role on a sample schema for the proof of value", "assignee": "rachel", "line": 83, "completed": false },
+    { "description": "Build the business case around 92% on-time rate and halving penalties", "assignee": "ethan", "line": 60, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Intro and agenda", "start_line": 0, "end_line": 5, "summary": "Small talk about headsets, then Ethan frames a 30-minute listening call; Rachel has a hard stop at 11:30." },
+    { "title": "Shipment delays and the Looker bottleneck", "start_line": 6, "end_line": 23, "summary": "Acme's on-time rate fell from 94% to 87%, costing ~$340K in penalties; ops questions wait six days on a two-person data team." },
+    { "title": "Users, data team and integration concerns", "start_line": 24, "end_line": 33, "summary": "About 15 power users and 30 viewers; Tariq will insist Pulse sits on Snowflake without moving data, which it does." },
+    { "title": "Budget, authority and paper process", "start_line": 34, "end_line": 50, "summary": "$60K to $80K approved in principle by CFO Dan Whitley; Looker ends January 31; decision by December 19 after a ~5-week paper process." },
+    { "title": "Competition and success metrics", "start_line": 51, "end_line": 65, "summary": "Amplitude and a third analyst are the alternatives; success means 92% on-time and penalties cut in half." },
+    { "title": "Recap and next steps", "start_line": 66, "end_line": 86, "summary": "Ethan recaps accurately and commits to a recap email, technical session, proof of value and a reference call; Rachel agrees to champion." }
+  ],
+  "highlights": [
+    { "type": "pain_point", "title": "Weather report for last week", "note": "Six-day turnaround on every delay question.", "start_line": 13, "end_line": 15 },
+    { "type": "pain_point", "title": "$340K in penalties and a lost $1.2M account", "note": null, "start_line": 17, "end_line": 19 },
+    { "type": "question", "title": "Do you sit on top of Snowflake?", "note": "Tariq's gating question; answered with a read-only role.", "start_line": 29, "end_line": 30 },
+    { "type": "positive", "title": "Budget approved by the CFO", "note": "$60K to $80K per year, partly replacing Looker.", "start_line": 35, "end_line": 37 },
+    { "type": "decision", "title": "Decision by December 19", "note": null, "start_line": 49, "end_line": 50 },
+    { "type": "positive", "title": "We don't have signups, we have trucks", "note": "Why Amplitude's demo missed.", "start_line": 53, "end_line": 54 },
+    { "type": "action_item", "title": "Next steps: recap, technical session, questionnaire", "note": null, "start_line": 74, "end_line": 76 }
+  ],
+  "decisions": [
+    { "text": "Acme will make a decision by December 19, ahead of the Looker renewal on January 31.", "line": 49, "speaker": "rachel" },
+    { "text": "Run a two-week proof of value on Acme's own data right after the technical session.", "line": 77, "speaker": "rachel" },
+    { "text": "Start the security questionnaire in parallel rather than waiting for the evaluation to finish.", "line": 45, "speaker": "rachel" }
+  ]
+}

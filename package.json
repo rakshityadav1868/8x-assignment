@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/build-seed.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:seed": "node scripts/build-seed.mjs",
+    "seed:audio": "node scripts/generate-seed-audio.mjs",
+    "seed": "node scripts/seed.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.127.0",

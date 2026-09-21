@@ -1,0 +1,85 @@
+{
+  "summaries": [
+    {
+      "template": "one_on_one",
+      "sections": [
+        { "heading": "Updates & wins", "bullets": [
+          { "text": "Marcus cut funnel P95 from 2.8s to under a second; Priya shared it in the leadership channel.", "line": 2 },
+          { "text": "Aman says Marcus's code reviews are the most useful he gets: 'picky but kind'.", "line": 38 }
+        ]},
+        { "heading": "Challenges", "bullets": [
+          { "text": "On-call every third week for eight months; woken four times last rotation, three by the same flaky disk alert.", "line": 9 },
+          { "text": "Concern that AI Insights is scoped to run an LLM nightly over every event stream, which is ~400M events a month for Globex alone.", "line": 17 },
+          { "text": "Priority changes mid-sprint reach Marcus in standup rather than beforehand.", "line": 68 }
+        ]},
+        { "heading": "Feedback", "bullets": [
+          { "text": "Strength: excellent technical judgment that people trust.", "line": 24 },
+          { "text": "Growth area: judgment stays in Slack and hallways; if it isn't written down it doesn't shape the roadmap.", "line": 26 },
+          { "text": "In the architecture review Marcus went quiet on Tom's caching pushback and then did it his way; disagree in the room or in writing.", "line": 63 },
+          { "text": "For Priya: give a direct heads-up before standup when priorities shift.", "line": 69 }
+        ]},
+        { "heading": "Career & growth", "bullets": [
+          { "text": "Marcus wants staff engineer in the next cycle; he is at staff level on technical depth and close on developing others.", "line": 42 },
+          { "text": "Scope evidence: lead the query engine migration with Aman, and Nina on the frontend switchover.", "line": 48 },
+          { "text": "Promo packets due mid-January; Priya will advocate if the migration is on track with two or three solid docs.", "line": 50 },
+          { "text": "Keep a decision journal for two weeks to adjust to less coding.", "line": 59 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Kevin fixes or deletes the disk alert by October 2; Nina joins on-call next week.", "line": 73 },
+          { "text": "Marcus writes a two-page AI Insights cost doc with Hannah's review by Wednesday the 1st, as a pre-read for Q4 planning.", "line": 30 },
+          { "text": "Promo packet check-in in early December.", "line": 73 }
+        ]}
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Regular 1:1 covering Marcus's concerns, feedback, and the staff engineer path.", "line": 6 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "On-call fatigue caused by a flaky, unowned disk alert.", "line": 9 },
+          { "text": "Cost risk in the AI Insights scope and a cheaper precompute-anomalies approach (~99% cheaper).", "line": 19 },
+          { "text": "Staff rubric: technical depth, scope, writing, developing others.", "line": 42 },
+          { "text": "Speaking up in architecture reviews.", "line": 61 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "Writing is the main gap to staff; the AI Insights cost doc is the first step.", "line": 28 },
+          { "text": "Cohorts rewrite moves to Aman so Marcus can lead the migration.", "line": 53 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Cost doc by Wednesday the 1st; disk alert fixed by October 2; promo check-in in early December.", "line": 73 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Get Kevin to fix or delete the flaky disk alert by October 2", "assignee": "priya", "line": 14, "completed": true },
+    { "description": "Write a two-page AI Insights cost doc (approaches, cost comparison, risks) with Hannah's review by Wednesday the 1st", "assignee": "marcus", "line": 30, "completed": true },
+    { "description": "Add the cost doc as a pre-read for Q4 planning", "assignee": "priya", "line": 30, "completed": false },
+    { "description": "Lead the query engine migration in Q4 if prioritized (design doc and weekly sync)", "assignee": "marcus", "line": 48, "completed": false },
+    { "description": "Keep a decision journal for two weeks and report back", "assignee": "marcus", "line": 59, "completed": false },
+    { "description": "Message people directly before standup when priorities shift", "assignee": "priya", "line": 69, "completed": false },
+    { "description": "Check in on the promo packet in early December", "assignee": "priya", "line": 73, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Check-in and funnel win", "start_line": 0, "end_line": 6, "summary": "Priya congratulates Marcus on the funnel speedup and sets the agenda." },
+    { "title": "On-call fatigue", "start_line": 7, "end_line": 14, "summary": "A flaky disk alert keeps waking Marcus; Nina joins the rotation and Kevin will fix the alert by October 2." },
+    { "title": "AI Insights cost concerns and feedback", "start_line": 15, "end_line": 33, "summary": "Marcus doubts the nightly-LLM scope; Priya's feedback is to write it down as a two-page cost doc before Q4 planning." },
+    { "title": "Path to staff engineer", "start_line": 34, "end_line": 60, "summary": "The staff rubric gaps are scope and writing; Marcus will lead the query engine migration with a mid-January promo target." },
+    { "title": "Two-way feedback and recap", "start_line": 61, "end_line": 76, "summary": "Marcus should disagree in the room; Priya will give heads-ups before priority changes. Recap of owners and dates." }
+  ],
+  "highlights": [
+    { "type": "pain_point", "title": "Woken four times by the same flaky alert", "note": null, "start_line": 9, "end_line": 10 },
+    { "type": "question", "title": "Has anyone done the math on AI Insights cost?", "note": "About 400M events a month for Globex alone.", "start_line": 17, "end_line": 19 },
+    { "type": "positive", "title": "Picky but kind", "note": "Aman on Marcus's code reviews.", "start_line": 38, "end_line": 40 },
+    { "type": "decision", "title": "Marcus to lead the query engine migration", "note": null, "start_line": 48, "end_line": 48 },
+    { "type": "action_item", "title": "Two-page cost doc by Wednesday", "note": null, "start_line": 30, "end_line": 31 },
+    { "type": "positive", "title": "Disagree, then commit or write it down", "note": null, "start_line": 63, "end_line": 65 }
+  ],
+  "decisions": [
+    { "text": "Nina joins the on-call rotation next week, moving Marcus from every third week to every fourth.", "line": 12, "speaker": "priya" },
+    { "text": "Marcus leads the Q4 query engine migration as technical lead, with Aman and Nina, if prioritized.", "line": 48, "speaker": "priya" },
+    { "text": "The retention cohorts rewrite moves to Aman after the webhook work.", "line": 53, "speaker": "priya" }
+  ]
+}

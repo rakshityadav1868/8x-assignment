@@ -1,0 +1,83 @@
+{
+  "summaries": [
+    {
+      "template": "standup",
+      "sections": [
+        { "heading": "Completed", "bullets": [
+          { "text": "Marcus: funnel query planner changes shipped; P95 on the Globex dataset went from 2.8s to 900ms.", "line": 1 },
+          { "text": "Nina: dashboard sharing modal shipped behind a flag to internal users and three beta customers.", "line": 12 },
+          { "text": "Kevin: EU ingestion incident mitigated; consumer-lag alert threshold cut from 15 to 3 minutes.", "line": 26 }
+        ]},
+        { "heading": "In progress / today", "bullets": [
+          { "text": "Marcus starts the retention cohorts rewrite using the same pattern.", "line": 3 },
+          { "text": "Aman: fixing expiring signed URLs for share previews, and webhook retries with exponential backoff up to 24 hours (~70% done).", "line": 42 },
+          { "text": "Nina starts empty states for the new onboarding flow from Leah's designs.", "line": 22 },
+          { "text": "Kevin reruns the staging backfill today (~6 hours).", "line": 9 }
+        ]},
+        { "heading": "Blockers", "bullets": [
+          { "text": "Staging warehouse has only 30 of the 90 days of data needed for cohorts work.", "line": 8 },
+          { "text": "Sharing GA is blocked on the signed-URL preview bug Globex found.", "line": 16 },
+          { "text": "Staging Terraform state is locked since Arjun's laptop died mid-apply; Arjun is out until Tuesday.", "line": 34 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Aman lands the signed URL fix by Wednesday; Nina rolls sharing to 10% Thursday and GA Friday before lunch.", "line": 63 },
+          { "text": "Kevin sends a consumer-deploy canary proposal by Thursday.", "line": 30 },
+          { "text": "Everyone sends Priya their top tech debt items by Wednesday EOD for Q4 planning.", "line": 53 }
+        ]}
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Weekly engineering standup: progress, blockers, and prep for Q4 planning.", "line": 0 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "Funnel performance win on the Globex dataset.", "line": 1 },
+          { "text": "Dashboard sharing beta and the gray-box preview bug.", "line": 14 },
+          { "text": "Tuesday's 40-minute EU ingestion delay affecting ~60 customers' alerts.", "line": 24 },
+          { "text": "Webhook retry policy, including handling of 429 responses.", "line": 48 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "Globex called out the funnel speedup on their renewal call.", "line": 61 },
+          { "text": "Nina joins the on-call rotation next week, paired with Kevin.", "line": 57 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Webhook retries merged by Monday the 5th; tech debt items to Priya by Wednesday EOD.", "line": 63 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Rerun the staging backfill so staging has 90 days of data", "assignee": "kevin", "line": 9, "completed": true },
+    { "description": "Fix share preview signed URLs (generate on request) by Wednesday", "assignee": "aman", "line": 18, "completed": false },
+    { "description": "Roll dashboard sharing to 10% Thursday and GA Friday before lunch", "assignee": "nina", "line": 20, "completed": false },
+    { "description": "Send a canary proposal for Kafka consumer deploys by Thursday", "assignee": "kevin", "line": 30, "completed": false },
+    { "description": "Merge webhook retries (honor Retry-After on 429s) by Monday the 5th", "assignee": "aman", "line": 52, "completed": false },
+    { "description": "Send Priya top one or two tech debt items by Wednesday EOD", "assignee": null, "line": 53, "completed": false },
+    { "description": "Review apply logs with Kevin and decide on force-unlocking the staging Terraform state", "assignee": "priya", "line": 37, "completed": true },
+    { "description": "Runbook walkthrough with Nina Thursday at 2 before her first on-call shift", "assignee": "kevin", "line": 58, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Marcus: funnel performance", "start_line": 0, "end_line": 10, "summary": "Funnel P95 dropped to 900ms; cohorts work waits on a staging backfill Kevin reruns today." },
+    { "title": "Nina: sharing beta", "start_line": 11, "end_line": 22, "summary": "Sharing is in beta; the preview bug needs Aman's signed URL fix before GA Friday." },
+    { "title": "Kevin: ingestion incident", "start_line": 23, "end_line": 38, "summary": "A stuck Kafka partition delayed EU events for 40 minutes; the lag alert is tightened and a staging Terraform lock needs resolving." },
+    { "title": "Aman: webhook retries", "start_line": 39, "end_line": 52, "summary": "Webhooks will retry with exponential backoff up to 24 hours and respect Retry-After on 429s." },
+    { "title": "Announcements and recap", "start_line": 53, "end_line": 66, "summary": "Tech debt items are due before Q4 planning, Nina joins on-call, and Priya recaps owners and dates." }
+  ],
+  "highlights": [
+    { "type": "positive", "title": "Funnels: 2.8s to 900ms", "note": "Measured on the Globex dataset.", "start_line": 1, "end_line": 3 },
+    { "type": "pain_point", "title": "Webhooks fail silently after three retries", "note": null, "start_line": 40, "end_line": 41 },
+    { "type": "pain_point", "title": "EU ingestion delay: 40 minutes, 60 customers", "note": null, "start_line": 24, "end_line": 26 },
+    { "type": "question", "title": "Should we retry on 429s?", "note": "Answer: respect Retry-After, else back off like a 500.", "start_line": 48, "end_line": 50 },
+    { "type": "decision", "title": "Force-unlock Terraform if logs are clean", "note": null, "start_line": 37, "end_line": 37 },
+    { "type": "action_item", "title": "Standup recap: owners and dates", "note": null, "start_line": 63, "end_line": 63 }
+  ],
+  "decisions": [
+    { "text": "Dashboard sharing rolls out to 10% Thursday and goes GA Friday before lunch, gated on the signed URL fix.", "line": 20, "speaker": "nina" },
+    { "text": "Webhook retries respect Retry-After on 429s; otherwise treat them like a 500 with backoff.", "line": 51, "speaker": "priya" },
+    { "text": "Consumer-lag alert threshold lowered to 3 minutes, suppressed during the 1:00 to 1:30 UTC compaction window.", "line": 28, "speaker": "kevin" },
+    { "text": "Priya will decide on force-unlocking staging Terraform after reviewing apply logs rather than wait for Arjun.", "line": 37, "speaker": "priya" },
+    { "text": "Nina joins the on-call rotation next week, paired with Kevin for her first shift.", "line": 57, "speaker": "priya" }
+  ]
+}

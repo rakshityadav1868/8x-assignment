@@ -1,0 +1,195 @@
+{
+  "summaries": [
+    {
+      "template": "project_update",
+      "sections": [
+        {
+          "heading": "Status overview",
+          "bullets": [
+            { "text": "Q3 closed at about $3.58M ARR; the Q4 target committed to the board is $4.2M by December 31st, with net revenue retention back above 110%.", "line": 28 },
+            { "text": "Q3 was a record for new logos (41, up from 29) but average deal size fell from about $18k to just under $15k after heavy end-of-quarter discounting.", "line": 41 },
+            { "text": "Reliability missed the mark: three sev-1s, 99.82% uptime against a 99.9% Enterprise SLA, and about $4k in service credits paid.", "line": 73 },
+            { "text": "NRR slipped from 111% to 104%. Growth-tier churn of 1.4% a month is mostly year-plus accounts leaving over slow dashboards.", "line": 87 },
+            { "text": "Globex ($186k ARR, renews January 31st) is roughly a fifty-fifty renewal risk and is evaluating Amplitude.", "line": 133 }
+          ]
+        },
+        {
+          "heading": "Progress since last update",
+          "bullets": [
+            { "text": "Alerts v2 shipped in July. 44% of active workspaces now have at least one alert configured.", "line": 63 },
+            { "text": "The Snowflake connector went GA in August, and the new onboarding flow lifted 7-day activation from 31% to 38%.", "line": 64 },
+            { "text": "Trial-to-paid conversion is 11.2% against a 14% target.", "line": 67 },
+            { "text": "The anomaly detection model for alerts is live on about 900 workspaces.", "line": 96 },
+            { "text": "Marcus's query planner work cut Globex funnel p95 from 2.8 seconds to 900 milliseconds in one week.", "line": 374 }
+          ]
+        },
+        {
+          "heading": "Risks & blockers",
+          "bullets": [
+            { "text": "SSO/SCIM slipped from August because the same three auth engineers kept getting pulled into incidents. It is blocking about $240k of Enterprise pipeline (Meridian Freight, Castellan).", "line": 71 },
+            { "text": "Ingestion workers share a single Postgres queue table, so one customer's backfill stalls everyone. It was the root cause of both the June and August 14th incidents.", "line": 81 },
+            { "text": "The top 50 workspaces see 8.4s p95 dashboard loads, and some 30-day queries time out.", "line": 116 },
+            { "text": "The Explain This Change prototype took 94 seconds and about 60 cents of warehouse cost per run on Globex data. It sits at 62% top-3 accuracy.", "line": 188 },
+            { "text": "On-call burnout: 143 pages last month, about 70% of them noise. Two platform engineers raised it in 1:1s.", "line": 323 },
+            { "text": "Six Q3 deals (about $310k ACV) were lost where competitors' AI features came up in the final stage.", "line": 147 }
+          ]
+        },
+        {
+          "heading": "Decisions made",
+          "bullets": [
+            { "text": "AI Insights ships as a design-partner beta of Explain This Change: 10 Growth/Enterprise partners, staffed by Hannah and Marcus, live by November 20th if the eval reaches 75%. No GA in Q4.", "line": 288 },
+            { "text": "Reliability code yellow runs October 6th to 24th: Kafka ingestion, rollups, alert cleanup and a public status page.", "line": 379 },
+            { "text": "SSO GA on November 2nd, SCIM on November 16th. Audit logs move to Q1.", "line": 409 },
+            { "text": "New Growth pricing starts November 3rd at $599/month with 20M events included and $25 per extra million. Existing customers are grandfathered for 12 months.", "line": 494 },
+            { "text": "The staff engineer and CSM reqs are approved now. The ML engineer req opens in January.", "line": 542 },
+            { "text": "Q4 priorities in order: reliability, SSO/SCIM, AI Insights beta, pricing. Dashboard builder v2 moves to Q1 and the mobile app is cut.", "line": 591 }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            { "text": "Priya sends the code yellow staffing plan by Friday, October 3rd, and the Olivia Grant offer by October 8th.", "line": 600 },
+            { "text": "Arjun delivers the Kafka design doc by October 9th, cutover by October 30th, and the Globex rollup pilot by November 6th.", "line": 607 },
+            { "text": "Hannah sends eval updates every two weeks starting October 16th and makes the go/no-go call on November 13th.", "line": 613 },
+            { "text": "Siobhan signs up 10 design partners by October 24th and holds the Globex call with Greg Holloway by October 10th.", "line": 623 },
+            { "text": "Sofia delivers the pricing spec by October 15th and drafts the customer email by October 20th.", "line": 630 },
+            { "text": "Dana delivers the board update by October 9th, and the comp plan fix with James by October 17th.", "line": 641 }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        {
+          "heading": "Meeting purpose",
+          "bullets": [
+            { "text": "Agree the Q4 roadmap: what Northwind is doing and not doing, a named owner and date for every big item, and alignment on AI Insights.", "line": 13 },
+            { "text": "Every priority should ladder up to $4.2M ARR by year end or NRR back above 110%.", "line": 28 }
+          ]
+        },
+        {
+          "heading": "Topics discussed",
+          "bullets": [
+            { "text": "Q3 retro: 41 new logos and $612k new ARR, but smaller deals, a 23% win rate (down from 27%), three sev-1s and an SLA breach.", "line": 41 },
+            { "text": "Customer themes from 212 tickets and 38 interviews: explaining why metrics moved, dashboard speed, SSO/SCIM, and surprise overage bills.", "line": 98 },
+            { "text": "AI Insights debate: Tom wanted a mid-November launch with four engineers. Priya argued reliability and the rollups have to come first.", "line": 173 },
+            { "text": "Customers want root cause analysis, not a chatbot. Greg at Globex called Amplitude's chat box \"a nice party trick\".", "line": 156 },
+            { "text": "Platform plan: partitioned Kafka ingestion, hourly rollups targeting 2.5s p95 dashboards, and on-call noise reduction.", "line": 315 },
+            { "text": "Pricing: the median Growth customer pays about $740/month because of overages. Proposal is $599 with 20M events, plus a usage meter and alerts at 80% and 100%.", "line": 429 },
+            { "text": "Hiring: budget covers two of three reqs this quarter, and the room chose the staff engineer and the CSM.", "line": 528 }
+          ]
+        },
+        {
+          "heading": "Key takeaways",
+          "bullets": [
+            { "text": "Reliability and AI Insights depend on each other rather than competing: the rollups make both fast dashboards and affordable root-cause runs possible.", "line": 235 },
+            { "text": "The AI features are a reason to expand, while performance and SSO are the reason customers stay at all.", "line": 142 },
+            { "text": "Tom publicly conceded that Priya and Arjun were right about sequencing.", "line": 414 },
+            { "text": "The vote confirmed the order: reliability 7, SSO 6, AI Insights 6, pricing 4, dashboard builder 1, mobile app 0.", "line": 579 }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            { "text": "Tom presents the doing / not-doing slide at Friday's all-hands and calls the two mobile-app customers.", "line": 619 },
+            { "text": "James updates the Q4 forecast by October 8th and runs rep training on the new pricing by October 31st.", "line": 636 },
+            { "text": "Kevin cuts on-call pages by 60% by October 17th and has the public status page live by October 24th.", "line": 657 },
+            { "text": "Priya shares the notes in the leadership channel.", "line": 685 }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "qa",
+      "sections": [
+        {
+          "heading": "Questions & answers",
+          "bullets": [
+            { "text": "Why did average deal size drop? Partly self-serve doing more of the work, partly heavy Growth discounting in the last two weeks of September.", "line": 45 },
+            { "text": "Is Growth churn mostly the discounted accounts? No. It is mostly year-plus accounts whose event volume grew until dashboards got slow.", "line": 91 },
+            { "text": "How at risk is Globex? About fifty-fifty. They are evaluating Amplitude, and performance and SSO would keep them.", "line": 135 },
+            { "text": "How good is the Explain This Change prototype? It finds the right driver in the top three 62% of the time. It needs 75 to 80% before a wide beta.", "line": 250 },
+            { "text": "What does a run cost after the rollups? Probably under five seconds and a couple of cents, compared with 94 seconds and about 60 cents today.", "line": 232 },
+            { "text": "What if the eval is at 70% on November 20th? Then the beta waits.", "line": 305 },
+            { "text": "How do we roll back the Kafka migration? Flip a flag back to the old queue, which stays warm until the end of November after a week of dual-writes.", "line": 364 },
+            { "text": "What date can go in security questionnaires? SSO in early November (GA November 2nd) and SCIM by mid November.", "line": 403 },
+            { "text": "Does 20M included events hurt margins? No. Infra cost is about $3.10 per million events and heading to about $2, and Growth gross margin stays above 78%.", "line": 477 }
+          ]
+        },
+        {
+          "heading": "Open questions",
+          "bullets": [
+            { "text": "Accuracy impact of sampling 10% of events to make Explain This Change cheaper before the rollups land. Hannah needs to test it.", "line": 221 },
+            { "text": "Whether Globex joins as a design partner. Siobhan will ask Greg on the October 10th call.", "line": 627 },
+            { "text": "Long-term AI Insights packaging and whether it is included in Enterprise. That will be decided in Q1 once run costs are known.", "line": 486 },
+            { "text": "Annual discount stays at 20% through Q1. Dana wants to revisit in January.", "line": 504 }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            { "text": "Siobhan circulates the customer-themes doc right after the meeting.", "line": 162 },
+            { "text": "Arjun sends Siobhan a before-and-after performance one-pager for Globex by October 27th.", "line": 610 },
+            { "text": "Hannah makes the beta go/no-go call on November 13th.", "line": 616 }
+          ]
+        }
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Send the code yellow plan to engineering, showing who is pulled from what, by Friday October 3rd", "assignee": "priya", "line": 600, "completed": true },
+    { "description": "Ship SAML SSO GA by November 2nd and SCIM by November 16th, with a status post every Friday", "assignee": "priya", "line": 601, "completed": false },
+    { "description": "Send the offer to Olivia Grant (staff engineer) by Wednesday October 8th", "assignee": "priya", "line": 602, "completed": false },
+    { "description": "Kevin: get the public status page live by October 24th (Priya to confirm with him)", "assignee": null, "line": 604, "completed": false },
+    { "description": "Kevin: clean up on-call alerting for 60% fewer pages by October 17th", "assignee": null, "line": 657, "completed": false },
+    { "description": "Write the Kafka ingestion design doc by October 9th and complete the cutover by October 30th", "assignee": "arjun", "line": 607, "completed": false },
+    { "description": "Have the Globex rollup pilot ready by November 6th", "assignee": "arjun", "line": 608, "completed": false },
+    { "description": "Send Siobhan the before-and-after Globex performance one-pager by October 27th", "assignee": "arjun", "line": 610, "completed": false },
+    { "description": "Get the Explain This Change eval to 75% top-3 accuracy, send updates every two weeks from October 16th, and make the go/no-go call on November 13th", "assignee": "hannah", "line": 613, "completed": false },
+    { "description": "Write the AI Insights beta one-pager with design-partner criteria by October 10th", "assignee": "tom", "line": 618, "completed": false },
+    { "description": "Present the doing / not-doing slide at Friday's all-hands and call the two mobile-app customers by end of next week", "assignee": "tom", "line": 619, "completed": false },
+    { "description": "Sign up 10 AI Insights design partners, starting with Parcelly, by October 24th", "assignee": "siobhan", "line": 623, "completed": false },
+    { "description": "Hold a call with Greg Holloway at Globex on the reliability plan, SSO dates and design-partner invite by October 10th", "assignee": "siobhan", "line": 624, "completed": false },
+    { "description": "Publish the CSM job description", "assignee": "siobhan", "line": 625, "completed": true },
+    { "description": "Deliver the pricing spec with grandfathering rules by October 15th and draft the Growth customer email by October 20th, ahead of the November 3rd launch", "assignee": "sofia", "line": 630, "completed": false },
+    { "description": "Send the updated Q4 forecast by October 8th and the Meridian/Castellan security questionnaire answers by October 7th", "assignee": "james", "line": 636, "completed": false },
+    { "description": "Run sales enablement training on the new pricing by October 31st", "assignee": "james", "line": 638, "completed": false },
+    { "description": "Change the comp plan with finance so reps aren't penalized for plan switches, by October 17th (James reviews)", "assignee": "dana", "line": 641, "completed": false },
+    { "description": "Send the board update with the Q4 plan, decisions and revised ARR bridge by October 9th", "assignee": "dana", "line": 645, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Intro & Q4 goals", "start_line": 0, "end_line": 37, "summary": "Dana frames the session around three outcomes and the Q4 targets: $4.2M ARR and NRR back above 110%. Tom flags the need for an AI story." },
+    { "title": "Q3 retro: revenue, engineering, retention", "start_line": 38, "end_line": 97, "summary": "Record 41 new logos but smaller deals and a 23% win rate. SSO and dashboard builder slipped, three sev-1s caused an SLA breach, and NRR fell to 104%." },
+    { "title": "Customer feedback themes & Globex risk", "start_line": 98, "end_line": 162, "summary": "Siobhan's four themes are why metrics moved, dashboard speed, SSO/SCIM and surprise overages. Globex's $186k renewal is roughly fifty-fifty, and six deals were lost where AI came up." },
+    { "title": "AI Insights debate", "start_line": 163, "end_line": 308, "summary": "Tom pitched an AI Insights launch, and Priya and Arjun showed it depends on the rollups (a 94-second, 60-cent run on Globex). Sofia's scoped design-partner beta became Decision 1, gated on 75% eval accuracy." },
+    { "title": "Platform reliability & code yellow", "start_line": 309, "end_line": 394, "summary": "Arjun's three-part plan covers Kafka ingestion, hourly rollups and on-call noise. A code yellow runs October 6th to 24th with targets of 2.5s p95, under 5 minutes of lag and 60% fewer pages, plus a public status page." },
+    { "title": "SSO & SCIM dates", "start_line": 395, "end_line": 420, "summary": "Priya commits to SSO GA on November 2nd and SCIM on November 16th, with audit logs moving to Q1. Tom concedes the sequencing argument." },
+    { "title": "Pricing & packaging", "start_line": 421, "end_line": 506, "summary": "Growth moves to $599 with 20M events and $25 per extra million, grandfathering, and a usage meter. The comp plan will be fixed for reps. AI Insights is unpriced in Q4 with early access for Enterprise, and the annual discount stays at 20%." },
+    { "title": "Hiring & capacity", "start_line": 507, "end_line": 549, "summary": "The staff engineer (Olivia Grant) and CSM reqs are approved and the ML engineer is deferred to January after Hannah weighs in. No contractors on auth." },
+    { "title": "Prioritization vote", "start_line": 550, "end_line": 596, "summary": "The vote ranks reliability 7, SSO 6, AI Insights 6, pricing 4, dashboard builder 1 and mobile app 0. Dashboard builder v2 moves to Q1 and the mobile app is cut." },
+    { "title": "Owners & dates", "start_line": 597, "end_line": 660, "summary": "Each person states their commitments and dates out loud, from the code yellow plan and Kafka doc to design partners, the pricing spec, the forecast, the comp plan and the board update." },
+    { "title": "Wrap-up & decision recap", "start_line": 661, "end_line": 690, "summary": "Dana recaps the six decisions, acknowledges the trade-offs, and Priya shares the notes in the leadership channel." }
+  ],
+  "highlights": [
+    { "type": "pain_point", "title": "\"Useless at telling me where the fire is\"", "note": "Top customer theme: 71 tickets and 24 of 38 interviews ask why a metric moved.", "start_line": 101, "end_line": 105 },
+    { "type": "pain_point", "title": "Globex renewal is fifty-fifty", "note": "$186k ARR renewing January 31st. Performance and SSO would keep them.", "start_line": 131, "end_line": 136 },
+    { "type": "positive", "title": "Globex would pay more for explanations", "note": "Greg would find budget for automatic explanations of metric changes.", "start_line": 137, "end_line": 139 },
+    { "type": "question", "title": "How good is the AI Insights prototype, really?", "note": "62% top-3 accuracy today. It needs 75 to 80% before a wide beta.", "start_line": 248, "end_line": 254 },
+    { "type": "decision", "title": "AI Insights ships as a design-partner beta", "note": "10 partners, Hannah and Marcus, live by November 20th, no GA in Q4.", "start_line": 287, "end_line": 292 },
+    { "type": "pain_point", "title": "143 pages in a month, 3 AM four nights in a row", "note": "On-call burnout is driving the code yellow.", "start_line": 322, "end_line": 328 },
+    { "type": "decision", "title": "Reliability code yellow, October 6th to 24th", "note": null, "start_line": 379, "end_line": 384 },
+    { "type": "positive", "title": "Tom concedes on sequencing", "note": "The rollups-first argument wins.", "start_line": 414, "end_line": 419 },
+    { "type": "decision", "title": "New Growth pricing: $599 with 20M events", "note": "Live November 3rd. Existing customers grandfathered for 12 months.", "start_line": 494, "end_line": 498 },
+    { "type": "action_item", "title": "Owners & dates: Priya and Arjun", "note": "Code yellow plan, SSO/SCIM dates, Olivia offer, Kafka doc and Globex pilot.", "start_line": 600, "end_line": 608 }
+  ],
+  "decisions": [
+    { "text": "AI Insights ships in Q4 as a design-partner beta of Explain This Change only: 10 Growth/Enterprise partners behind a flag, staffed by Hannah and Marcus, live by November 20th. No public launch or GA in Q4, and proactive Slack push is out of scope.", "line": 288, "speaker": "dana" },
+    { "text": "No design partner sees AI Insights until the eval reaches 75% top-3 accuracy. Hannah owns the bar.", "line": 302, "speaker": "dana" },
+    { "text": "Run a reliability code yellow October 6th to 24th: platform team plus one product engineer, and ingestion, query and auth changes frozen unless Priya approves.", "line": 379, "speaker": "dana" },
+    { "text": "SSO GA November 2nd and SCIM November 16th. Audit logs move to Q1.", "line": 409, "speaker": "dana" },
+    { "text": "New Growth pricing ($599 per month, 20M events, $25 per extra million) goes live for new customers on November 3rd. Existing customers are grandfathered for 12 months, and the sales comp plan is fixed for plan switches.", "line": 494, "speaker": "dana" },
+    { "text": "Approve the staff engineer and CSM hires now. The ML engineer req opens in January. No contractors on auth.", "line": 542, "speaker": "dana" },
+    { "text": "Q4 priorities in order: reliability, SSO/SCIM, AI Insights beta, Growth pricing. Dashboard builder v2 moves to Q1 and the mobile app is cut.", "line": 591, "speaker": "dana" }
+  ]
+}

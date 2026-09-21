@@ -1,0 +1,94 @@
+{
+  "summaries": [
+    {
+      "template": "project_update",
+      "sections": [
+        { "heading": "Status overview", "bullets": [
+          { "text": "Goal: lock the new pricing page structure so Leah can start high-fidelity designs this week.", "line": 0 },
+          { "text": "The page gets ~18,000 visits/month with 2.1% visit-to-trial conversion, against a 3–4% B2B analytics benchmark.", "line": 3 },
+          { "text": "Session recordings show visitors bouncing between Growth and Enterprise, with ~3 minutes on page that reads as confusion.", "line": 4 }
+        ]},
+        { "heading": "Progress since last update", "bullets": [
+          { "text": "Leah reviewed ~40 recordings: visitors click contact sales and then abandon the 9-field form.", "line": 5 },
+          { "text": "Arjun estimated the fully loaded cost at ~$3 per million events, so $25/M overage keeps a healthy margin and sits mid-market vs Mixpanel/Amplitude.", "line": 27 },
+          { "text": "Annual uptake on Growth is already 61%.", "line": 34 }
+        ]},
+        { "heading": "Risks & blockers", "bullets": [
+          { "text": "Showing an Enterprise price could anchor deals low; the median Enterprise deal is ~$42k/yr.", "line": 11 },
+          { "text": "Overage is handled manually today; sales spent ~60 hours last month on overage conversations.", "line": 24 },
+          { "text": "The November 3 launch is tight given ~2 sprints of Stripe metered billing work.", "line": 61 },
+          { "text": "Listing AI Insights under a tier before packaging is decided could anger customers.", "line": 51 }
+        ]},
+        { "heading": "Decisions made", "bullets": [
+          { "text": "Ship 'what drives price' copy for Enterprise with no number, A/B tested against a 'starting at' price over ~6 weeks.", "line": 19 },
+          { "text": "Growth overage at $25 per additional million events, with an on-page calculator capped at 50M.", "line": 31 },
+          { "text": "Keep the 20% annual discount; revisit in Q1 after the Enterprise test.", "line": 41 },
+          { "text": "Contact form cut from 9 fields to 5 (one optional free-text field).", "line": 47 },
+          { "text": "AI Insights stays off the page except a teaser banner until Q4 roadmap planning settles packaging.", "line": 52 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Leah: high-fidelity designs incl. the calculator by Wednesday the 14th, early Figma link Monday.", "line": 54 },
+          { "text": "Sofia: experiment brief by Friday, plus billing work with Aman.", "line": 56 },
+          { "text": "James: sales playbook and lead routing updated by the 20th, with a walkthrough at the Monday sales sync.", "line": 59 },
+          { "text": "Tom: pricing change announcement for existing Growth customers; launch target November 3.", "line": 60 }
+        ]}
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Lock the structure of the new pricing page: Enterprise pricing, usage-based overage, annual discount, form and comparison table.", "line": 0 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "Whether to show a starting price for Enterprise, with Sofia for it and James against.", "line": 10 },
+          { "text": "Pay-as-you-go overage on Growth and a slider calculator.", "line": 25 },
+          { "text": "Cutting the annual discount from 20% to 15–17%, with the churn data debated.", "line": 34 },
+          { "text": "Collapsing the 42-row comparison table to 8 key rows.", "line": 49 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "Where the team disagrees on pricing, tests settle it, one test at a time.", "line": 41 },
+          { "text": "Annual Growth logos churn ~1.2%/mo vs ~3.4%/mo for monthly, though Sofia notes that may be correlation.", "line": 37 },
+          { "text": "Sofia believes keeping 20% leaves roughly $40k/yr on the table.", "line": 42 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Designs by the 14th, experiment brief Friday, playbook by the 20th, launch November 3.", "line": 54 },
+          { "text": "Check the launch date again next Thursday in case billing slips.", "line": 62 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "High-fidelity pricing page designs including the usage calculator by Wednesday the 14th", "assignee": "leah", "line": 54, "completed": false },
+    { "description": "Share early Figma link in the pricing channel on Monday", "assignee": "leah", "line": 55, "completed": true },
+    { "description": "Write the Enterprise price A/B test experiment brief with success metrics by Friday", "assignee": "sofia", "line": 56, "completed": true },
+    { "description": "Book time with Aman to scope Stripe metered billing for overage", "assignee": "sofia", "line": 57, "completed": false },
+    { "description": "Update sales playbook and lead routing for the 5-field form by the 20th; walkthrough at Monday sales sync", "assignee": "james", "line": 59, "completed": false },
+    { "description": "Write the pricing change announcement for existing Growth customers", "assignee": "tom", "line": 60, "completed": false },
+    { "description": "Check in on the November 3 launch date next Thursday", "assignee": "tom", "line": 62, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Goals & pricing page data", "start_line": 0, "end_line": 8, "summary": "18k monthly visits, 2.1% trial conversion, confused visitors and a 9-field form." },
+    { "title": "Show an Enterprise price?", "start_line": 9, "end_line": 21, "summary": "Sofia wants a starting price and James fears anchoring. The team lands on 'what drives price' copy plus an A/B test." },
+    { "title": "Usage-based overage", "start_line": 22, "end_line": 32, "summary": "$25 per extra million events on Growth, with a calculator capped at 50M." },
+    { "title": "Annual discount debate", "start_line": 33, "end_line": 43, "summary": "20% vs 15%. Tom keeps 20% until Q1 to avoid running two tests at once." },
+    { "title": "Form & comparison table", "start_line": 44, "end_line": 53, "summary": "The form drops to 5 fields, the table to 8 rows, and AI Insights gets only a teaser." },
+    { "title": "Owners & dates", "start_line": 54, "end_line": 64, "summary": "Designs by the 14th, brief Friday, playbook by the 20th, launch November 3." }
+  ],
+  "highlights": [
+    { "type": "pain_point", "title": "Nine-field contact form is 'a crime'", "note": "Visitors bounce off the Enterprise form.", "start_line": 5, "end_line": 5 },
+    { "type": "pain_point", "title": "60 hours a month on overage negotiations", "note": null, "start_line": 24, "end_line": 24 },
+    { "type": "question", "title": "What about buyers who never contact us?", "note": null, "start_line": 14, "end_line": 15 },
+    { "type": "decision", "title": "A/B test Enterprise pricing copy", "note": null, "start_line": 19, "end_line": 20 },
+    { "type": "decision", "title": "Growth overage at $25 per million", "note": null, "start_line": 31, "end_line": 32 },
+    { "type": "positive", "title": "Leah's 'what drives price' middle ground", "note": null, "start_line": 16, "end_line": 18 },
+    { "type": "action_item", "title": "Owners and November 3 launch", "note": null, "start_line": 54, "end_line": 57 }
+  ],
+  "decisions": [
+    { "text": "Enterprise shows 'what drives price' copy (no number), A/B tested against a 'starting at' price for ~6 weeks.", "line": 19, "speaker": "tom" },
+    { "text": "Growth gets pay-as-you-go overage at $25 per additional million events; calculator capped at 50M.", "line": 31, "speaker": "tom" },
+    { "text": "Annual discount stays at 20% until Q1.", "line": 41, "speaker": "tom" },
+    { "text": "Contact sales form reduced to 5 fields, one optional.", "line": 47, "speaker": "leah" },
+    { "text": "AI Insights stays off the pricing page (teaser banner only) until Q4 roadmap planning decides packaging.", "line": 52, "speaker": "tom" }
+  ]
+}

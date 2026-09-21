@@ -1,0 +1,78 @@
+{
+  "summaries": [
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Close the open items on Northwind's 112-question security questionnaire for Keystone Cloud log storage.", "line": 0 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "SOC 2 Type II covers Jan–Jun with one exception (an access review 11 days late in Q2); the 12-month report is due in February.", "line": 5 },
+          { "text": "EU residency: Frankfurt and Dublin, including backups; support ticket metadata lives in the US.", "line": 12 },
+          { "text": "SAML SSO is on all business plans, but SCIM is Enterprise-only (about 2x the price).", "line": 18 },
+          { "text": "Retention: deletion within 24h from primary and 35 days from backups; delete-by-query within ~6h.", "line": 25 },
+          { "text": "July pen test found 2 mediums fixed within 30 days; AES-256/TLS 1.2+; BYOK is Enterprise-only.", "line": 31 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "SCIM is the deciding factor: under ~$2k/yr as a Business add-on is probably a yes.", "line": 22 },
+          { "text": "Keystone legal accepts the 30-day sub-processor notification redline.", "line": 37 },
+          { "text": "Some Northwind services still log email addresses; fix it regardless of vendor.", "line": 28 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Laura: SOC 2 report, bridge letter and pen test summary once the NDA arrives; SCIM answer by Thursday.", "line": 38 },
+          { "text": "Kevin: vendor risk assessment by end of next week.", "line": 40 },
+          { "text": "Aman: forward the NDA today, update the runbook, and open a ticket to scrub emails from logs.", "line": 41 }
+        ]}
+      ]
+    },
+    {
+      "template": "qa",
+      "sections": [
+        { "heading": "Questions & answers", "bullets": [
+          { "text": "Were there SOC 2 exceptions? One late access review, remediated by automating reminders.", "line": 9 },
+          { "text": "Does support metadata include log contents? Only if our engineers paste it; staff need time-limited admin approval.", "line": 13 },
+          { "text": "Is SCIM on Business? No, it's Enterprise-only today; Laura will ask about an add-on.", "line": 17 },
+          { "text": "Can we delete specific records for GDPR? Yes, delete-by-query via API, done within ~6 hours.", "line": 26 },
+          { "text": "Is bring-your-own-key available on Business? No, Enterprise only.", "line": 34 }
+        ]},
+        { "heading": "Open questions", "bullets": [
+          { "text": "Can SCIM be added to the Business tier, and at what price?", "line": 21 },
+          { "text": "Exact timing of the revised DPA from Keystone legal.", "line": 37 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "SCIM answer by Thursday; revised DPA early next week; risk assessment by end of next week.", "line": 38 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Forward the countersigned NDA to Laura", "assignee": "aman", "line": 7, "completed": true },
+    { "description": "Send SOC 2 Type II report, bridge letter and pen test executive summary", "assignee": "laura", "line": 8, "completed": false },
+    { "description": "Add 'no pasting customer data into vendor tickets' to the data handling runbook this week", "assignee": "aman", "line": 16, "completed": false },
+    { "description": "Confirm whether SCIM can be added to the Business tier, by Thursday", "assignee": "laura", "line": 23, "completed": false },
+    { "description": "Send revised DPA with 30-day sub-processor notification", "assignee": "laura", "line": 37, "completed": false },
+    { "description": "Write the Keystone vendor risk assessment by end of next week", "assignee": "kevin", "line": 40, "completed": false },
+    { "description": "Open a ticket to scrub email addresses from service logs", "assignee": "aman", "line": 41, "completed": true }
+  ],
+  "chapters": [
+    { "title": "Intros & questionnaire status", "start_line": 0, "end_line": 3, "summary": "About 90% of the 112-question questionnaire is answered. The team goes through the remaining items." },
+    { "title": "SOC 2 & data residency", "start_line": 4, "end_line": 16, "summary": "Audit period, one minor exception, EU-only storage and the support metadata caveat." },
+    { "title": "SSO & SCIM", "start_line": 17, "end_line": 23, "summary": "SCIM is Enterprise-only, which is a must-have for Northwind. Laura will check on a Business add-on." },
+    { "title": "Retention & deletion", "start_line": 24, "end_line": 29, "summary": "13-month retention, deletion timelines, GDPR delete-by-query and logged emails." },
+    { "title": "Pen test, encryption & DPA", "start_line": 30, "end_line": 37, "summary": "Clean pen test, standard encryption, Enterprise-only BYOK, and the 30-day notice accepted." },
+    { "title": "Recap & follow-ups", "start_line": 38, "end_line": 43, "summary": "Documents, SCIM answer, DPA and risk assessment owners." }
+  ],
+  "highlights": [
+    { "type": "positive", "title": "Honest SOC 2 report with one minor exception", "note": null, "start_line": 10, "end_line": 11 },
+    { "type": "pain_point", "title": "SCIM is Enterprise-only", "note": "A past audit found a contractor with access for 3 weeks after leaving.", "start_line": 18, "end_line": 19 },
+    { "type": "question", "title": "Can support tickets leak log data?", "note": null, "start_line": 13, "end_line": 14 },
+    { "type": "decision", "title": "SCIM under $2k/yr would be a yes", "note": null, "start_line": 22, "end_line": 23 },
+    { "type": "pain_point", "title": "We still log email addresses", "note": null, "start_line": 28, "end_line": 29 },
+    { "type": "action_item", "title": "Follow-up owners", "note": null, "start_line": 38, "end_line": 41 }
+  ],
+  "decisions": [
+    { "text": "The Keystone decision hinges on SCIM; a Business add-on under ~$2k/yr is likely a yes.", "line": 22, "speaker": "kevin" },
+    { "text": "Add internal guidance: no pasting customer data into vendor support tickets.", "line": 15, "speaker": "kevin" },
+    { "text": "Scrub email addresses from service logs regardless of vendor choice.", "line": 29, "speaker": "kevin" }
+  ]
+}

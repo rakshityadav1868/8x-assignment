@@ -1,0 +1,339 @@
+{
+  "summaries": [
+    {
+      "template": "interview",
+      "sections": [
+        {
+          "heading": "Candidate background",
+          "bullets": [
+            {
+              "text": "Olivia Grant spent 4 years at Relaywave (customer messaging), the last 2 as tech lead for event ingestion.",
+              "line": 8
+            },
+            {
+              "text": "Scaled ingestion from ~40k to ~300k events/sec at peak and led the move from a homegrown queue to Kafka + Flink.",
+              "line": 9
+            },
+            {
+              "text": "Leaving because Relaywave was acquired in March and platform work is now mostly migration; wants a smaller company where she can shape product.",
+              "line": 11
+            }
+          ]
+        },
+        {
+          "heading": "Key strengths",
+          "bullets": [
+            {
+              "text": "Strong system design: stateless collectors with back pressure, hot/cold paths, object-storage replays and atomic partition swaps.",
+              "line": 35
+            },
+            {
+              "text": "Proposed query-time identity resolution instead of nightly rewrites, which currently cost ~30% of Northwind's ClickHouse compute.",
+              "line": 40
+            },
+            {
+              "text": "Pragmatic about requirements: solved hot partitions with key salting after confirming customers didn't need ordering for bot traffic.",
+              "line": 16
+            },
+            {
+              "text": "Influences without authority: a 2-page options doc turned a 10s latency promise (~$90k/yr) into a free 30s solution.",
+              "line": 52
+            }
+          ]
+        },
+        {
+          "heading": "Concerns",
+          "bullets": [
+            {
+              "text": "Limited hands-on experience with ClickHouse specifically; both interviewers judged this minor.",
+              "line": 73
+            },
+            {
+              "text": "Lost the schema-registry argument twice before tying it to incidents, a lesson she already articulates.",
+              "line": 55
+            },
+            {
+              "text": "Likely has competing offers, so the process needs to move quickly.",
+              "line": 76
+            }
+          ]
+        },
+        {
+          "heading": "Questions asked by candidate",
+          "bullets": [
+            {
+              "text": "Team size and structure: 11 engineers across 3 product pods, a 4-person platform team, plus a small ML group.",
+              "line": 57
+            },
+            {
+              "text": "Biggest problem for the first 6 months: ingestion reliability and cost, including two 15+ minute freshness incidents.",
+              "line": 59
+            },
+            {
+              "text": "On-call: one week in six with a Lisbon follow-the-sun handoff, about 2 pages a week.",
+              "line": 62
+            },
+            {
+              "text": "Remote policy: Austin office Tue/Wed for locals, half the team fully remote, quarterly on-sites.",
+              "line": 64
+            }
+          ]
+        },
+        {
+          "heading": "Recommendation & next steps",
+          "bullets": [
+            {
+              "text": "Strong yes from both Arjun and Priya.",
+              "line": 73
+            },
+            {
+              "text": "Next round: conversation with CEO Dana Whitfield plus a pairing session with a product team.",
+              "line": 67
+            },
+            {
+              "text": "Arjun submits his Greenhouse scorecard today; Priya schedules the Dana loop for early next week.",
+              "line": 75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        {
+          "heading": "Meeting purpose",
+          "bullets": [
+            {
+              "text": "Staff Engineer (Platform) interview with Olivia Grant: background, system design and her questions.",
+              "line": 5
+            }
+          ]
+        },
+        {
+          "heading": "Topics discussed",
+          "bullets": [
+            {
+              "text": "Relaywave's Kafka migration and handling hot partitions from bot traffic.",
+              "line": 12
+            },
+            {
+              "text": "Design exercise: an ingestion pipeline at 50k events/sec with 5x bursts and 60s p95 freshness.",
+              "line": 21
+            },
+            {
+              "text": "Replays without starving live traffic, identity resolution and multi-tenant isolation.",
+              "line": 37
+            },
+            {
+              "text": "Freshness monitoring with synthetic canary events instead of consumer lag alone.",
+              "line": 48
+            }
+          ]
+        },
+        {
+          "heading": "Key takeaways",
+          "bullets": [
+            {
+              "text": "Query-time identity resolution could cut a major ClickHouse cost; Priya called it possibly the most valuable idea of the hour.",
+              "line": 43
+            },
+            {
+              "text": "The role would also keep AI Insights from growing a second pipeline by accident.",
+              "line": 61
+            },
+            {
+              "text": "Both interviewers are a strong yes.",
+              "line": 74
+            }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            {
+              "text": "Get back to Olivia by Friday.",
+              "line": 67
+            },
+            {
+              "text": "Scorecards today, then the loop with Dana early next week.",
+              "line": 76
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "template": "qa",
+      "sections": [
+        {
+          "heading": "Questions & answers",
+          "bullets": [
+            {
+              "text": "Why leave Relaywave? The acquisition turned the platform team's work into migration.",
+              "line": 10
+            },
+            {
+              "text": "What if Kafka is slow? Collectors apply back pressure (429/503) instead of buffering in memory or on disk.",
+              "line": 30
+            },
+            {
+              "text": "How to keep replays from starving live traffic? Separate consumer groups and compute, plus per-tenant rate limits.",
+              "line": 37
+            },
+            {
+              "text": "How to handle a tenant with a third of volume? Quotas and fair queuing, then dedicated partitions through config, not a fork.",
+              "line": 44
+            },
+            {
+              "text": "Biggest problem for this hire? Ingestion reliability and cost.",
+              "line": 59
+            }
+          ]
+        },
+        {
+          "heading": "Open questions",
+          "bullets": [
+            {
+              "text": "How quickly Olivia would ramp up on ClickHouse.",
+              "line": 73
+            },
+            {
+              "text": "Whether competing offers will compress the timeline.",
+              "line": 76
+            }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            {
+              "text": "Decision to Olivia by Friday; CEO conversation and pairing session if positive.",
+              "line": 67
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "action_items": [
+    {
+      "description": "Submit interview scorecard for Olivia Grant in Greenhouse by end of day",
+      "assignee": "arjun",
+      "line": 75,
+      "completed": true
+    },
+    {
+      "description": "Schedule Olivia's loop with Dana for early next week and ask the recruiter to move fast",
+      "assignee": "priya",
+      "line": 76,
+      "completed": false
+    },
+    {
+      "description": "Get back to Olivia with a decision by Friday",
+      "assignee": "priya",
+      "line": 67,
+      "completed": true
+    },
+    {
+      "description": "Evaluate query-time identity resolution to replace the nightly ClickHouse rewrite",
+      "assignee": "arjun",
+      "line": 43,
+      "completed": false
+    }
+  ],
+  "chapters": [
+    {
+      "title": "Intros & agenda",
+      "start_line": 0,
+      "end_line": 6,
+      "summary": "Priya and Arjun introduce themselves and lay out the 45-minute plan."
+    },
+    {
+      "title": "Olivia's background at Relaywave",
+      "start_line": 7,
+      "end_line": 18,
+      "summary": "Four years scaling ingestion to 300k events/sec, the Kafka migration, and fixing hot partitions by talking to customers."
+    },
+    {
+      "title": "System design: ingestion pipeline",
+      "start_line": 19,
+      "end_line": 49,
+      "summary": "Collectors with back pressure, hot and cold paths, replays, query-time identity resolution, multi-tenancy and canary freshness monitoring."
+    },
+    {
+      "title": "Influence without authority",
+      "start_line": 50,
+      "end_line": 55,
+      "summary": "An options doc that reset a costly latency promise, and a schema-registry push that took three tries."
+    },
+    {
+      "title": "Candidate questions",
+      "start_line": 56,
+      "end_line": 71,
+      "summary": "Team structure, the first six months, on-call and remote policy."
+    },
+    {
+      "title": "Debrief",
+      "start_line": 72,
+      "end_line": 77,
+      "summary": "Both interviewers are a strong yes; scorecards today and a CEO loop next week."
+    }
+  ],
+  "highlights": [
+    {
+      "type": "positive",
+      "title": "Asked customers instead of over-engineering",
+      "note": "Hot key salting and dropped ordering for bot traffic saved about two months.",
+      "start_line": 16,
+      "end_line": 18
+    },
+    {
+      "type": "positive",
+      "title": "Query-time identity resolution idea",
+      "note": "Could cut ~30% of ClickHouse compute spent on nightly rewrites.",
+      "start_line": 40,
+      "end_line": 43
+    },
+    {
+      "type": "pain_point",
+      "title": "Nightly identity rewrite is a top cost",
+      "note": null,
+      "start_line": 41,
+      "end_line": 41
+    },
+    {
+      "type": "question",
+      "title": "What's the biggest problem for this hire?",
+      "note": null,
+      "start_line": 59,
+      "end_line": 61
+    },
+    {
+      "type": "decision",
+      "title": "Debrief: strong yes from both",
+      "note": null,
+      "start_line": 73,
+      "end_line": 74
+    },
+    {
+      "type": "action_item",
+      "title": "Scorecards and CEO loop",
+      "note": null,
+      "start_line": 75,
+      "end_line": 76
+    }
+  ],
+  "decisions": [
+    {
+      "text": "Advance Olivia Grant to the final round (CEO conversation + pairing session).",
+      "line": 67,
+      "speaker": "priya"
+    },
+    {
+      "text": "Both interviewers rate Olivia a strong yes; ClickHouse inexperience is not a blocker.",
+      "line": 74,
+      "speaker": "priya"
+    }
+  ]
+}

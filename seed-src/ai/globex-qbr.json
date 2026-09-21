@@ -1,0 +1,121 @@
+{
+  "summaries": [
+    {
+      "template": "customer_success",
+      "sections": [
+        { "heading": "Account health", "bullets": [
+          { "text": "142 of 200 seats weekly active in Q3 (71%, up from 58% in Q2); dashboards grew from ~90 to 210.", "line": 8 },
+          { "text": "Maya's pipeline velocity board had ~4,000 views; 38 active alerts fired ~600 times.", "line": 10 },
+          { "text": "Funnel P95 on Globex data dropped from 2.8s to ~900ms after last week's query planner rewrite.", "line": 18 },
+          { "text": "Support is the weak spot: 40 seats at 11% weekly active since their VP left in June.", "line": 66 }
+        ]},
+        { "heading": "Customer goals", "bullets": [
+          { "text": "Cut the analytics stack by 20% overall under CFO line-by-line SaaS review.", "line": 25 },
+          { "text": "Give execs dashboard access without another login instead of Monday Slack screenshots.", "line": 27 },
+          { "text": "Automatically explain week-over-week changes such as conversion drops.", "line": 42 }
+        ]},
+        { "heading": "Feedback & issues", "bullets": [
+          { "text": "Funnel queries took 8 to 9 seconds in Q2; the team resorted to spreadsheet exports.", "line": 17 },
+          { "text": "Maya hit the share-preview gray-box bug in the sharing beta.", "line": 30 },
+          { "text": "Alert emails to a shared inbox get ignored; per-alert Slack routing already exists but was poorly announced.", "line": 79 },
+          { "text": "CSV exports capped at 50,000 rows block analysts weekly.", "line": 90 }
+        ]},
+        { "heading": "Expansion opportunities", "bullets": [
+          { "text": "Globex to join the AI Insights design partner program, run by Tom Okafor.", "line": 44 },
+          { "text": "Free Enterprise viewers could let Globex drop 15 to 20 Tableau Viewer licenses.", "line": 53 },
+          { "text": "Connect support ticket data to account health, answering a question the CRO asked last quarter.", "line": 69 }
+        ]},
+        { "heading": "Risks", "bullets": [
+          { "text": "Greg entered the call 60/40 against renewing; current spend ~$186K/yr.", "line": 23 },
+          { "text": "Data platform lead Victor argues for a Snowflake plus Streamlit in-house build and has the CTO's ear.", "line": 35 },
+          { "text": "Two-year commitments are a hard sell; the CFO is 'allergic to multi-year anything'.", "line": 55 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Ethan sends a written proposal (1-year and 2-year with AI Insights opt-out) by October 8.", "line": 87 },
+          { "text": "Siobhan sets up the architecture session with Victor and Arjun the week of October 6.", "line": 88 },
+          { "text": "Siobhan runs a support enablement session with Priscilla Duarte before end of October.", "line": 74 },
+          { "text": "Greg takes the proposal to the CFO budget review on October 22.", "line": 99 }
+        ]}
+      ]
+    },
+    {
+      "template": "general",
+      "sections": [
+        { "heading": "Meeting purpose", "bullets": [
+          { "text": "Q3 business review with Globex ahead of the January 31 renewal.", "line": 4 }
+        ]},
+        { "heading": "Topics discussed", "bullets": [
+          { "text": "Q3 usage and value, including an alert that caught a lead-routing bug worth ~$200K in pipeline.", "line": 15 },
+          { "text": "Renewal concerns: 20% budget cut, exec sharing, and build vs. buy.", "line": 41 },
+          { "text": "Right-sizing to 160 seats on a two-year term at ~$149K/yr.", "line": 50 },
+          { "text": "Low support-team adoption and a plan to revive it.", "line": 66 }
+        ]},
+        { "heading": "Key takeaways", "bullets": [
+          { "text": "The right-sizing offer hits Greg's 20% target exactly while keeping the account.", "line": 51 },
+          { "text": "Greg moved from 60/40 against renewing to 60/40 in favor.", "line": 100 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Proposal by October 8, architecture session the week of October 6, CSV limit answer by Friday.", "line": 95 },
+          { "text": "External sharing GA by end of next week; Maya notified personally.", "line": 97 }
+        ]}
+      ]
+    },
+    {
+      "template": "sales_spiced",
+      "sections": [
+        { "heading": "Situation", "bullets": [
+          { "text": "200-seat Enterprise customer at ~$186K/yr; heavy use in sales ops and RevOps.", "line": 23 }
+        ]},
+        { "heading": "Pain", "bullets": [
+          { "text": "Manual Monday screenshots and explanations of metric changes for execs.", "line": 43 }
+        ]},
+        { "heading": "Impact", "bullets": [
+          { "text": "The alerting catch saved ~80 leads, roughly $200K in pipeline.", "line": 15 },
+          { "text": "CFO mandate to cut the analytics stack by 20%.", "line": 25 }
+        ]},
+        { "heading": "Critical event", "bullets": [
+          { "text": "CFO budget review on October 22; renewal on January 31.", "line": 84 }
+        ]},
+        { "heading": "Decision", "bullets": [
+          { "text": "Greg brings the proposal to the CFO; Victor (data platform) and the CTO influence build vs. buy.", "line": 35 }
+        ]},
+        { "heading": "Next steps", "bullets": [
+          { "text": "Two-option proposal by October 8, with the opt-out clause checked with Tom and finance.", "line": 87 }
+        ]}
+      ]
+    }
+  ],
+  "action_items": [
+    { "description": "Send written renewal proposal with 1-year and 2-year (AI Insights opt-out) options by October 8", "assignee": "ethan", "line": 87, "completed": false },
+    { "description": "Check the AI Insights opt-out clause with Tom and finance this week", "assignee": "ethan", "line": 87, "completed": false },
+    { "description": "Set up the architecture session with Victor and Arjun for the week of October 6", "assignee": "siobhan", "line": 88, "completed": false },
+    { "description": "Email intro to Victor, the data platform lead", "assignee": "greg", "line": 89, "completed": true },
+    { "description": "Intro Siobhan to Priscilla Duarte for a support enablement session (Thursday)", "assignee": "maya", "line": 75, "completed": true },
+    { "description": "Send Maya the help article for per-alert Slack routing", "assignee": "siobhan", "line": 82, "completed": true },
+    { "description": "Find out whether the 50,000-row CSV export cap will change and reply by Friday", "assignee": "siobhan", "line": 91, "completed": false },
+    { "description": "Take the proposal to the CFO budget review on October 22", "assignee": "greg", "line": 99, "completed": false }
+  ],
+  "chapters": [
+    { "title": "Welcome and agenda", "start_line": 0, "end_line": 7, "summary": "Siobhan sets a 45-minute agenda ahead of the January 31 renewal; Greg flags renewal concerns up front." },
+    { "title": "Q3 usage and value", "start_line": 8, "end_line": 21, "summary": "Weekly active users rose to 71%, alerts caught a lead-routing bug worth ~$200K in pipeline, and funnel P95 fell to ~900ms." },
+    { "title": "Renewal concerns", "start_line": 22, "end_line": 47, "summary": "Greg lists a 20% budget cut, exec sharing, a Snowflake-native build push, and a wish to explain metric changes; Globex joins the AI Insights design partner program." },
+    { "title": "Right-sizing and commercial offer", "start_line": 48, "end_line": 63, "summary": "Ethan proposes 160 seats on a two-year term at ~$149K with free viewers and a possible AI Insights opt-out; an architecture session with Victor is planned." },
+    { "title": "Support adoption and product asks", "start_line": 64, "end_line": 82, "summary": "Support seats sit at 11% active; Siobhan offers an enablement session, and Slack alert routing turns out to already exist." },
+    { "title": "Timeline and wrap-up", "start_line": 83, "end_line": 103, "summary": "CFO review is October 22, so the proposal is due October 8; Greg now leans toward renewing." }
+  ],
+  "highlights": [
+    { "type": "positive", "title": "Alert caught the lead-routing bug", "note": "About 80 leads, roughly $200K in pipeline saved.", "start_line": 14, "end_line": 15 },
+    { "type": "pain_point", "title": "A calendar reminder called 'screenshot the boards'", "note": null, "start_line": 27, "end_line": 28 },
+    { "type": "pain_point", "title": "Build vs. buy: Snowflake plus Streamlit", "note": "Victor has the CTO's ear.", "start_line": 35, "end_line": 38 },
+    { "type": "positive", "title": "Right-size to 160 seats, exactly 20% off", "note": null, "start_line": 50, "end_line": 52 },
+    { "type": "question", "title": "Will the 50K-row CSV cap change?", "note": "Answer owed by Friday.", "start_line": 90, "end_line": 91 },
+    { "type": "action_item", "title": "Proposal by October 8", "note": null, "start_line": 85, "end_line": 87 },
+    { "type": "positive", "title": "From 60/40 against to 60/40 for renewing", "note": null, "start_line": 100, "end_line": 100 }
+  ],
+  "decisions": [
+    { "text": "Globex joins the AI Insights design partner program, run by Tom Okafor.", "line": 97, "speaker": "siobhan" },
+    { "text": "Renewal proposal will offer 160 seats with a 1-year and a 2-year option, due October 8.", "line": 87, "speaker": "ethan" },
+    { "text": "Support seats get a free enablement session; if usage doesn't move in 30 days, those seats are cut.", "line": 71, "speaker": "siobhan" },
+    { "text": "No mid-year true-ups: any seat changes are reconciled at the end of year one.", "line": 78, "speaker": "ethan" }
+  ]
+}
