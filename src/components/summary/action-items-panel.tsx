@@ -11,7 +11,8 @@ import { DemoModeBadge, EmptyState, TimestampChip } from "@/components/common/bi
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
 import { useCall } from "@/components/call/call-context";
 import { usePlayerStore } from "@/hooks/use-player";
-import { ROUTES, type ActionItemResponse, type CommitmentsResponse } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
+import type { ActionItemResponse, CommitmentsResponse } from "@/lib/contracts";
 import { api, copyText } from "@/lib/ui/api";
 import { firstName, formatClock } from "@/lib/ui/format";
 import type { ActionItem } from "@/lib/types";

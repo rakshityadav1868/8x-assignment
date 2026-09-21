@@ -1,7 +1,7 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getRepo } from "@/lib/db";
 import { ClipView } from "@/components/public/clip-view";
-import { PublicGate } from "@/components/public/gate";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +19,6 @@ export async function generateMetadata(props: PageProps<"/clip/[token]">): Promi
 export default async function ClipPage(props: PageProps<"/clip/[token]">) {
   const { token } = await props.params;
   const clip = await getRepo().getClipByToken(token);
-  if (!clip) return <PublicGate kind="not_found" />;
+  if (!clip) notFound();
   return <ClipView clip={clip} />;
 }

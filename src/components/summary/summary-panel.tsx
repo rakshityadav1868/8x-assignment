@@ -12,13 +12,8 @@ import { DemoModeBadge, EmptyState, ErrorState, TimestampChip } from "@/componen
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
 import { useCall } from "@/components/call/call-context";
 import { usePlayerStore } from "@/hooks/use-player";
-import {
-  ROUTES,
-  type CatchUpResponse,
-  type DecisionsResponse,
-  type GetSummaryResponse,
-  type RegenerateSummaryResponse,
-} from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
+import type { CatchUpResponse, DecisionsResponse, GetSummaryResponse, RegenerateSummaryResponse } from "@/lib/contracts";
 import { LANGUAGE_LABELS, SUMMARY_TEMPLATES, TEMPLATE_BY_KEY } from "@/lib/templates";
 import { api, copyText } from "@/lib/ui/api";
 import { formatClock } from "@/lib/ui/format";

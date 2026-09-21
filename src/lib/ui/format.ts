@@ -29,34 +29,58 @@ export function firstName(name: string): string {
   return name.trim().split(/\s+/)[0] ?? name;
 }
 
-/** Local-calendar day key, e.g. "2026-09-21". */
-export function dayKey(d: Date): string {
+/**
+ * Date helpers. Pass `tz` (IANA zone) for deterministic output that is identical on server and
+ * client (en-US locale); without it they use the runtime's local zone/locale.
+ */
+export const DEFAULT_TZ = "America/New_York";
+
+export function isValidTimeZone(tz: string | undefined | null): tz is string {
+  if (!tz) return false;
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: tz });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Calendar day key, e.g. "2026-09-21". */
+export function dayKey(d: Date, tz?: string): string {
+  if (tz) return new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-export function dayLabel(d: Date, now: Date): string {
-  const today = dayKey(now);
-  const y = new Date(now);
-  y.setDate(now.getDate() - 1);
-  const k = dayKey(d);
-  if (k === today) return "Today";
-  if (k === dayKey(y)) return "Yesterday";
+export function dayLabel(d: Date, now: Date, tz?: string): string {
+  const k = dayKey(d, tz);
+  if (k === dayKey(now, tz)) return "Today";
+  if (k === dayKey(new Date(now.getTime() - 86_400_000), tz)) return "Yesterday";
+  if (k === dayKey(new Date(now.getTime() + 86_400_000), tz)) return "Tomorrow";
   const diffDays = (now.getTime() - d.getTime()) / 86_400_000;
-  if (diffDays < 6 && diffDays > 0) return d.toLocaleDateString(undefined, { weekday: "long" });
-  return d.toLocaleDateString(undefined, {
+  const loc = tz ? "en-US" : undefined;
+  if (diffDays < 6 && diffDays > 0) return d.toLocaleDateString(loc, { weekday: "long", timeZone: tz });
+  const sameYear = dayKey(d, tz).slice(0, 4) === dayKey(now, tz).slice(0, 4);
+  return d.toLocaleDateString(loc, {
     weekday: "short",
     month: "short",
     day: "numeric",
-    year: d.getFullYear() === now.getFullYear() ? undefined : "numeric",
+    year: sameYear ? undefined : "numeric",
+    timeZone: tz,
   });
 }
 
-export function timeOfDay(d: Date): string {
-  return d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+export function timeOfDay(d: Date, tz?: string): string {
+  return d.toLocaleTimeString(tz ? "en-US" : undefined, { hour: "numeric", minute: "2-digit", timeZone: tz });
 }
 
-export function longDate(d: Date): string {
-  return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+export function longDate(d: Date, tz?: string): string {
+  return d.toLocaleDateString(tz ? "en-US" : undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: tz,
+  });
 }
 
 /** Hex → rgba string with alpha. Falls back to brand blue. */

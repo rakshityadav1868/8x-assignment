@@ -19,25 +19,27 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { AvatarStack } from "@/components/common/participant-avatar";
 import { EmptyState, ErrorState, MeetingTypeBadge } from "@/components/common/bits";
-import { useHydrated } from "@/hooks/use-hydrated";
-import { ROUTES } from "@/lib/contracts";
+import { useTimeZone } from "@/components/common/time-zone";
+import { ROUTES } from "@/lib/routes";
 import { MEETING_TYPE_LABELS } from "@/lib/templates";
 import { dayKey, dayLabel, formatDuration, timeOfDay } from "@/lib/ui/format";
 import type { MeetingListItem, UpcomingMeeting } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { CallsListSkeleton, UpcomingSkeleton } from "./calls-skeleton";
 import { CallThumb } from "./call-thumb";
 
 export function CallsView({
   meetings,
   upcoming,
   error,
+  nowIso,
 }: {
   meetings: MeetingListItem[];
   upcoming: UpcomingMeeting[];
   error: string | null;
+  /** Server "now" so day grouping is identical on server and client. */
+  nowIso: string;
 }) {
-  const hydrated = useHydrated();
+  const tz = useTimeZone();
   const [q, setQ] = useState("");
 
   const filtered = useMemo(() => {
@@ -52,17 +54,16 @@ export function CallsView({
   }, [meetings, q]);
 
   const groups = useMemo(() => {
-    if (!hydrated) return [];
-    const now = new Date();
+    const now = new Date(nowIso);
     const map = new Map<string, { label: string; items: MeetingListItem[] }>();
     for (const m of filtered) {
       const d = new Date(m.recording_start ?? m.scheduled_start ?? m.created_at);
-      const k = dayKey(d);
-      if (!map.has(k)) map.set(k, { label: dayLabel(d, now), items: [] });
+      const k = dayKey(d, tz);
+      if (!map.has(k)) map.set(k, { label: dayLabel(d, now, tz), items: [] });
       map.get(k)!.items.push(m);
     }
     return [...map.values()];
-  }, [filtered, hydrated]);
+  }, [filtered, nowIso, tz]);
 
   const totalSec = meetings.reduce((a, m) => a + m.duration_sec, 0);
 
@@ -116,12 +117,10 @@ export function CallsView({
         </div>
       ) : (
         <>
-          {!hydrated ? <UpcomingSkeleton /> : upcoming.length > 0 && !q && <UpcomingStrip upcoming={upcoming} />}
+          {upcoming.length > 0 && !q && <UpcomingStrip upcoming={upcoming} nowIso={nowIso} />}
 
           <div className="mt-10">
-            {!hydrated ? (
-              <CallsListSkeleton />
-            ) : meetings.length === 0 ? (
+            {meetings.length === 0 ? (
               <div className="glass rounded-2xl">
                 <EmptyState
                   icon={Video}
@@ -183,6 +182,7 @@ export function CallsView({
 }
 
 function CallRow({ m }: { m: MeetingListItem }) {
+  const tz = useTimeZone();
   const start = new Date(m.recording_start ?? m.scheduled_start ?? m.created_at);
   const ready = m.status === "ready";
   const external = m.participants.some((p) => p.is_external);
@@ -199,7 +199,9 @@ function CallRow({ m }: { m: MeetingListItem }) {
           )}
         </div>
         <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-          <span className="tabular-nums">{timeOfDay(start)}</span>
+          <span className="tabular-nums" suppressHydrationWarning>
+            {timeOfDay(start, tz)}
+          </span>
           <span aria-hidden className="text-white/20">
             •
           </span>
@@ -257,8 +259,9 @@ function StatusPill({ m }: { m: MeetingListItem }) {
   return null;
 }
 
-function UpcomingStrip({ upcoming }: { upcoming: UpcomingMeeting[] }) {
-  const now = new Date();
+function UpcomingStrip({ upcoming, nowIso }: { upcoming: UpcomingMeeting[]; nowIso: string }) {
+  const tz = useTimeZone();
+  const now = new Date(nowIso);
   const sorted = [...upcoming].sort((a, b) => a.start.localeCompare(b.start)).slice(0, 8);
   return (
     <section className="mt-8" aria-label="Upcoming meetings">
@@ -289,8 +292,8 @@ function UpcomingStrip({ upcoming }: { upcoming: UpcomingMeeting[] }) {
               )}
             >
               <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                <span className="tabular-nums">
-                  {dayLabel(s, now)} · {timeOfDay(s)}–{timeOfDay(e)}
+                <span className="tabular-nums" suppressHydrationWarning>
+                  {dayLabel(s, now, tz)} · {timeOfDay(s, tz)}–{timeOfDay(e, tz)}
                 </span>
                 {soon && <span className="rounded-full bg-primary/15 px-1.5 text-[10px] font-medium text-sky-300">Soon</span>}
               </div>

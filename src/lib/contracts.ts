@@ -10,6 +10,7 @@
  * - Change additively only; log changes in ARCHITECTURE.md "Contract changelog".
  */
 import { z } from "zod";
+import { MAX_UPLOAD_BYTES } from "./routes";
 import {
   AI_MODES,
   DATA_MODES,
@@ -69,7 +70,7 @@ export const DataModeSchema = z.enum(DATA_MODES);
 
 export const ApiErrorSchema = z.object({
   error: z.string(),
-  code: z.string().optional(), // e.g. "not_found", "forbidden", "validation", "llm_failed"
+  code: z.string().optional(), // e.g. "not_found", "forbidden", "validation", "llm_failed", "rate_limited"
 });
 export type ApiError = z.infer<typeof ApiErrorSchema>;
 
@@ -345,7 +346,7 @@ export type UpdateMeetingResponse = z.infer<typeof UpdateMeetingResponse>;
 // Upload + processing
 // ---------------------------------------------------------------------------
 
-export const MAX_UPLOAD_BYTES = 500 * 1024 * 1024;
+export { MAX_UPLOAD_BYTES };
 
 /**
  * POST /api/upload — creates a `processing` meeting and a Supabase signed upload URL. */
@@ -663,6 +664,27 @@ export const CreatePlaylistRequest = z.object({
 });
 export type CreatePlaylistRequest = z.infer<typeof CreatePlaylistRequest>;
 
+export const PlaylistItemSchema = z.object({
+  id,
+  playlist_id: id,
+  meeting_id: id.nullable(),
+  highlight_id: id.nullable(),
+  position: z.number().int().nonnegative(),
+});
+
+/** GET /api/playlists/:id — items resolved to their meeting row (meeting items) or clip payload (highlight items). */
+export const PlaylistItemDetailSchema = PlaylistItemSchema.extend({
+  meeting: MeetingListItemSchema.nullable(), // for highlight items: the clip's source meeting
+  clip: ClipDetailSchema.nullable(), // null for whole-meeting items
+});
+export const GetPlaylistResponse = z.object({
+  playlist: PlaylistSchema.extend({ item_count: z.number().int().nonnegative() }),
+  items: z.array(PlaylistItemDetailSchema), // ordered by position; items whose target was deleted are dropped
+});
+export type GetPlaylistResponse = z.infer<typeof GetPlaylistResponse>;
+
+/** DELETE /api/playlists/:id/items/:itemId → Ok */
+
 /** POST /api/playlists/:id/items */
 export const AddPlaylistItemRequest = z
   .object({ meeting_id: id.optional(), highlight_id: id.optional() })
@@ -673,44 +695,4 @@ export type AddPlaylistItemRequest = z.infer<typeof AddPlaylistItemRequest>;
 // Route map
 // ---------------------------------------------------------------------------
 
-export const ROUTES = {
-  pages: {
-    landing: "/", // marketing page
-    calls: "/calls", // app home: My Calls
-    call: (id: string) => `/calls/${id}`,
-    callAt: (id: string, ms: number) => `/calls/${id}?t=${Math.floor(ms / 1000)}`,
-    share: (token: string) => `/share/${token}`,
-    clip: (token: string) => `/clip/${token}`,
-    search: (q?: string) => (q ? `/search?q=${encodeURIComponent(q)}` : "/search"),
-    upload: "/upload",
-    playlists: "/playlists",
-    settings: "/settings",
-  },
-  api: {
-    capabilities: "/api/capabilities", // GET
-    meetings: "/api/meetings", // GET
-    meeting: (id: string) => `/api/meetings/${id}`, // GET, PATCH
-    upload: "/api/upload", // POST
-    process: (id: string) => `/api/meetings/${id}/process`, // POST
-    status: (id: string) => `/api/meetings/${id}/status`, // GET
-    summary: (id: string) => `/api/meetings/${id}/summary`, // GET (?template&language), POST
-    ask: (id: string) => `/api/meetings/${id}/ask`, // GET history, POST stream
-    askGlobal: "/api/ask", // POST stream (P3)
-    search: "/api/search", // GET ?q
-    highlights: (meetingId: string) => `/api/meetings/${meetingId}/highlights`, // GET, POST
-    highlight: (id: string) => `/api/highlights/${id}`, // PATCH, DELETE
-    highlightShare: (id: string) => `/api/highlights/${id}/share`, // POST
-    actionItems: (meetingId: string) => `/api/meetings/${meetingId}/action-items`, // POST
-    actionItem: (id: string) => `/api/action-items/${id}`, // PATCH, DELETE
-    share: (meetingId: string) => `/api/meetings/${meetingId}/share`, // POST, DELETE
-    shareAccess: (token: string) => `/api/share/${token}`, // GET
-    clip: (token: string) => `/api/clip/${token}`, // GET
-    followUpEmail: (id: string) => `/api/meetings/${id}/follow-up-email`, // POST
-    catchUp: (id: string) => `/api/meetings/${id}/catch-up`, // POST
-    decisions: (id: string) => `/api/meetings/${id}/decisions`, // GET, POST
-    commitments: (id: string) => `/api/meetings/${id}/commitments`, // POST
-    segment: (id: string) => `/api/segments/${id}`, // PATCH (P3)
-    playlists: "/api/playlists", // GET, POST
-    playlistItems: (id: string) => `/api/playlists/${id}/items`, // POST
-  },
-} as const;
+export { ROUTES } from "./routes";

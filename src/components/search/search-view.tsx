@@ -7,9 +7,9 @@ import { ArrowRight, Loader2, Search, X } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState, ErrorState, MeetingTypeBadge } from "@/components/common/bits";
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
-import { useHydrated } from "@/hooks/use-hydrated";
+import { useTimeZone } from "@/components/common/time-zone";
 import { useTranscriptSearch } from "@/hooks/use-search";
-import { ROUTES } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
 import { formatClock, longDate } from "@/lib/ui/format";
 import type { SearchHit } from "@/lib/types";
 
@@ -19,7 +19,7 @@ export function SearchView({ initialQuery }: { initialQuery: string }) {
   const router = useRouter();
   const [q, setQ] = useState(initialQuery);
   const inputRef = useRef<HTMLInputElement>(null);
-  const hydrated = useHydrated();
+  const tz = useTimeZone();
   const { data, loading, error } = useTranscriptSearch(q, { limit: 60 });
 
   // Keep the URL shareable without adding history entries per keystroke.
@@ -122,7 +122,7 @@ export function SearchView({ initialQuery }: { initialQuery: string }) {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[15px] font-medium tracking-tight">{g.title}</p>
                     <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-                      {g.date && hydrated && <span>{longDate(new Date(g.date))}</span>}
+                      {g.date && <span suppressHydrationWarning>{longDate(new Date(g.date), tz)}</span>}
                       <MeetingTypeBadge type={g.type} />
                       <span>
                         {g.hits.length} {g.hits.length === 1 ? "match" : "matches"}

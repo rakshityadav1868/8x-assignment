@@ -15,11 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ClientText, MeetingTypeBadge } from "@/components/common/bits";
+import { MeetingTypeBadge } from "@/components/common/bits";
+import { useTimeZone } from "@/components/common/time-zone";
 import { AvatarStack, ParticipantAvatar } from "@/components/common/participant-avatar";
 import { FollowUpEmailDialog } from "@/components/summary/follow-up-email-dialog";
 import { usePlayerStore } from "@/hooks/use-player";
-import { ROUTES, type UpdateMeetingResponse } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
+import type { UpdateMeetingResponse } from "@/lib/contracts";
 import { MEETING_TYPE_LABELS, TEMPLATE_BY_KEY, defaultTemplateFor } from "@/lib/templates";
 import { api, copyText } from "@/lib/ui/api";
 import { formatClock, formatDuration, longDate, timeOfDay } from "@/lib/ui/format";
@@ -31,6 +33,7 @@ export function CallHeader({ onShowShortcuts }: { onShowShortcuts: () => void })
   const { meeting, setMeeting, participants, setSummaryTemplate, summaries, readOnly } = useCall();
   const store = usePlayerStore();
   const [emailOpen, setEmailOpen] = useState(false);
+  const tz = useTimeZone();
   const when = meeting.recording_start ?? meeting.scheduled_start ?? meeting.created_at;
   const external = participants.filter((p) => p.is_external).length;
 
@@ -75,7 +78,9 @@ export function CallHeader({ onShowShortcuts }: { onShowShortcuts: () => void })
         <div className="min-w-0">
           <h1 className="text-balance text-lg font-semibold leading-tight tracking-[-0.02em] md:text-xl">{meeting.title}</h1>
           <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xs text-muted-foreground">
-            <ClientText render={() => `${longDate(new Date(when))} · ${timeOfDay(new Date(when))}`} placeholderWidth="18ch" />
+            <span suppressHydrationWarning>
+              {longDate(new Date(when), tz)} · {timeOfDay(new Date(when), tz)}
+            </span>
             <span className="inline-flex items-center gap-1">
               <Clock className="size-3" /> {formatDuration(meeting.duration_sec)}
             </span>

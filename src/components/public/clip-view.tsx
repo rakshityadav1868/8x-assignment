@@ -5,12 +5,13 @@ import Link from "next/link";
 import { Check, Link2, Play } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { ClientText, HIGHLIGHT_META } from "@/components/common/bits";
+import { HIGHLIGHT_META } from "@/components/common/bits";
+import { useTimeZone } from "@/components/common/time-zone";
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
 import { MediaStage, useCurrentSegmentIndex } from "@/components/call/media-stage";
 import { PlayerControls } from "@/components/call/player-controls";
 import { PlayerProvider, usePlayer, usePlayerStore } from "@/hooks/use-player";
-import { ROUTES } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
 import { copyText } from "@/lib/ui/api";
 import { alpha, formatClock, longDate } from "@/lib/ui/format";
 import type { ClipDetail } from "@/lib/types";
@@ -54,6 +55,7 @@ function ClipBody({
   const meta = HIGHLIGHT_META[highlight.type];
   const Icon = meta.icon;
   const [copied, setCopied] = useState(false);
+  const tz = useTimeZone();
   const byId = new Map(participants.map((p) => [p.id, p]));
   const speakers = participants.filter((p) => segments.some((s) => s.participant_id === p.id));
   const ended = usePlayer((s) => !s.playing && s.currentMs >= bounds.endMs - 50);
@@ -94,7 +96,7 @@ function ClipBody({
         {meeting.recording_start && (
           <>
             {" · "}
-            <ClientText render={() => longDate(new Date(meeting.recording_start!))} placeholderWidth="12ch" />
+            <span suppressHydrationWarning>{longDate(new Date(meeting.recording_start), tz)}</span>
           </>
         )}
       </p>

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ROUTES, type SearchResponse } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
+import type { SearchResponse } from "@/lib/contracts";
 import { api } from "@/lib/ui/api";
 
 export interface SearchState {

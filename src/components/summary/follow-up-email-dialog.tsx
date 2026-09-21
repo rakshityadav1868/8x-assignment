@@ -10,7 +10,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DemoModeBadge, ErrorState } from "@/components/common/bits";
 import { RichText } from "@/components/common/rich-text";
 import { useCall } from "@/components/call/call-context";
-import { ROUTES, type FollowUpEmailResponse } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
+import type { FollowUpEmailResponse } from "@/lib/contracts";
 import { api, copyText } from "@/lib/ui/api";
 
 type Tone = "friendly" | "formal" | "concise";

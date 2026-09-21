@@ -7,7 +7,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
 import { useTranscriptSearch } from "@/hooks/use-search";
-import { ROUTES } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
 import { formatClock } from "@/lib/ui/format";
 
 export const OPEN_PALETTE_EVENT = "fanthom:open-palette";

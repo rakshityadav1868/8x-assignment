@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Textarea } from "@/components/ui/textarea";
 import { EmptyState, ErrorState, HIGHLIGHT_META } from "@/components/common/bits";
 import { ClipView } from "@/components/public/clip-view";
-import { ROUTES } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
 import { api, copyText } from "@/lib/ui/api";
 import { alpha, formatClock } from "@/lib/ui/format";
 import { HIGHLIGHT_TYPES, type ClipDetail, type HighlightType, type Playlist } from "@/lib/types";

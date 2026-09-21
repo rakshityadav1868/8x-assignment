@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { ROUTES, MAX_UPLOAD_BYTES, type ProcessResponse, type StatusResponse, type UploadResponse } from "@/lib/contracts";
+import { ROUTES, MAX_UPLOAD_BYTES } from "@/lib/routes";
+import type { ProcessResponse, StatusResponse, UploadResponse } from "@/lib/contracts";
 import { ApiClientError, api } from "@/lib/ui/api";
 import { formatClock } from "@/lib/ui/format";
 import type { Capabilities, ProcessingStage } from "@/lib/types";

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getRepo } from "@/lib/db";
 import { CallView } from "@/components/call/call-view";
@@ -20,7 +21,7 @@ export async function generateMetadata(props: PageProps<"/share/[token]">): Prom
 export default async function SharePage(props: PageProps<"/share/[token]">) {
   const [{ token }, sp] = await Promise.all([props.params, props.searchParams]);
   const detail = await getRepo().getMeetingDetailByShareToken(token);
-  if (!detail) return <PublicGate kind="not_found" />;
+  if (!detail) notFound();
   if (detail.meeting.share_access !== "anyone_with_link") {
     return (
       <PublicGate

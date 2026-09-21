@@ -16,5 +16,5 @@ export default async function CallsPage() {
   } catch (e) {
     error = e instanceof Error ? e.message : "Failed to load calls";
   }
-  return <CallsView meetings={meetings} upcoming={upcoming} error={error} />;
+  return <CallsView meetings={meetings} upcoming={upcoming} error={error} nowIso={new Date().toISOString()} />;
 }

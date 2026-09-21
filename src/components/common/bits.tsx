@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { useHydrated } from "@/hooks/use-hydrated";
 import { formatClock } from "@/lib/ui/format";
 import { MEETING_TYPE_LABELS } from "@/lib/templates";
 import type { MeetingType, HighlightType } from "@/lib/types";
@@ -161,25 +160,4 @@ export function ErrorState({
       )}
     </div>
   );
-}
-
-/** Renders a locale/timezone-dependent string only after hydration (no mismatch, fixed-width placeholder). */
-export function ClientText({
-  render,
-  placeholderWidth = "6ch",
-  className,
-}: {
-  render: () => string;
-  placeholderWidth?: string;
-  className?: string;
-}) {
-  const hydrated = useHydrated();
-  if (!hydrated)
-    return (
-      <span
-        className={cn("inline-block h-[0.9em] animate-pulse rounded bg-white/5 align-middle", className)}
-        style={{ width: placeholderWidth }}
-      />
-    );
-  return <span className={className}>{render()}</span>;
 }

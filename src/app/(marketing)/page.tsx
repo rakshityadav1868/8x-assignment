@@ -6,7 +6,7 @@ import { PillLink } from "@/components/brand/pill-link";
 import { AppPreview } from "@/components/marketing/app-preview";
 import { ParticleDome } from "@/components/marketing/particle-dome";
 import { getRepo } from "@/lib/db";
-import { ROUTES } from "@/lib/contracts";
+import { ROUTES } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: "Fanthom — Never take meeting notes again",
