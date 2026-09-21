@@ -114,8 +114,6 @@ export function WelcomeView() {
                   <span className="flex-1 text-sm font-medium">Connect {c.name}</span>
                   {connecting === c.name ? (
                     <Loader2 className="size-4 animate-spin" />
-                  ) : prefs?.calendar_connected ? (
-                    <Check className="size-4 text-emerald-300" />
                   ) : (
                     <ArrowRight className="size-4 text-muted-foreground" />
                   )}
@@ -126,10 +124,23 @@ export function WelcomeView() {
               <FlaskConical className="mt-0.5 size-3.5 shrink-0" />
               Calendar OAuth is simulated in this demo: connecting links a sample calendar with realistic upcoming meetings.
             </p>
-            <div className="mt-6 flex justify-end">
-              <Button variant="ghost" onClick={() => setStep(1)}>
-                Skip for now <ArrowRight />
-              </Button>
+            <div className="mt-6 flex items-center justify-between gap-2">
+              {prefs?.calendar_connected ? (
+                <span className="inline-flex items-center gap-1.5 text-xs text-emerald-300">
+                  <Check className="size-3.5" /> A calendar is already connected
+                </span>
+              ) : (
+                <span />
+              )}
+              {prefs?.calendar_connected ? (
+                <Button onClick={() => setStep(1)} className="rounded-full bg-white px-4 text-neutral-950 hover:bg-white/90">
+                  Continue <ArrowRight />
+                </Button>
+              ) : (
+                <Button variant="ghost" onClick={() => setStep(1)}>
+                  Skip for now <ArrowRight />
+                </Button>
+              )}
             </div>
           </div>
         ) : step === 1 ? (

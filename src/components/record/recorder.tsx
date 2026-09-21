@@ -517,7 +517,7 @@ export function Recorder({ capabilities }: { capabilities: Capabilities }) {
           className="mt-4 flex h-6 items-end gap-[3px] [&>span[data-on='1']]:bg-sky-400 [&>span[data-on='hot']]:bg-amber-300 [&>span]:bg-white/10"
         >
           {Array.from({ length: 28 }).map((_, i) => (
-            <span key={i} className="w-1.5 rounded-sm transition-colors duration-75" style={{ height: `${30 + Math.sin((i / 27) * Math.PI) * 70}%` }} />
+            <span key={i} className="w-1.5 rounded-sm transition-colors duration-75" style={{ height: `${Math.round(30 + Math.sin((i / 27) * Math.PI) * 70)}%` }} />
           ))}
         </div>
       </div>

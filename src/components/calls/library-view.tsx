@@ -336,7 +336,7 @@ export function LibraryView({
       </div>
 
       {!folderId && (
-        <div role="tablist" aria-label="Library" className="mt-6 flex items-center gap-1 border-b border-white/[0.06]">
+        <div role="tablist" aria-label="Library" className="mt-6 flex items-center gap-1 overflow-x-auto border-b border-white/[0.06] [scrollbar-width:none]">
           {TABS.map((t) => (
             <button
               key={t.key}
@@ -346,7 +346,7 @@ export function LibraryView({
               title={t.hint}
               onClick={() => setScope(t.key)}
               className={cn(
-                "relative -mb-px px-3 pb-2.5 pt-1 text-sm text-muted-foreground transition-colors hover:text-foreground",
+                "relative -mb-px shrink-0 whitespace-nowrap px-3 pb-2.5 pt-1 text-sm text-muted-foreground transition-colors hover:text-foreground",
                 scope === t.key && "text-foreground after:absolute after:inset-x-2 after:bottom-0 after:h-0.5 after:rounded-full after:bg-primary after:shadow-[0_0_8px_var(--brand)]",
               )}
             >
@@ -356,7 +356,7 @@ export function LibraryView({
           <button
             type="button"
             onClick={() => (selecting ? clearSelection() : setSelectMode(true))}
-            className="ml-auto mb-1.5 inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs text-muted-foreground hover:bg-white/[0.06] hover:text-foreground md:hidden"
+            className="mb-1.5 ml-auto inline-flex h-7 shrink-0 items-center gap-1.5 rounded-full px-2.5 text-xs text-muted-foreground hover:bg-white/[0.06] hover:text-foreground md:hidden"
           >
             <CheckSquare className="size-3.5" /> {selecting ? "Done" : "Select"}
           </button>

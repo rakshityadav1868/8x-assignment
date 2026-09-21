@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Bot,
   CalendarCheck,
@@ -98,6 +98,17 @@ export function CalendarView() {
     }
     return [Math.max(0, lo), Math.min(24, hi)];
   }, [events, tz]);
+
+  // Scroll the grid to the next upcoming meeting (else the week's first, else 8 AM) when the week loads.
+  const gridRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || !data) return;
+    const t = Date.now();
+    const target = events.find((e) => new Date(e.end).getTime() > t) ?? events[0];
+    const hour = target ? Math.floor(hourIn(new Date(target.start), tz)) - 1 : 8;
+    el.scrollTop = Math.max(0, (hour - startHour) * HOUR_PX);
+  }, [data, events, tz, startHour]);
 
   const rule = data?.auto_record_rule ?? "external_only";
   const recordCount = events.filter((e) => e.record && new Date(e.end).getTime() > now).length;
@@ -233,7 +244,7 @@ export function CalendarView() {
                   );
                 })}
               </div>
-              <div className="max-h-[70dvh] overflow-y-auto">
+              <div ref={gridRef} className="max-h-[70dvh] overflow-y-auto">
                 <div
                   className="relative grid grid-cols-[56px_repeat(7,minmax(0,1fr))]"
                   style={{ height: (endHour - startHour) * HOUR_PX }}

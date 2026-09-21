@@ -129,13 +129,14 @@ export function CallRow({
       className={cn(
         "group relative flex min-h-[76px] items-center gap-3 px-3 py-3 transition-colors hover:bg-white/[0.035] sm:gap-4 sm:px-4",
         selected && "bg-primary/[0.07] hover:bg-primary/[0.09]",
+        (selecting || selected) && "pl-11 md:pl-4",
         trashed && "opacity-80",
       )}
     >
       <div
         className={cn(
-          "flex shrink-0 items-center transition-opacity",
-          selecting || selected ? "opacity-100" : "hidden opacity-0 group-hover:opacity-100 focus-within:opacity-100 md:flex",
+          "absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-md bg-[#0b1120]/80 p-0.5 transition-opacity md:left-5 md:top-3.5 md:translate-y-0",
+          selecting || selected ? "block opacity-100" : "hidden md:block md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100",
         )}
       >
         <Checkbox
