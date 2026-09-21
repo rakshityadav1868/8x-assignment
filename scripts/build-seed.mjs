@@ -603,7 +603,7 @@ const parity = {
   team_members,
   comments,
   reactions,
-  trackers: trackers.map(({ _hits, ...t }) => t), // eslint-disable-line no-unused-vars
+  trackers: trackers.map(({ _hits, ...t }) => t), // eslint-disable-line @typescript-eslint/no-unused-vars
   deal_overrides,
   notifications,
   webhooks,
