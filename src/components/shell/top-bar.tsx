@@ -37,7 +37,7 @@ export function TopBar() {
       <button
         type="button"
         onClick={openCommandPalette}
-        className="ml-auto flex h-9 w-full max-w-md items-center gap-2 rounded-full border border-border bg-white/[0.04] px-3.5 text-left text-sm text-muted-foreground transition-colors hover:border-white/15 hover:bg-white/[0.06] md:ml-0"
+        className="ml-auto flex h-9 w-full min-w-0 max-w-md items-center gap-2 rounded-full border border-border bg-white/[0.04] px-3.5 text-left text-sm text-muted-foreground transition-colors hover:border-white/15 hover:bg-white/[0.06] md:ml-0"
       >
         <Search className="size-4" />
         <span className="flex-1 truncate">Search across all calls…</span>

@@ -70,8 +70,8 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
     <div className={cn("mx-auto flex w-full max-w-[1680px] flex-col px-4 py-4 md:px-6 lg:overflow-hidden", fullHeightClass)}>
       <CallHeader onShowShortcuts={openHelp} />
 
-      <div className="mt-4 grid gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)] lg:grid-rows-[auto_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_480px]">
-        <div className="space-y-2 lg:col-start-1 lg:row-start-1">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)] lg:grid-rows-[auto_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_480px]">
+        <div className="min-w-0 space-y-2 lg:col-start-1 lg:row-start-1">
           <MediaStage
             mediaUrl={meeting.media_url}
             mediaKind={meeting.media_kind}
@@ -100,7 +100,7 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
         >
           <TabsList
             variant="line"
-            className="h-11! w-full shrink-0 justify-start gap-0 rounded-none border-b border-white/[0.06] px-2"
+            className="h-11! w-full shrink-0 justify-start gap-0 overflow-x-auto rounded-none border-b border-white/[0.06] px-1 [scrollbar-width:none] sm:px-2"
           >
             <PanelTab value="summary">Summary</PanelTab>
             <PanelTab value="transcript">Transcript</PanelTab>
@@ -138,7 +138,7 @@ function PanelTab({ value, children }: { value: CallTab; children: React.ReactNo
   return (
     <TabsTrigger
       value={value}
-      className="h-full flex-none rounded-none px-3 text-[13px] text-white/55 after:bottom-0! after:bg-sky-400! after:shadow-[0_0_10px_rgba(56,189,248,0.8)] data-active:text-white"
+      className="h-full flex-none rounded-none px-2.5 text-[13px] sm:px-3 text-white/55 after:bottom-0! after:bg-sky-400! after:shadow-[0_0_10px_rgba(56,189,248,0.8)] data-active:text-white"
     >
       {children}
     </TabsTrigger>

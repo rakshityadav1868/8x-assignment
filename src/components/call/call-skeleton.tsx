@@ -10,7 +10,7 @@ export function CallPageSkeleton({ fullHeightClass = "lg:h-[calc(100dvh-3.5rem)]
           <Skeleton className="mt-2 h-4 w-1/2 max-w-sm" />
         </div>
       </div>
-      <div className="mt-4 grid gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)] xl:grid-cols-[minmax(0,1fr)_480px]">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1fr)_minmax(380px,440px)] xl:grid-cols-[minmax(0,1fr)_480px]">
         <div className="space-y-2">
           <Skeleton className="aspect-video w-full rounded-2xl lg:max-h-[52dvh]" />
           <Skeleton className="h-[74px] w-full rounded-2xl" />

@@ -180,7 +180,7 @@ function Tile({
       <span
         className={cn(
           "relative flex items-center justify-center rounded-full font-semibold tracking-tight transition-transform duration-300",
-          big ? "size-14 text-lg sm:size-20 sm:text-2xl" : compact ? "size-7 text-[10px]" : "size-9 text-xs sm:size-12 sm:text-base",
+          big ? "size-10 text-sm sm:size-20 sm:text-2xl" : compact ? "size-7 text-[10px]" : "size-8 text-[11px] sm:size-12 sm:text-base",
           active && "scale-105",
         )}
         style={{

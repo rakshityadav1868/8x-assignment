@@ -97,7 +97,7 @@ export default async function LandingPage() {
               className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#03050b]"
             />
           </div>
-          <div className="relative z-10 mx-auto -mt-[170px] max-w-5xl px-4 sm:-mt-[240px] md:-mt-[300px]">
+          <div className="relative z-10 mx-auto -mt-[120px] max-w-5xl px-4 sm:-mt-[240px] md:-mt-[300px]">
             <AppPreview />
           </div>
         </div>

@@ -94,7 +94,7 @@ export function ParticleDome({
       for (let b = 0; b < BUCKETS; b++) paths[b] = new Path2D();
 
       if (variant === "dome") {
-        const R = Math.min(w * 0.62, h * 1.22, 980); // keep the crown inside the canvas
+        const R = Math.min(w * (w < 700 ? 0.95 : 0.62), h * 1.22, 980); // keep the crown inside the canvas
         const cx = w / 2;
         const cy = h * 0.98; // dome base sits at the bottom of the canvas
         const tilt = 0.38; // camera looks slightly down onto the dome
