@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ChevronDown } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { TranscriptPanel } from "@/components/transcript/transcript-panel";
 import { SummaryPanel } from "@/components/summary/summary-panel";
@@ -13,6 +15,9 @@ import type { AiMode, MeetingDetail } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ApiClientError, api } from "@/lib/ui/api";
 import { CallProvider, useCall, type CallTab } from "./call-context";
+import { CallExtrasProvider, useCallExtras } from "./call-extras";
+import { CoachingPanel } from "./coaching-panel";
+import { CommentsPanel } from "./comments-panel";
 import { CallHeader } from "./call-header";
 import { MediaStage } from "./media-stage";
 import { PlayerControls } from "./player-controls";
@@ -48,8 +53,10 @@ export function CallView({
         readOnly={readOnly}
         shareMode={shareMode}
       >
-        <CallLayout initialSeconds={initialSeconds ?? null} fullHeightClass={fullHeightClass} />
-        {syncUrl && <ApiSync url={syncUrl} onError={onSyncError} />}
+        <CallExtrasProvider>
+          <CallLayout initialSeconds={initialSeconds ?? null} fullHeightClass={fullHeightClass} />
+          {syncUrl && <ApiSync url={syncUrl} onError={onSyncError} />}
+        </CallExtrasProvider>
       </CallProvider>
     </PlayerProvider>
   );
@@ -70,7 +77,7 @@ function ApiSync({ url, onError }: { url: string; onError?: (err: ApiClientError
 }
 
 function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: number | null; fullHeightClass: string }) {
-  const { meeting, detail, highlights, participants, segments, tab, setTab, actionItems, readOnly } = useCall();
+  const { meeting, detail, highlights, participants, segments, tab, setTab, actionItems, readOnly, shareMode } = useCall();
   const store = usePlayerStore();
   const [captions, setCaptions] = useState(true);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -117,7 +124,7 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
         <Tabs
           value={tab}
           onValueChange={(v) => setTab(v as CallTab)}
-          className="glass flex h-[72dvh] min-h-0 flex-col gap-0 overflow-hidden rounded-2xl lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-auto"
+          className="glass @container flex h-[72dvh] min-h-0 flex-col gap-0 overflow-hidden rounded-2xl lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:h-auto"
         >
           <TabsList
             variant="line"
@@ -132,6 +139,17 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
               )}
             </PanelTab>
             {!readOnly && <PanelTab value="ask">Ask</PanelTab>}
+            {/* Wide panels show every tab; narrow ones fold Comments/Coaching into "More". */}
+            <PanelTab value="comments" className="hidden @min-[470px]:inline-flex">
+              Comments
+              <CommentCount />
+            </PanelTab>
+            {!shareMode && (
+              <PanelTab value="coaching" className="hidden @min-[470px]:inline-flex">
+                Coaching
+              </PanelTab>
+            )}
+            <MoreTabs tab={tab} setTab={setTab} showCoaching={!shareMode} />
           </TabsList>
           <TabsContent value="summary" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">
             <SummaryPanel />
@@ -147,6 +165,14 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
               <AskPanel active={tab === "ask"} />
             </TabsContent>
           )}
+          <TabsContent value="comments" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">
+            <CommentsPanel active={tab === "comments"} />
+          </TabsContent>
+          {!shareMode && (
+            <TabsContent value="coaching" className="min-h-0 flex-1">
+              <CoachingPanel active={tab === "coaching"} />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
 
@@ -155,14 +181,50 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
   );
 }
 
-function PanelTab({ value, children }: { value: CallTab; children: React.ReactNode }) {
+const TAB_CLASS =
+  "h-full flex-none rounded-none px-2.5 text-[13px] sm:px-3 text-white/55 after:bottom-0! after:bg-sky-400! after:shadow-[0_0_10px_rgba(56,189,248,0.8)] data-active:text-white";
+
+function PanelTab({ value, children, className }: { value: CallTab; children: React.ReactNode; className?: string }) {
   return (
-    <TabsTrigger
-      value={value}
-      className="h-full flex-none rounded-none px-2.5 text-[13px] sm:px-3 text-white/55 after:bottom-0! after:bg-sky-400! after:shadow-[0_0_10px_rgba(56,189,248,0.8)] data-active:text-white"
-    >
+    <TabsTrigger value={value} className={cn(TAB_CLASS, className)}>
       {children}
     </TabsTrigger>
+  );
+}
+
+function CommentCount() {
+  const { comments } = useCallExtras();
+  const n = comments.status === "ready" ? comments.data.length : 0;
+  if (!n) return null;
+  return <span className="ml-1 rounded-full bg-white/10 px-1.5 text-[10px] tabular-nums text-white/80">{n}</span>;
+}
+
+const OVERFLOW_LABEL: Partial<Record<CallTab, string>> = { comments: "Comments", coaching: "Coaching" };
+
+function MoreTabs({ tab, setTab, showCoaching }: { tab: CallTab; setTab: (t: CallTab) => void; showCoaching: boolean }) {
+  const activeOverflow = OVERFLOW_LABEL[tab];
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          data-active={activeOverflow ? "" : undefined}
+          className={cn(
+            "relative inline-flex h-full shrink-0 items-center gap-1 px-2.5 text-[13px] font-medium text-white/55 hover:text-white @min-[470px]:hidden",
+            activeOverflow &&
+              "text-white after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-sky-400 after:shadow-[0_0_10px_rgba(56,189,248,0.8)]",
+          )}
+        >
+          {activeOverflow ?? "More"} <ChevronDown className="size-3.5" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-44">
+        <DropdownMenuItem onSelect={() => setTab("comments")}>
+          Comments <CommentCount />
+        </DropdownMenuItem>
+        {showCoaching && <DropdownMenuItem onSelect={() => setTab("coaching")}>Coaching</DropdownMenuItem>}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

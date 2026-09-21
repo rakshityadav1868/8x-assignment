@@ -15,7 +15,7 @@ import type {
 } from "@/lib/types";
 import { defaultTemplateFor } from "@/lib/templates";
 
-export type CallTab = "summary" | "transcript" | "actions" | "ask";
+export type CallTab = "summary" | "transcript" | "actions" | "ask" | "comments" | "coaching";
 
 export interface CallContextValue {
   detail: MeetingDetail;
