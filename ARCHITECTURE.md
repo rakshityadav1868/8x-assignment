@@ -193,6 +193,23 @@ The same build runs in either mode. The UI never branches on which data store is
 | **Transcription** | `/upload` explains that it needs keys and shows a simulated stage preview | `DEEPGRAM_API_KEY` (nova, diarize, utterances; `DEEPGRAM_MODEL`), AssemblyAI as fallback |
 | **Capabilities** | `GET /api/capabilities` → `{ai_mode, transcription, data_mode}`, shown on `/settings` | same |
 
+**Self-contained clip tokens (demo mode).** On Vercel, pages and route handlers can run in separate function instances,
+each with its own in-memory seed store. So in seed mode a user-created highlight's `share_token` carries the clip itself:
+`c_` + base64url(JSON `{m: meeting_id, s: start_ms, e: end_ms, t: type, ti: title, n?: note}`)
+(`src/lib/db/clip-token.ts`, note capped at 280 chars). `SeedRepo.getClipByToken` looks in the store first, then
+decodes the token statelessly. The meeting must exist and be ready, the bounds must fall within the call, and the type
+must be valid. It then builds the `ClipDetail` from seed data. Editing a highlight re-encodes its token. Deleting one
+blocks its token in that instance only. Seeded clip tokens and Supabase mode (random tokens) are unchanged. There is no
+contract change: `share_token` is still an opaque string.
+
+**Demo Ask retrieval** (`demoAsk` / `demoAskAcross` in `src/lib/ai/demo.ts`):
+- Topic terms come from the question after removing question words and intent words (who/owns/owner/responsible/when…).
+  Two-letter acronyms such as GA, QA and AI are kept.
+- Each term is weighted by IDF, so the rarest term dominates. Segments that match several topic terms are strongly
+  boosted, and hits must contain one of the rarest terms whenever any segment does.
+- "Who owns X" answers append the matching action items with their owners. Topical questions also append the matching
+  decision. Regression: `npm run check:ask` (`scripts/check-demo-ask.mts`).
+
 ### Abuse protection (`src/proxy.ts`, `src/lib/server/{demo-session,rate-limit,api}.ts`)
 
 - **Demo-session cookie.** `src/proxy.ts` sets the httpOnly `fanthom_demo` cookie on the landing page and app pages

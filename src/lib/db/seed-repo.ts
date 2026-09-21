@@ -1,4 +1,5 @@
 import "server-only";
+import { createHash } from "node:crypto";
 import { seedMeetings, seedWorkspace } from "@/data/seed";
 import { NotFoundError } from "@/lib/server/errors";
 import { newId, newToken, nowIso } from "@/lib/server/ids";
@@ -20,6 +21,7 @@ import type {
   Summary,
   UpcomingMeeting,
 } from "@/lib/types";
+import { CLIP_TOKEN_PREFIX, decodeClipToken, encodeClipToken } from "./clip-token";
 import type { Repo } from "./repo";
 import { shiftSeed, type SeedAnchor } from "./seed-time";
 
@@ -39,6 +41,8 @@ interface Store {
   playlists: (Playlist & { items: PlaylistItem[] })[];
   chat: ChatMessage[];
   workspaceId: string;
+  /** Self-contained clip tokens of highlights deleted in this instance (so they stop resolving here). */
+  deletedClipTokens?: Set<string>;
 }
 
 const g = globalThis as unknown as { __fanthomSeedStore?: Store };
@@ -82,6 +86,29 @@ function toDetail(r: MeetingRecord): MeetingDetail {
     chapters: [...r.chapters].sort(byStart),
     decisions: r.decisions ?? undefined,
   });
+}
+
+/** ClipDetail for highlight `h` of meeting record `r`. */
+function clipOf(r: MeetingRecord, h: Highlight): ClipDetail {
+  const m = r.meeting;
+  return clone({
+    highlight: h,
+    meeting: {
+      id: m.id,
+      title: m.title,
+      media_url: m.media_url,
+      media_kind: m.media_kind,
+      recording_start: m.recording_start,
+      duration_sec: m.duration_sec,
+    },
+    participants: r.participants,
+    segments: r.segments.filter((s) => s.end_ms > h.start_ms && s.start_ms < h.end_ms).sort(byStart),
+  });
+}
+
+/** Re-encode a user highlight's self-contained token so it always matches its current fields. */
+function selfContainedToken(h: Pick<Highlight, "meeting_id" | "start_ms" | "end_ms" | "type" | "title" | "note">): string {
+  return encodeClipToken({ meeting_id: h.meeting_id, start_ms: h.start_ms, end_ms: h.end_ms, type: h.type, title: h.title, note: h.note });
 }
 
 function findActionItem(id: string): { r: MeetingRecord; item: ActionItem } {
@@ -246,7 +273,9 @@ export function createSeedRepo(): Repo {
 
     async createHighlight(meetingId, input) {
       const r = rec(meetingId);
-      const h: Highlight = { ...input, id: newId("hl"), meeting_id: meetingId, share_token: newToken(), created_at: nowIso() };
+      // Self-contained token: resolvable by any server instance, even one that never saw this highlight.
+      const h: Highlight = { ...input, id: newId("hl"), meeting_id: meetingId, share_token: "", created_at: nowIso() };
+      h.share_token = selfContainedToken(h);
       r.highlights.push(h);
       r.highlights.sort(byStart);
       return clone(h);
@@ -255,11 +284,13 @@ export function createSeedRepo(): Repo {
     async updateHighlight(id, patch) {
       const { item } = findHighlight(id);
       Object.assign(item, patch);
+      if (item.share_token.startsWith(CLIP_TOKEN_PREFIX)) item.share_token = selfContainedToken(item);
       return clone(item);
     },
 
     async deleteHighlight(id) {
-      const { r } = findHighlight(id);
+      const { r, item } = findHighlight(id);
+      if (item.share_token.startsWith(CLIP_TOKEN_PREFIX)) (store().deletedClipTokens ??= new Set()).add(item.share_token);
       r.highlights = r.highlights.filter((h) => h.id !== id);
       for (const p of store().playlists) p.items = p.items.filter((i) => i.highlight_id !== id);
     },
@@ -267,23 +298,29 @@ export function createSeedRepo(): Repo {
     async getClipByToken(token): Promise<ClipDetail | null> {
       for (const r of store().meetings.values()) {
         const h = r.highlights.find((x) => x.share_token === token);
-        if (!h) continue;
-        const m = r.meeting;
-        return clone({
-          highlight: h,
-          meeting: {
-            id: m.id,
-            title: m.title,
-            media_url: m.media_url,
-            media_kind: m.media_kind,
-            recording_start: m.recording_start,
-            duration_sec: m.duration_sec,
-          },
-          participants: r.participants,
-          segments: r.segments.filter((s) => s.end_ms > h.start_ms && s.start_ms < h.end_ms).sort(byStart),
-        });
+        if (h) return clipOf(r, h);
       }
-      return null;
+      // Stateless fallback: the token carries the clip (created in another instance, or before a cold start).
+      const d = decodeClipToken(token);
+      if (!d || store().deletedClipTokens?.has(token)) return null;
+      const r = store().meetings.get(d.meeting_id);
+      if (!r || r.meeting.status !== "ready") return null;
+      const lastEnd = r.segments.reduce((mx, s) => Math.max(mx, s.end_ms), 0);
+      const endMs = Math.max(r.meeting.duration_sec * 1000, lastEnd) + 1000;
+      if (d.end_ms > endMs || d.start_ms >= d.end_ms) return null;
+      const h: Highlight = {
+        id: `hl_${createHash("sha256").update(token).digest("hex").slice(0, 24)}`,
+        meeting_id: d.meeting_id,
+        start_ms: d.start_ms,
+        end_ms: d.end_ms,
+        type: d.type,
+        title: d.title,
+        note: d.note,
+        share_token: token,
+        user_generated: true,
+        created_at: r.meeting.recording_start ?? r.meeting.created_at,
+      };
+      return clipOf(r, h);
     },
 
     async replaceChapters(meetingId, chapters) {
