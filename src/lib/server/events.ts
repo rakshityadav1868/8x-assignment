@@ -93,7 +93,11 @@ async function finishBot(session: BotSession, origin: string): Promise<BotSessio
   const repo = getRepo();
   try {
     const me = await safeSession();
-    const meetingId = await repo.cloneMeetingFromTemplate(null, { title: session.title, recorded_by: me?.user.name ?? null });
+    const meetingId = await repo.cloneMeetingFromTemplate(null, {
+      title: session.title,
+      recorded_by: me?.user.name ?? null,
+      bot_session_id: session.id, // deterministic + idempotent meeting id (resolvable on any instance in seed mode)
+    });
     const updated = await repo.updateBotSession(session.id, { meeting_id: meetingId });
     await repo
       .createNotification({

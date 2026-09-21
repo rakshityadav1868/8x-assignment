@@ -81,7 +81,8 @@ export type NewComment = Pick<Comment, "body"> & { timestamp_ms?: number | null;
 export type CommentPatch = Partial<Pick<Comment, "body" | "mentions" | "timestamp_ms">>;
 export type NewWebhook = Pick<Webhook, "url" | "events"> & { description?: string | null; active?: boolean };
 export type WebhookPatch = Partial<Pick<Webhook, "url" | "events" | "description" | "active">> & { rotate_secret?: boolean };
-export type NewWebhookDelivery = Omit<WebhookDelivery, "id" | "created_at">;
+/** `id` optional: pass the payload's delivery id so the stored row matches the X-Fanthom-Delivery header. */
+export type NewWebhookDelivery = Omit<WebhookDelivery, "id" | "created_at"> & { id?: string };
 export type SlackConfigPatch = Partial<Omit<SlackConfig, "workspace_id" | "updated_at">>;
 export type NewCrmSyncLog = Omit<CrmSyncLog, "id" | "created_at">;
 export type NewBotSession = Pick<BotSession, "meeting_url" | "platform" | "title">;
@@ -229,8 +230,14 @@ export interface Repo {
    * Seed-template cloning for the simulated bot / recorder in demo mode: deep-copies a seed meeting
    * (participants, segments, summaries, action items, highlights, chapters, decisions) under a new id with
    * the given title and recording_start = now. Returns the new meeting id.
+   *
+   * `bot_session_id`: the meeting id becomes deterministic for that bot session and the call is idempotent (returns
+   * the existing id). In seed mode that id (`m_bot_…`) is also resolvable on any instance (lazily materialised).
    */
-  cloneMeetingFromTemplate(templateMeetingId: string | null, overrides: { title: string; recorded_by?: string | null }): Promise<string>;
+  cloneMeetingFromTemplate(
+    templateMeetingId: string | null,
+    overrides: { title: string; recorded_by?: string | null; bot_session_id?: string },
+  ): Promise<string>;
 
   // Calendar (events are seeded; OAuth stubbed). `record` is computed by the repo via analytics/calendar.ts
   listCalendarEvents(range: { from: string; to: string }): Promise<CalendarEvent[]>; // ordered by start

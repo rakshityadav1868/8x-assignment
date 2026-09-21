@@ -797,7 +797,7 @@ export function createSupabaseRepo(): Repo {
     async recordWebhookDelivery(input) {
       found(await db.from("webhooks").select("id").eq("id", input.webhook_id).maybeSingle(), "Webhook");
       const d = data(
-        await db.from("webhook_deliveries").insert({ ...input, id: newId("whd") }).select("*").single(),
+        await db.from("webhook_deliveries").insert({ ...input, id: input.id ?? newId("whd") }).select("*").single(),
         "record delivery",
       ) as WebhookDelivery;
       check(
@@ -882,9 +882,11 @@ export function createSupabaseRepo(): Repo {
         tmpl = rows[0] ?? null;
       }
       if (!tmpl) throw new NotFoundError("Template meeting");
+      // One meeting per bot session (idempotent across instances/retries).
+      const id = overrides.bot_session_id ? `m_bot_${overrides.bot_session_id}` : newId();
+      if (overrides.bot_session_id && (await getMeetingRow(id))) return id;
       const t = await detail(tmpl);
       const { user } = await sessionCtx();
-      const id = newId();
       const now = Date.now();
       const created = new Date(now).toISOString();
       const began = new Date(now - t.meeting.duration_sec * 1000).toISOString();

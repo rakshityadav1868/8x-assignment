@@ -156,10 +156,11 @@ async function resolvedHostError(url: string): Promise<string | null> {
 export async function deliverWebhook(
   webhook: Webhook,
   payload: WebhookPayload,
-): Promise<Omit<WebhookDelivery, "id" | "created_at">> {
+): Promise<Omit<WebhookDelivery, "created_at">> {
   const body = JSON.stringify(payload);
   const started = Date.now();
-  const base = { webhook_id: webhook.id, event: payload.event, test: payload.test, request_body: body };
+  // id = payload.id so the stored delivery matches the X-Fanthom-Delivery header
+  const base = { id: payload.id, webhook_id: webhook.id, event: payload.event, test: payload.test, request_body: body };
   const fail = (error: string, status_code: number | null = null, response_body: string | null = null) => ({
     ...base,
     status_code,

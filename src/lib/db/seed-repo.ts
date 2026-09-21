@@ -29,6 +29,7 @@ import type {
   SeedWorkspaceFile,
   Summary,
 } from "@/lib/types";
+import { botIdFromMeetingId, botMeetingId, decodeBotToken, encodeBotToken } from "./bot-token";
 import { CLIP_TOKEN_PREFIX, decodeClipToken, encodeClipToken } from "./clip-token";
 import {
   commentOrder,
@@ -112,7 +113,7 @@ const byStart = (a: { start_ms: number }, b: { start_ms: number }) => a.start_ms
 const meetingDate = (m: Meeting) => m.recording_start ?? m.scheduled_start ?? m.created_at;
 
 function rec(id: string): MeetingRecord {
-  const r = store().meetings.get(id);
+  const r = getRec(id);
   if (!r) throw new NotFoundError("Meeting");
   return r;
 }
@@ -217,6 +218,109 @@ function currentMember(): TeamMember {
 
 const DEFAULT_TEMPLATE_MEETING = "m_design-review";
 
+function templateRecord(templateMeetingId: string | null): MeetingRecord | undefined {
+  const s = store();
+  if (templateMeetingId) return getRec(templateMeetingId);
+  return s.meetings.get(DEFAULT_TEMPLATE_MEETING) ?? [...s.meetings.values()].find((r) => r.meeting.status === "ready" && r.meeting.synthetic);
+}
+
+/**
+ * Deep copy of `src` as meeting `id`. Child ids are derived from `id`, so cloning the same template under the same
+ * id yields identical rows on every instance (needed for lazily materialised bot meetings).
+ */
+function cloneRecord(src: MeetingRecord, id: string, o: { title: string; recordedBy: string | null; startMs: number }): MeetingRecord {
+  const t = clone(src);
+  const k = createHash("sha256").update(id).digest("hex").slice(0, 12);
+  const start = new Date(o.startMs).toISOString();
+  const end = new Date(o.startMs + t.meeting.duration_sec * 1000).toISOString();
+  const pid = new Map(t.participants.map((p, i) => [p.id, `p_${k}_${i}`]));
+  const mapP = (x: string | null) => (x ? (pid.get(x) ?? null) : null);
+  const meeting: Meeting = normMeeting({
+    ...t.meeting,
+    id,
+    title: o.title,
+    recorded_by: o.recordedBy,
+    scheduled_start: start,
+    scheduled_end: end,
+    recording_start: start,
+    recording_end: end,
+    status: "ready",
+    processing_stage: "ready",
+    processing_error: null,
+    share_token: null,
+    folder_id: null,
+    starred: false,
+    deleted_at: null,
+    created_at: start,
+  });
+  return {
+    meeting,
+    participants: t.participants.map((p) => ({ ...p, id: pid.get(p.id)!, meeting_id: id })),
+    segments: t.segments.map((x, i) => ({ ...x, id: `seg_${k}_${i}`, meeting_id: id, participant_id: mapP(x.participant_id) })),
+    summaries: t.summaries.map((x, i) => ({ ...x, id: `sum_${k}_${i}`, meeting_id: id, created_at: end })),
+    action_items: t.action_items.map((x, i) => ({
+      ...x,
+      id: `ai_${k}_${i}`,
+      meeting_id: id,
+      assignee_participant_id: mapP(x.assignee_participant_id),
+      completed: false,
+      created_at: end,
+    })),
+    highlights: t.highlights.map((h, i) => {
+      const nh: Highlight = { ...h, id: `hl_${k}_${i}`, meeting_id: id, share_token: "", created_at: end };
+      nh.share_token = selfContainedToken(nh);
+      return nh;
+    }),
+    chapters: t.chapters.map((x, i) => ({ ...x, id: `ch_${k}_${i}`, meeting_id: id })),
+    decisions: t.decisions ? t.decisions.map((d) => ({ ...d, participant_id: mapP(d.participant_id) })) : null,
+    invited_emails: [],
+  };
+}
+
+/** Meeting record by id; `m_bot_…` ids missing from this instance are rebuilt from their bot token. */
+function getRec(id: string): MeetingRecord | undefined {
+  const s = store();
+  const hit = s.meetings.get(id);
+  if (hit) return hit;
+  const botId = botIdFromMeetingId(id);
+  const bot = botId ? decodeBotToken(botId) : null;
+  const src = bot ? templateRecord(null) : undefined;
+  if (!bot || !src) return undefined;
+  const r = cloneRecord(src, id, { title: bot.title ?? "Online meeting", recordedBy: s.user.name, startMs: bot.created_at_ms });
+  s.meetings.set(id, r);
+  return r;
+}
+
+/** Bot session by id; self-contained ids unknown to this instance are rebuilt (state replays from created_at). */
+function botOf(id: string): BotSession | null {
+  const s = store();
+  const hit = s.bots.find((b) => b.id === id);
+  if (hit) return hit;
+  const d = decodeBotToken(id);
+  if (!d) return null;
+  const created = new Date(d.created_at_ms).toISOString();
+  const b: BotSession = {
+    id,
+    workspace_id: s.workspaceId,
+    meeting_url: d.meeting_url,
+    platform: d.platform,
+    title: d.title ?? "Online meeting",
+    state: "joining",
+    simulated: true,
+    meeting_id: null,
+    error: null,
+    events: [{ state: "joining", at: created, note: null }],
+    created_at: created,
+    joined_at: null,
+    admitted_at: null,
+    recording_ended_at: null,
+    completed_at: null,
+    updated_at: created,
+  };
+  s.bots.push(b);
+  return b;
+}
+
 export function createSeedRepo(): Repo {
   return {
     async listMeetings(opts): Promise<MeetingListItem[]> {
@@ -269,12 +373,12 @@ export function createSeedRepo(): Repo {
     },
 
     async getMeeting(id) {
-      const r = store().meetings.get(id);
+      const r = getRec(id);
       return r ? clone(normMeeting(r.meeting)) : null;
     },
 
     async getMeetingDetail(id) {
-      const r = store().meetings.get(id);
+      const r = getRec(id);
       return r ? toDetail(r) : null;
     },
 
@@ -329,7 +433,7 @@ export function createSeedRepo(): Repo {
     },
 
     async findSummary(meetingId, template, language, customInstructions) {
-      const r = store().meetings.get(meetingId);
+      const r = getRec(meetingId);
       if (!r) return null;
       const ci = normInstr(customInstructions);
       const found = r.summaries
@@ -411,7 +515,7 @@ export function createSeedRepo(): Repo {
       // Stateless fallback: the token carries the clip (created in another instance, or before a cold start).
       const d = decodeClipToken(token);
       if (!d || store().deletedClipTokens?.has(token)) return null;
-      const r = store().meetings.get(d.meeting_id);
+      const r = getRec(d.meeting_id);
       if (!r || r.meeting.status !== "ready") return null;
       const lastEnd = r.segments.reduce((mx, s) => Math.max(mx, s.end_ms), 0);
       const endMs = Math.max(r.meeting.duration_sec * 1000, lastEnd) + 1000;
@@ -438,7 +542,7 @@ export function createSeedRepo(): Repo {
     },
 
     async getDecisions(meetingId) {
-      const r = store().meetings.get(meetingId);
+      const r = getRec(meetingId);
       return r?.decisions ? clone(r.decisions) : null;
     },
 
@@ -566,7 +670,7 @@ export function createSeedRepo(): Repo {
       if (patch.folder_id) need(store().p.folders.find((f) => f.id === patch.folder_id), "Folder");
       let n = 0;
       for (const id of new Set(ids)) {
-        const r = store().meetings.get(id);
+        const r = getRec(id);
         if (!r) continue;
         r.meeting = normMeeting({ ...r.meeting, ...patch });
         n++;
@@ -783,7 +887,7 @@ export function createSeedRepo(): Repo {
     },
     async recordWebhookDelivery(input) {
       const w = need(store().p.webhooks.find((x) => x.id === input.webhook_id), "Webhook");
-      const d = { ...input, id: newId("whd"), created_at: nowIso() };
+      const d = { ...input, id: input.id ?? newId("whd"), created_at: nowIso() };
       store().p.webhook_deliveries.push(d);
       w.last_status = d.status_code ?? 0;
       w.last_delivery_at = d.created_at;
@@ -827,13 +931,15 @@ export function createSeedRepo(): Repo {
       return clone([...store().bots].sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, limit));
     },
     async getBotSession(id) {
-      const b = store().bots.find((x) => x.id === id);
+      const b = botOf(id);
       return b ? clone(b) : null;
     },
     async createBotSession(input) {
-      const now = nowIso();
+      const nowMs = Date.now();
+      const now = new Date(nowMs).toISOString();
       const b: BotSession = {
-        id: newId("bot"),
+        // Self-contained id: other instances rebuild the session from it (see botOf).
+        id: encodeBotToken({ meeting_url: input.meeting_url, platform: input.platform, created_at_ms: nowMs, title: input.title }),
         workspace_id: store().workspaceId,
         meeting_url: input.meeting_url,
         platform: input.platform,
@@ -854,65 +960,26 @@ export function createSeedRepo(): Repo {
       return clone(b);
     },
     async updateBotSession(id, patch) {
-      const b = need(store().bots.find((x) => x.id === id), "Bot session");
+      const b = need(botOf(id) ?? undefined, "Bot session");
       Object.assign(b, Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)), { updated_at: nowIso() });
       return clone(b);
     },
 
     async cloneMeetingFromTemplate(templateMeetingId, overrides) {
       const s = store();
-      const src =
-        (templateMeetingId ? s.meetings.get(templateMeetingId) : undefined) ??
-        (templateMeetingId ? undefined : (s.meetings.get(DEFAULT_TEMPLATE_MEETING) ?? [...s.meetings.values()].find((r) => r.meeting.status === "ready")));
+      const src = templateRecord(templateMeetingId);
       if (!src) throw new NotFoundError("Template meeting");
-      const t = clone(src);
+      const recordedBy = overrides.recorded_by !== undefined ? overrides.recorded_by : s.user.name;
+      const bot = overrides.bot_session_id ? decodeBotToken(overrides.bot_session_id) : null;
+      if (bot && overrides.bot_session_id) {
+        // Deterministic + idempotent: any instance can rebuild the same meeting from the bot id (see getRec).
+        const id = botMeetingId(overrides.bot_session_id);
+        if (getRec(id)) return id;
+        s.meetings.set(id, cloneRecord(src, id, { title: overrides.title, recordedBy, startMs: bot.created_at_ms }));
+        return id;
+      }
       const id = newId();
-      const now = Date.now();
-      const created = new Date(now).toISOString();
-      const pid = new Map(t.participants.map((p) => [p.id, newId()]));
-      const mapP = (x: string | null) => (x ? (pid.get(x) ?? null) : null);
-      const meeting: Meeting = normMeeting({
-        ...t.meeting,
-        id,
-        title: overrides.title,
-        recorded_by: overrides.recorded_by !== undefined ? overrides.recorded_by : s.user.name,
-        scheduled_start: new Date(now - t.meeting.duration_sec * 1000).toISOString(),
-        scheduled_end: created,
-        recording_start: new Date(now - t.meeting.duration_sec * 1000).toISOString(),
-        recording_end: created,
-        status: "ready",
-        processing_stage: "ready",
-        processing_error: null,
-        share_token: null,
-        folder_id: null,
-        starred: false,
-        deleted_at: null,
-        created_at: created,
-      });
-      const r: MeetingRecord = {
-        meeting,
-        participants: t.participants.map((p) => ({ ...p, id: pid.get(p.id)!, meeting_id: id })),
-        segments: t.segments.map((x) => ({ ...x, id: newId(), meeting_id: id, participant_id: mapP(x.participant_id) })),
-        summaries: t.summaries.map((x) => ({ ...x, id: newId("sum"), meeting_id: id, created_at: created })),
-        action_items: t.action_items.map((x) => ({
-          ...x,
-          id: newId("ai"),
-          meeting_id: id,
-          assignee_participant_id: mapP(x.assignee_participant_id),
-          completed: false,
-          created_at: created,
-        })),
-        highlights: [],
-        chapters: t.chapters.map((x) => ({ ...x, id: newId("ch"), meeting_id: id })),
-        decisions: t.decisions ? t.decisions.map((d) => ({ ...d, participant_id: mapP(d.participant_id) })) : null,
-        invited_emails: [],
-      };
-      r.highlights = t.highlights.map((h) => {
-        const nh: Highlight = { ...h, id: newId("hl"), meeting_id: id, share_token: "", created_at: created };
-        nh.share_token = selfContainedToken(nh);
-        return nh;
-      });
-      s.meetings.set(id, r);
+      s.meetings.set(id, cloneRecord(src, id, { title: overrides.title, recordedBy, startMs: Date.now() - src.meeting.duration_sec * 1000 }));
       return id;
     },
 

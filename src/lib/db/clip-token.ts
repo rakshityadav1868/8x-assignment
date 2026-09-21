@@ -17,7 +17,7 @@ import { HIGHLIGHT_TYPES, type HighlightType } from "@/lib/types";
 export const CLIP_TOKEN_PREFIX = "c_";
 /** Notes are clipped inside the token to keep links shareable; the full note stays on the stored highlight. */
 const MAX_NOTE_IN_TOKEN = 280;
-const MAX_TOKEN_LENGTH = 2400;
+const MAX_TOKEN_LENGTH = 6000;
 
 export interface ClipTokenData {
   meeting_id: string;
@@ -30,7 +30,7 @@ export interface ClipTokenData {
 
 const Payload = z
   .object({
-    m: z.string().min(1).max(120),
+    m: z.string().min(1).max(3100), // bot meeting ids (m_bot_…) embed the bot token
     s: z.number().int().min(0),
     e: z.number().int().min(1),
     t: z.enum(HIGHLIGHT_TYPES),
