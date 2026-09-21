@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { Menu, Search } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { SidebarNav } from "./app-sidebar";
+import { SidebarNav, WorkspaceBadge } from "./app-sidebar";
+import { NotificationsBell } from "./notifications-bell";
 import { openCommandPalette } from "./command-palette";
 
 export function TopBar() {
@@ -19,7 +19,7 @@ export function TopBar() {
             <Menu className="size-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-72 bg-sidebar p-4">
+        <SheetContent side="left" className="flex w-72 flex-col bg-sidebar p-4">
           <SheetHeader className="px-3 pb-4">
             <SheetTitle asChild>
               <div>
@@ -27,7 +27,10 @@ export function TopBar() {
               </div>
             </SheetTitle>
           </SheetHeader>
-          <SidebarNav onNavigate={() => setOpen(false)} />
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <SidebarNav onNavigate={() => setOpen(false)} />
+          </div>
+          <WorkspaceBadge onNavigate={() => setOpen(false)} />
         </SheetContent>
       </Sheet>
       <div className="md:hidden">
@@ -44,9 +47,9 @@ export function TopBar() {
         <kbd className="hidden rounded border border-border bg-white/5 px-1.5 font-mono text-[10px] sm:inline">⌘K</kbd>
       </button>
 
-      <Avatar className="ml-auto hidden size-8 md:flex">
-        <AvatarFallback className="bg-primary/20 text-xs text-primary">AR</AvatarFallback>
-      </Avatar>
+      <div className="flex shrink-0 items-center gap-2 md:ml-auto">
+        <NotificationsBell />
+      </div>
     </header>
   );
 }
