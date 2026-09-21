@@ -21,5 +21,25 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/calls/:path*", "/search/:path*", "/upload/:path*", "/playlists/:path*", "/settings/:path*", "/ask/:path*"],
+  matcher: [
+    "/",
+    "/calls/:path*",
+    "/search/:path*",
+    "/upload/:path*",
+    "/playlists/:path*",
+    "/settings/:path*",
+    "/ask/:path*",
+    // Phase 5 app + marketing pages
+    "/folders/:path*",
+    "/record/:path*",
+    "/calendar/:path*",
+    "/insights/:path*",
+    "/trackers/:path*",
+    "/deals/:path*",
+    "/team/:path*",
+    "/welcome/:path*",
+    "/pricing",
+    "/features",
+    "/integrations",
+  ],
 };

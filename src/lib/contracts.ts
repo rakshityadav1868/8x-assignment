@@ -313,6 +313,7 @@ export const MeetingDetailSchema = z.object({
   highlights: z.array(HighlightSchema),
   chapters: z.array(ChapterSchema),
   decisions: z.array(DecisionSchema).optional(), // additive (phase 1)
+  default_summary_template: SummaryTemplateKeySchema.nullable().optional(), // additive (phase 5)
 }) satisfies z.ZodType<MeetingDetail>;
 
 export const ClipDetailSchema = z.object({

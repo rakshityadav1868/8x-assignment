@@ -12,7 +12,9 @@ import { getRepo } from "@/lib/db";
 import { mapUtterances, transcribeUrl } from "@/lib/deepgram";
 import { defaultTemplateFor } from "@/lib/templates";
 import type { Meeting, ProcessingStage, ProcessingStatus, SummaryTemplateKey } from "@/lib/types";
+import { onMeetingReady } from "./events";
 import { STORAGE_URL_PREFIX, signedReadUrl } from "./storage";
+import { safePrefs } from "./summaries";
 
 const STAGE_PROGRESS: Record<ProcessingStage, number> = {
   awaiting_upload: 5,
@@ -108,9 +110,12 @@ export async function runPipeline(meetingId: string, opts: { language?: string; 
     if (decisions.status === "fulfilled") await repo.saveDecisions(meetingId, decisions.value.value);
     for (const r of [type, items, chapters, highlights, decisions]) if (r.status === "rejected") console.error("[pipeline] job failed", r.reason);
 
-    // 4. Summaries: default template for the detected type (+ General), cached in the DB.
+    // 4. Summaries: the user's default template (prefs), the detected type's default and General — cached in the DB.
     detail = (await repo.getMeetingDetail(meetingId))!;
-    const templates = Array.from(new Set<SummaryTemplateKey>([defaultTemplateFor(meeting.meeting_type), "general"]));
+    const prefs = await safePrefs();
+    const templates = Array.from(
+      new Set<SummaryTemplateKey>([...(prefs ? [prefs.default_template] : []), defaultTemplateFor(meeting.meeting_type), "general"]),
+    );
     await Promise.all(
       templates.map(async (template) => {
         const r = await generateSummary(detail, template, "en", null);
@@ -126,6 +131,8 @@ export async function runPipeline(meetingId: string, opts: { language?: string; 
     );
 
     await stage("ready", { status: "ready", processing_error: null });
+    // 5. Notify + meeting.ready webhooks + Slack auto-post (never throws).
+    await onMeetingReady(meetingId, opts.origin);
   } catch (err) {
     console.error("[pipeline] failed", meetingId, err);
     const message = err instanceof Error ? err.message : "Processing failed";

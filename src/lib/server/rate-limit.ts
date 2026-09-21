@@ -72,3 +72,25 @@ export function enforceAiLimits(req: Request, meetingId: string | null, opts: { 
     }
   }
 }
+
+/**
+ * Generic per-IP token bucket for non-AI actions that hit the outside world (webhook tests, Slack posts,
+ * bot sessions). Separate bucket per `name`. Throws 429 `rate_limited` with Retry-After.
+ */
+export function enforceActionLimit(req: Request, name: string, opts: { burst: number; perMin: number }): void {
+  const s = state() as ReturnType<typeof state> & { action?: Map<string, Bucket> };
+  const buckets = (s.action ??= new Map());
+  const key = `${name}:${clientIp(req)}`;
+  const now = Date.now();
+  const b = buckets.get(key) ?? { tokens: opts.burst, at: now };
+  b.tokens = Math.min(opts.burst, b.tokens + ((now - b.at) / 60_000) * opts.perMin);
+  b.at = now;
+  if (b.tokens < 1) {
+    buckets.set(key, b);
+    const wait = Math.ceil(((1 - b.tokens) / opts.perMin) * 60);
+    throw new HttpError(429, "rate_limited", `Too many requests — try again in ${wait}s.`, { "Retry-After": String(wait) });
+  }
+  b.tokens -= 1;
+  buckets.set(key, b);
+  if (buckets.size > 10_000) buckets.clear();
+}

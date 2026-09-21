@@ -2,6 +2,7 @@ import type { ShareAccessResponse } from "@/lib/contracts";
 import { getRepo } from "@/lib/db";
 import { HttpError, NotFoundError, route } from "@/lib/server/api";
 import type { TokenCtx } from "@/lib/server/route-types";
+import { withDefaultSummary } from "@/lib/server/summaries";
 
 export const dynamic = "force-dynamic";
 
@@ -22,5 +23,5 @@ export const GET = route(async (_req: Request, { params }: TokenCtx) => {
         : "This recording is only available to people the owner invited.",
     );
   }
-  return Response.json(detail satisfies ShareAccessResponse);
+  return Response.json((await withDefaultSummary(detail)) satisfies ShareAccessResponse);
 });

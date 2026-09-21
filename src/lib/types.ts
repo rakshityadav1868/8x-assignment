@@ -314,6 +314,12 @@ export interface MeetingDetail {
   chapters: Chapter[]; // ordered by start_ms
   /** Cached AI decisions (additive, optional). Seed files always carry it; absent/undefined = never generated. */
   decisions?: Decision[];
+  /**
+   * Phase 5 (additive, optional): template of the summary the call page should open with — the user's
+   * prefs.default_template when cached for this meeting, else the meeting type's default, else General / newest.
+   * Set by GET /api/meetings/:id and GET /api/share/:token (server-side `chooseSummary`).
+   */
+  default_summary_template?: SummaryTemplateKey | null;
 }
 
 /** Public-safe clip payload for /clip/[token]. */

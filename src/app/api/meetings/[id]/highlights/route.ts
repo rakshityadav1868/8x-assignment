@@ -1,6 +1,8 @@
 import { CreateHighlightRequest, type HighlightResponse, type ListHighlightsResponse } from "@/lib/contracts";
+import { after } from "next/server";
 import { getRepo } from "@/lib/db";
-import { parseBody, requireMeeting, route } from "@/lib/server/api";
+import { appOrigin, parseBody, requireMeeting, route } from "@/lib/server/api";
+import { fireEvent } from "@/lib/server/events";
 import type { IdCtx } from "@/lib/server/route-types";
 
 export const dynamic = "force-dynamic";
@@ -25,5 +27,7 @@ export const POST = route(async (req: Request, { params }: IdCtx) => {
     note: body.note ?? null,
     user_generated: true,
   });
+  const origin = appOrigin(req);
+  after(() => fireEvent("highlight.created", id, origin));
   return Response.json({ highlight } satisfies HighlightResponse, { status: 201 });
 });

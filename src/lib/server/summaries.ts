@@ -48,3 +48,11 @@ export async function pickDefaultSummary(
     language: explicit?.language ?? prefs?.default_language ?? null,
   });
 }
+
+/** MeetingDetail + `default_summary_template` (prefs-aware). Use in API handlers and server components. */
+export async function withDefaultSummary<T extends Pick<MeetingDetail, "meeting" | "summaries">>(
+  detail: T,
+): Promise<T & { default_summary_template: SummaryTemplateKey | null }> {
+  const s = await pickDefaultSummary(detail);
+  return { ...detail, default_summary_template: s?.template ?? null };
+}
