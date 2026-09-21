@@ -68,7 +68,7 @@ export function ClipTrimDialog({ target, onClose }: { target: TrimTarget | null;
 
 function initialRange(t: TrimTarget): { startMs: number; endMs: number } {
   if (t.kind === "edit") return { startMs: t.highlight.start_ms, endMs: t.highlight.end_ms };
-  return { startMs: t.seg.start_ms, endMs: Math.max(t.seg.end_ms, t.seg.start_ms + MIN_CLIP_MS) };
+  return { startMs: t.seg.start_ms, endMs: Math.max(t.seg.end_ms, t.seg.start_ms + 5000) };
 }
 
 function TrimBody({ target, durationMs, onClose }: { target: TrimTarget; durationMs: number; onClose: () => void }) {
