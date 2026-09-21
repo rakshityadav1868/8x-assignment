@@ -1,0 +1,927 @@
+{
+ "folders": [
+  {
+   "id": "fld_sales",
+   "workspace_id": "ws_northwind",
+   "name": "Sales",
+   "color": "#34d399",
+   "created_at": "2025-09-12T14:00:00.000Z"
+  },
+  {
+   "id": "fld_cs",
+   "workspace_id": "ws_northwind",
+   "name": "Customer Success",
+   "color": "#fbbf24",
+   "created_at": "2025-09-12T14:05:00.000Z"
+  },
+  {
+   "id": "fld_product",
+   "workspace_id": "ws_northwind",
+   "name": "Product",
+   "color": "#a78bfa",
+   "created_at": "2025-09-16T15:00:00.000Z"
+  },
+  {
+   "id": "fld_hiring",
+   "workspace_id": "ws_northwind",
+   "name": "Hiring",
+   "color": "#f472b6",
+   "created_at": "2025-09-17T13:30:00.000Z"
+  }
+ ],
+ "meeting_invites": {
+  "m_acme-discovery": [
+   "priya@northwindlabs.io",
+   "james@northwindlabs.io"
+  ],
+  "m_globex-qbr": [
+   "priya@northwindlabs.io",
+   "dana@northwindlabs.io"
+  ],
+  "m_design-review": [
+   "priya@northwindlabs.io"
+  ]
+ },
+ "team_members": [
+  {
+   "id": "tm_dana",
+   "workspace_id": "ws_northwind",
+   "name": "Dana Whitfield",
+   "email": "dana@northwindlabs.io",
+   "role": "owner",
+   "title": "CEO",
+   "team": "Leadership",
+   "color": "#60a5fa",
+   "status": "active",
+   "invited_at": "2025-06-04T14:00:00.000Z",
+   "joined_at": "2025-06-05T14:00:00.000Z"
+  },
+  {
+   "id": "u_priya",
+   "workspace_id": "ws_northwind",
+   "name": "Priya Raman",
+   "email": "priya@northwindlabs.io",
+   "role": "admin",
+   "title": "VP Engineering",
+   "team": "Engineering",
+   "color": "#f472b6",
+   "status": "active",
+   "invited_at": "2025-05-14T14:00:00.000Z",
+   "joined_at": "2025-05-15T14:00:00.000Z"
+  },
+  {
+   "id": "tm_tom",
+   "workspace_id": "ws_northwind",
+   "name": "Tom Okafor",
+   "email": "tom@northwindlabs.io",
+   "role": "admin",
+   "title": "Head of Product",
+   "team": "Product",
+   "color": "#34d399",
+   "status": "active",
+   "invited_at": "2025-04-23T14:00:00.000Z",
+   "joined_at": "2025-04-24T14:00:00.000Z"
+  },
+  {
+   "id": "tm_james",
+   "workspace_id": "ws_northwind",
+   "name": "James Whitaker",
+   "email": "james@northwindlabs.io",
+   "role": "member",
+   "title": "VP Sales",
+   "team": "Sales",
+   "color": "#fbbf24",
+   "status": "active",
+   "invited_at": "2025-04-02T14:00:00.000Z",
+   "joined_at": "2025-04-03T14:00:00.000Z"
+  },
+  {
+   "id": "tm_ethan",
+   "workspace_id": "ws_northwind",
+   "name": "Ethan Brooks",
+   "email": "ethan@northwindlabs.io",
+   "role": "member",
+   "title": "Account Executive",
+   "team": "Sales",
+   "color": "#a78bfa",
+   "status": "active",
+   "invited_at": "2025-03-12T14:00:00.000Z",
+   "joined_at": "2025-03-13T14:00:00.000Z"
+  },
+  {
+   "id": "tm_siobhan",
+   "workspace_id": "ws_northwind",
+   "name": "Siobhan Kelly",
+   "email": "siobhan@northwindlabs.io",
+   "role": "member",
+   "title": "Head of Customer Success",
+   "team": "Customer Success",
+   "color": "#f87171",
+   "status": "active",
+   "invited_at": "2025-02-19T14:00:00.000Z",
+   "joined_at": "2025-02-20T14:00:00.000Z"
+  },
+  {
+   "id": "tm_sofia",
+   "workspace_id": "ws_northwind",
+   "name": "Sofia Alvarez",
+   "email": "sofia@northwindlabs.io",
+   "role": "member",
+   "title": "Senior PM",
+   "team": "Product",
+   "color": "#22d3ee",
+   "status": "active",
+   "invited_at": "2025-01-29T14:00:00.000Z",
+   "joined_at": "2025-01-30T14:00:00.000Z"
+  },
+  {
+   "id": "tm_leah",
+   "workspace_id": "ws_northwind",
+   "name": "Leah Botha",
+   "email": "leah@northwindlabs.io",
+   "role": "member",
+   "title": "Product Designer",
+   "team": "Design",
+   "color": "#fb923c",
+   "status": "active",
+   "invited_at": "2025-01-08T14:00:00.000Z",
+   "joined_at": "2025-01-09T14:00:00.000Z"
+  },
+  {
+   "id": "tm_hannah",
+   "workspace_id": "ws_northwind",
+   "name": "Hannah Price",
+   "email": "hannah@northwindlabs.io",
+   "role": "member",
+   "title": "ML Lead",
+   "team": "Engineering",
+   "color": "#a3e635",
+   "status": "active",
+   "invited_at": "2024-12-18T14:00:00.000Z",
+   "joined_at": "2024-12-19T14:00:00.000Z"
+  },
+  {
+   "id": "tm_arjun",
+   "workspace_id": "ws_northwind",
+   "name": "Arjun Mehta",
+   "email": "arjun@northwindlabs.io",
+   "role": "member",
+   "title": "Staff Engineer (Platform)",
+   "team": "Engineering",
+   "color": "#e879f9",
+   "status": "active",
+   "invited_at": "2024-11-27T14:00:00.000Z",
+   "joined_at": "2024-11-28T14:00:00.000Z"
+  },
+  {
+   "id": "tm_marcus",
+   "workspace_id": "ws_northwind",
+   "name": "Marcus Chen",
+   "email": "marcus@northwindlabs.io",
+   "role": "member",
+   "title": "Senior Software Engineer",
+   "team": "Engineering",
+   "color": "#38bdf8",
+   "status": "active",
+   "invited_at": "2024-11-06T14:00:00.000Z",
+   "joined_at": "2024-11-07T14:00:00.000Z"
+  },
+  {
+   "id": "tm_nina",
+   "workspace_id": "ws_northwind",
+   "name": "Nina Park",
+   "email": "nina@northwindlabs.io",
+   "role": "member",
+   "title": "Frontend Engineer",
+   "team": "Engineering",
+   "color": "#facc15",
+   "status": "active",
+   "invited_at": "2024-10-16T14:00:00.000Z",
+   "joined_at": "2024-10-17T14:00:00.000Z"
+  },
+  {
+   "id": "tm_kevin",
+   "workspace_id": "ws_northwind",
+   "name": "Kevin Walsh",
+   "email": "kevin@northwindlabs.io",
+   "role": "member",
+   "title": "SRE",
+   "team": "Engineering",
+   "color": "#4ade80",
+   "status": "active",
+   "invited_at": "2024-09-25T14:00:00.000Z",
+   "joined_at": "2024-09-26T14:00:00.000Z"
+  },
+  {
+   "id": "tm_aman",
+   "workspace_id": "ws_northwind",
+   "name": "Aman Gupta",
+   "email": "aman@northwindlabs.io",
+   "role": "member",
+   "title": "Backend Engineer",
+   "team": "Engineering",
+   "color": "#c084fc",
+   "status": "active",
+   "invited_at": "2024-09-04T14:00:00.000Z",
+   "joined_at": "2024-09-05T14:00:00.000Z"
+  },
+  {
+   "id": "tm_rohan",
+   "workspace_id": "ws_northwind",
+   "name": "Rohan Desai",
+   "email": "rohan@northwindlabs.io",
+   "role": "member",
+   "title": "Solutions Engineer",
+   "team": "Sales",
+   "color": "#fda4af",
+   "status": "invited",
+   "invited_at": "2025-09-30T20:20:00.000Z",
+   "joined_at": null
+  }
+ ],
+ "comments": [
+  {
+   "id": "cm_q4_01",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 728016,
+   "body": "@Priya Raman this is the renewal risk I flagged last week. Globex's SSO ask is the deciding factor, not price.",
+   "mentions": [
+    "u_priya"
+   ],
+   "author_id": "tm_siobhan",
+   "author_name": "Siobhan Kelly",
+   "author_color": "#f87171",
+   "parent_id": null,
+   "created_at": "2025-10-02T15:23:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_02",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 728016,
+   "body": "Agreed. @Ethan Brooks let's time the proposal so it lands after the SSO date is locked.",
+   "mentions": [
+    "tm_ethan"
+   ],
+   "author_id": "tm_james",
+   "author_name": "James Whitaker",
+   "author_color": "#fbbf24",
+   "parent_id": "cm_q4_01",
+   "created_at": "2025-10-02T15:39:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_03",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 1540769,
+   "body": "Writing this up as the AI Insights beta brief. @Hannah Price can you share the prototype eval numbers?",
+   "mentions": [
+    "tm_hannah"
+   ],
+   "author_id": "tm_tom",
+   "author_name": "Tom Okafor",
+   "author_color": "#34d399",
+   "parent_id": null,
+   "created_at": "2025-10-02T15:28:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_04",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 1540769,
+   "body": "Posted in #ai-insights. 71% of explanations were rated useful on the replay set; the misses were all seasonality.",
+   "mentions": [],
+   "author_id": "tm_hannah",
+   "author_name": "Hannah Price",
+   "author_color": "#a3e635",
+   "parent_id": "cm_q4_03",
+   "created_at": "2025-10-02T15:50:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_05",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 1991668,
+   "body": "@Priya Raman I'll draft the code yellow staffing plan tonight so you can review it before it goes to eng.",
+   "mentions": [
+    "u_priya"
+   ],
+   "author_id": "tm_arjun",
+   "author_name": "Arjun Mehta",
+   "author_color": "#e879f9",
+   "parent_id": null,
+   "created_at": "2025-10-02T15:33:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_06",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 1991668,
+   "body": "Thanks. Please include the on-call rotation changes and who is pulled from which squad.",
+   "mentions": [],
+   "author_id": "u_priya",
+   "author_name": "Priya Raman",
+   "author_color": "#f472b6",
+   "parent_id": "cm_q4_05",
+   "created_at": "2025-10-02T15:46:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_07",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": 2573307,
+   "body": "Pricing is locked. @Sofia Alvarez the pricing page copy needs to say $599 with 20M events included.",
+   "mentions": [
+    "tm_sofia"
+   ],
+   "author_id": "tm_james",
+   "author_name": "James Whitaker",
+   "author_color": "#fbbf24",
+   "parent_id": null,
+   "created_at": "2025-10-02T15:36:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_q4_08",
+   "meeting_id": "m_q4-roadmap-planning",
+   "timestamp_ms": null,
+   "body": "Great meeting, everyone. Decisions and owners are in the summary. Please check your action items by Friday.",
+   "mentions": [],
+   "author_id": "tm_dana",
+   "author_name": "Dana Whitfield",
+   "author_color": "#60a5fa",
+   "parent_id": null,
+   "created_at": "2025-10-02T15:58:03.085Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_gx_01",
+   "meeting_id": "m_globex-qbr",
+   "timestamp_ms": 427938,
+   "body": "@Priya Raman right-sizing to 160 seats was the turning point. Can eng commit to the SSO date we hinted at?",
+   "mentions": [
+    "u_priya"
+   ],
+   "author_id": "tm_ethan",
+   "author_name": "Ethan Brooks",
+   "author_color": "#a78bfa",
+   "parent_id": null,
+   "created_at": "2025-09-23T17:35:06.179Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_gx_02",
+   "meeting_id": "m_globex-qbr",
+   "timestamp_ms": 427938,
+   "body": "Adding this to the Globex account plan. Renewal is Jan 31, so the SSO date needs to be before mid-December.",
+   "mentions": [],
+   "author_id": "tm_siobhan",
+   "author_name": "Siobhan Kelly",
+   "author_color": "#f87171",
+   "parent_id": "cm_gx_01",
+   "created_at": "2025-09-23T17:48:06.179Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_gx_03",
+   "meeting_id": "m_globex-qbr",
+   "timestamp_ms": 799942,
+   "body": "@Marcus Chen do we have a ticket for raising the 50K-row CSV export cap? Maya's team hits it weekly.",
+   "mentions": [
+    "tm_marcus"
+   ],
+   "author_id": "tm_siobhan",
+   "author_name": "Siobhan Kelly",
+   "author_color": "#f87171",
+   "parent_id": null,
+   "created_at": "2025-09-23T17:42:06.179Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_ac_01",
+   "meeting_id": "m_acme-discovery",
+   "timestamp_ms": 339803,
+   "body": "Budget confirmed at $60-80K a year, CFO approved. @James Whitaker flagging for the forecast.",
+   "mentions": [
+    "tm_james"
+   ],
+   "author_id": "tm_ethan",
+   "author_name": "Ethan Brooks",
+   "author_color": "#a78bfa",
+   "parent_id": null,
+   "created_at": "2025-09-26T15:28:48.648Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_ac_02",
+   "meeting_id": "m_acme-discovery",
+   "timestamp_ms": 339803,
+   "body": "Nice work. Putting it at Evaluation, $72K, close Dec 19.",
+   "mentions": [],
+   "author_id": "tm_james",
+   "author_name": "James Whitaker",
+   "author_color": "#fbbf24",
+   "parent_id": "cm_ac_01",
+   "created_at": "2025-09-26T15:57:48.648Z",
+   "updated_at": null
+  },
+  {
+   "id": "cm_ac_03",
+   "meeting_id": "m_acme-discovery",
+   "timestamp_ms": 512126,
+   "body": "Their Amplitude eval felt web-product focused. The logistics angle (trucks, not signups) is our wedge.",
+   "mentions": [],
+   "author_id": "u_priya",
+   "author_name": "Priya Raman",
+   "author_color": "#f472b6",
+   "parent_id": null,
+   "created_at": "2025-09-26T16:43:48.648Z",
+   "updated_at": null
+  }
+ ],
+ "reactions": [
+  {
+   "id": "rx_q4-roadmap-planning_0287_00_0",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0287",
+   "emoji": "🎉",
+   "user_id": "tm_dana",
+   "user_name": "Dana Whitfield",
+   "created_at": "2025-10-02T15:18:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0287_00_1",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0287",
+   "emoji": "🎉",
+   "user_id": "tm_tom",
+   "user_name": "Tom Okafor",
+   "created_at": "2025-10-02T15:25:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0287_00_2",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0287",
+   "emoji": "🎉",
+   "user_id": "tm_hannah",
+   "user_name": "Hannah Price",
+   "created_at": "2025-10-02T15:32:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0287_00_3",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0287",
+   "emoji": "🎉",
+   "user_id": "u_priya",
+   "user_name": "Priya Raman",
+   "created_at": "2025-10-02T15:39:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0494_01_0",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0494",
+   "emoji": "🔥",
+   "user_id": "tm_james",
+   "user_name": "James Whitaker",
+   "created_at": "2025-10-02T15:18:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0494_01_1",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0494",
+   "emoji": "🔥",
+   "user_id": "tm_sofia",
+   "user_name": "Sofia Alvarez",
+   "created_at": "2025-10-02T15:25:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0414_02_0",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0414",
+   "emoji": "💯",
+   "user_id": "tm_arjun",
+   "user_name": "Arjun Mehta",
+   "created_at": "2025-10-02T15:18:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0414_02_1",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0414",
+   "emoji": "💯",
+   "user_id": "u_priya",
+   "user_name": "Priya Raman",
+   "created_at": "2025-10-02T15:25:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0322_03_0",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0322",
+   "emoji": "👀",
+   "user_id": "tm_arjun",
+   "user_name": "Arjun Mehta",
+   "created_at": "2025-10-02T15:18:03.085Z"
+  },
+  {
+   "id": "rx_q4-roadmap-planning_0322_03_1",
+   "meeting_id": "m_q4-roadmap-planning",
+   "segment_id": "seg_q4-roadmap-planning_0322",
+   "emoji": "👀",
+   "user_id": "tm_siobhan",
+   "user_name": "Siobhan Kelly",
+   "created_at": "2025-10-02T15:25:03.085Z"
+  },
+  {
+   "id": "rx_globex-qbr_0100_04_0",
+   "meeting_id": "m_globex-qbr",
+   "segment_id": "seg_globex-qbr_0100",
+   "emoji": "🎉",
+   "user_id": "tm_siobhan",
+   "user_name": "Siobhan Kelly",
+   "created_at": "2025-09-23T17:35:06.179Z"
+  },
+  {
+   "id": "rx_globex-qbr_0100_04_1",
+   "meeting_id": "m_globex-qbr",
+   "segment_id": "seg_globex-qbr_0100",
+   "emoji": "🎉",
+   "user_id": "tm_ethan",
+   "user_name": "Ethan Brooks",
+   "created_at": "2025-09-23T17:42:06.179Z"
+  },
+  {
+   "id": "rx_globex-qbr_0100_04_2",
+   "meeting_id": "m_globex-qbr",
+   "segment_id": "seg_globex-qbr_0100",
+   "emoji": "🎉",
+   "user_id": "u_priya",
+   "user_name": "Priya Raman",
+   "created_at": "2025-09-23T17:49:06.179Z"
+  },
+  {
+   "id": "rx_acme-discovery_0035_05_0",
+   "meeting_id": "m_acme-discovery",
+   "segment_id": "seg_acme-discovery_0035",
+   "emoji": "👍",
+   "user_id": "tm_james",
+   "user_name": "James Whitaker",
+   "created_at": "2025-09-26T15:33:48.648Z"
+  },
+  {
+   "id": "rx_acme-discovery_0035_05_1",
+   "meeting_id": "m_acme-discovery",
+   "segment_id": "seg_acme-discovery_0035",
+   "emoji": "👍",
+   "user_id": "tm_ethan",
+   "user_name": "Ethan Brooks",
+   "created_at": "2025-09-26T15:40:48.648Z"
+  }
+ ],
+ "trackers": [
+  {
+   "id": "trk_pricing",
+   "workspace_id": "ws_northwind",
+   "name": "Pricing",
+   "description": "Price, discounts and budget talk across calls.",
+   "keywords": [
+    "pricing",
+    "price",
+    "discount",
+    "budget"
+   ],
+   "color": "#34d399",
+   "created_at": "2025-09-16T14:00:00.000Z"
+  },
+  {
+   "id": "trk_competitors",
+   "workspace_id": "ws_northwind",
+   "name": "Competitors",
+   "description": "Mentions of competing analytics / BI tools (and competitors in general).",
+   "keywords": [
+    "Amplitude",
+    "Mixpanel",
+    "Looker",
+    "Tableau",
+    "competitor",
+    "competitors"
+   ],
+   "color": "#f87171",
+   "created_at": "2025-09-16T14:05:00.000Z"
+  },
+  {
+   "id": "trk_security",
+   "workspace_id": "ws_northwind",
+   "name": "SSO / security",
+   "description": "Enterprise security asks: SSO, SAML, SCIM, SOC 2, pen tests.",
+   "keywords": [
+    "SSO",
+    "SAML",
+    "SCIM",
+    "Okta",
+    "SOC 2",
+    "pen test",
+    "encryption"
+   ],
+   "color": "#60a5fa",
+   "created_at": "2025-09-15T18:00:00.000Z"
+  },
+  {
+   "id": "trk_churn",
+   "workspace_id": "ws_northwind",
+   "name": "Churn risk",
+   "description": "Renewal and churn signals from customers.",
+   "keywords": [
+    "churn",
+    "renewal",
+    "renews",
+    "not renew",
+    "evaluating"
+   ],
+   "color": "#fbbf24",
+   "created_at": "2025-09-22T15:30:00.000Z"
+  }
+ ],
+ "deal_overrides": [
+  {
+   "workspace_id": "ws_northwind",
+   "domain": "acmelogistics.com",
+   "name": "Acme Logistics",
+   "stage": "evaluation",
+   "amount": 72000,
+   "close_date": "2025-12-19",
+   "bant": {
+    "budget": "$60-80K / year, approved by the CFO",
+    "timeline": "Decision by December 19"
+   },
+   "meddpicc": {},
+   "updated_at": "2025-09-26T15:57:48.648Z"
+  },
+  {
+   "workspace_id": "ws_northwind",
+   "domain": "globex.com",
+   "name": "Globex",
+   "stage": "negotiation",
+   "amount": 148800,
+   "close_date": "2026-01-30",
+   "bant": {
+    "timeline": "Renewal on January 31; written proposal due October 8"
+   },
+   "meddpicc": {
+    "champion": "Maya Lindqvist (Analytics Manager)",
+    "competition": "Snowflake-native build (Streamlit); Amplitude evaluation"
+   },
+   "updated_at": "2025-09-23T17:50:06.179Z"
+  }
+ ],
+ "notifications": [
+  {
+   "id": "ntf_01",
+   "user_id": "u_priya",
+   "kind": "meeting_ready",
+   "read_at": null,
+   "title": "\"Q4 Roadmap Planning\" is ready",
+   "body": "Summary, 19 action items and 10 highlights are ready to review.",
+   "href": "/calls/m_q4-roadmap-planning",
+   "meeting_id": "m_q4-roadmap-planning",
+   "actor_name": null,
+   "created_at": "2025-10-02T15:02:03.085Z"
+  },
+  {
+   "id": "ntf_02",
+   "user_id": "u_priya",
+   "kind": "mention",
+   "read_at": null,
+   "title": "Siobhan Kelly mentioned you in \"Q4 Roadmap Planning\"",
+   "body": "@Priya Raman this is the renewal risk I flagged last week. Globex's SSO ask is the deciding factor, not price.",
+   "href": "/calls/m_q4-roadmap-planning?t=728",
+   "meeting_id": "m_q4-roadmap-planning",
+   "actor_name": "Siobhan Kelly",
+   "created_at": "2025-10-02T15:23:03.085Z"
+  },
+  {
+   "id": "ntf_03",
+   "user_id": "u_priya",
+   "kind": "mention",
+   "read_at": null,
+   "title": "Arjun Mehta mentioned you in \"Q4 Roadmap Planning\"",
+   "body": "@Priya Raman I'll draft the code yellow staffing plan tonight so you can review it before it goes to eng.",
+   "href": "/calls/m_q4-roadmap-planning?t=1991",
+   "meeting_id": "m_q4-roadmap-planning",
+   "actor_name": "Arjun Mehta",
+   "created_at": "2025-10-02T15:33:03.085Z"
+  },
+  {
+   "id": "ntf_04",
+   "user_id": "u_priya",
+   "kind": "shared_with_you",
+   "read_at": null,
+   "title": "Leah Botha shared \"Design Review: Dashboard Builder Empty States\" with you",
+   "body": "7 min · 3 participants",
+   "href": "/calls/m_design-review",
+   "meeting_id": "m_design-review",
+   "actor_name": "Leah Botha",
+   "created_at": "2025-10-01T14:33:34.507Z"
+  },
+  {
+   "id": "ntf_05",
+   "user_id": "u_priya",
+   "kind": "mention",
+   "read_at": "2025-09-23T19:35:06.179Z",
+   "title": "Ethan Brooks mentioned you in \"Globex Q3 Business Review\"",
+   "body": "@Priya Raman right-sizing to 160 seats was the turning point. Can eng commit to the SSO date we hinted at?",
+   "href": "/calls/m_globex-qbr?t=427",
+   "meeting_id": "m_globex-qbr",
+   "actor_name": "Ethan Brooks",
+   "created_at": "2025-09-23T17:35:06.179Z"
+  },
+  {
+   "id": "ntf_06",
+   "user_id": "u_priya",
+   "kind": "shared_with_you",
+   "read_at": "2025-09-26T17:23:48.648Z",
+   "title": "Ethan Brooks shared \"Acme Logistics <> Northwind: Discovery Call\" with you",
+   "body": "14 min · 2 participants",
+   "href": "/calls/m_acme-discovery",
+   "meeting_id": "m_acme-discovery",
+   "actor_name": "Ethan Brooks",
+   "created_at": "2025-09-26T15:23:48.648Z"
+  },
+  {
+   "id": "ntf_07",
+   "user_id": "u_priya",
+   "kind": "shared_with_you",
+   "read_at": "2025-09-23T19:33:06.179Z",
+   "title": "Siobhan Kelly shared \"Globex Q3 Business Review\" with you",
+   "body": "15 min · 4 participants",
+   "href": "/calls/m_globex-qbr",
+   "meeting_id": "m_globex-qbr",
+   "actor_name": "Siobhan Kelly",
+   "created_at": "2025-09-23T17:33:06.179Z"
+  },
+  {
+   "id": "ntf_08",
+   "user_id": "u_priya",
+   "kind": "meeting_ready",
+   "read_at": "2025-09-29T15:40:27.330Z",
+   "title": "\"Eng Weekly Standup\" is ready",
+   "body": "Summary, 8 action items and 6 highlights are ready to review.",
+   "href": "/calls/m_weekly-standup",
+   "meeting_id": "m_weekly-standup",
+   "actor_name": null,
+   "created_at": "2025-09-29T13:40:27.330Z"
+  },
+  {
+   "id": "ntf_09",
+   "user_id": "u_priya",
+   "kind": "meeting_ready",
+   "read_at": "2025-09-30T21:42:07.435Z",
+   "title": "\"Priya / Marcus 1:1\" is ready",
+   "body": "Summary, 7 action items and 6 highlights are ready to review.",
+   "href": "/calls/m_priya-marcus-1on1",
+   "meeting_id": "m_priya-marcus-1on1",
+   "actor_name": null,
+   "created_at": "2025-09-30T19:42:07.435Z"
+  }
+ ],
+ "webhooks": [
+  {
+   "id": "wh_zapier_demo",
+   "workspace_id": "ws_northwind",
+   "url": "https://example.com/hooks/fanthom",
+   "description": "Zapier catch hook (demo) — disabled after 410",
+   "events": [
+    "meeting.ready",
+    "highlight.created"
+   ],
+   "secret": "whsec_demo_not_a_real_secret_7f3a9c",
+   "active": false,
+   "last_status": 410,
+   "last_delivery_at": "2025-09-29T13:41:27.330Z",
+   "created_at": "2025-09-23T15:00:00.000Z"
+  }
+ ],
+ "webhook_deliveries": [
+  {
+   "id": "whd_demo_01",
+   "webhook_id": "wh_zapier_demo",
+   "event": "meeting.ready",
+   "test": true,
+   "request_body": "{\"id\":\"whd_demo_01\",\"event\":\"meeting.ready\",\"created_at\":\"2025-09-23T15:02:00.000Z\",\"test\":true,\"data\":{\"meeting\":{\"id\":\"m_globex-qbr\",\"title\":\"Globex Q3 Business Review\",\"meeting_type\":\"customer_success\",\"recording_start\":\"2025-09-23T17:00:00.000Z\",\"duration_sec\":906},\"url\":\"https://fanthom.vercel.app/calls/m_globex-qbr\",\"share_url\":\"https://fanthom.vercel.app/share/share-globex-qbr\",\"participants\":[{\"name\":\"Siobhan Kelly\",\"email\":\"siobhan@northwindlabs.io\",\"is_external\":false},{\"name\":\"Ethan Brooks\",\"email\":\"ethan@northwindlabs.io\",\"is_external\":false},{\"name\":\"Greg Holloway\",\"email\":\"greg.holloway@globex.com\",\"is_external\":true},{\"name\":\"Maya Lindqvist\",\"email\":\"maya.lindqvist@globex.com\",\"is_external\":true}],\"summary_markdown\":\"# Globex Q3 Business Review — Customer Success summary\\n\\n## Account health\\n- 142 of 200 seats weekly active in Q3 (71%, up from 58% in Q2); dashboards grew from ~90 to 210.\\n- Maya's pipeline velocity board had ~4,000 views; 38 active alerts fired ~600 times.\\n- Funnel P95 on Globex data dropped from 2.8s to ~900ms after last week's query planner rewrite.\\n- Support is the weak spot: 40 seats at 11% weekly active since their VP left in June.\\n\\n## Customer goals\\n- Cut the analytics stack by 20% overall under CFO line-by-line SaaS review.\\n- Give execs dashboard access without another login instead of Monday Slack screenshots.\\n- Automatically explain week-over-week changes such as conversion drops.\\n\\n## Feedback & issues\\n- Funnel queries took 8 to 9 seconds in Q2; the team resorted to spreadsheet exports.\\n- Maya hit the share-preview gray-box bug in the sharing beta.\\n- Alert emails to a shared inbox get ignored; per-alert Slack routing already exists but was poorly announced.\\n- CSV exports capped at 50,000 rows block analysts weekly.\\n\\n## Expansion opportunities\\n- Globex to join the AI Insights design partner program, run by Tom Okafor.\\n- Free Enterprise viewers could let Globex drop 15 to 20 Tableau Viewer licenses.\\n- Connect support ticket data to account health, answering a question the CRO asked last quarter.\\n\\n## Risks\\n- Greg entered the call 60/40 against renewing; current spend ~$186K/yr.\\n- Data platform lead Victor argues for a Snowflake plus Streamlit in-house build and has the CTO's ear.\\n- Two-year commitments are a hard sell; the CFO is 'allergic to multi-year anything'.\\n\\n## Next steps\\n- Ethan sends a written proposal (1-year and 2-year with AI Insights opt-out) by October 8.\\n- Siobhan sets up the architecture session with Victor and Arjun the week of October 6.\\n- Siobhan runs a support enablement session with Priscilla Duarte before end of October.\\n- Greg takes the proposal to the CFO budget review on October 22.\\n\",\"action_items\":[{\"description\":\"Intro Siobhan to Priscilla Duarte for a support enablement session (Thursday)\",\"assignee\":\"Maya Lindqvist\",\"completed\":true},{\"description\":\"Send Maya the help article for per-alert Slack routing\",\"assignee\":\"Siobhan Kelly\",\"completed\":true},{\"description\":\"Send written renewal proposal with 1-year and 2-year (AI Insights opt-out) options by October 8\",\"assignee\":\"Ethan Brooks\",\"completed\":false},{\"description\":\"Check the AI Insights opt-out clause with Tom and finance this week\",\"assignee\":\"Ethan Brooks\",\"completed\":false},{\"description\":\"Set up the architecture session with Victor and Arjun for the week of October 6\",\"assignee\":\"Siobhan Kelly\",\"completed\":false},{\"description\":\"Email intro to Victor, the data platform lead\",\"assignee\":\"Greg Holloway\",\"completed\":true},{\"description\":\"Find out whether the 50,000-row CSV export cap will change and reply by Friday\",\"assignee\":\"Siobhan Kelly\",\"completed\":false},{\"description\":\"Take the proposal to the CFO budget review on October 22\",\"assignee\":\"Greg Holloway\",\"completed\":false}]}}",
+   "status_code": 200,
+   "ok": true,
+   "response_body": "{\"status\":\"success\",\"attempt\":\"a1b2c3\"}",
+   "error": null,
+   "duration_ms": 412,
+   "created_at": "2025-09-23T15:02:00.000Z"
+  },
+  {
+   "id": "whd_demo_02",
+   "webhook_id": "wh_zapier_demo",
+   "event": "meeting.ready",
+   "test": false,
+   "request_body": "{\"id\":\"whd_demo_02\",\"event\":\"meeting.ready\",\"created_at\":\"2025-09-29T13:41:27.330Z\",\"test\":false,\"data\":{\"meeting\":{\"id\":\"m_weekly-standup\",\"title\":\"Eng Weekly Standup\",\"meeting_type\":\"standup\",\"recording_start\":\"2025-09-29T13:30:00.000Z\",\"duration_sec\":447},\"url\":\"https://fanthom.vercel.app/calls/m_weekly-standup\",\"share_url\":\"https://fanthom.vercel.app/share/share-weekly-standup\",\"participants\":[{\"name\":\"Priya Raman\",\"email\":\"priya@northwindlabs.io\",\"is_external\":false},{\"name\":\"Marcus Chen\",\"email\":\"marcus@northwindlabs.io\",\"is_external\":false},{\"name\":\"Nina Park\",\"email\":\"nina@northwindlabs.io\",\"is_external\":false},{\"name\":\"Kevin Walsh\",\"email\":\"kevin@northwindlabs.io\",\"is_external\":false},{\"name\":\"Aman Gupta\",\"email\":\"aman@northwindlabs.io\",\"is_external\":false}],\"summary_markdown\":\"# Eng Weekly Standup — Stand-up summary\\n\\n## Completed\\n- Marcus: funnel query planner changes shipped; P95 on the Globex dataset went from 2.8s to 900ms.\\n- Nina: dashboard sharing modal shipped behind a flag to internal users and three beta customers.\\n- Kevin: EU ingestion incident mitigated; consumer-lag alert threshold cut from 15 to 3 minutes.\\n\\n## In progress / today\\n- Marcus starts the retention cohorts rewrite using the same pattern.\\n- Aman: fixing expiring signed URLs for share previews, and webhook retries with exponential backoff up to 24 hours (~70% done).\\n- Nina starts empty states for the new onboarding flow from Leah's designs.\\n- Kevin reruns the staging backfill today (~6 hours).\\n\\n## Blockers\\n- Staging warehouse has only 30 of the 90 days of data needed for cohorts work.\\n- Sharing GA is blocked on the signed-URL preview bug Globex found.\\n- Staging Terraform state is locked since Arjun's laptop died mid-apply; Arjun is out until Tuesday.\\n\\n## Next steps\\n- Aman lands the signed URL fix by Wednesday; Nina rolls sharing to 10% Thursday and GA Friday before lunch.\\n- Kevin sends a consumer-deploy canary proposal by Thursday.\\n- Everyone sends Priya their top tech debt items by Wednesday EOD for Q4 planning.\\n\",\"action_items\":[{\"description\":\"Rerun the staging backfill so staging has 90 days of data\",\"assignee\":\"Kevin Walsh\",\"completed\":true},{\"description\":\"Fix share preview signed URLs (generate on request) by Wednesday\",\"assignee\":\"Aman Gupta\",\"completed\":false},{\"description\":\"Roll dashboard sharing to 10% Thursday and GA Friday before lunch\",\"assignee\":\"Nina Park\",\"completed\":false},{\"description\":\"Send a canary proposal for Kafka consumer deploys by Thursday\",\"assignee\":\"Kevin Walsh\",\"completed\":false},{\"description\":\"Review apply logs with Kevin and decide on force-unlocking the staging Terraform state\",\"assignee\":\"Priya Raman\",\"completed\":true},{\"description\":\"Merge webhook retries (honor Retry-After on 429s) by next Monday\",\"assignee\":\"Aman Gupta\",\"completed\":false},{\"description\":\"Send Priya top one or two tech debt items by Wednesday EOD\",\"assignee\":null,\"completed\":false},{\"description\":\"Runbook walkthrough with Nina Thursday at 2 before her first on-call shift\",\"assignee\":\"Kevin Walsh\",\"completed\":false}]}}",
+   "status_code": 410,
+   "ok": false,
+   "response_body": "Gone",
+   "error": "HTTP 410 — endpoint no longer exists; webhook disabled",
+   "duration_ms": 188,
+   "created_at": "2025-09-29T13:41:27.330Z"
+  }
+ ],
+ "slack_config": {
+  "workspace_id": "ws_northwind",
+  "webhook_url": null,
+  "channel_label": null,
+  "auto_post_on_ready": false,
+  "include_summary": true,
+  "include_action_items": true,
+  "include_highlights": false,
+  "updated_at": "2025-09-12T14:00:00.000Z"
+ },
+ "crm_sync_logs": [
+  {
+   "id": "crm_demo_01",
+   "meeting_id": "m_acme-discovery",
+   "provider": "hubspot",
+   "status": "simulated",
+   "field_count": 4,
+   "fields": [
+    {
+     "crm_object": "Deal",
+     "crm_field": "dealstage",
+     "label": "Deal stage",
+     "value": "Evaluation",
+     "source": "deal_fields"
+    },
+    {
+     "crm_object": "Deal",
+     "crm_field": "amount",
+     "label": "Amount",
+     "value": "72000",
+     "source": "deal_fields"
+    },
+    {
+     "crm_object": "Deal",
+     "crm_field": "hs_next_step",
+     "label": "Next step",
+     "value": "Technical deep dive + security questionnaire",
+     "source": "action_items"
+    },
+    {
+     "crm_object": "Note",
+     "crm_field": "hs_note_body",
+     "label": "Call summary",
+     "value": "Late deliveries cost ~$340K in penalties; budget $60-80K approved; decision by Dec 19.",
+     "source": "summary"
+    }
+   ],
+   "message": "Simulated sync to HubSpot (CRM OAuth not connected): 4 fields mapped to Deal \"Acme Logistics\".",
+   "created_at": "2025-09-26T16:03:48.648Z"
+  },
+  {
+   "id": "crm_demo_02",
+   "meeting_id": "m_globex-qbr",
+   "provider": "salesforce",
+   "status": "simulated",
+   "field_count": 3,
+   "fields": [
+    {
+     "crm_object": "Opportunity",
+     "crm_field": "StageName",
+     "label": "Stage",
+     "value": "Negotiation",
+     "source": "deal_fields"
+    },
+    {
+     "crm_object": "Opportunity",
+     "crm_field": "NextStep",
+     "label": "Next step",
+     "value": "Written proposal (1-year and 2-year with opt-out) by October 8",
+     "source": "action_items"
+    },
+    {
+     "crm_object": "Task",
+     "crm_field": "Subject",
+     "label": "Follow-up task",
+     "value": "Check CSV export cap roadmap for Maya",
+     "source": "action_items"
+    }
+   ],
+   "message": "Simulated sync to Salesforce (CRM OAuth not connected): 3 fields mapped to Opportunity \"Globex Renewal\".",
+   "created_at": "2025-09-23T17:55:06.179Z"
+  }
+ ],
+ "prefs": {
+  "user_id": "u_priya",
+  "default_template": "general",
+  "default_language": "en",
+  "default_share_access": "anyone_with_link",
+  "auto_record_rule": "all",
+  "email_recap_enabled": true,
+  "notify_meeting_ready": true,
+  "notify_mentions": true,
+  "notify_shared": true,
+  "calendar_connected": true,
+  "onboarding_completed": true,
+  "updated_at": "2025-09-12T14:00:00.000Z"
+ }
+}

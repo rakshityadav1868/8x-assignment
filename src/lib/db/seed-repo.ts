@@ -1,12 +1,21 @@
 import "server-only";
-import { createHash } from "node:crypto";
-import { seedMeetings, seedWorkspace } from "@/data/seed";
-import { NotFoundError } from "@/lib/server/errors";
+import { createHash, randomBytes } from "node:crypto";
+import { seedMeetings, seedParity, seedWorkspace } from "@/data/seed";
+import { HttpError, NotFoundError } from "@/lib/server/errors";
 import { newId, newToken, nowIso } from "@/lib/server/ids";
 import { Bm25, highlightSnippet, matchRank, parseQuery, words } from "@/lib/search/text";
 import type {
   ActionItem,
+  BotSession,
   ChatMessage,
+  Comment,
+  DealOverrides,
+  FolderWithCount,
+  Notification,
+  Reaction,
+  TeamMember,
+  User,
+  Workspace,
   ClipDetail,
   Decision,
   Highlight,
@@ -19,11 +28,20 @@ import type {
   SeedMeetingFile,
   SeedWorkspaceFile,
   Summary,
-  UpcomingMeeting,
 } from "@/lib/types";
 import { CLIP_TOKEN_PREFIX, decodeClipToken, encodeClipToken } from "./clip-token";
+import {
+  commentOrder,
+  defaultPrefs,
+  defaultSlackConfig,
+  MEMBER_COLORS,
+  nameFromEmail,
+  overlaps,
+  toCalendarEvent,
+  withLibraryFields,
+} from "./derive";
 import type { Repo } from "./repo";
-import { phase5RepoStubs } from "./phase5-stubs";
+import type { SeedParityFile, StoredCalendarEvent } from "./seed-types";
 import { shiftSeed, type SeedAnchor } from "./seed-time";
 
 /**
@@ -38,10 +56,16 @@ interface MeetingRecord extends Omit<MeetingDetail, "decisions"> {
 
 interface Store {
   meetings: Map<string, MeetingRecord>;
-  upcoming: UpcomingMeeting[];
+  /** Calendar events (also feed the upcoming strip). */
+  calendar: StoredCalendarEvent[];
   playlists: (Playlist & { items: PlaylistItem[] })[];
   chat: ChatMessage[];
   workspaceId: string;
+  workspace: Workspace;
+  user: User;
+  /** Phase 5 collections (mutable). */
+  p: SeedParityFile;
+  bots: BotSession[];
   /** Self-contained clip tokens of highlights deleted in this instance (so they stop resolving here). */
   deletedClipTokens?: Set<string>;
 }
@@ -51,14 +75,31 @@ const g = globalThis as unknown as { __fanthomSeedStore?: Store };
 function loadStore(): Store {
   // Seed JSON is written against a fixed canonical week; move every timestamp forward by whole weeks so the
   // flagship Q4 meeting is the most recent Thursday and upcoming meetings fall in the next 7 days.
-  const shifted = shiftSeed(seedMeetings as SeedMeetingFile[], seedWorkspace as SeedWorkspaceFile & { anchor?: SeedAnchor });
+  const shifted = shiftSeed(
+    seedMeetings as SeedMeetingFile[],
+    seedWorkspace as SeedWorkspaceFile & { anchor?: SeedAnchor },
+    Date.now(),
+    structuredClone(seedParity as SeedParityFile),
+  );
+  const p = shifted.parity;
   const meetings = new Map<string, MeetingRecord>();
   for (const file of shifted.meetings) {
     const { decisions, ...rest } = file;
-    meetings.set(file.meeting.id, { ...rest, decisions: decisions ?? null, invited_emails: [] });
+    const meeting = { ...rest.meeting, folder_id: rest.meeting.folder_id ?? null, starred: !!rest.meeting.starred, deleted_at: rest.meeting.deleted_at ?? null };
+    meetings.set(file.meeting.id, { ...rest, meeting, decisions: decisions ?? null, invited_emails: p.meeting_invites[file.meeting.id] ?? [] });
   }
   const ws = shifted.workspace;
-  return { meetings, upcoming: ws.upcoming, playlists: ws.playlists, chat: [], workspaceId: ws.workspace.id };
+  return {
+    meetings,
+    calendar: ws.upcoming as StoredCalendarEvent[],
+    playlists: ws.playlists,
+    chat: [],
+    workspaceId: ws.workspace.id,
+    workspace: ws.workspace,
+    user: ws.user,
+    p,
+    bots: [],
+  };
 }
 
 function store(): Store {
@@ -78,7 +119,7 @@ function rec(id: string): MeetingRecord {
 
 function toDetail(r: MeetingRecord): MeetingDetail {
   return clone({
-    meeting: r.meeting,
+    meeting: normMeeting(r.meeting),
     participants: r.participants,
     segments: [...r.segments].sort(byStart),
     summaries: [...r.summaries].sort((a, b) => b.created_at.localeCompare(a.created_at)),
@@ -130,27 +171,86 @@ function findHighlight(id: string): { r: MeetingRecord; item: Highlight } {
 
 const normInstr = (s: string | null | undefined) => (s ?? "").trim() || null;
 
+/** Meeting organisation fields are always filled (older/created rows may lack them). */
+function normMeeting(m: Meeting): Meeting {
+  return { ...m, folder_id: m.folder_id ?? null, starred: m.starred ?? false, deleted_at: m.deleted_at ?? null };
+}
+
+function findSegment(id: string): { r: MeetingRecord; seg: MeetingRecord["segments"][number] } {
+  for (const r of store().meetings.values()) {
+    const seg = r.segments.find((x) => x.id === id);
+    if (seg) return { r, seg };
+  }
+  throw new NotFoundError("Segment");
+}
+
+function need<T>(v: T | undefined, what: string): T {
+  if (v === undefined) throw new NotFoundError(what);
+  return v;
+}
+
+function folderWithCount(f: SeedParityFile["folders"][number]): FolderWithCount {
+  let meeting_count = 0;
+  for (const r of store().meetings.values()) if (r.meeting.folder_id === f.id && !r.meeting.deleted_at) meeting_count++;
+  return clone({ ...f, meeting_count });
+}
+
+/** The demo user's team-member row (synthesised if the seed lacks one). */
+function currentMember(): TeamMember {
+  const s = store();
+  return (
+    s.p.team_members.find((m) => m.id === s.user.id) ?? {
+      id: s.user.id,
+      workspace_id: s.workspaceId,
+      name: s.user.name,
+      email: s.user.email,
+      role: "admin",
+      title: null,
+      team: null,
+      color: MEMBER_COLORS[0],
+      status: "active",
+      invited_at: null,
+      joined_at: null,
+    }
+  );
+}
+
+const DEFAULT_TEMPLATE_MEETING = "m_design-review";
+
 export function createSeedRepo(): Repo {
   return {
-    ...phase5RepoStubs("seed"), // TEMP: database agent replaces (Phase 5)
-    async listMeetings(): Promise<MeetingListItem[]> {
-      return [...store().meetings.values()]
-        .map((r) => ({
-          id: r.meeting.id,
-          title: r.meeting.title,
-          meeting_type: r.meeting.meeting_type,
-          recording_start: r.meeting.recording_start,
-          scheduled_start: r.meeting.scheduled_start,
-          duration_sec: r.meeting.duration_sec,
-          status: r.meeting.status,
-          processing_stage: r.meeting.processing_stage,
-          media_kind: r.meeting.media_kind,
-          synthetic: r.meeting.synthetic,
-          created_at: r.meeting.created_at,
-          participants: r.participants.map(({ id, name, email, is_external, color }) => ({ id, name, email, is_external, color })),
-          action_item_count: r.action_items.length,
-          highlight_count: r.highlights.length,
-        }))
+    async listMeetings(opts): Promise<MeetingListItem[]> {
+      const s = store();
+      const commentCounts = new Map<string, number>();
+      for (const c of s.p.comments) commentCounts.set(c.meeting_id, (commentCounts.get(c.meeting_id) ?? 0) + 1);
+      const companyNames = new Map(s.p.deal_overrides.filter((d) => d.name).map((d) => [d.domain, d.name as string]));
+      return [...s.meetings.values()]
+        .filter((r) => opts?.include_deleted || !r.meeting.deleted_at)
+        .map((r) =>
+          withLibraryFields(
+            {
+              id: r.meeting.id,
+              title: r.meeting.title,
+              meeting_type: r.meeting.meeting_type,
+              recording_start: r.meeting.recording_start,
+              scheduled_start: r.meeting.scheduled_start,
+              duration_sec: r.meeting.duration_sec,
+              status: r.meeting.status,
+              processing_stage: r.meeting.processing_stage,
+              media_kind: r.meeting.media_kind,
+              synthetic: r.meeting.synthetic,
+              created_at: r.meeting.created_at,
+              participants: r.participants.map(({ id, name, email, is_external, color }) => ({ id, name, email, is_external, color })),
+              action_item_count: r.action_items.length,
+              highlight_count: r.highlights.length,
+              folder_id: r.meeting.folder_id,
+              starred: r.meeting.starred,
+              deleted_at: r.meeting.deleted_at,
+              recorded_by: r.meeting.recorded_by,
+            },
+            { invited: r.invited_emails, user: s.user, workspaceDomain: s.workspace.domain, commentCount: commentCounts.get(r.meeting.id) ?? 0, companyNames },
+          ),
+        )
         .sort((a, b) =>
           (b.recording_start ?? b.scheduled_start ?? b.created_at).localeCompare(a.recording_start ?? a.scheduled_start ?? a.created_at),
         )
@@ -158,13 +258,19 @@ export function createSeedRepo(): Repo {
     },
 
     async listUpcoming() {
+      // The strip shows the next 7 days of the calendar (the /calendar page reads listCalendarEvents).
       const now = Date.now();
-      return clone(store().upcoming.filter((u) => new Date(u.end).getTime() > now - 3600e3).sort((a, b) => a.start.localeCompare(b.start)));
+      return clone(
+        store()
+          .calendar.filter((u) => Date.parse(u.end) > now - 3600e3 && Date.parse(u.start) < now + 7 * 86_400_000)
+          .sort((a, b) => a.start.localeCompare(b.start))
+          .map(({ id, title, start, end, attendees, meeting_type }) => ({ id, title, start, end, attendees, meeting_type })),
+      );
     },
 
     async getMeeting(id) {
       const r = store().meetings.get(id);
-      return r ? clone(r.meeting) : null;
+      return r ? clone(normMeeting(r.meeting)) : null;
     },
 
     async getMeetingDetail(id) {
@@ -178,7 +284,7 @@ export function createSeedRepo(): Repo {
     },
 
     async createMeeting(input) {
-      const meeting: Meeting = { ...input, workspace_id: input.workspace_id ?? store().workspaceId, id: newId(), created_at: nowIso() };
+      const meeting: Meeting = normMeeting({ ...input, workspace_id: input.workspace_id ?? store().workspaceId, id: newId(), created_at: nowIso() });
       store().meetings.set(meeting.id, {
         meeting,
         participants: [],
@@ -195,7 +301,7 @@ export function createSeedRepo(): Repo {
 
     async updateMeeting(id, patch) {
       const r = rec(id);
-      r.meeting = { ...r.meeting, ...patch, id: r.meeting.id, workspace_id: r.meeting.workspace_id, created_at: r.meeting.created_at };
+      r.meeting = normMeeting({ ...r.meeting, ...patch, id: r.meeting.id, workspace_id: r.meeting.workspace_id, created_at: r.meeting.created_at });
       return clone(r.meeting);
     },
 
@@ -444,6 +550,479 @@ export function createSeedRepo(): Repo {
       };
       pl.items.push(item);
       return clone(item);
+    },
+    // =====================================================================
+    // Phase 5
+    // =====================================================================
+    async listMeetingDetails(opts) {
+      const ids = opts?.ids ? new Set(opts.ids) : null;
+      return [...store().meetings.values()]
+        .filter((r) => r.meeting.status === "ready" && !r.meeting.deleted_at && (!ids || ids.has(r.meeting.id)))
+        .sort((a, b) => meetingDate(b.meeting).localeCompare(meetingDate(a.meeting)))
+        .map(toDetail);
+    },
+
+    async updateMeetings(ids, patch) {
+      if (patch.folder_id) need(store().p.folders.find((f) => f.id === patch.folder_id), "Folder");
+      let n = 0;
+      for (const id of new Set(ids)) {
+        const r = store().meetings.get(id);
+        if (!r) continue;
+        r.meeting = normMeeting({ ...r.meeting, ...patch });
+        n++;
+      }
+      return n;
+    },
+
+    // ---- folders
+    async listFolders() {
+      return [...store().p.folders].sort((a, b) => a.name.localeCompare(b.name)).map(folderWithCount);
+    },
+    async getFolder(id) {
+      const f = store().p.folders.find((x) => x.id === id);
+      return f ? folderWithCount(f) : null;
+    },
+    async createFolder(input) {
+      const f = { id: newId("fld"), workspace_id: store().workspaceId, name: input.name, color: input.color ?? null, created_at: nowIso() };
+      store().p.folders.push(f);
+      return folderWithCount(f);
+    },
+    async updateFolder(id, patch) {
+      const f = need(store().p.folders.find((x) => x.id === id), "Folder");
+      if (patch.name !== undefined) f.name = patch.name;
+      if (patch.color !== undefined) f.color = patch.color;
+      return folderWithCount(f);
+    },
+    async deleteFolder(id) {
+      const s = store();
+      need(s.p.folders.find((x) => x.id === id), "Folder");
+      s.p.folders = s.p.folders.filter((f) => f.id !== id);
+      for (const r of s.meetings.values()) if (r.meeting.folder_id === id) r.meeting.folder_id = null;
+    },
+
+    // ---- trackers
+    async listTrackers() {
+      return clone([...store().p.trackers].sort((a, b) => a.created_at.localeCompare(b.created_at)));
+    },
+    async getTracker(id) {
+      const t = store().p.trackers.find((x) => x.id === id);
+      return t ? clone(t) : null;
+    },
+    async createTracker(input) {
+      const t = {
+        id: newId("trk"),
+        workspace_id: store().workspaceId,
+        name: input.name,
+        description: input.description ?? null,
+        keywords: [...input.keywords],
+        color: input.color ?? MEMBER_COLORS[store().p.trackers.length % MEMBER_COLORS.length],
+        created_at: nowIso(),
+      };
+      store().p.trackers.push(t);
+      return clone(t);
+    },
+    async updateTracker(id, patch) {
+      const t = need(store().p.trackers.find((x) => x.id === id), "Tracker");
+      Object.assign(t, Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)));
+      return clone(t);
+    },
+    async deleteTracker(id) {
+      need(store().p.trackers.find((x) => x.id === id), "Tracker");
+      store().p.trackers = store().p.trackers.filter((t) => t.id !== id);
+    },
+
+    // ---- deals
+    async listDealOverrides() {
+      return clone(store().p.deal_overrides);
+    },
+    async getDealOverrides(domain) {
+      const d = store().p.deal_overrides.find((x) => x.domain === domain.toLowerCase());
+      return d ? clone(d) : null;
+    },
+    async saveDealOverrides(domain, patch) {
+      const s = store();
+      const key = domain.toLowerCase();
+      let d = s.p.deal_overrides.find((x) => x.domain === key);
+      if (!d) {
+        d = { domain: key, workspace_id: s.workspaceId, updated_at: nowIso() };
+        s.p.deal_overrides.push(d);
+      }
+      const o = d as DealOverrides & { name?: string };
+      // null clears a scalar override (falls back to the derived value)
+      for (const k of ["name", "stage", "amount", "close_date"] as const) {
+        if (patch[k] === undefined) continue;
+        if (patch[k] === null) delete o[k];
+        else (o as unknown as Record<string, unknown>)[k] = patch[k];
+      }
+      if (patch.bant) o.bant = { ...o.bant, ...patch.bant };
+      if (patch.meddpicc) o.meddpicc = { ...o.meddpicc, ...patch.meddpicc };
+      o.updated_at = nowIso();
+      return clone(o);
+    },
+
+    // ---- comments
+    async listComments(meetingId) {
+      rec(meetingId);
+      return clone(store().p.comments.filter((c) => c.meeting_id === meetingId).sort(commentOrder));
+    },
+    async getComment(id) {
+      const c = store().p.comments.find((x) => x.id === id);
+      return c ? clone(c) : null;
+    },
+    async createComment(meetingId, input) {
+      rec(meetingId);
+      let timestamp = input.timestamp_ms ?? null;
+      if (input.parent_id) {
+        const parent = need(store().p.comments.find((c) => c.id === input.parent_id && c.meeting_id === meetingId), "Parent comment");
+        if (parent.parent_id) throw new HttpError(400, "validation", "Replies are one level deep");
+        timestamp = input.timestamp_ms ?? parent.timestamp_ms;
+      }
+      const me = currentMember();
+      const c: Comment = {
+        id: newId("cm"),
+        meeting_id: meetingId,
+        timestamp_ms: timestamp,
+        body: input.body,
+        mentions: input.mentions ?? [],
+        author_id: me.id,
+        author_name: me.name,
+        author_color: me.color,
+        parent_id: input.parent_id ?? null,
+        created_at: nowIso(),
+        updated_at: null,
+      };
+      store().p.comments.push(c);
+      return clone(c);
+    },
+    async updateComment(id, patch) {
+      const c = need(store().p.comments.find((x) => x.id === id), "Comment");
+      Object.assign(c, Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)), { updated_at: nowIso() });
+      return clone(c);
+    },
+    async deleteComment(id) {
+      const s = store();
+      need(s.p.comments.find((x) => x.id === id), "Comment");
+      s.p.comments = s.p.comments.filter((c) => c.id !== id && c.parent_id !== id);
+    },
+
+    // ---- reactions
+    async listReactions(meetingId) {
+      rec(meetingId);
+      return clone(store().p.reactions.filter((r) => r.meeting_id === meetingId).sort((a, b) => a.created_at.localeCompare(b.created_at)));
+    },
+    async toggleReaction(segmentId, emoji) {
+      const s = store();
+      const { r } = findSegment(segmentId);
+      const me = s.user;
+      const existing = s.p.reactions.find((x) => x.segment_id === segmentId && x.user_id === me.id && x.emoji === emoji);
+      if (existing) s.p.reactions = s.p.reactions.filter((x) => x !== existing);
+      else {
+        const reaction: Reaction = {
+          id: newId("rx"),
+          meeting_id: r.meeting.id,
+          segment_id: segmentId,
+          emoji,
+          user_id: me.id,
+          user_name: me.name,
+          created_at: nowIso(),
+        };
+        s.p.reactions.push(reaction);
+      }
+      return {
+        added: !existing,
+        meeting_id: r.meeting.id,
+        reactions: clone(s.p.reactions.filter((x) => x.segment_id === segmentId).sort((a, b) => a.created_at.localeCompare(b.created_at))),
+      };
+    },
+
+    // ---- webhooks
+    async listWebhooks() {
+      return clone([...store().p.webhooks].sort((a, b) => b.created_at.localeCompare(a.created_at)));
+    },
+    async getWebhook(id) {
+      const w = store().p.webhooks.find((x) => x.id === id);
+      return w ? clone(w) : null;
+    },
+    async createWebhook(input) {
+      const w = {
+        id: newId("wh"),
+        workspace_id: store().workspaceId,
+        url: input.url,
+        description: input.description ?? null,
+        events: [...input.events],
+        secret: `whsec_${randomBytes(24).toString("hex")}`,
+        active: input.active ?? true,
+        last_status: null,
+        last_delivery_at: null,
+        created_at: nowIso(),
+      };
+      store().p.webhooks.push(w);
+      return clone(w);
+    },
+    async updateWebhook(id, patch) {
+      const w = need(store().p.webhooks.find((x) => x.id === id), "Webhook");
+      const { rotate_secret, ...rest } = patch;
+      Object.assign(w, Object.fromEntries(Object.entries(rest).filter(([, v]) => v !== undefined)));
+      if (rotate_secret) w.secret = `whsec_${randomBytes(24).toString("hex")}`;
+      return clone(w);
+    },
+    async deleteWebhook(id) {
+      const s = store();
+      need(s.p.webhooks.find((x) => x.id === id), "Webhook");
+      s.p.webhooks = s.p.webhooks.filter((w) => w.id !== id);
+      s.p.webhook_deliveries = s.p.webhook_deliveries.filter((d) => d.webhook_id !== id);
+    },
+    async listWebhookDeliveries(webhookId, limit = 50) {
+      need(store().p.webhooks.find((x) => x.id === webhookId), "Webhook");
+      return clone(
+        store()
+          .p.webhook_deliveries.filter((d) => d.webhook_id === webhookId)
+          .sort((a, b) => b.created_at.localeCompare(a.created_at))
+          .slice(0, limit),
+      );
+    },
+    async recordWebhookDelivery(input) {
+      const w = need(store().p.webhooks.find((x) => x.id === input.webhook_id), "Webhook");
+      const d = { ...input, id: newId("whd"), created_at: nowIso() };
+      store().p.webhook_deliveries.push(d);
+      w.last_status = d.status_code ?? 0;
+      w.last_delivery_at = d.created_at;
+      return clone(d);
+    },
+
+    // ---- slack
+    async getSlackConfig() {
+      const s = store();
+      return clone(s.p.slack_config ?? defaultSlackConfig(s.workspaceId, nowIso()));
+    },
+    async saveSlackConfig(patch) {
+      const s = store();
+      const base = s.p.slack_config ?? defaultSlackConfig(s.workspaceId, nowIso());
+      s.p.slack_config = {
+        ...base,
+        ...Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)),
+        workspace_id: s.workspaceId,
+        updated_at: nowIso(),
+      };
+      return clone(s.p.slack_config);
+    },
+
+    // ---- CRM
+    async listCrmSyncLogs(meetingId) {
+      return clone(
+        store()
+          .p.crm_sync_logs.filter((l) => !meetingId || l.meeting_id === meetingId)
+          .sort((a, b) => b.created_at.localeCompare(a.created_at)),
+      );
+    },
+    async addCrmSyncLog(input) {
+      rec(input.meeting_id);
+      const l = { ...input, id: newId("crm"), created_at: nowIso() };
+      store().p.crm_sync_logs.push(l);
+      return clone(l);
+    },
+
+    // ---- bot sessions
+    async listBotSessions(limit = 20) {
+      return clone([...store().bots].sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, limit));
+    },
+    async getBotSession(id) {
+      const b = store().bots.find((x) => x.id === id);
+      return b ? clone(b) : null;
+    },
+    async createBotSession(input) {
+      const now = nowIso();
+      const b: BotSession = {
+        id: newId("bot"),
+        workspace_id: store().workspaceId,
+        meeting_url: input.meeting_url,
+        platform: input.platform,
+        title: input.title,
+        state: "joining",
+        simulated: true,
+        meeting_id: null,
+        error: null,
+        events: [{ state: "joining", at: now, note: null }],
+        created_at: now,
+        joined_at: null,
+        admitted_at: null,
+        recording_ended_at: null,
+        completed_at: null,
+        updated_at: now,
+      };
+      store().bots.push(b);
+      return clone(b);
+    },
+    async updateBotSession(id, patch) {
+      const b = need(store().bots.find((x) => x.id === id), "Bot session");
+      Object.assign(b, Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)), { updated_at: nowIso() });
+      return clone(b);
+    },
+
+    async cloneMeetingFromTemplate(templateMeetingId, overrides) {
+      const s = store();
+      const src =
+        (templateMeetingId ? s.meetings.get(templateMeetingId) : undefined) ??
+        (templateMeetingId ? undefined : (s.meetings.get(DEFAULT_TEMPLATE_MEETING) ?? [...s.meetings.values()].find((r) => r.meeting.status === "ready")));
+      if (!src) throw new NotFoundError("Template meeting");
+      const t = clone(src);
+      const id = newId();
+      const now = Date.now();
+      const created = new Date(now).toISOString();
+      const pid = new Map(t.participants.map((p) => [p.id, newId()]));
+      const mapP = (x: string | null) => (x ? (pid.get(x) ?? null) : null);
+      const meeting: Meeting = normMeeting({
+        ...t.meeting,
+        id,
+        title: overrides.title,
+        recorded_by: overrides.recorded_by !== undefined ? overrides.recorded_by : s.user.name,
+        scheduled_start: new Date(now - t.meeting.duration_sec * 1000).toISOString(),
+        scheduled_end: created,
+        recording_start: new Date(now - t.meeting.duration_sec * 1000).toISOString(),
+        recording_end: created,
+        status: "ready",
+        processing_stage: "ready",
+        processing_error: null,
+        share_token: null,
+        folder_id: null,
+        starred: false,
+        deleted_at: null,
+        created_at: created,
+      });
+      const r: MeetingRecord = {
+        meeting,
+        participants: t.participants.map((p) => ({ ...p, id: pid.get(p.id)!, meeting_id: id })),
+        segments: t.segments.map((x) => ({ ...x, id: newId(), meeting_id: id, participant_id: mapP(x.participant_id) })),
+        summaries: t.summaries.map((x) => ({ ...x, id: newId("sum"), meeting_id: id, created_at: created })),
+        action_items: t.action_items.map((x) => ({
+          ...x,
+          id: newId("ai"),
+          meeting_id: id,
+          assignee_participant_id: mapP(x.assignee_participant_id),
+          completed: false,
+          created_at: created,
+        })),
+        highlights: [],
+        chapters: t.chapters.map((x) => ({ ...x, id: newId("ch"), meeting_id: id })),
+        decisions: t.decisions ? t.decisions.map((d) => ({ ...d, participant_id: mapP(d.participant_id) })) : null,
+        invited_emails: [],
+      };
+      r.highlights = t.highlights.map((h) => {
+        const nh: Highlight = { ...h, id: newId("hl"), meeting_id: id, share_token: "", created_at: created };
+        nh.share_token = selfContainedToken(nh);
+        return nh;
+      });
+      s.meetings.set(id, r);
+      return id;
+    },
+
+    // ---- calendar
+    async listCalendarEvents(range) {
+      const rule = store().p.prefs.auto_record_rule;
+      return clone(
+        store()
+          .calendar.filter((e) => overlaps(e, range))
+          .sort((a, b) => a.start.localeCompare(b.start))
+          .map((e) => toCalendarEvent(e, rule)),
+      );
+    },
+    async setCalendarRecord(eventId, record) {
+      const e = need(store().calendar.find((x) => x.id === eventId), "Calendar event");
+      e.record_override = record;
+      return clone(toCalendarEvent(e, store().p.prefs.auto_record_rule));
+    },
+
+    // ---- prefs
+    async getPrefs() {
+      const s = store();
+      s.p.prefs ??= defaultPrefs(s.user.id, nowIso());
+      return clone(s.p.prefs);
+    },
+    async updatePrefs(patch) {
+      const s = store();
+      s.p.prefs = {
+        ...(s.p.prefs ?? defaultPrefs(s.user.id, nowIso())),
+        ...Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)),
+        user_id: s.user.id,
+        updated_at: nowIso(),
+      };
+      return clone(s.p.prefs);
+    },
+    async getAutoRecordRule() {
+      return store().p.prefs?.auto_record_rule ?? "all";
+    },
+
+    // ---- session & team
+    async getCurrentSession() {
+      const s = store();
+      return clone({ user: s.user, workspace: s.workspace, member: currentMember(), auth_mode: "demo" as const });
+    },
+    async listTeamMembers() {
+      return clone(
+        [...store().p.team_members].sort(
+          (a, b) => (a.status === b.status ? 0 : a.status === "active" ? -1 : 1) || a.name.localeCompare(b.name),
+        ),
+      );
+    },
+    async inviteTeamMembers(emails, role) {
+      const s = store();
+      const known = new Set(s.p.team_members.map((m) => m.email.toLowerCase()));
+      const out: TeamMember[] = [];
+      for (const raw of emails) {
+        const email = raw.trim().toLowerCase();
+        if (!email || known.has(email)) continue;
+        known.add(email);
+        const m: TeamMember = {
+          id: newId("tm"),
+          workspace_id: s.workspaceId,
+          name: nameFromEmail(email),
+          email,
+          role,
+          title: null,
+          team: null,
+          color: MEMBER_COLORS[s.p.team_members.length % MEMBER_COLORS.length],
+          status: "invited",
+          invited_at: nowIso(),
+          joined_at: null,
+        };
+        s.p.team_members.push(m);
+        out.push(m);
+      }
+      return clone(out);
+    },
+    async updateTeamMember(id, patch) {
+      const m = need(store().p.team_members.find((x) => x.id === id), "Team member");
+      Object.assign(m, Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined)));
+      return clone(m);
+    },
+    async removeTeamMember(id) {
+      const s = store();
+      const m = need(s.p.team_members.find((x) => x.id === id), "Team member");
+      if (m.id === s.user.id) throw new HttpError(409, "conflict", "You can't remove yourself");
+      if (m.role === "owner") throw new HttpError(409, "conflict", "The workspace owner can't be removed");
+      s.p.team_members = s.p.team_members.filter((x) => x.id !== id);
+    },
+
+    // ---- notifications
+    async listNotifications(opts) {
+      const s = store();
+      const mine = s.p.notifications.filter((n) => n.user_id === s.user.id).sort((a, b) => b.created_at.localeCompare(a.created_at));
+      const unread_count = mine.filter((n) => !n.read_at).length;
+      const list = (opts?.unread ? mine.filter((n) => !n.read_at) : mine).slice(0, opts?.limit ?? 50);
+      return clone({ notifications: list, unread_count });
+    },
+    async createNotification(input) {
+      const s = store();
+      const n: Notification = { ...input, user_id: input.user_id ?? s.user.id, id: newId("ntf"), read_at: null, created_at: nowIso() };
+      s.p.notifications.push(n);
+      return clone(n);
+    },
+    async markNotificationsRead(ids) {
+      const s = store();
+      const set = ids ? new Set(ids) : null;
+      const now = nowIso();
+      for (const n of s.p.notifications) if (n.user_id === s.user.id && !n.read_at && (!set || set.has(n.id))) n.read_at = now;
+      return s.p.notifications.filter((n) => n.user_id === s.user.id && !n.read_at).length;
     },
   };
 }

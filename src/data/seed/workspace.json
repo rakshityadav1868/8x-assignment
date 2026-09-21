@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T05:36:38.598Z",
+  "generated_at": "2026-09-21T06:33:35.717Z",
   "anchor": {
     "meeting_id": "m_q4-roadmap-planning",
     "recording_start": "2025-10-02T14:00:00.000Z",
@@ -18,33 +18,39 @@
   },
   "upcoming": [
     {
-      "id": "up_acme-demo",
-      "title": "Acme Logistics — Technical Deep Dive",
-      "start": "2025-10-07T15:00:00.000Z",
-      "end": "2025-10-07T15:45:00.000Z",
+      "id": "up_globex-exec",
+      "title": "Globex — Reliability Plan & SSO Timeline",
+      "start": "2025-10-03T17:00:00.000Z",
+      "end": "2025-10-03T17:30:00.000Z",
       "attendees": [
         {
-          "name": "Ethan Brooks",
-          "email": "ethan@northwindlabs.io",
+          "name": "Siobhan Kelly",
+          "email": "siobhan@northwindlabs.io",
           "is_external": false
         },
         {
-          "name": "Arjun Mehta",
-          "email": "arjun@northwindlabs.io",
+          "name": "Priya Raman",
+          "email": "priya@northwindlabs.io",
           "is_external": false
         },
         {
-          "name": "Rachel Moreno",
-          "email": "rachel.moreno@acmelogistics.com",
+          "name": "Greg Holloway",
+          "email": "greg.holloway@globex.com",
           "is_external": true
         },
         {
-          "name": "Tariq Hassan",
-          "email": "tariq.hassan@acmelogistics.com",
+          "name": "Maya Lindqvist",
+          "email": "maya.lindqvist@globex.com",
           "is_external": true
         }
       ],
-      "meeting_type": "sales"
+      "meeting_type": "customer_success",
+      "meeting_url": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NGY3ZDc0YjEtOWE2Mi00ZTQ1LWJmZjQtMmQxNDQ1ZjVhNzE2%40thread.v2/0?context=%7b%22Tid%22%3a%22NGY3ZDc0%22%7d",
+      "platform": "teams",
+      "organizer_email": "greg.holloway@globex.com",
+      "is_external": true,
+      "source": "outlook",
+      "record_override": null
     },
     {
       "id": "up_priya-arjun-1on1",
@@ -63,7 +69,13 @@
           "is_external": false
         }
       ],
-      "meeting_type": "one_on_one"
+      "meeting_type": "one_on_one",
+      "meeting_url": "https://meet.google.com/pqa-rjnm-kxw",
+      "platform": "google_meet",
+      "organizer_email": "priya@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
     },
     {
       "id": "up_eng-standup",
@@ -97,36 +109,118 @@
           "is_external": false
         }
       ],
-      "meeting_type": "standup"
+      "meeting_type": "standup",
+      "meeting_url": "https://meet.google.com/eng-stnd-upw",
+      "platform": "google_meet",
+      "organizer_email": "priya@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
     },
     {
-      "id": "up_globex-exec",
-      "title": "Globex — Reliability Plan & SSO Timeline",
-      "start": "2025-10-03T17:00:00.000Z",
-      "end": "2025-10-03T17:30:00.000Z",
+      "id": "up_code-yellow-kickoff",
+      "title": "Reliability Code Yellow — Kickoff",
+      "start": "2025-10-06T15:00:00.000Z",
+      "end": "2025-10-06T16:00:00.000Z",
       "attendees": [
-        {
-          "name": "Siobhan Kelly",
-          "email": "siobhan@northwindlabs.io",
-          "is_external": false
-        },
         {
           "name": "Priya Raman",
           "email": "priya@northwindlabs.io",
           "is_external": false
         },
         {
-          "name": "Greg Holloway",
-          "email": "greg.holloway@globex.com",
+          "name": "Arjun Mehta",
+          "email": "arjun@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Kevin Walsh",
+          "email": "kevin@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Aman Gupta",
+          "email": "aman@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Marcus Chen",
+          "email": "marcus@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Nina Park",
+          "email": "nina@northwindlabs.io",
+          "is_external": false
+        }
+      ],
+      "meeting_type": "planning",
+      "meeting_url": "https://meet.google.com/cyk-ofqr-zzt",
+      "platform": "google_meet",
+      "organizer_email": "priya@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
+    },
+    {
+      "id": "up_acme-demo",
+      "title": "Acme Logistics — Technical Deep Dive",
+      "start": "2025-10-07T15:00:00.000Z",
+      "end": "2025-10-07T15:45:00.000Z",
+      "attendees": [
+        {
+          "name": "Ethan Brooks",
+          "email": "ethan@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Arjun Mehta",
+          "email": "arjun@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Rachel Moreno",
+          "email": "rachel.moreno@acmelogistics.com",
           "is_external": true
         },
         {
-          "name": "Maya Lindqvist",
-          "email": "maya.lindqvist@globex.com",
+          "name": "Tariq Hassan",
+          "email": "tariq.hassan@acmelogistics.com",
           "is_external": true
         }
       ],
-      "meeting_type": "customer_success"
+      "meeting_type": "sales",
+      "meeting_url": "https://northwindlabs.zoom.us/j/84512093376?pwd=ODQ1MTIwOTMzNzY",
+      "platform": "zoom",
+      "organizer_email": "ethan@northwindlabs.io",
+      "is_external": true,
+      "source": "google",
+      "record_override": null
+    },
+    {
+      "id": "up_olivia-offer",
+      "title": "Olivia Grant — Offer Call",
+      "start": "2025-10-07T20:00:00.000Z",
+      "end": "2025-10-07T20:30:00.000Z",
+      "attendees": [
+        {
+          "name": "Priya Raman",
+          "email": "priya@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Olivia Grant",
+          "email": "olivia.grant@gmail.com",
+          "is_external": true
+        }
+      ],
+      "meeting_type": "interview",
+      "meeting_url": "https://northwindlabs.zoom.us/j/86120937745?pwd=ODYxMjA5Mzc3NDU",
+      "platform": "zoom",
+      "organizer_email": "priya@northwindlabs.io",
+      "is_external": true,
+      "source": "google",
+      "record_override": false
     },
     {
       "id": "up_ai-insights-kickoff",
@@ -160,13 +254,119 @@
           "is_external": false
         }
       ],
-      "meeting_type": "planning"
+      "meeting_type": "planning",
+      "meeting_url": "https://northwindlabs.zoom.us/j/81234509876?pwd=ODEyMzQ1MDk4NzY",
+      "platform": "zoom",
+      "organizer_email": "tom@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
     },
     {
-      "id": "up_olivia-offer",
-      "title": "Olivia Grant — Offer Call",
-      "start": "2025-10-07T20:00:00.000Z",
-      "end": "2025-10-07T20:30:00.000Z",
+      "id": "up_globex-proposal",
+      "title": "Globex — Renewal Proposal Walkthrough",
+      "start": "2025-10-08T16:00:00.000Z",
+      "end": "2025-10-08T16:45:00.000Z",
+      "attendees": [
+        {
+          "name": "Ethan Brooks",
+          "email": "ethan@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Siobhan Kelly",
+          "email": "siobhan@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Greg Holloway",
+          "email": "greg.holloway@globex.com",
+          "is_external": true
+        },
+        {
+          "name": "Maya Lindqvist",
+          "email": "maya.lindqvist@globex.com",
+          "is_external": true
+        }
+      ],
+      "meeting_type": "customer_success",
+      "meeting_url": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTc4MWQ1ZjgtYjM2Yy00ODkxLWE0OTItOTdiZWVmNjM0YjQx%40thread.v2/0?context=%7b%22Tid%22%3a%22ZTc4MWQ1%22%7d",
+      "platform": "teams",
+      "organizer_email": "ethan@northwindlabs.io",
+      "is_external": true,
+      "source": "outlook",
+      "record_override": null
+    },
+    {
+      "id": "up_pricing-launch-review",
+      "title": "Growth Pricing — Launch Review",
+      "start": "2025-10-09T18:00:00.000Z",
+      "end": "2025-10-09T18:45:00.000Z",
+      "attendees": [
+        {
+          "name": "Tom Okafor",
+          "email": "tom@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Sofia Alvarez",
+          "email": "sofia@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "James Whitaker",
+          "email": "james@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Leah Botha",
+          "email": "leah@northwindlabs.io",
+          "is_external": false
+        }
+      ],
+      "meeting_type": "project_update",
+      "meeting_url": "https://northwindlabs.zoom.us/j/89031245567?pwd=ODkwMzEyNDU1Njc",
+      "platform": "zoom",
+      "organizer_email": "tom@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
+    },
+    {
+      "id": "up_keystone-scim",
+      "title": "Keystone Cloud — SCIM Follow-up",
+      "start": "2025-10-10T17:00:00.000Z",
+      "end": "2025-10-10T17:30:00.000Z",
+      "attendees": [
+        {
+          "name": "Kevin Walsh",
+          "email": "kevin@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Aman Gupta",
+          "email": "aman@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Laura Stein",
+          "email": "laura.stein@keystonecloud.com",
+          "is_external": true
+        }
+      ],
+      "meeting_type": "general",
+      "meeting_url": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_OTJmYTBiMzUtNmU0Ny00YzE4LTk1ZTEtM2Q3YjU0ZWYwYTIy%40thread.v2/0?context=%7b%22Tid%22%3a%22OTJmYTBi%22%7d",
+      "platform": "teams",
+      "organizer_email": "laura.stein@keystonecloud.com",
+      "is_external": true,
+      "source": "outlook",
+      "record_override": null
+    },
+    {
+      "id": "up_eng-standup-2",
+      "title": "Eng Weekly Standup",
+      "start": "2025-10-13T13:30:00.000Z",
+      "end": "2025-10-13T13:45:00.000Z",
       "attendees": [
         {
           "name": "Priya Raman",
@@ -174,12 +374,158 @@
           "is_external": false
         },
         {
-          "name": "Olivia Grant",
-          "email": "olivia.grant@gmail.com",
+          "name": "Marcus Chen",
+          "email": "marcus@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Nina Park",
+          "email": "nina@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Kevin Walsh",
+          "email": "kevin@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Aman Gupta",
+          "email": "aman@northwindlabs.io",
+          "is_external": false
+        }
+      ],
+      "meeting_type": "standup",
+      "meeting_url": "https://meet.google.com/eng-stnd-upw",
+      "platform": "google_meet",
+      "organizer_email": "priya@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
+    },
+    {
+      "id": "up_acme-security",
+      "title": "Acme Logistics — Security Questionnaire Review",
+      "start": "2025-10-14T14:00:00.000Z",
+      "end": "2025-10-14T15:00:00.000Z",
+      "attendees": [
+        {
+          "name": "Ethan Brooks",
+          "email": "ethan@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Kevin Walsh",
+          "email": "kevin@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Rachel Moreno",
+          "email": "rachel.moreno@acmelogistics.com",
+          "is_external": true
+        },
+        {
+          "name": "Janet Cole",
+          "email": "janet.cole@acmelogistics.com",
           "is_external": true
         }
       ],
-      "meeting_type": "interview"
+      "meeting_type": "sales",
+      "meeting_url": "https://northwindlabs.zoom.us/j/87765012398?pwd=ODc3NjUwMTIzOTg",
+      "platform": "zoom",
+      "organizer_email": "ethan@northwindlabs.io",
+      "is_external": true,
+      "source": "google",
+      "record_override": null
+    },
+    {
+      "id": "up_priya-marcus-1on1",
+      "title": "Priya / Marcus 1:1",
+      "start": "2025-10-14T19:30:00.000Z",
+      "end": "2025-10-14T20:00:00.000Z",
+      "attendees": [
+        {
+          "name": "Priya Raman",
+          "email": "priya@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Marcus Chen",
+          "email": "marcus@northwindlabs.io",
+          "is_external": false
+        }
+      ],
+      "meeting_type": "one_on_one",
+      "meeting_url": "https://meet.google.com/pmc-hxqv-wre",
+      "platform": "google_meet",
+      "organizer_email": "priya@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": null
+    },
+    {
+      "id": "up_design-crit",
+      "title": "Design Crit — Insights Explanations",
+      "start": "2025-10-15T18:00:00.000Z",
+      "end": "2025-10-15T18:45:00.000Z",
+      "attendees": [
+        {
+          "name": "Leah Botha",
+          "email": "leah@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Nina Park",
+          "email": "nina@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Sofia Alvarez",
+          "email": "sofia@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Hannah Price",
+          "email": "hannah@northwindlabs.io",
+          "is_external": false
+        }
+      ],
+      "meeting_type": "project_update",
+      "meeting_url": "https://meet.google.com/dcr-tqpl-mno",
+      "platform": "google_meet",
+      "organizer_email": "leah@northwindlabs.io",
+      "is_external": false,
+      "source": "google",
+      "record_override": true
+    },
+    {
+      "id": "up_ai-insights-globex",
+      "title": "AI Insights Beta — Design Partner Sync (Globex)",
+      "start": "2025-10-16T15:00:00.000Z",
+      "end": "2025-10-16T15:30:00.000Z",
+      "attendees": [
+        {
+          "name": "Hannah Price",
+          "email": "hannah@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Siobhan Kelly",
+          "email": "siobhan@northwindlabs.io",
+          "is_external": false
+        },
+        {
+          "name": "Maya Lindqvist",
+          "email": "maya.lindqvist@globex.com",
+          "is_external": true
+        }
+      ],
+      "meeting_type": "customer_success",
+      "meeting_url": "https://northwindlabs.zoom.us/j/83340917265?pwd=ODMzNDA5MTcyNjU",
+      "platform": "zoom",
+      "organizer_email": "hannah@northwindlabs.io",
+      "is_external": true,
+      "source": "google",
+      "record_override": null
     }
   ],
   "playlists": [

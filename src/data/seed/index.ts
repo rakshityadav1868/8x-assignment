@@ -7,6 +7,7 @@
 import type { SeedMeetingFile, SeedWorkspaceFile } from "@/lib/types";
 
 import workspace from "./workspace.json";
+import parity from "./parity.json";
 import q4RoadmapPlanning from "./meetings/q4-roadmap-planning.json";
 import designReview from "./meetings/design-review.json";
 import priyaMarcus1on1 from "./meetings/priya-marcus-1on1.json";
@@ -18,6 +19,9 @@ import globexQbr from "./meetings/globex-qbr.json";
 import vendorSecurityReview from "./meetings/vendor-security-review.json";
 
 export const seedWorkspace = workspace as unknown as SeedWorkspaceFile;
+
+/** Phase 5 data (folders, team, comments, trackers, ...) — format: `SeedParityFile` in src/lib/db/seed-types.ts. */
+export const seedParity: unknown = parity;
 
 /** Newest first. */
 export const seedMeetings = [

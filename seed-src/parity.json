@@ -1,0 +1,153 @@
+{
+  "_doc": "Phase 5 seed (human-authored). Resolved by scripts/build-seed.mjs into src/data/seed/parity.json. Meetings are referenced by slug, transcript moments by line index (seg_<slug>_<line>), people by participant key (tm_<key>; priya = the demo user u_priya). Times: {meeting, after_min} = minutes after that meeting's recording ended; {days_ago, at} = ET wall-clock relative to the anchor day (Q4 planning Thursday).",
+
+  "folders": [
+    { "id": "fld_sales", "name": "Sales", "color": "#34d399", "created": { "days_ago": 20, "at": "10:00" } },
+    { "id": "fld_cs", "name": "Customer Success", "color": "#fbbf24", "created": { "days_ago": 20, "at": "10:05" } },
+    { "id": "fld_product", "name": "Product", "color": "#a78bfa", "created": { "days_ago": 16, "at": "11:00" } },
+    { "id": "fld_hiring", "name": "Hiring", "color": "#f472b6", "created": { "days_ago": 15, "at": "09:30" } }
+  ],
+
+  "meeting_meta": {
+    "acme-discovery": { "folder": "fld_sales", "starred": true, "invited": ["priya@northwindlabs.io", "james@northwindlabs.io"] },
+    "globex-qbr": { "folder": "fld_cs", "starred": true, "invited": ["priya@northwindlabs.io", "dana@northwindlabs.io"] },
+    "q4-roadmap-planning": { "folder": "fld_product", "starred": true },
+    "pricing-page-planning": { "folder": "fld_product" },
+    "design-review": { "folder": "fld_product", "invited": ["priya@northwindlabs.io"] },
+    "weekly-standup": { "folder": "fld_product" },
+    "staff-engineer-interview": { "folder": "fld_hiring" },
+    "priya-marcus-1on1": {},
+    "vendor-security-review": {}
+  },
+
+  "team": {
+    "roles": {
+      "dana": { "role": "owner", "team": "Leadership" },
+      "priya": { "role": "admin", "team": "Engineering" },
+      "tom": { "role": "admin", "team": "Product" },
+      "james": { "role": "member", "team": "Sales" },
+      "ethan": { "role": "member", "team": "Sales" },
+      "siobhan": { "role": "member", "team": "Customer Success" },
+      "sofia": { "role": "member", "team": "Product" },
+      "leah": { "role": "member", "team": "Design" },
+      "hannah": { "role": "member", "team": "Engineering" },
+      "arjun": { "role": "member", "team": "Engineering" },
+      "marcus": { "role": "member", "team": "Engineering" },
+      "nina": { "role": "member", "team": "Engineering" },
+      "kevin": { "role": "member", "team": "Engineering" },
+      "aman": { "role": "member", "team": "Engineering" }
+    },
+    "invites": [
+      { "id": "tm_rohan", "name": "Rohan Desai", "email": "rohan@northwindlabs.io", "role": "member", "title": "Solutions Engineer", "team": "Sales", "invited": { "days_ago": 2, "at": "16:20" } }
+    ]
+  },
+
+  "comments": [
+    { "id": "cm_q4_01", "meeting": "q4-roadmap-planning", "line": 131, "author": "siobhan", "after_min": 25, "mentions": ["priya"],
+      "body": "@Priya Raman this is the renewal risk I flagged last week. Globex's SSO ask is the deciding factor, not price." },
+    { "id": "cm_q4_02", "meeting": "q4-roadmap-planning", "parent": "cm_q4_01", "author": "james", "after_min": 41, "mentions": ["ethan"],
+      "body": "Agreed. @Ethan Brooks let's time the proposal so it lands after the SSO date is locked." },
+    { "id": "cm_q4_03", "meeting": "q4-roadmap-planning", "line": 287, "author": "tom", "after_min": 30, "mentions": ["hannah"],
+      "body": "Writing this up as the AI Insights beta brief. @Hannah Price can you share the prototype eval numbers?" },
+    { "id": "cm_q4_04", "meeting": "q4-roadmap-planning", "parent": "cm_q4_03", "author": "hannah", "after_min": 52, "mentions": [],
+      "body": "Posted in #ai-insights. 71% of explanations were rated useful on the replay set; the misses were all seasonality." },
+    { "id": "cm_q4_05", "meeting": "q4-roadmap-planning", "line": 379, "author": "arjun", "after_min": 35, "mentions": ["priya"],
+      "body": "@Priya Raman I'll draft the code yellow staffing plan tonight so you can review it before it goes to eng." },
+    { "id": "cm_q4_06", "meeting": "q4-roadmap-planning", "parent": "cm_q4_05", "author": "priya", "after_min": 48, "mentions": [],
+      "body": "Thanks. Please include the on-call rotation changes and who is pulled from which squad." },
+    { "id": "cm_q4_07", "meeting": "q4-roadmap-planning", "line": 494, "author": "james", "after_min": 38, "mentions": ["sofia"],
+      "body": "Pricing is locked. @Sofia Alvarez the pricing page copy needs to say $599 with 20M events included." },
+    { "id": "cm_q4_08", "meeting": "q4-roadmap-planning", "line": null, "author": "dana", "after_min": 60, "mentions": [],
+      "body": "Great meeting, everyone. Decisions and owners are in the summary. Please check your action items by Friday." },
+    { "id": "cm_gx_01", "meeting": "globex-qbr", "line": 50, "author": "ethan", "after_min": 20, "mentions": ["priya"],
+      "body": "@Priya Raman right-sizing to 160 seats was the turning point. Can eng commit to the SSO date we hinted at?" },
+    { "id": "cm_gx_02", "meeting": "globex-qbr", "parent": "cm_gx_01", "author": "siobhan", "after_min": 33, "mentions": [],
+      "body": "Adding this to the Globex account plan. Renewal is Jan 31, so the SSO date needs to be before mid-December." },
+    { "id": "cm_gx_03", "meeting": "globex-qbr", "line": 90, "author": "siobhan", "after_min": 27, "mentions": ["marcus"],
+      "body": "@Marcus Chen do we have a ticket for raising the 50K-row CSV export cap? Maya's team hits it weekly." },
+    { "id": "cm_ac_01", "meeting": "acme-discovery", "line": 35, "author": "ethan", "after_min": 15, "mentions": ["james"],
+      "body": "Budget confirmed at $60-80K a year, CFO approved. @James Whitaker flagging for the forecast." },
+    { "id": "cm_ac_02", "meeting": "acme-discovery", "parent": "cm_ac_01", "author": "james", "after_min": 44, "mentions": [],
+      "body": "Nice work. Putting it at Evaluation, $72K, close Dec 19." },
+    { "id": "cm_ac_03", "meeting": "acme-discovery", "line": 53, "author": "priya", "after_min": 90, "mentions": [],
+      "body": "Their Amplitude eval felt web-product focused. The logistics angle (trucks, not signups) is our wedge." }
+  ],
+
+  "reactions": [
+    { "meeting": "q4-roadmap-planning", "line": 287, "emoji": "🎉", "users": ["dana", "tom", "hannah", "priya"] },
+    { "meeting": "q4-roadmap-planning", "line": 494, "emoji": "🔥", "users": ["james", "sofia"] },
+    { "meeting": "q4-roadmap-planning", "line": 414, "emoji": "💯", "users": ["arjun", "priya"] },
+    { "meeting": "q4-roadmap-planning", "line": 322, "emoji": "👀", "users": ["arjun", "siobhan"] },
+    { "meeting": "globex-qbr", "line": 100, "emoji": "🎉", "users": ["siobhan", "ethan", "priya"] },
+    { "meeting": "acme-discovery", "line": 35, "emoji": "👍", "users": ["james", "ethan"] }
+  ],
+
+  "trackers": [
+    { "id": "trk_pricing", "name": "Pricing", "color": "#34d399", "created": { "days_ago": 16, "at": "10:00" },
+      "description": "Price, discounts and budget talk across calls.",
+      "keywords": ["pricing", "price", "discount", "budget"] },
+    { "id": "trk_competitors", "name": "Competitors", "color": "#f87171", "created": { "days_ago": 16, "at": "10:05" },
+      "description": "Mentions of competing analytics / BI tools (and competitors in general).",
+      "keywords": ["Amplitude", "Mixpanel", "Looker", "Tableau", "competitor", "competitors"] },
+    { "id": "trk_security", "name": "SSO / security", "color": "#60a5fa", "created": { "days_ago": 17, "at": "14:00" },
+      "description": "Enterprise security asks: SSO, SAML, SCIM, SOC 2, pen tests.",
+      "keywords": ["SSO", "SAML", "SCIM", "Okta", "SOC 2", "pen test", "encryption"] },
+    { "id": "trk_churn", "name": "Churn risk", "color": "#fbbf24", "created": { "days_ago": 10, "at": "11:30" },
+      "description": "Renewal and churn signals from customers.",
+      "keywords": ["churn", "renewal", "renews", "not renew", "evaluating"] }
+  ],
+
+  "deal_overrides": [
+    { "domain": "acmelogistics.com", "name": "Acme Logistics", "stage": "evaluation", "amount": 72000, "close_date": "2025-12-19",
+      "bant": { "budget": "$60-80K / year, approved by the CFO", "timeline": "Decision by December 19" },
+      "updated": { "meeting": "acme-discovery", "after_min": 44 } },
+    { "domain": "globex.com", "name": "Globex", "stage": "negotiation", "amount": 148800, "close_date": "2026-01-30",
+      "meddpicc": { "champion": "Maya Lindqvist (Analytics Manager)", "competition": "Snowflake-native build (Streamlit); Amplitude evaluation" },
+      "bant": { "timeline": "Renewal on January 31; written proposal due October 8" },
+      "updated": { "meeting": "globex-qbr", "after_min": 35 } }
+  ],
+
+  "notifications": [
+    { "id": "ntf_01", "kind": "meeting_ready", "meeting": "q4-roadmap-planning", "after_min": 4, "read": false },
+    { "id": "ntf_02", "kind": "mention", "comment": "cm_q4_01", "read": false },
+    { "id": "ntf_03", "kind": "mention", "comment": "cm_q4_05", "read": false },
+    { "id": "ntf_04", "kind": "shared_with_you", "meeting": "design-review", "actor": "leah", "after_min": 12, "read": false },
+    { "id": "ntf_05", "kind": "mention", "comment": "cm_gx_01", "read": true },
+    { "id": "ntf_06", "kind": "shared_with_you", "meeting": "acme-discovery", "actor": "ethan", "after_min": 10, "read": true },
+    { "id": "ntf_07", "kind": "shared_with_you", "meeting": "globex-qbr", "actor": "siobhan", "after_min": 18, "read": true },
+    { "id": "ntf_08", "kind": "meeting_ready", "meeting": "weekly-standup", "after_min": 3, "read": true },
+    { "id": "ntf_09", "kind": "meeting_ready", "meeting": "priya-marcus-1on1", "after_min": 3, "read": true }
+  ],
+
+  "webhooks": [
+    { "id": "wh_zapier_demo", "url": "https://example.com/hooks/fanthom", "description": "Zapier catch hook (demo) — disabled after 410",
+      "events": ["meeting.ready", "highlight.created"], "active": false, "secret": "whsec_demo_not_a_real_secret_7f3a9c",
+      "created": { "days_ago": 9, "at": "11:00" },
+      "deliveries": [
+        { "id": "whd_demo_01", "event": "meeting.ready", "test": true, "meeting": "globex-qbr", "status_code": 200, "ok": true,
+          "response_body": "{\"status\":\"success\",\"attempt\":\"a1b2c3\"}", "error": null, "duration_ms": 412,
+          "at": { "days_ago": 9, "at": "11:02" } },
+        { "id": "whd_demo_02", "event": "meeting.ready", "test": false, "meeting": "weekly-standup", "status_code": 410, "ok": false,
+          "response_body": "Gone", "error": "HTTP 410 — endpoint no longer exists; webhook disabled", "duration_ms": 188,
+          "at": { "meeting": "weekly-standup", "after_min": 4 } }
+      ] }
+  ],
+
+  "crm_sync_logs": [
+    { "id": "crm_demo_01", "meeting": "acme-discovery", "provider": "hubspot", "status": "simulated", "after_min": 50,
+      "message": "Simulated sync to HubSpot (CRM OAuth not connected): 4 fields mapped to Deal \"Acme Logistics\".",
+      "fields": [
+        { "crm_object": "Deal", "crm_field": "dealstage", "label": "Deal stage", "value": "Evaluation", "source": "deal_fields" },
+        { "crm_object": "Deal", "crm_field": "amount", "label": "Amount", "value": "72000", "source": "deal_fields" },
+        { "crm_object": "Deal", "crm_field": "hs_next_step", "label": "Next step", "value": "Technical deep dive + security questionnaire", "source": "action_items" },
+        { "crm_object": "Note", "crm_field": "hs_note_body", "label": "Call summary", "value": "Late deliveries cost ~$340K in penalties; budget $60-80K approved; decision by Dec 19.", "source": "summary" }
+      ] },
+    { "id": "crm_demo_02", "meeting": "globex-qbr", "provider": "salesforce", "status": "simulated", "after_min": 40,
+      "message": "Simulated sync to Salesforce (CRM OAuth not connected): 3 fields mapped to Opportunity \"Globex Renewal\".",
+      "fields": [
+        { "crm_object": "Opportunity", "crm_field": "StageName", "label": "Stage", "value": "Negotiation", "source": "deal_fields" },
+        { "crm_object": "Opportunity", "crm_field": "NextStep", "label": "Next step", "value": "Written proposal (1-year and 2-year with opt-out) by October 8", "source": "action_items" },
+        { "crm_object": "Task", "crm_field": "Subject", "label": "Follow-up task", "value": "Check CSV export cap roadmap for Maya", "source": "action_items" }
+      ] }
+  ]
+}
