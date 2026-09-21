@@ -314,6 +314,17 @@ Asana / Zapier (honest "coming soon" cards on Settings); billing.
 - **Phase 5**: see §10. Additive only: optional `Meeting.folder_id/starred/deleted_at`; optional `MeetingListItem`
   library fields; `UpdateMeetingRequest` gains `folder_id/starred/deleted`; `ListMeetingsResponse.folders?`;
   `Repo.listMeetings(opts?)`; ~50 new Repo methods, new schemas/routes for every Phase 5 endpoint.
+- **Phase 5 (backend, additive)**: optional `MeetingDetail.default_summary_template` — set by `GET /api/meetings/:id`
+  and `GET /api/share/:token` from `prefs.default_template` (→ meeting-type default → General → newest; helper
+  `withDefaultSummary` / `chooseSummary` in `src/lib/server/summaries.ts`). The same choice is the default for
+  `summary_md` downloads, Slack/email recaps, webhook payloads and CRM previews, and the pipeline also caches the
+  prefs template. `POST /api/meetings/:id/share` without `access` uses `prefs.default_share_access`. Webhook events
+  fired: `meeting.ready` (pipeline done / bot done, plus notification + Slack auto-post), `meeting.shared`,
+  `highlight.created`, `action_item.completed`. Webhook delivery timeout is 5 s (Slack 8 s). Interruptions =
+  next speaker starts < 200 ms after (or before) the previous speaker's end, or the previous turn was cut off
+  ("-", "—", "…"). Bot state is derived from event timestamps (stateless auto-advance), recording auto-stops at
+  10 min. `src/proxy.ts` now also sets the demo cookie on every Phase 5 app/marketing page. Checks:
+  `npm run check:phase5`.
 - **Phase 1–3**: `routes.ts` split out of `contracts.ts` (zod-free, re-exported); `ROUTES.pages.playlist` and `ROUTES.pages.ask` added;
   `Repo.getPlaylist` / `removePlaylistItem` added; playlist detail/delete APIs; `rate_limited` error code; demo-session cookie required for writes.
 
