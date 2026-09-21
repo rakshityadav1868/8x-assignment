@@ -165,15 +165,18 @@ export function CalendarView() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">Calendar</h1>
-          <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-            {loading ? "Loading your week…" : `${recordCount} upcoming meeting${recordCount === 1 ? "" : "s"} set to record.`}
+          {/* Fixed layout from first paint (no CLS): one-line status, badge on its own row on mobile. */}
+          <div className="mt-1 flex flex-col items-start gap-1.5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:gap-2">
+            <p className="h-5 truncate">
+              {loading ? "Loading your week…" : `${recordCount} upcoming meeting${recordCount === 1 ? "" : "s"} set to record.`}
+            </p>
             <span
               title="Calendar OAuth is stubbed: events are seeded. Record toggles and the auto-record rule are saved for real."
               className="inline-flex h-5 cursor-help items-center gap-1 rounded-full border border-amber-300/20 bg-amber-300/8 px-2 text-[10px] font-medium uppercase tracking-wider text-amber-200/90"
             >
-              <FlaskConical className="size-3" /> {data?.calendar_connected ? "Demo calendar" : "Calendar sync simulated"}
+              <FlaskConical className="size-3" /> Demo calendar · sync simulated
             </span>
-          </p>
+          </div>
         </div>
         <div className="flex flex-col gap-1.5">
           <span className="px-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/70">Auto-record</span>
@@ -380,24 +383,33 @@ function NowLine({ startHour, tz, now }: { startHour: number; tz: string; now: n
   );
 }
 
-function RecordControl({ ev, onRecord }: { ev: CalendarEvent; onRecord: (ev: CalendarEvent, r: boolean | null) => void }) {
+function RecordControl({
+  ev,
+  onRecord,
+  compact = false,
+}: {
+  ev: CalendarEvent;
+  onRecord: (ev: CalendarEvent, r: boolean | null) => void;
+  compact?: boolean;
+}) {
   return (
-    <div className="flex items-center gap-2">
-      {ev.record_override !== null && (
-        <button
-          type="button"
-          onClick={() => onRecord(ev, null)}
-          title="Follow the auto-record rule again"
-          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
-        >
-          <RotateCcw className="size-3" /> Rule
-        </button>
-      )}
+    <div className="flex shrink-0 flex-col items-end gap-1.5">
       <Switch
         checked={ev.record}
         onCheckedChange={(c) => onRecord(ev, c)}
         aria-label={ev.record ? `Don't record ${ev.title}` : `Record ${ev.title}`}
       />
+      {ev.record_override !== null && (
+        <button
+          type="button"
+          onClick={() => onRecord(ev, null)}
+          title="Clear this meeting's override and follow your auto-record rule"
+          aria-label={`Use auto-record rule for ${ev.title}`}
+          className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border border-white/10 px-2 py-0.5 text-[11px] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground"
+        >
+          <RotateCcw className="size-3" /> {compact ? "Use rule" : "Use auto-record rule"}
+        </button>
+      )}
     </div>
   );
 }
@@ -534,7 +546,7 @@ function EventRow({
           </button>
         )}
       </div>
-      <RecordControl ev={ev} onRecord={onRecord} />
+      <RecordControl ev={ev} onRecord={onRecord} compact />
     </li>
   );
 }

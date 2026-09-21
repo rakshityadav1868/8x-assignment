@@ -186,20 +186,27 @@ export function LibraryView({
     return r.updated;
   };
 
+  // Writes are applied optimistically and never followed by a list re-read: on Vercel the next GET can land on a
+  // different (demo-mode, in-memory) instance and resurrect stale state. The list refetches only on navigation.
   const restore = async (ids: string[], quiet = false) => {
+    const snapshot = data;
+    if (filters.trash) removeLocal(ids);
     try {
       if (ids.length === 1) await api<UpdateMeetingResponse>(ROUTES.api.meeting(ids[0]), { method: "PATCH", json: { deleted: false } });
       else await bulk(ids, "restore");
-      if (filters.trash) removeLocal(ids);
-      invalidate("meetings", "folders");
+      invalidate("folders");
       if (!quiet) toast.success(ids.length === 1 ? "Call restored" : `${ids.length} calls restored`);
+      return true;
     } catch (e) {
+      setData(snapshot);
       toast.error("Couldn't restore", { description: errorMessage(e) });
+      return false;
     }
   };
 
   const trash = async (ids: string[]) => {
     const snapshot = data;
+    const removed = (data?.meetings ?? []).filter((m) => ids.includes(m.id));
     removeLocal(ids);
     setSelected(new Set());
     try {
@@ -208,7 +215,17 @@ export function LibraryView({
       invalidate("folders");
       toast(ids.length === 1 ? "Moved to trash" : `${ids.length} calls moved to trash`, {
         description: "Restore anytime from the Trash filter.",
-        action: { label: "Undo", onClick: () => void restore(ids, true).then(reload) },
+        action: {
+          label: "Undo",
+          onClick: () => {
+            // Put the rows straight back (sorted by applyFilters), then persist; roll back if the write fails.
+            setData((d) => (d ? { ...d, meetings: [...d.meetings.filter((m) => !ids.includes(m.id)), ...removed] } : d));
+            void restore(ids, true).then((ok) => {
+              if (ok) toast.success(ids.length === 1 ? "Call restored" : `${ids.length} calls restored`);
+              else removeLocal(ids);
+            });
+          },
+        },
       });
     } catch (e) {
       setData(snapshot);

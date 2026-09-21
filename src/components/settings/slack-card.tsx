@@ -105,7 +105,7 @@ export function SlackCard() {
         ) : cfg?.connected ? (
           <div className="grid gap-3">
             <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5 text-muted-foreground">
+              <span className="inline-flex min-w-0 max-w-full flex-wrap items-center gap-1 break-all rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5 text-muted-foreground">
                 <Hash className="size-3" /> {cfg.channel_label ?? "Channel"} ·{" "}
                 <code className="font-mono text-[11px] text-foreground/70">{cfg.webhook_url_masked}</code>
               </span>

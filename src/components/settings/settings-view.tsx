@@ -55,6 +55,7 @@ export function SettingsView({ capabilities, initialTab }: { capabilities: Capab
               role="tab"
               type="button"
               aria-selected={tab === t.key}
+              ref={tab === t.key ? (el) => el?.scrollIntoView({ block: "nearest", inline: "nearest" }) : undefined}
               onClick={() => select(t.key)}
               className={cn(
                 "relative -mb-px inline-flex shrink-0 items-center gap-1.5 px-3 pb-2.5 pt-1 text-sm text-muted-foreground transition-colors hover:text-foreground",

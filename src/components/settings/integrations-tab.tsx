@@ -32,7 +32,7 @@ export function IntegrationsTab() {
   return (
     <>
       <Section title="Automations" desc="These work today on this deployment — paste a URL and they send real requests.">
-        <div className="grid gap-3">
+        <div className="grid min-w-0 grid-cols-1 gap-3">
           <WebhooksCard />
           <SlackCard />
         </div>
@@ -42,7 +42,7 @@ export function IntegrationsTab() {
         title="CRM"
         desc="Preview exactly which fields Fanthom would write from a call. Syncing is simulated and logged until OAuth is connected."
       >
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {(Object.keys(CRM) as CrmProvider[]).map((p) => (
             <CrmCard key={p} provider={p} />
           ))}
@@ -51,7 +51,7 @@ export function IntegrationsTab() {
       </Section>
 
       <Section title="Meeting platforms & calendars" desc="Honest status: these need OAuth apps that aren't configured on this demo.">
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {STUBS.map((i) => (
             <div key={i.name} className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.02] p-3.5">
               <Monogram mono={i.mono} tint={i.tint} />

@@ -16,14 +16,14 @@ export function Section({
 }) {
   return (
     <section className="mt-10 first:mt-8">
-      <div className="flex items-end justify-between gap-3">
-        <div>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="min-w-0">
           <h2 className="text-[15px] font-semibold tracking-tight">{title}</h2>
           {desc && <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>}
         </div>
         {action}
       </div>
-      <div className="mt-4">{children}</div>
+      <div className="mt-4 min-w-0">{children}</div>
     </section>
   );
 }
@@ -41,7 +41,7 @@ export function Row({ label, hint, children }: { label: string; hint?: React.Rea
 }
 
 export function Card({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={cn("rounded-2xl border border-white/8 bg-white/[0.02] p-4", className)}>{children}</div>;
+  return <div className={cn("min-w-0 max-w-full rounded-2xl border border-white/8 bg-white/[0.02] p-4", className)}>{children}</div>;
 }
 
 export function Monogram({ mono, tint, icon: Icon }: { mono?: string; tint: string; icon?: LucideIcon }) {

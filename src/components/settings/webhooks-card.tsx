@@ -75,18 +75,18 @@ export function WebhooksCard() {
     <Card className="p-0">
       <div className="flex flex-wrap items-start gap-3 p-4">
         <Monogram tint="#60a5fa" icon={WebhookIcon} />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 basis-52">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-sm font-medium">Webhooks</p>
             <StatusChip tone="live">Real</StatusChip>
           </div>
-          <p className="mt-0.5 text-xs text-muted-foreground">
+          <p className="mt-0.5 break-words text-xs text-muted-foreground">
             POST a JSON payload to Zapier, Make or your own endpoint when a call is ready. Signed with{" "}
-            <code className="font-mono text-[11px]">X-Fanthom-Signature</code> (HMAC-SHA256).
+            <code className="break-all font-mono text-[11px]">X-Fanthom-Signature</code> (HMAC-SHA256).
           </p>
         </div>
         {!adding && (
-          <Button size="sm" variant="outline" className="rounded-full" onClick={() => setAdding(true)}>
+          <Button size="sm" variant="outline" className="shrink-0 rounded-full" onClick={() => setAdding(true)}>
             <Plus /> Add endpoint
           </Button>
         )}
@@ -261,10 +261,10 @@ function WebhookRow({ w, onChange, onDelete }: { w: Webhook; onChange: (w: Webho
 
   const ok = w.last_status !== null && w.last_status >= 200 && w.last_status < 300;
   return (
-    <li className="p-4">
-      <div className="flex items-start gap-3">
+    <li className="min-w-0 p-4">
+      <div className="flex min-w-0 items-start gap-3">
         <div className="min-w-0 flex-1">
-          <p className="truncate font-mono text-[13px]">{w.url}</p>
+          <p className="break-all font-mono text-[13px]">{w.url}</p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
             {w.description && <span className="mr-1">{w.description}</span>}
             {w.events.map((e) => (
