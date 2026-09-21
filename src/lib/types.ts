@@ -294,6 +294,8 @@ export interface MeetingDetail {
   action_items: ActionItem[];
   highlights: Highlight[]; // ordered by start_ms
   chapters: Chapter[]; // ordered by start_ms
+  /** Cached AI decisions (additive, optional). Seed files always carry it; absent/undefined = never generated. */
+  decisions?: Decision[];
 }
 
 /** Public-safe clip payload for /clip/[token]. */
@@ -369,4 +371,21 @@ export interface Capabilities {
   ai_mode: AiMode; // "live" iff ANTHROPIC_API_KEY is set
   transcription: boolean; // true iff DEEPGRAM_API_KEY (or ASSEMBLYAI_API_KEY) is set
   data_mode: DataMode;
+}
+
+// ---------------------------------------------------------------------------
+// Seed data file format (keyless demo mode) — see ARCHITECTURE.md §3 "Seed data files"
+// ---------------------------------------------------------------------------
+
+/** `src/data/seed/meetings/<slug>.json` — one file per meeting. */
+export interface SeedMeetingFile extends MeetingDetail {
+  decisions: Decision[];
+}
+
+/** `src/data/seed/workspace.json` */
+export interface SeedWorkspaceFile {
+  workspace: Workspace;
+  user: User;
+  upcoming: UpcomingMeeting[];
+  playlists: (Playlist & { items: PlaylistItem[] })[];
 }

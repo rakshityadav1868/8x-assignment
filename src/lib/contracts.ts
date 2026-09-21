@@ -233,6 +233,12 @@ export const UpcomingMeetingSchema = z.object({
   meeting_type: MeetingTypeSchema,
 }) satisfies z.ZodType<UpcomingMeeting>;
 
+export const DecisionSchema = z.object({
+  text: z.string().min(1),
+  start_ms: ms,
+  participant_id: id.nullable(),
+}) satisfies z.ZodType<Decision>;
+
 export const MeetingDetailSchema = z.object({
   meeting: MeetingSchema,
   participants: z.array(ParticipantSchema),
@@ -241,6 +247,7 @@ export const MeetingDetailSchema = z.object({
   action_items: z.array(ActionItemSchema),
   highlights: z.array(HighlightSchema),
   chapters: z.array(ChapterSchema),
+  decisions: z.array(DecisionSchema).optional(), // additive (phase 1)
 }) satisfies z.ZodType<MeetingDetail>;
 
 export const ClipDetailSchema = z.object({
@@ -278,12 +285,6 @@ export const SearchHitSchema = z.object({
   start_ms: ms,
   rank: z.number(),
 }) satisfies z.ZodType<SearchHit>;
-
-export const DecisionSchema = z.object({
-  text: z.string().min(1),
-  start_ms: ms,
-  participant_id: id.nullable(),
-}) satisfies z.ZodType<Decision>;
 
 export const CommitmentSchema = z.object({
   text: z.string().min(1),

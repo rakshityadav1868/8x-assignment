@@ -1,0 +1,504 @@
+{
+  "meeting": {
+    "id": "m_fixture-a",
+    "workspace_id": "ws_fanthom-demo",
+    "title": "Acme Logistics <> Fanthom: Discovery Call",
+    "meeting_type": "sales",
+    "scheduled_start": "2026-09-19T16:00:00.000Z",
+    "scheduled_end": "2026-09-19T16:30:00.000Z",
+    "recording_start": "2026-09-19T16:00:00.000Z",
+    "recording_end": "2026-09-19T16:02:54.000Z",
+    "duration_sec": 174,
+    "media_url": "/media/fixture-a.m4a",
+    "media_kind": "audio",
+    "status": "ready",
+    "processing_stage": "ready",
+    "processing_error": null,
+    "transcript_language": "en",
+    "share_token": "demo-fixture-a",
+    "share_access": "anyone_with_link",
+    "recorded_by": "Maya Chen",
+    "synthetic": true,
+    "created_at": "2026-09-19T16:02:54.000Z"
+  },
+  "participants": [
+    {
+      "id": "p_fixture-a_maya",
+      "meeting_id": "m_fixture-a",
+      "name": "Maya Chen",
+      "email": "maya@fanthom.dev",
+      "is_external": false,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "p_fixture-a_rachel",
+      "meeting_id": "m_fixture-a",
+      "name": "Rachel Moreno",
+      "email": "rachel.moreno@acmelogistics.com",
+      "is_external": true,
+      "color": "#f59e0b"
+    },
+    {
+      "id": "p_fixture-a_dev",
+      "meeting_id": "m_fixture-a",
+      "name": "Dev Patel",
+      "email": "dev.patel@acmelogistics.com",
+      "is_external": true,
+      "color": "#10b981"
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_fixture-a_0000",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 1200,
+      "end_ms": 11200,
+      "text": "Thanks for making the time today, Rachel and Dev. My goal is to understand how your team runs customer calls today and whether Fanthom is a fit."
+    },
+    {
+      "id": "seg_fixture-a_0001",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 11850,
+      "end_ms": 20369,
+      "text": "Happy to. Quick context: we run about forty carrier and shipper calls a week across the operations team, and nobody takes consistent notes."
+    },
+    {
+      "id": "seg_fixture-a_0002",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 21019,
+      "end_ms": 30649,
+      "text": "The biggest problem is that follow-ups fall through the cracks. A shipper asks for a rate change, and two weeks later nobody remembers who owned it."
+    },
+    {
+      "id": "seg_fixture-a_0003",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 31299,
+      "end_ms": 37225,
+      "text": "How are you capturing notes right now? Is it a shared doc, the CRM, something else?"
+    },
+    {
+      "id": "seg_fixture-a_0004",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_dev",
+      "start_ms": 37875,
+      "end_ms": 46023,
+      "text": "Mostly a shared Google Doc per account, plus whatever people remember to paste into HubSpot. Honestly it's pretty manual and it's slow."
+    },
+    {
+      "id": "seg_fixture-a_0005",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_dev",
+      "start_ms": 46673,
+      "end_ms": 52969,
+      "text": "I spend maybe three hours a week just cleaning up call notes before our Monday pipeline review."
+    },
+    {
+      "id": "seg_fixture-a_0006",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 53619,
+      "end_ms": 58804,
+      "text": "That's really common. What would good look like for you six months from now?"
+    },
+    {
+      "id": "seg_fixture-a_0007",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 59454,
+      "end_ms": 67973,
+      "text": "Every call has a summary and action items in HubSpot within five minutes, and I can search across calls when a customer escalates."
+    },
+    {
+      "id": "seg_fixture-a_0008",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 68623,
+      "end_ms": 73808,
+      "text": "Got it. And who else would be involved in evaluating a tool like this?"
+    },
+    {
+      "id": "seg_fixture-a_0009",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 74458,
+      "end_ms": 82236,
+      "text": "I own the budget for ops tooling, but our security team has to sign off, and Dev will run the pilot."
+    },
+    {
+      "id": "seg_fixture-a_0010",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_dev",
+      "start_ms": 82886,
+      "end_ms": 89553,
+      "text": "Security will want to see your SOC 2 report and data retention settings before anything touches customer calls."
+    },
+    {
+      "id": "seg_fixture-a_0011",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 90203,
+      "end_ms": 96129,
+      "text": "Totally fair. I can send the SOC 2 report and our DPA today after this call."
+    },
+    {
+      "id": "seg_fixture-a_0012",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 96779,
+      "end_ms": 101594,
+      "text": "What does pricing look like for a team of about twenty five people?"
+    },
+    {
+      "id": "seg_fixture-a_0013",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 102244,
+      "end_ms": 111503,
+      "text": "For twenty five seats on the Team plan you'd be around nineteen dollars per seat per month, billed annually, with volume discounts above fifty seats."
+    },
+    {
+      "id": "seg_fixture-a_0014",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 112153,
+      "end_ms": 122153,
+      "text": "That's within what we budgeted for this quarter. My concern is adoption. We tried a notes tool last year and people stopped using it after a month."
+    },
+    {
+      "id": "seg_fixture-a_0015",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 122803,
+      "end_ms": 132803,
+      "text": "That's the right concern. Fanthom joins automatically from the calendar, so nobody has to remember to start it. Most teams see ninety percent coverage in week one."
+    },
+    {
+      "id": "seg_fixture-a_0016",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_dev",
+      "start_ms": 133453,
+      "end_ms": 139379,
+      "text": "Can we run a pilot with the dispatch team first? Maybe ten people for two weeks."
+    },
+    {
+      "id": "seg_fixture-a_0017",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 140029,
+      "end_ms": 150399,
+      "text": "Yes, let's do that. I'll set up a two week pilot for ten seats starting next Monday, and I'll schedule a check-in at the end of week one."
+    },
+    {
+      "id": "seg_fixture-a_0018",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_rachel",
+      "start_ms": 151049,
+      "end_ms": 158456,
+      "text": "Great. We decided to target a go or no-go decision by the end of the month, so that timeline works."
+    },
+    {
+      "id": "seg_fixture-a_0019",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_dev",
+      "start_ms": 159106,
+      "end_ms": 164662,
+      "text": "I'll send over the list of pilot users and our HubSpot admin contact by Friday."
+    },
+    {
+      "id": "seg_fixture-a_0020",
+      "meeting_id": "m_fixture-a",
+      "participant_id": "p_fixture-a_maya",
+      "start_ms": 165312,
+      "end_ms": 171238,
+      "text": "Perfect. Thanks both, I'll follow up with the security docs and the pilot plan this afternoon."
+    }
+  ],
+  "summaries": [
+    {
+      "id": "sum_fixture-a_sales_en",
+      "meeting_id": "m_fixture-a",
+      "template": "sales",
+      "language": "en",
+      "markdown": "## Prospect background\n- Acme Logistics' operations team runs ~40 carrier and shipper calls per week with no consistent note-taking. ([00:11](#t=11))\n- Rachel owns the ops tooling budget; Dev Patel will run the pilot. ([01:14](#t=74))\n\n## Pain points\n- Follow-ups fall through the cracks — ownership of shipper requests (e.g. rate changes) gets lost. ([00:21](#t=21))\n- Dev spends ~3 hours a week cleaning call notes before the Monday pipeline review. ([00:46](#t=46))\n\n## Current solution\n- A shared Google Doc per account plus manual copy-paste into HubSpot. ([00:37](#t=37))\n\n## Objections & concerns\n- Adoption risk: a previous notes tool was abandoned after a month. ([01:52](#t=112))\n- Security must review the SOC 2 report and data retention before rollout. ([01:22](#t=82))\n\n## Pricing & budget\n- Team plan quoted at ~$19/seat/month billed annually for 25 seats; within this quarter's budget. ([01:42](#t=102))\n\n## Next steps\n- Maya sends the SOC 2 report and DPA today. ([01:30](#t=90))\n- Two-week, 10-seat pilot with the dispatch team starting next Monday; check-in after week one. ([02:20](#t=140))\n- Dev sends pilot user list and HubSpot admin contact by Friday. ([02:39](#t=159))",
+      "sections": [
+        {
+          "heading": "Prospect background",
+          "bullets": [
+            {
+              "text": "Acme Logistics' operations team runs ~40 carrier and shipper calls per week with no consistent note-taking.",
+              "start_ms": 11850
+            },
+            {
+              "text": "Rachel owns the ops tooling budget; Dev Patel will run the pilot.",
+              "start_ms": 74458
+            }
+          ]
+        },
+        {
+          "heading": "Pain points",
+          "bullets": [
+            {
+              "text": "Follow-ups fall through the cracks — ownership of shipper requests (e.g. rate changes) gets lost.",
+              "start_ms": 21019
+            },
+            {
+              "text": "Dev spends ~3 hours a week cleaning call notes before the Monday pipeline review.",
+              "start_ms": 46673
+            }
+          ]
+        },
+        {
+          "heading": "Current solution",
+          "bullets": [
+            {
+              "text": "A shared Google Doc per account plus manual copy-paste into HubSpot.",
+              "start_ms": 37875
+            }
+          ]
+        },
+        {
+          "heading": "Objections & concerns",
+          "bullets": [
+            {
+              "text": "Adoption risk: a previous notes tool was abandoned after a month.",
+              "start_ms": 112153
+            },
+            {
+              "text": "Security must review the SOC 2 report and data retention before rollout.",
+              "start_ms": 82886
+            }
+          ]
+        },
+        {
+          "heading": "Pricing & budget",
+          "bullets": [
+            {
+              "text": "Team plan quoted at ~$19/seat/month billed annually for 25 seats; within this quarter's budget.",
+              "start_ms": 102244
+            }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            {
+              "text": "Maya sends the SOC 2 report and DPA today.",
+              "start_ms": 90203
+            },
+            {
+              "text": "Two-week, 10-seat pilot with the dispatch team starting next Monday; check-in after week one.",
+              "start_ms": 140029
+            },
+            {
+              "text": "Dev sends pilot user list and HubSpot admin contact by Friday.",
+              "start_ms": 159106
+            }
+          ]
+        }
+      ],
+      "custom_instructions": null,
+      "created_at": "2026-09-19T16:03:54.000Z"
+    },
+    {
+      "id": "sum_fixture-a_general_en",
+      "meeting_id": "m_fixture-a",
+      "template": "general",
+      "language": "en",
+      "markdown": "## Meeting purpose\n- Discovery call to understand how Acme's ops team handles customer calls and whether Fanthom fits. ([00:01](#t=1))\n\n## Topics discussed\n- Current note-taking process and its cost in time. ([00:31](#t=31))\n- Success criteria: summaries and action items in HubSpot within five minutes, searchable across calls. ([00:59](#t=59))\n- Pricing for 25 seats and adoption concerns. ([01:36](#t=96))\n\n## Key takeaways\n- Budget is available this quarter; security sign-off is the main gate. ([01:42](#t=102))\n- Go / no-go decision targeted for the end of the month. ([02:31](#t=151))\n\n## Next steps\n- Security docs from Maya today; pilot kicks off next Monday. ([02:20](#t=140))",
+      "sections": [
+        {
+          "heading": "Meeting purpose",
+          "bullets": [
+            {
+              "text": "Discovery call to understand how Acme's ops team handles customer calls and whether Fanthom fits.",
+              "start_ms": 1200
+            }
+          ]
+        },
+        {
+          "heading": "Topics discussed",
+          "bullets": [
+            {
+              "text": "Current note-taking process and its cost in time.",
+              "start_ms": 31299
+            },
+            {
+              "text": "Success criteria: summaries and action items in HubSpot within five minutes, searchable across calls.",
+              "start_ms": 59454
+            },
+            {
+              "text": "Pricing for 25 seats and adoption concerns.",
+              "start_ms": 96779
+            }
+          ]
+        },
+        {
+          "heading": "Key takeaways",
+          "bullets": [
+            {
+              "text": "Budget is available this quarter; security sign-off is the main gate.",
+              "start_ms": 102244
+            },
+            {
+              "text": "Go / no-go decision targeted for the end of the month.",
+              "start_ms": 151049
+            }
+          ]
+        },
+        {
+          "heading": "Next steps",
+          "bullets": [
+            {
+              "text": "Security docs from Maya today; pilot kicks off next Monday.",
+              "start_ms": 140029
+            }
+          ]
+        }
+      ],
+      "custom_instructions": null,
+      "created_at": "2026-09-19T16:03:53.000Z"
+    }
+  ],
+  "action_items": [
+    {
+      "id": "ai_fixture-a_0",
+      "meeting_id": "m_fixture-a",
+      "description": "Send SOC 2 report and DPA to Acme security",
+      "assignee_participant_id": "p_fixture-a_maya",
+      "timestamp_ms": 90203,
+      "completed": false,
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    },
+    {
+      "id": "ai_fixture-a_1",
+      "meeting_id": "m_fixture-a",
+      "description": "Set up a two-week, 10-seat pilot for the dispatch team starting next Monday",
+      "assignee_participant_id": "p_fixture-a_maya",
+      "timestamp_ms": 140029,
+      "completed": false,
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    },
+    {
+      "id": "ai_fixture-a_2",
+      "meeting_id": "m_fixture-a",
+      "description": "Schedule pilot check-in at the end of week one",
+      "assignee_participant_id": "p_fixture-a_maya",
+      "timestamp_ms": 140029,
+      "completed": false,
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    },
+    {
+      "id": "ai_fixture-a_3",
+      "meeting_id": "m_fixture-a",
+      "description": "Send pilot user list and HubSpot admin contact by Friday",
+      "assignee_participant_id": "p_fixture-a_dev",
+      "timestamp_ms": 159106,
+      "completed": false,
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    }
+  ],
+  "highlights": [
+    {
+      "id": "hl_fixture-a_0",
+      "meeting_id": "m_fixture-a",
+      "start_ms": 21019,
+      "end_ms": 31299,
+      "type": "pain_point",
+      "title": "Follow-ups fall through the cracks",
+      "note": null,
+      "share_token": "clip-fixture-a-0",
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    },
+    {
+      "id": "hl_fixture-a_1",
+      "meeting_id": "m_fixture-a",
+      "start_ms": 46673,
+      "end_ms": 53619,
+      "type": "pain_point",
+      "title": "3 hours a week cleaning up notes",
+      "note": null,
+      "share_token": "clip-fixture-a-1",
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    },
+    {
+      "id": "hl_fixture-a_2",
+      "meeting_id": "m_fixture-a",
+      "start_ms": 96779,
+      "end_ms": 112153,
+      "type": "question",
+      "title": "Pricing for 25 seats",
+      "note": null,
+      "share_token": "clip-fixture-a-2",
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    },
+    {
+      "id": "hl_fixture-a_3",
+      "meeting_id": "m_fixture-a",
+      "start_ms": 151049,
+      "end_ms": 159106,
+      "type": "decision",
+      "title": "Go / no-go by end of month",
+      "note": null,
+      "share_token": "clip-fixture-a-3",
+      "user_generated": false,
+      "created_at": "2026-09-19T16:02:54.000Z"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch_fixture-a_0",
+      "meeting_id": "m_fixture-a",
+      "title": "Intro & current process",
+      "start_ms": 0,
+      "end_ms": 53619,
+      "summary": "How Acme's ops team runs and documents ~40 calls a week today."
+    },
+    {
+      "id": "ch_fixture-a_1",
+      "meeting_id": "m_fixture-a",
+      "title": "Goals & stakeholders",
+      "start_ms": 53619,
+      "end_ms": 96779,
+      "summary": "What success looks like and who signs off (budget, security, pilot owner)."
+    },
+    {
+      "id": "ch_fixture-a_2",
+      "meeting_id": "m_fixture-a",
+      "title": "Pricing & adoption",
+      "start_ms": 96779,
+      "end_ms": 133453,
+      "summary": "Team plan pricing and concerns about adoption after a failed previous tool."
+    },
+    {
+      "id": "ch_fixture-a_3",
+      "meeting_id": "m_fixture-a",
+      "title": "Pilot plan & next steps",
+      "start_ms": 133453,
+      "end_ms": 174000,
+      "summary": "Two-week dispatch pilot, security docs, decision by end of month."
+    }
+  ],
+  "decisions": [
+    {
+      "text": "Run a two-week, 10-seat pilot with the dispatch team starting next Monday.",
+      "start_ms": 140029,
+      "participant_id": "p_fixture-a_maya"
+    },
+    {
+      "text": "Make a go / no-go decision by the end of the month.",
+      "start_ms": 151049,
+      "participant_id": "p_fixture-a_rachel"
+    }
+  ]
+}

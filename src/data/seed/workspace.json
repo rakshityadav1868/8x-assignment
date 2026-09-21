@@ -1,0 +1,59 @@
+{
+  "workspace": {
+    "id": "ws_fanthom-demo",
+    "name": "Fanthom Demo",
+    "domain": "fanthom.dev"
+  },
+  "user": {
+    "id": "u_maya",
+    "workspace_id": "ws_fanthom-demo",
+    "name": "Maya Chen",
+    "email": "maya@fanthom.dev"
+  },
+  "upcoming": [
+    {
+      "id": "up_1",
+      "title": "Acme Logistics — Pilot Kickoff",
+      "start": "2026-09-22T11:00:00.000Z",
+      "end": "2026-09-22T11:30:00.000Z",
+      "attendees": [
+        {
+          "name": "Maya Chen",
+          "email": "maya@fanthom.dev",
+          "is_external": false
+        },
+        {
+          "name": "Dev Patel",
+          "email": "dev.patel@acmelogistics.com",
+          "is_external": true
+        }
+      ],
+      "meeting_type": "sales"
+    }
+  ],
+  "playlists": [
+    {
+      "id": "pl_customer-pain",
+      "workspace_id": "ws_fanthom-demo",
+      "name": "Customer pain points",
+      "description": "Clips of customers describing their problems.",
+      "created_at": "2026-09-21T09:00:00.000Z",
+      "items": [
+        {
+          "id": "pli_1",
+          "playlist_id": "pl_customer-pain",
+          "meeting_id": null,
+          "highlight_id": "hl_fixture-a_0",
+          "position": 0
+        },
+        {
+          "id": "pli_2",
+          "playlist_id": "pl_customer-pain",
+          "meeting_id": null,
+          "highlight_id": "hl_fixture-a_1",
+          "position": 1
+        }
+      ]
+    }
+  ]
+}
