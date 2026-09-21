@@ -4,6 +4,7 @@ import { getRepo } from "@/lib/db";
 import { getCapabilities } from "@/lib/capabilities";
 import { CallView } from "@/components/call/call-view";
 import { ROUTES } from "@/lib/routes";
+import { withDefaultSummary } from "@/lib/server/summaries";
 
 export const dynamic = "force-dynamic";
 
@@ -17,8 +18,9 @@ export async function generateMetadata(props: PageProps<"/calls/[id]">): Promise
 
 export default async function CallPage(props: PageProps<"/calls/[id]">) {
   const [{ id }, sp] = await Promise.all([props.params, props.searchParams]);
-  const detail = await getRepo().getMeetingDetail(id);
-  if (!detail) notFound();
+  const raw = await getRepo().getMeetingDetail(id);
+  if (!raw) notFound();
+  const detail = await withDefaultSummary(raw);
   const tRaw = Array.isArray(sp.t) ? sp.t[0] : sp.t;
   const t = tRaw != null && /^\d+(\.\d+)?$/.test(tRaw) ? Number(tRaw) : null;
   const caps = getCapabilities();

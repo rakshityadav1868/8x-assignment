@@ -124,6 +124,8 @@ export function CallProvider({
   const [tab, setTab] = useState<CallTab>(initialTab);
   const [aiMode, setAiMode] = useState<AiMode>(initialAiMode);
   const [summaryTemplate, setSummaryTemplate] = useState<SummaryTemplateKey>(() => {
+    // Server picks the prefs-aware default (user's default template when cached, else meeting-type default).
+    if (detail.default_summary_template) return detail.default_summary_template;
     const def = defaultTemplateFor(detail.meeting.meeting_type);
     if (detail.summaries.some((s) => s.template === def && s.language === "en")) return def;
     return detail.summaries[0]?.template ?? def;

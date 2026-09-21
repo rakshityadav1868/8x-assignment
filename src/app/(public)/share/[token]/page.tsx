@@ -4,6 +4,7 @@ import { getRepo } from "@/lib/db";
 import { ShareView } from "@/components/public/share-view";
 import { getCapabilities } from "@/lib/capabilities";
 import { PublicGate } from "@/components/public/gate";
+import { withDefaultSummary } from "@/lib/server/summaries";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +39,7 @@ export default async function SharePage(props: PageProps<"/share/[token]">) {
   const tRaw = Array.isArray(sp.t) ? sp.t[0] : sp.t;
   const t = tRaw != null && /^\d+(\.\d+)?$/.test(tRaw) ? Number(tRaw) : null;
   // Strip workspace-internal bits the public page doesn't need.
-  const publicDetail = { ...detail, meeting: { ...detail.meeting, share_token: token } };
+  const publicDetail = await withDefaultSummary({ ...detail, meeting: { ...detail.meeting, share_token: token } });
   return (
     <ShareView token={token} detail={publicDetail} initialSeconds={t} sync={getCapabilities().data_mode === "seed"} />
   );
