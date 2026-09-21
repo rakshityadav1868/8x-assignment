@@ -18,6 +18,7 @@ import { formatClock, formatDuration } from "@/lib/ui/format";
 import { shortDate, timeAgo } from "@/lib/ui/time-ago";
 import { TEMPLATE_BY_KEY } from "@/lib/templates";
 import { cn } from "@/lib/utils";
+import { useTimeZone } from "@/components/common/time-zone";
 import { CompanyMark, STAGE_META, formatMoney } from "./deal-bits";
 
 const BANT_LABELS: Record<keyof BantFields, string> = {
@@ -37,9 +38,10 @@ const MEDDPICC_LABELS: Record<keyof MeddpiccFields, string> = {
   competition: "Competition",
 };
 
-export function DealDetailView({ domain }: { domain: string }) {
-  const q = useApi<DealResponse>(ROUTES.api.deal(domain));
+export function DealDetailView({ domain, initial = null }: { domain: string; initial?: CompanyDetail | null }) {
+  const q = useApi<DealResponse>(ROUTES.api.deal(domain), initial ? { company: initial } : null);
   const c = q.data?.company;
+  const tz = useTimeZone();
 
   const patch = async (body: UpdateDealRequest, label: string) => {
     try {
@@ -98,7 +100,7 @@ export function DealDetailView({ domain }: { domain: string }) {
             <CompanyMark name={c.name} domain={c.domain} size="lg" />
             <span className="min-w-0">
               <span className="block truncate">{c.name}</span>
-              <span className="block text-xs font-normal tracking-normal text-muted-foreground">
+              <span className="block text-xs font-normal tracking-normal text-muted-foreground" suppressHydrationWarning>
                 {c.domain} · {c.meeting_count} {c.meeting_count === 1 ? "call" : "calls"} · last {timeAgo(c.last_meeting_at)}
               </span>
             </span>
@@ -141,7 +143,7 @@ export function DealDetailView({ domain }: { domain: string }) {
         <FieldCard label="Close date">
           <InlineEdit
             value={c.fields.close_date ?? ""}
-            display={c.fields.close_date ? shortDate(c.fields.close_date, true) : "—"}
+            display={c.fields.close_date ? shortDate(c.fields.close_date, true, tz) : "—"}
             type="date"
             onSave={(v) => patch({ close_date: v || null }, "Close date")}
             className="text-lg font-semibold"
@@ -372,6 +374,7 @@ function QualField({ label, value, onSave }: { label: string; value: string | nu
 }
 
 function Timeline({ c }: { c: CompanyDetail }) {
+  const tz = useTimeZone();
   if (c.timeline.length === 0) return <p className="text-sm text-muted-foreground">No calls yet.</p>;
   const byId = new Map(c.meetings.map((m) => [m.id, m]));
   return (
@@ -393,7 +396,7 @@ function Timeline({ c }: { c: CompanyDetail }) {
               <MeetingTypeBadge type={t.meeting_type} />
             </div>
             <p className="mt-0.5 text-xs text-muted-foreground">
-              {shortDate(t.date, true)}
+              {shortDate(t.date, true, tz)}
               {m && ` · ${formatDuration(m.duration_sec)} · ${m.participants.length} people`}
             </p>
             {t.headline && <p className="mt-1.5 text-[13px] leading-relaxed text-white/80">{t.headline}</p>}

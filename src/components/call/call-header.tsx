@@ -224,10 +224,8 @@ const DOWNLOADS: { format: string; label: string; ext: string }[] = [
 
 function DownloadsSub({ meetingId, hasMedia, template }: { meetingId: string; hasMedia: boolean; template: string }) {
   const item = (href: string, children: React.ReactNode) => (
-    <DropdownMenuItem asChild key={href}>
-      <a href={href} download>
-        {children}
-      </a>
+    <DropdownMenuItem key={href} onSelect={() => void downloadFile(href)}>
+      {children}
     </DropdownMenuItem>
   );
   return (
@@ -264,4 +262,59 @@ function DownloadsSub({ meetingId, hasMedia, template }: { meetingId: string; ha
       </DropdownMenuSubContent>
     </DropdownMenuSub>
   );
+}
+
+/** Filename from Content-Disposition (RFC 5987 `filename*` first), else the URL's last path segment. */
+function filenameFrom(res: Response, fallbackUrl: string): string {
+  const cd = res.headers.get("content-disposition") ?? "";
+  const star = /filename\*\s*=\s*(?:UTF-8'')?([^;]+)/i.exec(cd);
+  if (star) {
+    try {
+      return decodeURIComponent(star[1].trim().replace(/^"|"$/g, ""));
+    } catch {
+      /* fall through */
+    }
+  }
+  const plain = /filename\s*=\s*"?([^";]+)"?/i.exec(cd);
+  if (plain) return plain[1].trim();
+  try {
+    const last = new URL(res.url || fallbackUrl, window.location.href).pathname.split("/").pop();
+    if (last) return decodeURIComponent(last);
+  } catch {
+    /* ignore */
+  }
+  return "download";
+}
+
+/**
+ * Fetch the file first so a failed export shows a toast instead of the browser saving an error page as the file.
+ * (`recording` 302-redirects to the media URL; fetch follows it.)
+ */
+async function downloadFile(href: string) {
+  const id = toast.loading("Preparing download…");
+  try {
+    const res = await fetch(href, { cache: "no-store" });
+    if (!res.ok) {
+      let msg = `Download failed (${res.status})`;
+      try {
+        const body = (await res.json()) as { error?: string };
+        if (body?.error) msg = body.error;
+      } catch {
+        /* non-JSON */
+      }
+      throw new Error(msg);
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filenameFrom(res, href);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    toast.success(`Downloaded ${a.download}`, { id });
+  } catch (e) {
+    toast.error("Couldn't download", { id, description: e instanceof Error ? e.message : undefined });
+  }
 }

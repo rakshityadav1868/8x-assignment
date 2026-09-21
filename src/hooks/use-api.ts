@@ -13,10 +13,12 @@ export interface ApiState<T> {
 
 /**
  * Minimal GET hook: fetches `url` (null = skip), aborts on change/unmount, exposes reload + local mutation.
+ * Optional `initial` data (from a server component) avoids a loading flash / layout shift on first paint.
  * Keeps the previous data while reloading so views don't flash skeletons on refresh.
  */
-export function useApi<T>(url: string | null): ApiState<T> {
-  const [data, setData] = useState<T | null>(null);
+export function useApi<T>(url: string | null, initial: T | null = null): ApiState<T> {
+  // `initial` (server-rendered) paints immediately; the client still revalidates against the API.
+  const [data, setData] = useState<T | null>(initial);
   const [error, setError] = useState<ApiClientError | Error | null>(null);
   const [loading, setLoading] = useState(!!url);
   const [nonce, setNonce] = useState(0);

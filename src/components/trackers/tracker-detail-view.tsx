@@ -17,12 +17,14 @@ import type { TrackerHit } from "@/lib/types";
 import { alpha, formatClock } from "@/lib/ui/format";
 import { shortDate } from "@/lib/ui/time-ago";
 import { cn } from "@/lib/utils";
+import { useTimeZone } from "@/components/common/time-zone";
 import { TrackerDialog } from "./tracker-dialog";
 import { DeleteTrackerDialog } from "./trackers-view";
 
-export function TrackerDetailView({ id }: { id: string }) {
-  const q = useApi<TrackerHitsResponse>(`${ROUTES.api.trackerHits(id)}?limit=1000`);
+export function TrackerDetailView({ id, initial = null }: { id: string; initial?: TrackerHitsResponse | null }) {
+  const q = useApi<TrackerHitsResponse>(`${ROUTES.api.trackerHits(id)}?limit=1000`, initial);
   const router = useRouter();
+  const tz = useTimeZone();
   const [keyword, setKeyword] = useState<string | null>(null);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -108,7 +110,7 @@ export function TrackerDetailView({ id }: { id: string }) {
       <div className="mt-8 grid grid-cols-3 gap-3">
         <Kpi label="Mentions" value={t.hit_count} />
         <Kpi label="Calls" value={t.meeting_count} />
-        <Kpi label="Last mentioned" value={t.last_hit_at ? shortDate(t.last_hit_at) : "—"} />
+        <Kpi label="Last mentioned" value={t.last_hit_at ? shortDate(t.last_hit_at, false, tz) : "—"} />
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
@@ -151,7 +153,7 @@ export function TrackerDetailView({ id }: { id: string }) {
                 }
                 action={
                   <span className="shrink-0 text-xs text-muted-foreground">
-                    {shortDate(g.first.meeting_date)} · {g.hits.length} {g.hits.length === 1 ? "mention" : "mentions"}
+                    {shortDate(g.first.meeting_date, false, tz)} · {g.hits.length} {g.hits.length === 1 ? "mention" : "mentions"}
                   </span>
                 }
                 bodyClassName="pt-2 sm:pt-2"

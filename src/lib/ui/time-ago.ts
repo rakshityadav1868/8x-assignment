@@ -14,10 +14,17 @@ export function timeAgo(iso: string | null | undefined, now: number = Date.now()
   return new Date(t).toLocaleDateString("en-US", { month: "short", day: "numeric", ...(d > 300 ? { year: "numeric" } : {}) });
 }
 
-/** "Sep 14" / "Sep 14, 2025" — deterministic en-US short date. */
-export function shortDate(iso: string | null | undefined, withYear = false): string {
+/** "Sep 14" / "Sep 14, 2025" — en-US short date; pass `tz` (IANA) for server/client-identical output. */
+export function shortDate(iso: string | null | undefined, withYear = false, tz?: string): string {
   if (!iso) return "—";
   const d = new Date(iso);
   if (!Number.isFinite(d.getTime())) return "—";
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(withYear ? { year: "numeric" } : {}) });
+  // Date-only values ("2027-01-15") are calendar dates: render them in UTC so they never shift a day.
+  const zone = /^\d{4}-\d{2}-\d{2}$/.test(iso) ? "UTC" : tz;
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    ...(withYear ? { year: "numeric" } : {}),
+    ...(zone ? { timeZone: zone } : {}),
+  });
 }

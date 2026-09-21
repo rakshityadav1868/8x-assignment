@@ -127,10 +127,8 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
           />
         </div>
 
-        <div className="order-last min-h-0 lg:order-none lg:col-start-1 lg:row-start-2 lg:overflow-y-auto lg:pb-2 [scrollbar-width:thin]">
-          <CallTimeline />
-        </div>
-
+        {/* DOM order matches the mobile visual order (no `order-*`), so a partially streamed page never paints the
+            timeline above where the tabs panel will land; desktop placement is explicit grid rows/cols. */}
         <Tabs
           value={tab}
           onValueChange={(v) => setTab(v as CallTab)}
@@ -184,6 +182,10 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
             </TabsContent>
           )}
         </Tabs>
+
+        <div className="min-h-0 lg:col-start-1 lg:row-start-2 lg:overflow-y-auto lg:pb-2 [scrollbar-width:thin]">
+          <CallTimeline />
+        </div>
       </div>
 
       <ShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
