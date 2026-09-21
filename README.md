@@ -33,7 +33,7 @@
   Without these, nothing else matters.
 - **P1 covers the next most-used surfaces:** highlights and clips, per-call Ask with citations, real upload-and-transcribe, and the follow-up email.
 - **P2 goes past Fathom for long, crowded calls.** See the next section.
-- **P3 was built last:** playlists, cross-meeting Ask, summary language, and the transcript-edit API.
+- **P3 was built last:** playlists, cross-meeting Ask, summary language, and transcript editing (fix text, reassign a speaker).
 
 **What I stubbed on purpose, and why.**
 
@@ -123,12 +123,13 @@ They worked in parallel against one typed contract (`src/lib/types.ts` + `src/li
 
 ## Known gaps
 
-- Demo-mode edits live in server memory, so they differ between Vercel instances and reset on cold start.
+- Without Supabase keys (demo mode), edits live in server memory. On Vercel, pages and API routes can run on different instances. Pages re-read the API after loading, and new clip links carry their own data so they open anywhere. Even so, edits can differ between instances and reset on cold start. Configuring Supabase removes this.
+- In demo mode, a share link created after revoking one may not resolve on other instances. A deleted clip's link keeps working, because the link carries its own data.
 - Upload processing runs inside the request lifecycle (`after()`), not a durable job queue. Very long files can hit the function time limit.
 - Rate limiting is per instance and in memory, not in a shared store.
 - No real auth. Share access modes other than "anyone with the link" are stored but not enforced against identities.
 - Seed media is audio-only and synthetic. The participant stage stands in for video.
-- Transcript editing exists as an API (`PATCH /api/segments/:id`) but has only a minimal UI.
+- Settings preferences (default template, share defaults) are saved in the browser only and don't yet drive server behaviour.
 
 ## What I'd build next
 
