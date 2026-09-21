@@ -182,7 +182,7 @@
       "workspace_id": "ws_northwind",
       "name": "Customer pain points",
       "description": "What prospects and customers told us hurts — for product and CS.",
-      "created_at": "2026-09-12T05:01:35.622Z",
+      "created_at": "2026-09-12T05:04:35.198Z",
       "items": [
         {
           "id": "pl_customer-pain_item_00",
@@ -247,7 +247,7 @@
       "workspace_id": "ws_northwind",
       "name": "Q4 decisions",
       "description": "Every decision that shapes the Q4 plan, straight from the calls.",
-      "created_at": "2026-09-20T05:01:35.622Z",
+      "created_at": "2026-09-20T05:04:35.198Z",
       "items": [
         {
           "id": "pl_q4-decisions_item_00",
