@@ -6,13 +6,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DemoModeBadge, ErrorState } from "@/components/common/bits";
 import { LogoMark } from "@/components/brand/logo";
+import { RichText } from "@/components/common/rich-text";
 import { useCall } from "@/components/call/call-context";
 import { usePlayerStore } from "@/hooks/use-player";
 import { ROUTES, type AskHistoryResponse, type AskStreamEvent } from "@/lib/contracts";
 import { api, readNdjson } from "@/lib/ui/api";
 import { firstName, formatClock } from "@/lib/ui/format";
 import type { ChatMessage, Citation } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 interface UiMessage {
   id: string;
@@ -202,7 +202,7 @@ function MessageBubble({ m }: { m: UiMessage }) {
             <MessageSquareText className="size-3.5 animate-pulse" /> Reading the transcript…
           </p>
         ) : (
-          <div className="whitespace-pre-wrap text-[13.5px] leading-relaxed text-white/88">
+          <div className="text-[13.5px] leading-relaxed text-white/85">
             <CitedText text={m.content} citations={m.citations} />
             {m.pending && <span className="ml-0.5 inline-block h-3.5 w-1.5 animate-pulse bg-sky-300 align-middle" />}
           </div>
@@ -241,28 +241,23 @@ function CitationChip({ c, label }: { c: Citation; label: string }) {
 
 function CitedText({ text, citations }: { text: string; citations: Citation[] }) {
   const byIndex = new Map(citations.map((c) => [c.index, c]));
-  const parts = text.split(/(\[\d+(?:\s*,\s*\d+)*\])/g);
   return (
-    <>
-      {parts.map((part, i) => {
-        const m = part.match(/^\[(\d+(?:\s*,\s*\d+)*)\]$/);
-        if (!m) return <Fragment key={i}>{part}</Fragment>;
-        const nums = m[1].split(",").map((n) => Number(n.trim()));
-        return (
-          <Fragment key={i}>
-            {nums.map((n) => {
-              const c = byIndex.get(n);
-              return c ? (
-                <CitationChip key={n} c={c} label={formatClock(c.start_ms)} />
-              ) : (
-                <span key={n} className={cn("mx-0.5 font-mono text-[10.5px] text-muted-foreground")}>
-                  [{n}]
-                </span>
-              );
-            })}
-          </Fragment>
-        );
-      })}
-    </>
+    <RichText
+      text={text}
+      renderCitation={(nums, key) => (
+        <Fragment key={key}>
+          {nums.map((n) => {
+            const c = byIndex.get(n);
+            return c ? (
+              <CitationChip key={n} c={c} label={formatClock(c.start_ms)} />
+            ) : (
+              <span key={n} className="mx-0.5 font-mono text-[10.5px] text-muted-foreground">
+                [{n}]
+              </span>
+            );
+          })}
+        </Fragment>
+      )}
+    />
   );
 }

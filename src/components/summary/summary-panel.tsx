@@ -51,9 +51,14 @@ export function SummaryPanel() {
   const inflight = useRef(new Set<string>());
   const key = `${template}|${language}`;
 
+  // Requested (template|language) → summary id actually returned (demo mode can't translate, so it may differ).
+  const [resolved, setResolved] = useState<Record<string, string>>({});
   const current = useMemo(
-    () => summaries.find((s) => s.template === template && s.language === language) ?? null,
-    [summaries, template, language],
+    () =>
+      (resolved[key] ? summaries.find((s) => s.id === resolved[key]) : undefined) ??
+      summaries.find((s) => s.template === template && s.language === language) ??
+      null,
+    [summaries, template, language, resolved, key],
   );
   const cachedTemplates = useMemo(
     () => new Set(summaries.filter((s) => s.language === language).map((s) => s.template)),
@@ -70,6 +75,7 @@ export function SummaryPanel() {
         const cached = await api<GetSummaryResponse>(`${ROUTES.api.summary(meeting.id)}?${q}`);
         if (cached.summary) {
           addSummary(cached.summary);
+          setResolved((prev) => ({ ...prev, [key]: cached.summary!.id }));
           return;
         }
         const gen = await api<RegenerateSummaryResponse>(ROUTES.api.summary(meeting.id), {
@@ -77,6 +83,7 @@ export function SummaryPanel() {
           json: { template, language },
         });
         addSummary(gen.summary);
+        setResolved((prev) => ({ ...prev, [key]: gen.summary.id }));
         noteAiMode(gen.ai_mode);
       } catch (e) {
         setErrors((prev) => ({ ...prev, [key]: e instanceof Error ? e.message : "Failed to generate summary" }));
@@ -95,6 +102,7 @@ export function SummaryPanel() {
         json: { template, language, custom_instructions: instructions.trim() || null, force: true },
       });
       addSummary(gen.summary);
+      setResolved((prev) => ({ ...prev, [key]: gen.summary.id }));
       noteAiMode(gen.ai_mode);
       toast.success("Summary regenerated", { description: `${TEMPLATE_BY_KEY[template].name} · ${LANGUAGE_LABELS[language]}` });
     } catch (e) {
@@ -194,6 +202,12 @@ export function SummaryPanel() {
           <EmptyState icon={Sparkles} title="No summary in this template" description="Pick another template to view shared notes." />
         ) : (
           <article className="animate-rise space-y-6">
+            {current.language !== language && (
+              <p className="rounded-lg border border-amber-300/20 bg-amber-300/[0.06] px-3 py-2 text-xs text-amber-100/90">
+                Translation to {LANGUAGE_LABELS[language]} needs live AI (no Anthropic key in this demo) — showing{" "}
+                {LANGUAGE_LABELS[current.language]}.
+              </p>
+            )}
             {current.custom_instructions && (
               <p className="rounded-lg border border-white/8 bg-white/[0.03] px-3 py-2 text-xs text-muted-foreground">
                 Custom instructions: <span className="text-white/80">{current.custom_instructions}</span>
@@ -214,8 +228,10 @@ export function SummaryPanel() {
                           className="group flex w-full items-start gap-2.5 rounded-lg px-2 py-1.5 text-left text-[13.5px] leading-relaxed text-white/80 transition-colors hover:bg-white/[0.04] hover:text-white"
                         >
                           <span className="mt-[9px] size-1 shrink-0 rounded-full bg-sky-400/70" />
-                          <span className="flex-1">{b.text}</span>
-                          <TimestampChip ms={b.start_ms} inert className="mt-0.5" />
+                          <BulletText text={b.text} />
+                          {!(b.start_ms === 0 && /^not (covered|discussed|mentioned)/i.test(b.text)) && (
+                            <TimestampChip ms={b.start_ms} inert className="mt-0.5" />
+                          )}
                         </button>
                       </li>
                     ))}
@@ -250,6 +266,21 @@ export function SummaryPanel() {
         )}
       </div>
     </div>
+  );
+}
+
+function BulletText({ text }: { text: string }) {
+  const { participants } = useCall();
+  const m = text.match(/^([A-Z][\w.'-]*(?: [A-Z][\w.'-]*){0,2}):\s+([\s\S]*)$/);
+  const who = m ? participants.find((p) => p.name === m[1] || p.name.split(" ")[0] === m[1]) : undefined;
+  if (!m || !who) return <span className="flex-1">{text}</span>;
+  return (
+    <span className="flex-1">
+      <span className="mr-1 font-medium" style={{ color: who.color }}>
+        {m[1]}:
+      </span>
+      {m[2]}
+    </span>
   );
 }
 

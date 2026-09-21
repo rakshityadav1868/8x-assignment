@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DemoModeBadge, ErrorState } from "@/components/common/bits";
+import { RichText } from "@/components/common/rich-text";
 import { useCall } from "@/components/call/call-context";
 import { ROUTES, type FollowUpEmailResponse } from "@/lib/contracts";
 import { api, copyText } from "@/lib/ui/api";
@@ -112,7 +113,7 @@ export function FollowUpEmailDialog({
             <div className="animate-rise">
               <p className="text-xs text-muted-foreground">Subject</p>
               <p className="mb-3 text-sm font-medium">{email.subject}</p>
-              <pre className="whitespace-pre-wrap font-sans text-[13.5px] leading-relaxed text-white/85">{email.body_markdown}</pre>
+              <RichText text={email.body_markdown} className="text-[13.5px] leading-relaxed text-white/85" />
             </div>
           ) : null}
         </div>
