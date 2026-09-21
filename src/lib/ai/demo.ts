@@ -80,7 +80,7 @@ function clip(text: string, max = 220): string {
 }
 
 /** The sentence of a segment that best matches `cue` (else the most content-dense one). */
-function bestSentence(text: string, cue?: RegExp, boostTerms: string[] = []): string {
+function bestSentence(text: string, cue?: RegExp, boostTerms: string[] = [], avoid?: RegExp): string {
   const ss = sentences(text).filter((s) => words(s).length >= 3);
   if (!ss.length) return clip(text);
   const scored = ss.map((s, i) => {
@@ -88,6 +88,7 @@ function bestSentence(text: string, cue?: RegExp, boostTerms: string[] = []): st
     const st = terms(s);
     for (const b of boostTerms) if (st.includes(b)) score += 8;
     if (FILLER.test(s)) score -= 8;
+    if (avoid && avoid.test(s)) score -= 20;
     return { s, score };
   });
   scored.sort((a, b) => b.score - a.score);
@@ -143,7 +144,15 @@ const RX = {
   positive: /\b(great|love|excited|awesome|amazing|perfect|fantastic|impressive|huge win|really helpful|game[- ]changer|nailed)\b/i,
 };
 
+/** Forward-looking language: belongs under "in progress / next", never under "completed". */
+const FUTURE =
+  /\b(i'll|i will|we'll|we will|i'm going to|we're going to|gonna|plan(ning)? to|next (week|sprint|month)|tomorrow|by (monday|tuesday|wednesday|thursday|friday|eod|eow|end of|next|(january|february|march|april|may|june|july|august|september|october|november|december) \d{1,2}))/i;
+
+/** Questions and negations ("Any blockers?", "not really a blocker") aren't blockers/concerns. */
+const NOT_A_BLOCKER = /\?\s*$|\b(no|not really|nothing|none|any)\b[^.]*\b(block|concern|risk|worr)/i;
+
 interface SectionPlan {
+  avoid?: RegExp;
   kind: "cue" | "purpose" | "topics" | "takeaways" | "next" | "decisions" | "qa" | "open_questions";
   cue?: RegExp;
   max?: number;
@@ -175,7 +184,7 @@ function planFor(heading: string, template: SummaryTemplateKey): SectionPlan {
     [/paper process/, RX.paper],
     [/competition/, RX.competition],
     [/completed|progress since|updates & wins/, RX.completed],
-    [/in progress/, RX.today],
+    [/in progress/, new RegExp(`${RX.today.source}|${FUTURE.source}`, "i")],
     [/blockers|risks & blockers/, RX.concern],
     [/feedback/, template === "customer_success" ? RX.pain : RX.feedback],
     [/career/, RX.growth],
@@ -186,7 +195,15 @@ function planFor(heading: string, template: SummaryTemplateKey): SectionPlan {
     [/^risks$/, RX.risk],
     [/strengths/, RX.strengths],
   ];
-  for (const [hx, cue] of table) if (hx.test(h)) return { kind: "cue", cue, perPerson };
+  for (const [hx, cue] of table) {
+    if (!hx.test(h)) continue;
+    const avoid = /completed|progress since|updates & wins/.test(h)
+      ? FUTURE
+      : /blockers|objections|concerns|risks/.test(h)
+        ? NOT_A_BLOCKER
+        : undefined;
+    return { kind: "cue", cue, perPerson, avoid };
+  }
   return { kind: "takeaways" };
 }
 
@@ -279,16 +296,20 @@ export function demoSummary(
         break;
       }
       case "cue": {
-        const filter = plan.externalOnly ? (i: SegInfo) => !!i.seg.participant_id && external.has(i.seg.participant_id) : undefined;
+        const avoid = plan.avoid;
+        const filter = (i: SegInfo) =>
+          (!plan.externalOnly || (!!i.seg.participant_id && external.has(i.seg.participant_id))) &&
+          // "completed": the segment must contain a completed-cue sentence that isn't forward-looking
+          (!avoid || sentences(i.seg.text).some((x) => (!plan.cue || plan.cue.test(x)) && !avoid.test(x)));
         const picked = pickByCue(plan.cue, plan.perPerson ? 6 : 3, filter);
         if (plan.perPerson) {
           // one bullet per person where possible
           const seen = new Set<string | null>();
           bullets = picked
             .filter((i) => (seen.has(i.seg.participant_id) ? false : (seen.add(i.seg.participant_id), true)))
-            .map((i) => ({ text: `${firstName(nameOf(ctx, i.seg.participant_id))}: ${bestSentence(i.seg.text, plan.cue)}`, start_ms: i.seg.start_ms }));
+            .map((i) => ({ text: `${firstName(nameOf(ctx, i.seg.participant_id))}: ${bestSentence(i.seg.text, plan.cue, [], avoid)}`, start_ms: i.seg.start_ms }));
         } else {
-          bullets = picked.map((i) => segBullet(ctx, i, plan.cue, boost));
+          bullets = picked.map((i) => ({ ...segBullet(ctx, i, plan.cue, boost), text: `${nameOf(ctx, i.seg.participant_id)}: ${bestSentence(i.seg.text, plan.cue, boost, avoid)}` }));
         }
         break;
       }
@@ -356,8 +377,14 @@ export function demoAsk(detail: MeetingDetail, question: string): DemoAnswer {
 
   // Intent: action items / next steps
   if (/\b(action items?|next steps?|to-?dos?|follow[- ]?ups?|tasks?|who is doing|who's doing|owners?)\b/.test(q)) {
-    const items = (detail.action_items.length ? detail.action_items : demoActionItems(detail)).filter(
-      (a) => !person || a.assignee_participant_id === person.id,
+    const items = onTopic(
+      (detail.action_items.length ? detail.action_items : demoActionItems(detail)).filter(
+        (a) => !person || a.assignee_participant_id === person.id,
+      ),
+      (a) => a.description,
+      question,
+      person,
+      /\b(action items?|next steps?|to-?dos?|follow[- ]?ups?|tasks?|owners?)\b/g,
     );
     if (items.length) {
       const lines = items.slice(0, 8).map((a) => {
@@ -371,7 +398,13 @@ export function demoAsk(detail: MeetingDetail, question: string): DemoAnswer {
 
   // Intent: decisions
   if (/\b(decid|decision|agree|conclu|settle|land(ed)? on|choose|chose)/.test(q)) {
-    const ds = detail.decisions?.length ? detail.decisions : demoDecisions(detail);
+    const ds = onTopic(
+      detail.decisions?.length ? detail.decisions : demoDecisions(detail),
+      (d) => d.text,
+      question,
+      person,
+      /\b(decid\w*|decisions?|agree\w*|conclu\w*|settle\w*|land(ed)? on|choose|chose)\b/g,
+    );
     if (ds.length) {
       const lines = ds.slice(0, 6).map((d) => {
         const s = segmentAt(ctx, d.start_ms);
@@ -448,9 +481,25 @@ export function demoAsk(detail: MeetingDetail, question: string): DemoAnswer {
   return { text: `${intro}\n\n${lines.join("\n")}`, citations };
 }
 
+/**
+ * Narrow a list (decisions / action items) to the ones about the question's remaining topic words
+ * ("what did we decide about pricing" → pricing-related decisions). If nothing matches, keep all.
+ */
+function onTopic<T>(items: T[], text: (t: T) => string, question: string, person: Participant | null, intentRx: RegExp): T[] {
+  const rest = question.toLowerCase().replace(intentRx, " ");
+  const topic = words(rest).filter((w) => !STOP_Q.has(w) && w.length > 2 && !(person && person.name.toLowerCase().split(/\s+/).includes(w)));
+  const q = expand(terms(topic.join(" ")));
+  if (!q.length || !items.length) return items;
+  const bm = new Bm25(items.map((i) => ({ terms: terms(text(i)) })));
+  const scored = items.map((item, k) => ({ item, s: bm.score(k, q) })).filter((x) => x.s > 0);
+  if (!scored.length) return items;
+  const keep = new Set(scored.map((x) => x.item));
+  return items.filter((i) => keep.has(i)); // keep chronological order
+}
+
 /** Question words that aren't the topic ("what did they say about pricing" → "pricing"). */
 const STOP_Q = new Set(
-  "what who whom whose when where why how did does do was were is are the a an about say said says tell me us talk talked talking discuss discussed mention mentioned think thought feel felt anything something any there their they them this that call meeting on of in for to and or with regarding re any".split(
+  "what who whom whose when where why how did does do was were is are the a an about we our say said says tell me us talk talked talking discuss discussed mention mentioned think thought feel felt anything something any there their they them this that call meeting on of in for to and or with regarding re any".split(
     " ",
   ),
 );

@@ -164,6 +164,8 @@ Result click → `/calls/:id?t=<seconds>` which seeks the player.
 | `POST /api/meetings/:id/catch-up` | `CatchUpRequest` → `CatchUpResponse` |
 | `GET/POST /api/meetings/:id/decisions` | → `DecisionsResponse` (GET cached, POST regenerates) |
 | `POST /api/meetings/:id/commitments` | `CommitmentsRequest` → `CommitmentsResponse` |
+| `GET /api/playlists/:id` | → `GetPlaylistResponse` `{playlist, items: [{…item, meeting, clip}]}` |
+| `DELETE /api/playlists/:id/items/:itemId` | → `Ok` |
 | `PATCH /api/segments/:id` (P3) | `UpdateSegmentRequest` → `UpdateSegmentResponse` |
 | `GET/POST /api/playlists`, `POST /api/playlists/:id/items` (P3) | `ListPlaylistsResponse` / `CreatePlaylistRequest` → `{playlist}` (201) / `AddPlaylistItemRequest` → `{item}` (201) |
 
@@ -283,6 +285,11 @@ seed-src/                      human-authored seed scripts/timings (input to aud
 
 ## 7. Contract changelog
 
+- **Phase 2 (backend, review fixes)** — additive: error code `rate_limited` (429 + `Retry-After`) and `not_implemented` (501);
+  all non-GET API routes require the `fanthom_demo` cookie (set by `src/proxy.ts` on `/`, `/calls`, `/search`, `/upload`, `/playlists`, `/settings`;
+  missing → 403 `forbidden`, so share/clip viewers are read-only); per-IP token bucket (burst 20, 10/min) on LLM/transcription routes and a
+  per-meeting cap of 30 paid generations/hour (`src/lib/server/rate-limit.ts`, env-tunable); `GET /api/playlists/:id` → `GetPlaylistResponse`,
+  `DELETE /api/playlists/:id/items/:itemId` → `Ok`; optional `Repo.getPlaylist` / `Repo.removePlaylistItem` (routes return 501 until implemented).
 - **Phase 1 (backend)** — additive: `MeetingDetail.decisions?: Decision[]` (+ `MeetingDetailSchema.decisions` optional);
   `SeedMeetingFile` / `SeedWorkspaceFile` types; `GET /api/meetings/:id/action-items`; `GET /api/ask` (global history);
   error code `internal`; playlist create/add-item response shapes `{playlist}` / `{item}`.

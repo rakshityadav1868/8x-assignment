@@ -10,6 +10,8 @@ export type ApiErrorCode =
   | "transcription_unavailable"
   | "storage_unavailable"
   | "conflict"
+  | "rate_limited"
+  | "not_implemented"
   | "internal";
 
 export class HttpError extends Error {
@@ -17,6 +19,7 @@ export class HttpError extends Error {
     public status: number,
     public code: ApiErrorCode,
     message: string,
+    public headers?: Record<string, string>,
   ) {
     super(message);
     this.name = "HttpError";

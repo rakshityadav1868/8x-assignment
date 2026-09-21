@@ -4,6 +4,7 @@ import type { DecisionsResponse } from "@/lib/contracts";
 import { getRepo } from "@/lib/db";
 import { requireMeeting, requireMeetingDetail, route } from "@/lib/server/api";
 import type { IdCtx } from "@/lib/server/route-types";
+import { enforceAiLimits } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -17,13 +18,14 @@ export const GET = route(async (_req: Request, { params }: IdCtx) => {
 });
 
 /** POST /api/meetings/:id/decisions — regenerate (demo mode keeps pre-authored decisions when present). */
-export const POST = route(async (_req: Request, { params }: IdCtx) => {
+export const POST = route(async (req: Request, { params }: IdCtx) => {
   const { id } = await params;
   const repo = getRepo();
   if (!aiAvailable()) {
     const cached = await repo.getDecisions(id);
     if (cached?.length) return Response.json({ decisions: cached, ai_mode: "demo" } satisfies DecisionsResponse);
   }
+  enforceAiLimits(req, id);
   const detail = await requireMeetingDetail(id);
   const r = await extractDecisions(detail);
   await repo.saveDecisions(id, r.value);

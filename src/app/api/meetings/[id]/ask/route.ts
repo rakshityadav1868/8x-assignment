@@ -4,6 +4,7 @@ import { getRepo } from "@/lib/db";
 import { parseBody, requireMeeting, requireMeetingDetail, route } from "@/lib/server/api";
 import { askStreamResponse } from "@/lib/server/ndjson";
 import type { IdCtx } from "@/lib/server/route-types";
+import { enforceAiLimits } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -20,6 +21,7 @@ export const GET = route(async (_req: Request, { params }: IdCtx) => {
 export const POST = route(async (req: Request, { params }: IdCtx) => {
   const { id } = await params;
   const { question } = await parseBody(req, AskRequest);
+  enforceAiLimits(req, id);
   const repo = getRepo();
   const detail = await requireMeetingDetail(id);
   const history = await repo.listChatMessages(id);

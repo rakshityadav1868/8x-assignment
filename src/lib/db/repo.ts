@@ -103,4 +103,8 @@ export interface Repo {
   listPlaylists(): Promise<(Playlist & { item_count: number })[]>;
   createPlaylist(input: { name: string; description?: string | null }): Promise<Playlist>;
   addPlaylistItem(playlistId: string, input: { meeting_id?: string; highlight_id?: string }): Promise<PlaylistItem>;
+  /** Additive (phase 2, optional until both repos implement it): playlist + its items ordered by position; null if missing. */
+  getPlaylist?(id: string): Promise<(Playlist & { items: PlaylistItem[] }) | null>;
+  /** Additive (phase 2): remove one item (throw NotFoundError if missing) and re-number positions. */
+  removePlaylistItem?(playlistId: string, itemId: string): Promise<void>;
 }

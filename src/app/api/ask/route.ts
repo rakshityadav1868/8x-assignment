@@ -4,6 +4,7 @@ import { getRepo } from "@/lib/db";
 import { parseBody, route } from "@/lib/server/api";
 import { askStreamResponse } from "@/lib/server/ndjson";
 import type { MeetingDetail } from "@/lib/types";
+import { enforceAiLimits } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -17,6 +18,7 @@ export const GET = route(async () => {
 /** POST /api/ask — cross-meeting Ask (P3), same NDJSON stream as per-meeting Ask. */
 export const POST = route(async (req: Request) => {
   const { question } = await parseBody(req, AskRequest);
+  enforceAiLimits(req, "global-ask");
   const repo = getRepo();
   const list = (await repo.listMeetings()).filter((m) => m.status === "ready");
   const details = (await Promise.all(list.map((m) => repo.getMeetingDetail(m.id)))).filter((d): d is MeetingDetail => !!d);

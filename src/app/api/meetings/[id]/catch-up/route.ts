@@ -3,6 +3,7 @@ import { meetingEndMs } from "@/lib/ai/transcript";
 import { CatchUpRequest, type CatchUpResponse } from "@/lib/contracts";
 import { HttpError, parseBody, requireMeetingDetail, route } from "@/lib/server/api";
 import type { IdCtx } from "@/lib/server/route-types";
+import { enforceAiLimits } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -11,6 +12,7 @@ export const maxDuration = 60;
 export const POST = route(async (req: Request, { params }: IdCtx) => {
   const { id } = await params;
   const body = await parseBody(req, CatchUpRequest);
+  enforceAiLimits(req, id);
   const detail = await requireMeetingDetail(id);
   const end = meetingEndMs(detail);
   const to = Math.min(body.to_ms ?? end, end);

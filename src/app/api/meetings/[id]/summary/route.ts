@@ -9,6 +9,7 @@ import {
 import { getRepo } from "@/lib/db";
 import { parseBody, parseQuery, requireMeeting, requireMeetingDetail, route } from "@/lib/server/api";
 import type { IdCtx } from "@/lib/server/route-types";
+import { enforceAiLimits } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -41,6 +42,7 @@ export const POST = route(async (req: Request, { params }: IdCtx) => {
     if (cached) return Response.json({ summary: cached, ai_mode: aiMode() } satisfies RegenerateSummaryResponse);
   }
 
+  enforceAiLimits(req, id);
   const detail = await requireMeetingDetail(id);
   const r = await generateSummary(detail, body.template, body.language, custom);
   const summary = await repo.saveSummary({

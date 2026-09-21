@@ -3,12 +3,13 @@ import { ZodError, type z } from "zod";
 import type { ApiError } from "@/lib/contracts";
 import { getRepo } from "@/lib/db";
 import type { MeetingDetail } from "@/lib/types";
+import { DEMO_SESSION_COOKIE } from "./demo-session";
 import { HttpError, NotFoundError, type ApiErrorCode } from "./errors";
 
 export { HttpError, NotFoundError };
 
-export function errorResponse(status: number, code: ApiErrorCode, error: string): Response {
-  return Response.json({ error, code } satisfies ApiError, { status });
+export function errorResponse(status: number, code: ApiErrorCode, error: string, headers?: Record<string, string>): Response {
+  return Response.json({ error, code } satisfies ApiError, { status, headers });
 }
 
 function zodMessage(err: ZodError): string {
@@ -19,7 +20,7 @@ function zodMessage(err: ZodError): string {
 }
 
 export function toErrorResponse(err: unknown): Response {
-  if (err instanceof HttpError) return errorResponse(err.status, err.code, err.message);
+  if (err instanceof HttpError) return errorResponse(err.status, err.code, err.message, err.headers);
   if (err instanceof ZodError) return errorResponse(400, "validation", zodMessage(err));
   console.error("[api] unhandled error", err);
   return errorResponse(500, "internal", "Something went wrong. Please try again.");
@@ -27,10 +28,17 @@ export function toErrorResponse(err: unknown): Response {
 
 type Handler<C> = (req: Request, ctx: C) => Promise<Response> | Response;
 
-/** Wraps a route handler so every thrown error becomes a consistent `ApiError` response. */
+const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
+
+/**
+ * Wraps a route handler so every thrown error becomes a consistent `ApiError` response.
+ * Every non-GET (write) request must carry the demo-workspace cookie set by `src/proxy.ts` on app pages,
+ * so people who only hold a public share / clip link can read but never mutate.
+ */
 export function route<C>(fn: Handler<C>): Handler<C> {
   return async (req, ctx) => {
     try {
+      if (!SAFE_METHODS.has(req.method)) requireDemoSession(req);
       return await fn(req, ctx);
     } catch (err) {
       return toErrorResponse(err);
@@ -79,3 +87,11 @@ export function appOrigin(req: Request): string {
 }
 
 export const ok = () => Response.json({ ok: true as const });
+
+function requireDemoSession(req: Request): void {
+  const cookie = req.headers.get("cookie") ?? "";
+  const has = cookie.split(/;\s*/).some((c) => c.startsWith(`${DEMO_SESSION_COOKIE}=`) && c.length > DEMO_SESSION_COOKIE.length + 1);
+  if (!has) {
+    throw new HttpError(403, "forbidden", "Open the Fanthom demo workspace (/calls) to make changes — shared links are read-only.");
+  }
+}
