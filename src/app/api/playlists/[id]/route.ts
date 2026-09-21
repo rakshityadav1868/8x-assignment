@@ -1,6 +1,6 @@
 import type { GetPlaylistResponse } from "@/lib/contracts";
 import { getRepo } from "@/lib/db";
-import { HttpError, NotFoundError, route } from "@/lib/server/api";
+import { NotFoundError, route } from "@/lib/server/api";
 import type { IdCtx } from "@/lib/server/route-types";
 import type { MeetingDetail } from "@/lib/types";
 
@@ -10,7 +10,6 @@ export const dynamic = "force-dynamic";
 export const GET = route(async (_req: Request, { params }: IdCtx) => {
   const { id } = await params;
   const repo = getRepo();
-  if (!repo.getPlaylist) throw new HttpError(501, "not_implemented", "Playlist details aren't available yet.");
   const pl = await repo.getPlaylist(id);
   if (!pl) throw new NotFoundError("Playlist");
 

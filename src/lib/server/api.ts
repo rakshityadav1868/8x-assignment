@@ -19,8 +19,16 @@ function zodMessage(err: ZodError): string {
     .join("; ");
 }
 
+function isHttpErrorLike(err: unknown): err is HttpError {
+  if (!(err instanceof Error)) return false;
+  const e = err as Partial<HttpError>;
+  return typeof e.status === "number" && e.status >= 400 && e.status < 600 && typeof e.code === "string";
+}
+
 export function toErrorResponse(err: unknown): Response {
-  if (err instanceof HttpError) return errorResponse(err.status, err.code, err.message, err.headers);
+  // Duck-typed too: the repo is cached on globalThis and may have been created by another route bundle whose
+  // copy of HttpError is a different class, so `instanceof` alone can miss it (seen in dev).
+  if (err instanceof HttpError || isHttpErrorLike(err)) return errorResponse(err.status, err.code, err.message, err.headers);
   if (err instanceof ZodError) return errorResponse(400, "validation", zodMessage(err));
   console.error("[api] unhandled error", err);
   return errorResponse(500, "internal", "Something went wrong. Please try again.");

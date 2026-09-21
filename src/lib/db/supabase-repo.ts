@@ -373,6 +373,36 @@ export function createSupabaseRepo(): Repo {
       ) as Playlist;
     },
 
+    async getPlaylist(id) {
+      const row = data(
+        await db
+          .from("playlists")
+          .select("id,workspace_id,name,description,created_at,items:playlist_items(id,playlist_id,meeting_id,highlight_id,position)")
+          .eq("id", id)
+          .maybeSingle(),
+        "playlist",
+      ) as (Playlist & { items: PlaylistItem[] }) | null;
+      return row ? { ...row, items: [...(row.items ?? [])].sort((a, b) => a.position - b.position) } : null;
+    },
+
+    async removePlaylistItem(playlistId, itemId) {
+      found(await db.from("playlists").select("id").eq("id", playlistId).maybeSingle(), "Playlist");
+      found(
+        await db.from("playlist_items").delete().eq("id", itemId).eq("playlist_id", playlistId).select("id").maybeSingle(),
+        "Playlist item",
+      );
+      const rest = data(
+        await db.from("playlist_items").select("id,position").eq("playlist_id", playlistId).order("position"),
+        "playlist items",
+      ) as Pick<PlaylistItem, "id" | "position">[];
+      await Promise.all(
+        rest
+          .map((r, position) => ({ ...r, position }))
+          .filter((r, i) => rest[i].position !== r.position)
+          .map(async (r) => check((await db.from("playlist_items").update({ position: r.position }).eq("id", r.id)).error, "renumber playlist items")),
+      );
+    },
+
     async addPlaylistItem(playlistId, input) {
       found(await db.from("playlists").select("id").eq("id", playlistId).maybeSingle(), "Playlist");
       if (input.meeting_id) await requireMeeting(input.meeting_id);

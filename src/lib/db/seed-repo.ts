@@ -376,6 +376,21 @@ export function createSeedRepo(): Repo {
       return clone(p);
     },
 
+    async getPlaylist(id) {
+      const pl = store().playlists.find((p) => p.id === id);
+      return pl ? clone({ ...pl, items: [...pl.items].sort((a, b) => a.position - b.position) }) : null;
+    },
+
+    async removePlaylistItem(playlistId, itemId) {
+      const pl = store().playlists.find((p) => p.id === playlistId);
+      if (!pl) throw new NotFoundError("Playlist");
+      if (!pl.items.some((i) => i.id === itemId)) throw new NotFoundError("Playlist item");
+      pl.items = pl.items
+        .filter((i) => i.id !== itemId)
+        .sort((a, b) => a.position - b.position)
+        .map((i, position) => ({ ...i, position }));
+    },
+
     async addPlaylistItem(playlistId, input) {
       const pl = store().playlists.find((p) => p.id === playlistId);
       if (!pl) throw new NotFoundError("Playlist");
