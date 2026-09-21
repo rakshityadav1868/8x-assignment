@@ -6,8 +6,9 @@
 //
 // Output: src/data/seed/meetings/<slug>.json (SeedMeetingFile = MeetingDetail + decisions),
 //         src/data/seed/workspace.json (SeedWorkspaceFile), src/data/seed/index.ts (static imports).
-// Dates are computed relative to NOW (meetings "N days ago", upcoming meetings in the next 7 days),
-// so this runs as `prebuild` on every deploy. No npm dependencies.
+// Output is deterministic: every date is written against a fixed canonical week (ANCHOR = the Thursday of the
+// flagship Q4 planning meeting). At runtime SeedRepo / scripts/seed.mts shift all timestamps by whole weeks so
+// the flagship is always the most recent Thursday (src/lib/db/seed-time.ts). No npm dependencies.
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,10 +19,13 @@ const SRC = join(ROOT, "seed-src");
 const OUT = join(ROOT, "src/data/seed");
 const OUT_MEETINGS = join(OUT, "meetings");
 
-const NOW = process.env.SEED_NOW ? new Date(process.env.SEED_NOW) : new Date();
+// Canonical anchor day: Thursday 2025-10-02 (the Q4 Roadmap Planning meeting; days_ago counts back from it).
+// Spoken dates in the scripts (e.g. "October 9th", "November 20th") are consistent with this week.
+const ANCHOR_DAY = { y: 2025, m: 9, d: 2 }; // month is 0-based
+const ANCHOR_SLUG = "q4-roadmap-planning";
 const WORKSPACE = { id: "ws_northwind", name: "Northwind Labs", domain: "northwindlabs.io" };
 const USER = { id: "u_priya", workspace_id: WORKSPACE.id, name: "Priya Raman", email: "priya@northwindlabs.io" };
-// Seed start_time values are US Eastern wall-clock; stored as UTC (EDT = UTC-4).
+// Seed start_time values are US Eastern wall-clock; the canonical weeks are in EDT (UTC-4).
 const TZ_OFFSET_H = 4;
 // Readable, stable public share tokens (demo); every meeting is shared with anyone_with_link.
 const SHARE_TOKENS = { "q4-roadmap-planning": "q4-roadmap" };
@@ -43,11 +47,12 @@ function loadTemplates() {
 }
 const TEMPLATES = loadTemplates();
 
-function recordingStart(days_ago, start_time, durationMs) {
-  const [h, m] = start_time.split(":").map(Number);
-  const d = new Date(Date.UTC(NOW.getUTCFullYear(), NOW.getUTCMonth(), NOW.getUTCDate() - days_ago, h + TZ_OFFSET_H, m));
-  // A "today" meeting must have finished before NOW; otherwise pull it back to end ~20 min ago.
-  if (d.getTime() + durationMs > NOW.getTime()) return new Date(NOW.getTime() - durationMs - 20 * 60_000);
+/** Canonical ET wall-clock time `dayOffset` days from the anchor day, as a UTC Date. */
+function etDate(dayOffset, hhmm) {
+  const [h, m] = hhmm.split(":").map(Number);
+  const d = new Date(Date.UTC(ANCHOR_DAY.y, ANCHOR_DAY.m, ANCHOR_DAY.d + dayOffset, h + TZ_OFFSET_H, m));
+  const dow = d.getUTCDay();
+  if (h < 8 || h > 18 || dow === 0 || dow === 6) throw new Error(`seed event outside business hours: ${d.toISOString()}`);
   return d;
 }
 
@@ -65,7 +70,7 @@ function buildMeeting(slug) {
   const endOf = (i) => T[i].end_ms;
   const durationMs = timings.duration_ms;
 
-  const recStart = recordingStart(src.days_ago, src.start_time, durationMs);
+  const recStart = etDate(-src.days_ago, src.start_time);
   const recEnd = new Date(recStart.getTime() + durationMs);
   const schedStart = new Date(Math.floor(recStart.getTime() / 60_000) * 60_000 - 60_000);
   const schedMinutes = Math.max(15, Math.ceil(durationMs / 60_000 / 15) * 15);
@@ -204,10 +209,10 @@ for (const m of built) {
   writeFileSync(join(OUT_MEETINGS, `${slug}.json`), JSON.stringify(m) + "\n");
 }
 
-// Upcoming meetings (calendar is stubbed): next 7 days, Eastern wall-clock.
+// Upcoming meetings (calendar is stubbed): the 7 days after the anchor, Eastern wall-clock. At runtime each one is
+// shifted to its next future occurrence (same weekday + time), so the strip is never empty.
 const up = (id, title, dayOffset, hhmm, minutes, meeting_type, attendees) => {
-  const [h, m] = hhmm.split(":").map(Number);
-  const start = new Date(Date.UTC(NOW.getUTCFullYear(), NOW.getUTCMonth(), NOW.getUTCDate() + dayOffset, h + TZ_OFFSET_H, m));
+  const start = etDate(dayOffset, hhmm);
   return { id, title, start: start.toISOString(), end: new Date(start.getTime() + minutes * 60_000).toISOString(), attendees, meeting_type };
 };
 const nw = (first, last, ext = false, domain = "northwindlabs.io") => ({
@@ -216,23 +221,23 @@ const nw = (first, last, ext = false, domain = "northwindlabs.io") => ({
   is_external: ext,
 });
 const upcoming = [
-  up("up_acme-demo", "Acme Logistics — Technical Deep Dive", 1, "11:00", 45, "sales", [
+  up("up_acme-demo", "Acme Logistics — Technical Deep Dive", 5, "11:00", 45, "sales", [
     nw("Ethan", "Brooks"), nw("Arjun", "Mehta"), nw("Rachel", "Moreno", true, "acmelogistics.com"), nw("Tariq", "Hassan", true, "acmelogistics.com"),
   ]),
   up("up_priya-arjun-1on1", "Priya / Arjun 1:1", 1, "15:00", 30, "one_on_one", [nw("Priya", "Raman"), nw("Arjun", "Mehta")]),
-  up("up_eng-standup", "Eng Weekly Standup", 2, "09:30", 15, "standup", [
+  up("up_eng-standup", "Eng Weekly Standup", 4, "09:30", 15, "standup", [
     nw("Priya", "Raman"), nw("Marcus", "Chen"), nw("Nina", "Park"), nw("Kevin", "Walsh"), nw("Aman", "Gupta"),
   ]),
-  up("up_globex-exec", "Globex — Reliability Plan & SSO Timeline", 3, "13:00", 30, "customer_success", [
+  up("up_globex-exec", "Globex — Reliability Plan & SSO Timeline", 1, "13:00", 30, "customer_success", [
     nw("Siobhan", "Kelly"), nw("Priya", "Raman"), nw("Greg", "Holloway", true, "globex.com"), nw("Maya", "Lindqvist", true, "globex.com"),
   ]),
-  up("up_ai-insights-kickoff", "AI Insights Beta — Kickoff", 4, "10:00", 60, "planning", [
+  up("up_ai-insights-kickoff", "AI Insights Beta — Kickoff", 6, "10:00", 60, "planning", [
     nw("Tom", "Okafor"), nw("Hannah", "Price"), nw("Marcus", "Chen"), nw("Priya", "Raman"), nw("Siobhan", "Kelly"),
   ]),
-  up("up_olivia-offer", "Olivia Grant — Offer Call", 6, "12:00", 30, "interview", [
+  up("up_olivia-offer", "Olivia Grant — Offer Call", 5, "16:00", 30, "interview", [
     nw("Priya", "Raman"), nw("Olivia", "Grant", true, "gmail.com"),
   ]),
-].filter((u) => new Date(u.start) > NOW);
+];
 
 // Playlists from highlights across meetings.
 const allHl = built.flatMap((m) => m.highlights);
@@ -241,7 +246,7 @@ const playlist = (id, name, description, items, createdAgoDays) => ({
   workspace_id: WORKSPACE.id,
   name,
   description,
-  created_at: new Date(NOW.getTime() - createdAgoDays * 86_400_000).toISOString(),
+  created_at: etDate(-createdAgoDays, "17:00").toISOString(),
   items: items.map((h, i) => ({ id: `${id}_item_${pad(i, 2)}`, playlist_id: id, meeting_id: null, highlight_id: h.id, position: i })),
 });
 const playlists = [
@@ -251,10 +256,22 @@ const playlists = [
     allHl.filter((h) => h.type === "decision").slice(0, 10), 1),
 ];
 
-writeFileSync(
-  join(OUT, "workspace.json"),
-  JSON.stringify({ workspace: WORKSPACE, user: USER, upcoming, playlists }, null, 2) + "\n",
-);
+const anchorMeeting = built.find((m) => m.meeting.id === `m_${ANCHOR_SLUG}`);
+if (!anchorMeeting) throw new Error(`anchor meeting ${ANCHOR_SLUG} missing`);
+const anchor = {
+  meeting_id: anchorMeeting.meeting.id,
+  recording_start: anchorMeeting.meeting.recording_start,
+  duration_ms: Math.round(anchorMeeting.meeting.duration_sec * 1000),
+};
+// generated_at only changes when the content does, so rebuilding an unchanged seed leaves git clean.
+const wsPath = join(OUT, "workspace.json");
+const wsBody = { anchor, workspace: WORKSPACE, user: USER, upcoming, playlists };
+let generated_at = new Date().toISOString();
+if (existsSync(wsPath)) {
+  const { generated_at: prev, ...prevBody } = readJson(wsPath);
+  if (prev && JSON.stringify(prevBody) === JSON.stringify(wsBody)) generated_at = prev;
+}
+writeFileSync(wsPath, JSON.stringify({ generated_at, ...wsBody }, null, 2) + "\n");
 
 // Barrel with static imports so the bundler includes every file.
 const ident = (slug) => slug.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase()).replace(/^[0-9]/, "_$&");

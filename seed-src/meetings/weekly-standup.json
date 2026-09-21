@@ -2,83 +2,319 @@
   "slug": "weekly-standup",
   "title": "Eng Weekly Standup",
   "meeting_type": "standup",
-  "days_ago": 1,
+  "days_ago": 3,
   "start_time": "09:30",
   "recorded_by": "Priya Raman",
   "participants": [
-    {"key": "priya", "name": "Priya Raman", "title": "VP Engineering", "email": "priya@northwindlabs.io", "is_external": false, "voice": "Samantha"},
-    {"key": "marcus", "name": "Marcus Chen", "title": "Senior Software Engineer", "email": "marcus@northwindlabs.io", "is_external": false, "voice": "Daniel"},
-    {"key": "nina", "name": "Nina Park", "title": "Frontend Engineer", "email": "nina@northwindlabs.io", "is_external": false, "voice": "Sandy (English (US))"},
-    {"key": "kevin", "name": "Kevin Walsh", "title": "SRE", "email": "kevin@northwindlabs.io", "is_external": false, "voice": "Ralph"},
-    {"key": "aman", "name": "Aman Gupta", "title": "Backend Engineer", "email": "aman@northwindlabs.io", "is_external": false, "voice": "Aman"}
+    {
+      "key": "priya",
+      "name": "Priya Raman",
+      "title": "VP Engineering",
+      "email": "priya@northwindlabs.io",
+      "is_external": false,
+      "voice": "Samantha"
+    },
+    {
+      "key": "marcus",
+      "name": "Marcus Chen",
+      "title": "Senior Software Engineer",
+      "email": "marcus@northwindlabs.io",
+      "is_external": false,
+      "voice": "Daniel"
+    },
+    {
+      "key": "nina",
+      "name": "Nina Park",
+      "title": "Frontend Engineer",
+      "email": "nina@northwindlabs.io",
+      "is_external": false,
+      "voice": "Sandy (English (US))"
+    },
+    {
+      "key": "kevin",
+      "name": "Kevin Walsh",
+      "title": "SRE",
+      "email": "kevin@northwindlabs.io",
+      "is_external": false,
+      "voice": "Ralph"
+    },
+    {
+      "key": "aman",
+      "name": "Aman Gupta",
+      "title": "Backend Engineer",
+      "email": "aman@northwindlabs.io",
+      "is_external": false,
+      "voice": "Aman"
+    }
   ],
   "lines": [
-    {"speaker": "priya", "text": "Okay, morning everyone. Let's keep this tight, I know Kevin has the incident review at ten. Same order as always. Marcus, you want to kick us off?"},
-    {"speaker": "marcus", "text": "Yeah, sure. So last week I finished the query planner changes for the funnel endpoint. P95 on funnels went from about two point eight seconds down to nine hundred milliseconds on the Globex dataset."},
-    {"speaker": "priya", "text": "Oh nice, that's a big one."},
-    {"speaker": "marcus", "text": "Yeah, it was mostly just not re-scanning the events table for every step. Embarrassing in hindsight. This week I'm starting on the retention cohorts rewrite, same pattern."},
-    {"speaker": "nina", "text": "Wait, does the funnel change affect the response shape at all? Because I've got the new funnel chart component pinned to the old format."},
-    {"speaker": "marcus", "text": "No, same shape. Well, there's one new field, cache hit, but it's additive. You can ignore it."},
-    {"speaker": "nina", "text": "Okay good. Ignoring things is my specialty."},
-    {"speaker": "priya", "text": "Any blockers, Marcus?"},
-    {"speaker": "marcus", "text": "Kind of. For the cohorts work I need the staging warehouse to have at least ninety days of data, and right now it only has thirty. Kevin, is that something--"},
-    {"speaker": "kevin", "text": "Yeah, that's on me. The backfill job got killed during the node rotation on Thursday. I'll rerun it today, it takes about six hours, so you'll have it tomorrow morning."},
-    {"speaker": "marcus", "text": "Perfect, that works."},
-    {"speaker": "priya", "text": "Great. Nina?"},
-    {"speaker": "nina", "text": "So I shipped the dashboard sharing modal behind the feature flag on Wednesday. It's on for internal and for three beta customers. Siobhan said Globex already found a bug, which, honestly, respect."},
-    {"speaker": "priya", "text": "What was the bug?"},
-    {"speaker": "nina", "text": "If you share a dashboard with someone outside the workspace, the preview image doesn't load, it just shows a gray box. It's a signed URL thing. Aman and I looked at it Friday."},
-    {"speaker": "aman", "text": "Yeah, the signed URLs expire after five minutes but the email preview is fetched lazily, sometimes hours later. I'm going to switch it to generate on request instead."},
-    {"speaker": "nina", "text": "So that's partially my blocker. I can't flip the flag for everyone until that's fixed."},
-    {"speaker": "priya", "text": "Aman, when do you think that lands?"},
-    {"speaker": "aman", "text": "I can get it in by Wednesday. It's small, it's mostly testing."},
-    {"speaker": "priya", "text": "Okay. Nina, so realistic target for general availability of sharing is what, Friday?"},
-    {"speaker": "nina", "text": "Friday if Aman's fix is in Wednesday, yeah. I'll do the rollout to ten percent Thursday, then everyone Friday."},
-    {"speaker": "priya", "text": "Let's do that. And please don't ship at five PM on Friday. I'm begging."},
-    {"speaker": "nina", "text": "Ha, fine. Friday before lunch. Other than that, this week I'm starting on the empty states for the new onboarding flow. Leah's designs are done."},
-    {"speaker": "priya", "text": "Cool. Kevin?"},
-    {"speaker": "kevin", "text": "Okay, so the big thing from last week is the ingestion incident on Tuesday. We had about forty minutes where events from the EU region were delayed. No data loss, but alerts fired late for around sixty customers."},
-    {"speaker": "priya", "text": "And root cause?"},
-    {"speaker": "kevin", "text": "The Kafka consumer group rebalanced during the deploy and one partition got stuck. We had an alert for consumer lag, but the threshold was fifteen minutes, which is way too generous. I've already dropped it to three minutes."},
-    {"speaker": "marcus", "text": "Is three going to be noisy though? During the nightly compaction lag always spikes a bit."},
-    {"speaker": "kevin", "text": "Good point. I'm going to suppress it during the compaction window, one to one thirty UTC. If it pages me at two AM for nothing, I will personally come find you."},
-    {"speaker": "marcus", "text": "Fair enough."},
-    {"speaker": "kevin", "text": "The full write up is in the incident doc, I'll walk through it at ten. The main action item is we need a canary for the consumer deploys. I'll have a proposal for that by Thursday."},
-    {"speaker": "priya", "text": "Thanks Kevin. Did we communicate to the sixty customers?"},
-    {"speaker": "kevin", "text": "Siobhan's team sent the status page update and a follow up email on Wednesday. I think two customers replied, both fine."},
-    {"speaker": "priya", "text": "Okay good. Any other blockers?"},
-    {"speaker": "kevin", "text": "One. The Terraform state for the staging cluster is still locked from when Arjun's laptop died mid apply. I need Arjun to confirm it's safe to force unlock. He's out until Tuesday."},
-    {"speaker": "priya", "text": "Hmm. Can we just message him? I don't want to block on that for three days."},
-    {"speaker": "kevin", "text": "I messaged him, no reply yet. He's at his sister's wedding, so I'm trying not to be that guy."},
-    {"speaker": "priya", "text": "Yeah, don't be that guy. Let me check the apply logs with you after the incident review, and if nothing was mid write we'll just unlock it. I'll own that decision."},
-    {"speaker": "kevin", "text": "Works for me."},
-    {"speaker": "priya", "text": "Aman, you're up."},
-    {"speaker": "aman", "text": "Okay, so besides the signed URL fix, I've been working on the webhook retries. Right now if a customer's endpoint is down we retry three times and then give up silently. Which is, yeah, not great."},
-    {"speaker": "nina", "text": "Silently is the scary word there."},
-    {"speaker": "aman", "text": "Exactly. So the plan is exponential backoff up to twenty four hours, and after that we mark the webhook as failing and email the workspace admin. The backend part is about seventy percent done."},
-    {"speaker": "priya", "text": "Do we need UI for the failing state?"},
-    {"speaker": "aman", "text": "Ideally yes, a little red badge on the integrations page. Nina, is that something you could pick up next week?"},
-    {"speaker": "nina", "text": "Probably, if it's just a badge and a tooltip. If it turns into a whole webhook debugging console, then no."},
-    {"speaker": "aman", "text": "Just a badge, I promise. For now."},
-    {"speaker": "priya", "text": "Ha, for now. Okay, Aman, blockers?"},
-    {"speaker": "aman", "text": "Not really a blocker, more of a question. Do we want to retry on four twenty nine responses? Some customers rate limit us pretty aggressively, and retrying might make it worse."},
-    {"speaker": "marcus", "text": "I'd say respect the Retry After header if they send one, otherwise treat it like a five hundred with backoff."},
-    {"speaker": "aman", "text": "Yeah, that's what I was leaning toward. Okay, I'll do that."},
-    {"speaker": "priya", "text": "Agreed, let's go with that. Write it down in the PR description so support knows how it behaves."},
-    {"speaker": "aman", "text": "Will do. Target is to have webhook retries merged by next Monday, the fifth."},
-    {"speaker": "priya", "text": "Great. Okay, from my side, a couple of quick things. First, Q4 planning is on Thursday, and I'll need each of you to send me your top one or two tech debt items by Wednesday end of day. One line each is fine."},
-    {"speaker": "marcus", "text": "Can mine just be, delete the old query engine?"},
-    {"speaker": "priya", "text": "That's literally a bullet on my list already, so yes. But give me a rough estimate too."},
-    {"speaker": "marcus", "text": "Okay. Rough estimate: forever. No, I'd say three weeks for one person."},
-    {"speaker": "priya", "text": "Thank you. Second, the on call rotation. Starting next week, Nina is joining the rotation. Kevin, can you pair with her on her first shift?"},
-    {"speaker": "kevin", "text": "Sure. Nina, I'll set up a runbook walkthrough, maybe Thursday afternoon?"},
-    {"speaker": "nina", "text": "Yeah, Thursday at two works. Slightly terrified, but excited."},
-    {"speaker": "kevin", "text": "That's the correct amount of terrified."},
-    {"speaker": "priya", "text": "And last thing, good job on the funnel performance, Marcus. Globex specifically called it out on the renewal call. So that's a real win."},
-    {"speaker": "marcus", "text": "Oh, nice. Good to hear."},
-    {"speaker": "priya", "text": "Okay, let me recap. Kevin reruns the staging backfill today. Aman lands the signed URL fix by Wednesday. Nina rolls sharing to ten percent Thursday and GA Friday before lunch. Kevin sends the canary proposal Thursday. Aman merges webhook retries by Monday the fifth. Everyone sends me tech debt items by Wednesday end of day. And I'll sort out the Terraform lock with Kevin."},
-    {"speaker": "aman", "text": "Sounds right."},
-    {"speaker": "priya", "text": "Cool. That's it. Kevin, go get ready for your incident review. Thanks everyone."},
-    {"speaker": "kevin", "text": "Thanks all."}
+    {
+      "speaker": "priya",
+      "text": "Okay, morning everyone. Let's keep this tight, I know Kevin has the incident review at ten. Same order as always. Marcus, you want to kick us off?"
+    },
+    {
+      "speaker": "marcus",
+      "text": "Yeah, sure. So last week I finished the query planner changes for the funnel endpoint. P95 on funnels went from about two point eight seconds down to nine hundred milliseconds on the Globex dataset."
+    },
+    {
+      "speaker": "priya",
+      "text": "Oh nice, that's a big one."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Yeah, it was mostly just not re-scanning the events table for every step. Embarrassing in hindsight. This week I'm starting on the retention cohorts rewrite, same pattern."
+    },
+    {
+      "speaker": "nina",
+      "text": "Wait, does the funnel change affect the response shape at all? Because I've got the new funnel chart component pinned to the old format."
+    },
+    {
+      "speaker": "marcus",
+      "text": "No, same shape. Well, there's one new field, cache hit, but it's additive. You can ignore it."
+    },
+    {
+      "speaker": "nina",
+      "text": "Okay good. Ignoring things is my specialty."
+    },
+    {
+      "speaker": "priya",
+      "text": "Any blockers, Marcus?"
+    },
+    {
+      "speaker": "marcus",
+      "text": "Kind of. For the cohorts work I need the staging warehouse to have at least ninety days of data, and right now it only has thirty. Kevin, is that something--"
+    },
+    {
+      "speaker": "kevin",
+      "text": "Yeah, that's on me. The backfill job got killed during the node rotation on Thursday. I'll rerun it today, it takes about six hours, so you'll have it tomorrow morning."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Perfect, that works."
+    },
+    {
+      "speaker": "priya",
+      "text": "Great. Nina?"
+    },
+    {
+      "speaker": "nina",
+      "text": "So I shipped the dashboard sharing modal behind the feature flag on Wednesday. It's on for internal and for three beta customers. Siobhan said Globex already found a bug, which, honestly, respect."
+    },
+    {
+      "speaker": "priya",
+      "text": "What was the bug?"
+    },
+    {
+      "speaker": "nina",
+      "text": "If you share a dashboard with someone outside the workspace, the preview image doesn't load, it just shows a gray box. It's a signed URL thing. Aman and I looked at it Friday."
+    },
+    {
+      "speaker": "aman",
+      "text": "Yeah, the signed URLs expire after five minutes but the email preview is fetched lazily, sometimes hours later. I'm going to switch it to generate on request instead."
+    },
+    {
+      "speaker": "nina",
+      "text": "So that's partially my blocker. I can't flip the flag for everyone until that's fixed."
+    },
+    {
+      "speaker": "priya",
+      "text": "Aman, when do you think that lands?"
+    },
+    {
+      "speaker": "aman",
+      "text": "I can get it in by Wednesday. It's small, it's mostly testing."
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay. Nina, so realistic target for general availability of sharing is what, Friday?"
+    },
+    {
+      "speaker": "nina",
+      "text": "Friday if Aman's fix is in Wednesday, yeah. I'll do the rollout to ten percent Thursday, then everyone Friday."
+    },
+    {
+      "speaker": "priya",
+      "text": "Let's do that. And please don't ship at five PM on Friday. I'm begging."
+    },
+    {
+      "speaker": "nina",
+      "text": "Ha, fine. Friday before lunch. Other than that, this week I'm starting on the empty states for the new onboarding flow. Leah's designs are done."
+    },
+    {
+      "speaker": "priya",
+      "text": "Cool. Kevin?"
+    },
+    {
+      "speaker": "kevin",
+      "text": "Okay, so the big thing from last week is the ingestion incident on Tuesday. We had about forty minutes where events from the EU region were delayed. No data loss, but alerts fired late for around sixty customers."
+    },
+    {
+      "speaker": "priya",
+      "text": "And root cause?"
+    },
+    {
+      "speaker": "kevin",
+      "text": "The Kafka consumer group rebalanced during the deploy and one partition got stuck. We had an alert for consumer lag, but the threshold was fifteen minutes, which is way too generous. I've already dropped it to three minutes."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Is three going to be noisy though? During the nightly compaction lag always spikes a bit."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Good point. I'm going to suppress it during the compaction window, one to one thirty UTC. If it pages me at two AM for nothing, I will personally come find you."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Fair enough."
+    },
+    {
+      "speaker": "kevin",
+      "text": "The full write up is in the incident doc, I'll walk through it at ten. The main action item is we need a canary for the consumer deploys. I'll have a proposal for that by Thursday."
+    },
+    {
+      "speaker": "priya",
+      "text": "Thanks Kevin. Did we communicate to the sixty customers?"
+    },
+    {
+      "speaker": "kevin",
+      "text": "Siobhan's team sent the status page update and a follow up email on Wednesday. I think two customers replied, both fine."
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay good. Any other blockers?"
+    },
+    {
+      "speaker": "kevin",
+      "text": "One. The Terraform state for the staging cluster is still locked from when Arjun's laptop died mid apply. I need Arjun to confirm it's safe to force unlock. He's out until Tuesday."
+    },
+    {
+      "speaker": "priya",
+      "text": "Hmm. Can we just message him? I don't want to block on that for three days."
+    },
+    {
+      "speaker": "kevin",
+      "text": "I messaged him, no reply yet. He's at his sister's wedding, so I'm trying not to be that guy."
+    },
+    {
+      "speaker": "priya",
+      "text": "Yeah, don't be that guy. Let me check the apply logs with you after the incident review, and if nothing was mid write we'll just unlock it. I'll own that decision."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Works for me."
+    },
+    {
+      "speaker": "priya",
+      "text": "Aman, you're up."
+    },
+    {
+      "speaker": "aman",
+      "text": "Okay, so besides the signed URL fix, I've been working on the webhook retries. Right now if a customer's endpoint is down we retry three times and then give up silently. Which is, yeah, not great."
+    },
+    {
+      "speaker": "nina",
+      "text": "Silently is the scary word there."
+    },
+    {
+      "speaker": "aman",
+      "text": "Exactly. So the plan is exponential backoff up to twenty four hours, and after that we mark the webhook as failing and email the workspace admin. The backend part is about seventy percent done."
+    },
+    {
+      "speaker": "priya",
+      "text": "Do we need UI for the failing state?"
+    },
+    {
+      "speaker": "aman",
+      "text": "Ideally yes, a little red badge on the integrations page. Nina, is that something you could pick up next week?"
+    },
+    {
+      "speaker": "nina",
+      "text": "Probably, if it's just a badge and a tooltip. If it turns into a whole webhook debugging console, then no."
+    },
+    {
+      "speaker": "aman",
+      "text": "Just a badge, I promise. For now."
+    },
+    {
+      "speaker": "priya",
+      "text": "Ha, for now. Okay, Aman, blockers?"
+    },
+    {
+      "speaker": "aman",
+      "text": "Not really a blocker, more of a question. Do we want to retry on four twenty nine responses? Some customers rate limit us pretty aggressively, and retrying might make it worse."
+    },
+    {
+      "speaker": "marcus",
+      "text": "I'd say respect the Retry After header if they send one, otherwise treat it like a five hundred with backoff."
+    },
+    {
+      "speaker": "aman",
+      "text": "Yeah, that's what I was leaning toward. Okay, I'll do that."
+    },
+    {
+      "speaker": "priya",
+      "text": "Agreed, let's go with that. Write it down in the PR description so support knows how it behaves."
+    },
+    {
+      "speaker": "aman",
+      "text": "Will do. Target is to have webhook retries merged by next Monday."
+    },
+    {
+      "speaker": "priya",
+      "text": "Great. Okay, from my side, a couple of quick things. First, Q4 planning is on Thursday, and I'll need each of you to send me your top one or two tech debt items by Wednesday end of day. One line each is fine."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Can mine just be, delete the old query engine?"
+    },
+    {
+      "speaker": "priya",
+      "text": "That's literally a bullet on my list already, so yes. But give me a rough estimate too."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Okay. Rough estimate: forever. No, I'd say three weeks for one person."
+    },
+    {
+      "speaker": "priya",
+      "text": "Thank you. Second, the on call rotation. Starting next week, Nina is joining the rotation. Kevin, can you pair with her on her first shift?"
+    },
+    {
+      "speaker": "kevin",
+      "text": "Sure. Nina, I'll set up a runbook walkthrough, maybe Thursday afternoon?"
+    },
+    {
+      "speaker": "nina",
+      "text": "Yeah, Thursday at two works. Slightly terrified, but excited."
+    },
+    {
+      "speaker": "kevin",
+      "text": "That's the correct amount of terrified."
+    },
+    {
+      "speaker": "priya",
+      "text": "And last thing, good job on the funnel performance, Marcus. Globex specifically called it out on the renewal call. So that's a real win."
+    },
+    {
+      "speaker": "marcus",
+      "text": "Oh, nice. Good to hear."
+    },
+    {
+      "speaker": "priya",
+      "text": "Okay, let me recap. Kevin reruns the staging backfill today. Aman lands the signed URL fix by Wednesday. Nina rolls sharing to ten percent Thursday and GA Friday before lunch. Kevin sends the canary proposal Thursday. Aman merges webhook retries by next Monday. Everyone sends me tech debt items by Wednesday end of day. And I'll sort out the Terraform lock with Kevin."
+    },
+    {
+      "speaker": "aman",
+      "text": "Sounds right."
+    },
+    {
+      "speaker": "priya",
+      "text": "Cool. That's it. Kevin, go get ready for your incident review. Thanks everyone."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Thanks all."
+    }
   ]
 }

@@ -43,7 +43,7 @@
           { "text": "Nina joins the on-call rotation next week, paired with Kevin.", "line": 57 }
         ]},
         { "heading": "Next steps", "bullets": [
-          { "text": "Webhook retries merged by Monday the 5th; tech debt items to Priya by Wednesday EOD.", "line": 63 }
+          { "text": "Webhook retries merged by next Monday; tech debt items to Priya by Wednesday EOD.", "line": 63 }
         ]}
       ]
     }
@@ -53,7 +53,7 @@
     { "description": "Fix share preview signed URLs (generate on request) by Wednesday", "assignee": "aman", "line": 18, "completed": false },
     { "description": "Roll dashboard sharing to 10% Thursday and GA Friday before lunch", "assignee": "nina", "line": 20, "completed": false },
     { "description": "Send a canary proposal for Kafka consumer deploys by Thursday", "assignee": "kevin", "line": 30, "completed": false },
-    { "description": "Merge webhook retries (honor Retry-After on 429s) by Monday the 5th", "assignee": "aman", "line": 52, "completed": false },
+    { "description": "Merge webhook retries (honor Retry-After on 429s) by next Monday", "assignee": "aman", "line": 52, "completed": false },
     { "description": "Send Priya top one or two tech debt items by Wednesday EOD", "assignee": null, "line": 53, "completed": false },
     { "description": "Review apply logs with Kevin and decide on force-unlocking the staging Terraform state", "assignee": "priya", "line": 37, "completed": true },
     { "description": "Runbook walkthrough with Nina Thursday at 2 before her first on-call shift", "assignee": "kevin", "line": 58, "completed": false }

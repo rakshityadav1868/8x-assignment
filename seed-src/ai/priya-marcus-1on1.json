@@ -25,8 +25,8 @@
           { "text": "Keep a decision journal for two weeks to adjust to less coding.", "line": 59 }
         ]},
         { "heading": "Next steps", "bullets": [
-          { "text": "Kevin fixes or deletes the disk alert by October 2; Nina joins on-call next week.", "line": 73 },
-          { "text": "Marcus writes a two-page AI Insights cost doc with Hannah's review by Wednesday the 1st, as a pre-read for Q4 planning.", "line": 30 },
+          { "text": "Kevin fixes or deletes the disk alert by end of next week; Nina joins on-call next week.", "line": 73 },
+          { "text": "Marcus writes a two-page AI Insights cost doc with Hannah's review by Wednesday, as a pre-read for Q4 planning.", "line": 30 },
           { "text": "Promo packet check-in in early December.", "line": 73 }
         ]}
       ]
@@ -48,14 +48,14 @@
           { "text": "Cohorts rewrite moves to Aman so Marcus can lead the migration.", "line": 53 }
         ]},
         { "heading": "Next steps", "bullets": [
-          { "text": "Cost doc by Wednesday the 1st; disk alert fixed by October 2; promo check-in in early December.", "line": 73 }
+          { "text": "Cost doc by Wednesday; disk alert fixed by end of next week; promo check-in in early December.", "line": 73 }
         ]}
       ]
     }
   ],
   "action_items": [
-    { "description": "Get Kevin to fix or delete the flaky disk alert by October 2", "assignee": "priya", "line": 14, "completed": true },
-    { "description": "Write a two-page AI Insights cost doc (approaches, cost comparison, risks) with Hannah's review by Wednesday the 1st", "assignee": "marcus", "line": 30, "completed": true },
+    { "description": "Get Kevin to fix or delete the flaky disk alert by end of next week", "assignee": "priya", "line": 14, "completed": true },
+    { "description": "Write a two-page AI Insights cost doc (approaches, cost comparison, risks) with Hannah's review by Wednesday", "assignee": "marcus", "line": 30, "completed": true },
     { "description": "Add the cost doc as a pre-read for Q4 planning", "assignee": "priya", "line": 30, "completed": false },
     { "description": "Lead the query engine migration in Q4 if prioritized (design doc and weekly sync)", "assignee": "marcus", "line": 48, "completed": false },
     { "description": "Keep a decision journal for two weeks and report back", "assignee": "marcus", "line": 59, "completed": false },
@@ -64,7 +64,7 @@
   ],
   "chapters": [
     { "title": "Check-in and funnel win", "start_line": 0, "end_line": 6, "summary": "Priya congratulates Marcus on the funnel speedup and sets the agenda." },
-    { "title": "On-call fatigue", "start_line": 7, "end_line": 14, "summary": "A flaky disk alert keeps waking Marcus; Nina joins the rotation and Kevin will fix the alert by October 2." },
+    { "title": "On-call fatigue", "start_line": 7, "end_line": 14, "summary": "A flaky disk alert keeps waking Marcus; Nina joins the rotation and Kevin will fix the alert by end of next week." },
     { "title": "AI Insights cost concerns and feedback", "start_line": 15, "end_line": 33, "summary": "Marcus doubts the nightly-LLM scope; Priya's feedback is to write it down as a two-page cost doc before Q4 planning." },
     { "title": "Path to staff engineer", "start_line": 34, "end_line": 60, "summary": "The staff rubric gaps are scope and writing; Marcus will lead the query engine migration with a mid-January promo target." },
     { "title": "Two-way feedback and recap", "start_line": 61, "end_line": 76, "summary": "Marcus should disagree in the room; Priya will give heads-ups before priority changes. Recap of owners and dates." }

@@ -1,7 +1,7 @@
 {
   "slug": "design-review",
   "media": "/media/design-review.m4a",
-  "duration_ms": 394555,
+  "duration_ms": 394507,
   "sample_rate": 24000,
   "lines": [
     {
@@ -212,31 +212,31 @@
       "index": 34,
       "speaker": "sofia",
       "start_ms": 361710,
-      "end_ms": 376253
+      "end_ms": 376205
     },
     {
       "index": 35,
       "speaker": "nina",
-      "start_ms": 376878,
-      "end_ms": 381965
+      "start_ms": 376830,
+      "end_ms": 381917
     },
     {
       "index": 36,
       "speaker": "leah",
-      "start_ms": 382284,
-      "end_ms": 385511
+      "start_ms": 382236,
+      "end_ms": 385463
     },
     {
       "index": 37,
       "speaker": "nina",
-      "start_ms": 386153,
-      "end_ms": 390343
+      "start_ms": 386105,
+      "end_ms": 390295
     },
     {
       "index": 38,
       "speaker": "sofia",
-      "start_ms": 390652,
-      "end_ms": 393755
+      "start_ms": 390604,
+      "end_ms": 393707
     }
   ]
 }

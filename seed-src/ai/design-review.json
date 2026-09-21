@@ -24,7 +24,7 @@
         ]},
         { "heading": "Next steps", "bullets": [
           { "text": "Leah: final specs and updated tokens by Friday.", "line": 34 },
-          { "text": "Nina: build from Monday, behind a feature flag by the 26th.", "line": 34 },
+          { "text": "Nina: build from Monday, behind a feature flag by the end of the month.", "line": 34 },
           { "text": "Sofia: set up the experiment that measures the 44% metric.", "line": 34 }
         ]}
       ]
@@ -46,7 +46,7 @@
           { "text": "Scope for v1 stays small: generic copy, sample data opt-in, and no automatic sample-to-real transition.", "line": 30 }
         ]},
         { "heading": "Next steps", "bullets": [
-          { "text": "Specs and tokens by Friday, feature flag by the 26th, and the experiment set up.", "line": 34 },
+          { "text": "Specs and tokens by Friday, feature flag by month end, and the experiment set up.", "line": 34 },
           { "text": "Nina checks with Aman about exposing the signup heuristic.", "line": 9 }
         ]}
       ]
@@ -57,7 +57,7 @@
     { "description": "Add a contrast check to the design review checklist", "assignee": "leah", "line": 21, "completed": true },
     { "description": "Set up the Storybook accessibility addon to flag contrast failures", "assignee": "nina", "line": 22, "completed": false },
     { "description": "Ask Aman whether the signup-event heuristic can be exposed as an endpoint", "assignee": "nina", "line": 9, "completed": true },
-    { "description": "Build the new empty states behind a feature flag by the 26th", "assignee": "nina", "line": 34, "completed": false },
+    { "description": "Build the new empty states behind a feature flag by the end of the month", "assignee": "nina", "line": 34, "completed": false },
     { "description": "Set up the experiment measuring dashboards with zero charts (44% baseline)", "assignee": "sofia", "line": 34, "completed": false }
   ],
   "chapters": [
@@ -65,7 +65,7 @@
     { "title": "Starter cards & loading state", "start_line": 4, "end_line": 12, "summary": "Three starter cards, server-side event detection with a generic fallback, and a skeleton loading message." },
     { "title": "CTA contrast & accessibility", "start_line": 13, "end_line": 23, "summary": "Violet link text fails AA, so it moves to violet 200, with checklist and Storybook checks added." },
     { "title": "No-data state & sample data", "start_line": 24, "end_line": 30, "summary": "Install snippet by default, with sample data behind a preview button and a banner." },
-    { "title": "Mobile & recap", "start_line": 31, "end_line": 38, "summary": "Cards stack on phones, then a recap of decisions, owners and the 26th flag date." }
+    { "title": "Mobile & recap", "start_line": 31, "end_line": 38, "summary": "Cards stack on phones, then a recap of decisions, owners and the month-end flag date." }
   ],
   "highlights": [
     { "type": "pain_point", "title": "44% of new dashboards stay empty", "note": null, "start_line": 3, "end_line": 3 },
@@ -73,7 +73,7 @@
     { "type": "decision", "title": "Text links move to violet 200", "note": null, "start_line": 18, "end_line": 19 },
     { "type": "decision", "title": "Sample data behind a preview button", "note": null, "start_line": 28, "end_line": 29 },
     { "type": "positive", "title": "Loved the install-snippet empty state", "note": null, "start_line": 24, "end_line": 25 },
-    { "type": "action_item", "title": "Specs Friday, feature flag by the 26th", "note": null, "start_line": 34, "end_line": 35 }
+    { "type": "action_item", "title": "Specs Friday, feature flag by month end", "note": null, "start_line": 34, "end_line": 35 }
   ],
   "decisions": [
     { "text": "Text links use violet 200 on dark backgrounds; buttons keep the main violet.", "line": 19, "speaker": "leah" },

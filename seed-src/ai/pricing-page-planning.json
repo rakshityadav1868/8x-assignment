@@ -27,7 +27,7 @@
           { "text": "AI Insights stays off the page except a teaser banner until Q4 roadmap planning settles packaging.", "line": 52 }
         ]},
         { "heading": "Next steps", "bullets": [
-          { "text": "Leah: high-fidelity designs incl. the calculator by Wednesday the 14th, early Figma link Monday.", "line": 54 },
+          { "text": "Leah: high-fidelity designs incl. the calculator by next Wednesday, early Figma link Monday.", "line": 54 },
           { "text": "Sofia: experiment brief by Friday, plus billing work with Aman.", "line": 56 },
           { "text": "James: sales playbook and lead routing updated by the 20th, with a walkthrough at the Monday sales sync.", "line": 59 },
           { "text": "Tom: pricing change announcement for existing Growth customers; launch target November 3.", "line": 60 }
@@ -52,14 +52,14 @@
           { "text": "Sofia believes keeping 20% leaves roughly $40k/yr on the table.", "line": 42 }
         ]},
         { "heading": "Next steps", "bullets": [
-          { "text": "Designs by the 14th, experiment brief Friday, playbook by the 20th, launch November 3.", "line": 54 },
+          { "text": "Designs by next Wednesday, experiment brief Friday, playbook by the 20th, launch November 3.", "line": 54 },
           { "text": "Check the launch date again next Thursday in case billing slips.", "line": 62 }
         ]}
       ]
     }
   ],
   "action_items": [
-    { "description": "High-fidelity pricing page designs including the usage calculator by Wednesday the 14th", "assignee": "leah", "line": 54, "completed": false },
+    { "description": "High-fidelity pricing page designs including the usage calculator by next Wednesday", "assignee": "leah", "line": 54, "completed": false },
     { "description": "Share early Figma link in the pricing channel on Monday", "assignee": "leah", "line": 55, "completed": true },
     { "description": "Write the Enterprise price A/B test experiment brief with success metrics by Friday", "assignee": "sofia", "line": 56, "completed": true },
     { "description": "Book time with Aman to scope Stripe metered billing for overage", "assignee": "sofia", "line": 57, "completed": false },
@@ -73,7 +73,7 @@
     { "title": "Usage-based overage", "start_line": 22, "end_line": 32, "summary": "$25 per extra million events on Growth, with a calculator capped at 50M." },
     { "title": "Annual discount debate", "start_line": 33, "end_line": 43, "summary": "20% vs 15%. Tom keeps 20% until Q1 to avoid running two tests at once." },
     { "title": "Form & comparison table", "start_line": 44, "end_line": 53, "summary": "The form drops to 5 fields, the table to 8 rows, and AI Insights gets only a teaser." },
-    { "title": "Owners & dates", "start_line": 54, "end_line": 64, "summary": "Designs by the 14th, brief Friday, playbook by the 20th, launch November 3." }
+    { "title": "Owners & dates", "start_line": 54, "end_line": 64, "summary": "Designs by next Wednesday, brief Friday, playbook by the 20th, launch November 3." }
   ],
   "highlights": [
     { "type": "pain_point", "title": "Nine-field contact form is 'a crime'", "note": "Visitors bounce off the Enterprise form.", "start_line": 5, "end_line": 5 },

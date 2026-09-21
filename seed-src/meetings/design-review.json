@@ -2,53 +2,191 @@
   "slug": "design-review",
   "title": "Design Review: Dashboard Builder Empty States",
   "meeting_type": "project_update",
-  "days_ago": 2,
+  "days_ago": 1,
   "start_time": "10:15",
   "recorded_by": "Leah Botha",
   "participants": [
-    {"key": "leah", "name": "Leah Botha", "title": "Product Designer", "email": "leah@northwindlabs.io", "is_external": false, "voice": "Tessa"},
-    {"key": "nina", "name": "Nina Park", "title": "Frontend Engineer", "email": "nina@northwindlabs.io", "is_external": false, "voice": "Sandy (English (US))"},
-    {"key": "sofia", "name": "Sofia Alvarez", "title": "Senior PM", "email": "sofia@northwindlabs.io", "is_external": false, "voice": "Flo (English (US))"}
+    {
+      "key": "leah",
+      "name": "Leah Botha",
+      "title": "Product Designer",
+      "email": "leah@northwindlabs.io",
+      "is_external": false,
+      "voice": "Tessa"
+    },
+    {
+      "key": "nina",
+      "name": "Nina Park",
+      "title": "Frontend Engineer",
+      "email": "nina@northwindlabs.io",
+      "is_external": false,
+      "voice": "Sandy (English (US))"
+    },
+    {
+      "key": "sofia",
+      "name": "Sofia Alvarez",
+      "title": "Senior PM",
+      "email": "sofia@northwindlabs.io",
+      "is_external": false,
+      "voice": "Flo (English (US))"
+    }
   ],
   "lines": [
-    {"speaker": "leah", "text": "Okay, I am sharing my screen. Can you both see the Figma file?"},
-    {"speaker": "nina", "text": "Yep. Although it is zoomed to like five percent, I can see the whole universe."},
-    {"speaker": "leah", "text": "Ha, one sec. There. So this is the new dashboard builder, specifically the empty states and the first run experience. Today's goal is to agree on the direction so Nina can start building on Monday."},
-    {"speaker": "sofia", "text": "Quick context for the recording. Right now, when a new user creates a dashboard, they get a completely blank grid and a tiny plus button in the corner. Forty four percent of new dashboards never get a single chart added. That is the number we want to fix."},
-    {"speaker": "leah", "text": "Right. So in the new version, the empty dashboard shows three starter cards. Track signups, measure retention, and build from scratch. Each one has a small preview illustration and a single primary button."},
-    {"speaker": "nina", "text": "Are those starter templates pulling real events from the workspace, or are they static?"},
-    {"speaker": "leah", "text": "The idea is real. If we detect a signup event, the retention card says something like, we found signed up and logged in, want to see your weekly retention? And if we do not detect anything, it falls back to generic copy."},
-    {"speaker": "nina", "text": "Okay, that is doable, but the event detection needs a new endpoint. The current schema API returns every event name, and for some workspaces that is like twelve thousand names. I do not want to fuzzy match twelve thousand strings in the browser."},
-    {"speaker": "sofia", "text": "Could we do the matching on the server? Aman mentioned he already has a heuristic for signup like events for the onboarding checklist."},
-    {"speaker": "nina", "text": "Oh, if Aman has that, great. I will ask him if we can expose it as an endpoint. If not, I will ship v1 with the generic copy and we add detection after."},
-    {"speaker": "leah", "text": "I like that fallback. Okay, next frame. This is the state after you pick a starter. The chart is in a skeleton loading state with a little progress message, like, crunching ninety days of events."},
-    {"speaker": "sofia", "text": "How long does that usually take?"},
-    {"speaker": "nina", "text": "For small workspaces under a second. For the big ones, the p95 is about six seconds. So the message matters for the big ones."},
-    {"speaker": "leah", "text": "Right. Now, the thing I actually want feedback on is the call to action color. I went with the violet accent on the dark background, and I am worried about contrast."},
-    {"speaker": "nina", "text": "Yeah, I ran it through the contrast checker before the meeting. The button text is fine, it is white on violet, about six to one. But the secondary link, the violet text on the dark navy background, is three point one to one. That fails double A for body text."},
-    {"speaker": "leah", "text": "Ugh. I was afraid of that. It looks so nice though."},
-    {"speaker": "sofia", "text": "Nice does not help if a quarter of our users cannot read it. And we have two Enterprise customers with accessibility requirements in their contracts, one of them is a public sector account."},
-    {"speaker": "leah", "text": "No, you are right, you are right. Options are, lighten the violet for text only, or underline it and use the lighter slate color."},
-    {"speaker": "nina", "text": "If we use the lighter violet from the palette, the two hundred shade, I think it gets to about five point two. That passes. And I would keep the underline on hover for links anyway."},
-    {"speaker": "leah", "text": "Okay, decision. Text links use violet two hundred on dark backgrounds, buttons keep the main violet. I will update the tokens in the design system so this does not happen again."},
-    {"speaker": "sofia", "text": "Can you also add a contrast check to the design review checklist? We keep catching these in review instead of before."},
-    {"speaker": "leah", "text": "Yes, I will add it today."},
-    {"speaker": "nina", "text": "And I can add an automated check in Storybook. There is an accessibility addon that flags contrast failures. It takes maybe half a day to set up."},
-    {"speaker": "sofia", "text": "Let us do it. Next frame?"},
-    {"speaker": "leah", "text": "So this is the no data state, for when a workspace has zero events at all, like right after signup. Instead of an empty chart, we show the install snippet with a copy button and a link to the SDK docs."},
-    {"speaker": "sofia", "text": "I love this. Can we also show a sample dashboard with demo data? So people can see what it will look like before they install anything?"},
-    {"speaker": "nina", "text": "We have the demo workspace data already, from the sales demos. I could load it read only, with a banner saying this is sample data."},
-    {"speaker": "leah", "text": "Hmm, my worry is people get confused and think it is their data. We had that in the old onboarding. Someone emailed support asking why they had eight hundred thousand users."},
-    {"speaker": "sofia", "text": "Ha, I remember that ticket. Okay, what if the sample data is behind a button, like, preview with sample data, rather than shown by default?"},
-    {"speaker": "leah", "text": "Yes, behind a button, with a persistent yellow banner. I can live with that."},
-    {"speaker": "nina", "text": "Same. That is also less work for v1, since I do not have to handle the transition from sample to real data automatically."},
-    {"speaker": "leah", "text": "Last thing. Mobile. The dashboard builder is desktop only, but the empty state cards should at least stack on a phone, because people open these links from Slack on their phones all the time."},
-    {"speaker": "nina", "text": "Easy. They will stack at the small breakpoint. I will make sure the install snippet scrolls horizontally instead of breaking the layout."},
-    {"speaker": "sofia", "text": "Okay, let me recap. Three starter cards with generic copy in v1, smart detection if Aman's endpoint exists. Text links move to violet two hundred. Sample data sits behind a preview button with a banner. Cards stack on mobile."},
-    {"speaker": "sofia", "text": "Leah, final specs and updated tokens by Friday. Nina, start building Monday, with a target of having it behind a feature flag by the twenty sixth. I will set up the experiment to measure the forty four percent number."},
-    {"speaker": "nina", "text": "The twenty sixth works, assuming no surprises from the schema API."},
-    {"speaker": "leah", "text": "Perfect. Thanks both, this was a quick one."},
-    {"speaker": "nina", "text": "A design review that ended early. Someone write that down."},
-    {"speaker": "sofia", "text": "It is literally being recorded. Bye!"}
+    {
+      "speaker": "leah",
+      "text": "Okay, I am sharing my screen. Can you both see the Figma file?"
+    },
+    {
+      "speaker": "nina",
+      "text": "Yep. Although it is zoomed to like five percent, I can see the whole universe."
+    },
+    {
+      "speaker": "leah",
+      "text": "Ha, one sec. There. So this is the new dashboard builder, specifically the empty states and the first run experience. Today's goal is to agree on the direction so Nina can start building on Monday."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Quick context for the recording. Right now, when a new user creates a dashboard, they get a completely blank grid and a tiny plus button in the corner. Forty four percent of new dashboards never get a single chart added. That is the number we want to fix."
+    },
+    {
+      "speaker": "leah",
+      "text": "Right. So in the new version, the empty dashboard shows three starter cards. Track signups, measure retention, and build from scratch. Each one has a small preview illustration and a single primary button."
+    },
+    {
+      "speaker": "nina",
+      "text": "Are those starter templates pulling real events from the workspace, or are they static?"
+    },
+    {
+      "speaker": "leah",
+      "text": "The idea is real. If we detect a signup event, the retention card says something like, we found signed up and logged in, want to see your weekly retention? And if we do not detect anything, it falls back to generic copy."
+    },
+    {
+      "speaker": "nina",
+      "text": "Okay, that is doable, but the event detection needs a new endpoint. The current schema API returns every event name, and for some workspaces that is like twelve thousand names. I do not want to fuzzy match twelve thousand strings in the browser."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Could we do the matching on the server? Aman mentioned he already has a heuristic for signup like events for the onboarding checklist."
+    },
+    {
+      "speaker": "nina",
+      "text": "Oh, if Aman has that, great. I will ask him if we can expose it as an endpoint. If not, I will ship v1 with the generic copy and we add detection after."
+    },
+    {
+      "speaker": "leah",
+      "text": "I like that fallback. Okay, next frame. This is the state after you pick a starter. The chart is in a skeleton loading state with a little progress message, like, crunching ninety days of events."
+    },
+    {
+      "speaker": "sofia",
+      "text": "How long does that usually take?"
+    },
+    {
+      "speaker": "nina",
+      "text": "For small workspaces under a second. For the big ones, the p95 is about six seconds. So the message matters for the big ones."
+    },
+    {
+      "speaker": "leah",
+      "text": "Right. Now, the thing I actually want feedback on is the call to action color. I went with the violet accent on the dark background, and I am worried about contrast."
+    },
+    {
+      "speaker": "nina",
+      "text": "Yeah, I ran it through the contrast checker before the meeting. The button text is fine, it is white on violet, about six to one. But the secondary link, the violet text on the dark navy background, is three point one to one. That fails double A for body text."
+    },
+    {
+      "speaker": "leah",
+      "text": "Ugh. I was afraid of that. It looks so nice though."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Nice does not help if a quarter of our users cannot read it. And we have two Enterprise customers with accessibility requirements in their contracts, one of them is a public sector account."
+    },
+    {
+      "speaker": "leah",
+      "text": "No, you are right, you are right. Options are, lighten the violet for text only, or underline it and use the lighter slate color."
+    },
+    {
+      "speaker": "nina",
+      "text": "If we use the lighter violet from the palette, the two hundred shade, I think it gets to about five point two. That passes. And I would keep the underline on hover for links anyway."
+    },
+    {
+      "speaker": "leah",
+      "text": "Okay, decision. Text links use violet two hundred on dark backgrounds, buttons keep the main violet. I will update the tokens in the design system so this does not happen again."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Can you also add a contrast check to the design review checklist? We keep catching these in review instead of before."
+    },
+    {
+      "speaker": "leah",
+      "text": "Yes, I will add it today."
+    },
+    {
+      "speaker": "nina",
+      "text": "And I can add an automated check in Storybook. There is an accessibility addon that flags contrast failures. It takes maybe half a day to set up."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Let us do it. Next frame?"
+    },
+    {
+      "speaker": "leah",
+      "text": "So this is the no data state, for when a workspace has zero events at all, like right after signup. Instead of an empty chart, we show the install snippet with a copy button and a link to the SDK docs."
+    },
+    {
+      "speaker": "sofia",
+      "text": "I love this. Can we also show a sample dashboard with demo data? So people can see what it will look like before they install anything?"
+    },
+    {
+      "speaker": "nina",
+      "text": "We have the demo workspace data already, from the sales demos. I could load it read only, with a banner saying this is sample data."
+    },
+    {
+      "speaker": "leah",
+      "text": "Hmm, my worry is people get confused and think it is their data. We had that in the old onboarding. Someone emailed support asking why they had eight hundred thousand users."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Ha, I remember that ticket. Okay, what if the sample data is behind a button, like, preview with sample data, rather than shown by default?"
+    },
+    {
+      "speaker": "leah",
+      "text": "Yes, behind a button, with a persistent yellow banner. I can live with that."
+    },
+    {
+      "speaker": "nina",
+      "text": "Same. That is also less work for v1, since I do not have to handle the transition from sample to real data automatically."
+    },
+    {
+      "speaker": "leah",
+      "text": "Last thing. Mobile. The dashboard builder is desktop only, but the empty state cards should at least stack on a phone, because people open these links from Slack on their phones all the time."
+    },
+    {
+      "speaker": "nina",
+      "text": "Easy. They will stack at the small breakpoint. I will make sure the install snippet scrolls horizontally instead of breaking the layout."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Okay, let me recap. Three starter cards with generic copy in v1, smart detection if Aman's endpoint exists. Text links move to violet two hundred. Sample data sits behind a preview button with a banner. Cards stack on mobile."
+    },
+    {
+      "speaker": "sofia",
+      "text": "Leah, final specs and updated tokens by Friday. Nina, start building Monday, with a target of having it behind a feature flag by the end of the month. I will set up the experiment to measure the forty four percent number."
+    },
+    {
+      "speaker": "nina",
+      "text": "The twenty sixth works, assuming no surprises from the schema API."
+    },
+    {
+      "speaker": "leah",
+      "text": "Perfect. Thanks both, this was a quick one."
+    },
+    {
+      "speaker": "nina",
+      "text": "A design review that ended early. Someone write that down."
+    },
+    {
+      "speaker": "sofia",
+      "text": "It is literally being recorded. Bye!"
+    }
   ]
 }

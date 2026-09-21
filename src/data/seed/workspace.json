@@ -1,4 +1,10 @@
 {
+  "generated_at": "2026-09-21T05:36:38.598Z",
+  "anchor": {
+    "meeting_id": "m_q4-roadmap-planning",
+    "recording_start": "2025-10-02T14:00:00.000Z",
+    "duration_ms": 3483000
+  },
   "workspace": {
     "id": "ws_northwind",
     "name": "Northwind Labs",
@@ -14,8 +20,8 @@
     {
       "id": "up_acme-demo",
       "title": "Acme Logistics — Technical Deep Dive",
-      "start": "2026-09-22T15:00:00.000Z",
-      "end": "2026-09-22T15:45:00.000Z",
+      "start": "2025-10-07T15:00:00.000Z",
+      "end": "2025-10-07T15:45:00.000Z",
       "attendees": [
         {
           "name": "Ethan Brooks",
@@ -43,8 +49,8 @@
     {
       "id": "up_priya-arjun-1on1",
       "title": "Priya / Arjun 1:1",
-      "start": "2026-09-22T19:00:00.000Z",
-      "end": "2026-09-22T19:30:00.000Z",
+      "start": "2025-10-03T19:00:00.000Z",
+      "end": "2025-10-03T19:30:00.000Z",
       "attendees": [
         {
           "name": "Priya Raman",
@@ -62,8 +68,8 @@
     {
       "id": "up_eng-standup",
       "title": "Eng Weekly Standup",
-      "start": "2026-09-23T13:30:00.000Z",
-      "end": "2026-09-23T13:45:00.000Z",
+      "start": "2025-10-06T13:30:00.000Z",
+      "end": "2025-10-06T13:45:00.000Z",
       "attendees": [
         {
           "name": "Priya Raman",
@@ -96,8 +102,8 @@
     {
       "id": "up_globex-exec",
       "title": "Globex — Reliability Plan & SSO Timeline",
-      "start": "2026-09-24T17:00:00.000Z",
-      "end": "2026-09-24T17:30:00.000Z",
+      "start": "2025-10-03T17:00:00.000Z",
+      "end": "2025-10-03T17:30:00.000Z",
       "attendees": [
         {
           "name": "Siobhan Kelly",
@@ -125,8 +131,8 @@
     {
       "id": "up_ai-insights-kickoff",
       "title": "AI Insights Beta — Kickoff",
-      "start": "2026-09-25T14:00:00.000Z",
-      "end": "2026-09-25T15:00:00.000Z",
+      "start": "2025-10-08T14:00:00.000Z",
+      "end": "2025-10-08T15:00:00.000Z",
       "attendees": [
         {
           "name": "Tom Okafor",
@@ -159,8 +165,8 @@
     {
       "id": "up_olivia-offer",
       "title": "Olivia Grant — Offer Call",
-      "start": "2026-09-27T16:00:00.000Z",
-      "end": "2026-09-27T16:30:00.000Z",
+      "start": "2025-10-07T20:00:00.000Z",
+      "end": "2025-10-07T20:30:00.000Z",
       "attendees": [
         {
           "name": "Priya Raman",
@@ -182,7 +188,7 @@
       "workspace_id": "ws_northwind",
       "name": "Customer pain points",
       "description": "What prospects and customers told us hurts — for product and CS.",
-      "created_at": "2026-09-12T05:04:35.198Z",
+      "created_at": "2025-09-23T21:00:00.000Z",
       "items": [
         {
           "id": "pl_customer-pain_item_00",
@@ -209,35 +215,35 @@
           "id": "pl_customer-pain_item_03",
           "playlist_id": "pl_customer-pain",
           "meeting_id": null,
-          "highlight_id": "hl_weekly-standup_02",
+          "highlight_id": "hl_design-review_00",
           "position": 3
         },
         {
           "id": "pl_customer-pain_item_04",
           "playlist_id": "pl_customer-pain",
           "meeting_id": null,
-          "highlight_id": "hl_weekly-standup_01",
+          "highlight_id": "hl_design-review_01",
           "position": 4
         },
         {
           "id": "pl_customer-pain_item_05",
           "playlist_id": "pl_customer-pain",
           "meeting_id": null,
-          "highlight_id": "hl_design-review_00",
+          "highlight_id": "hl_priya-marcus-1on1_00",
           "position": 5
         },
         {
           "id": "pl_customer-pain_item_06",
           "playlist_id": "pl_customer-pain",
           "meeting_id": null,
-          "highlight_id": "hl_design-review_01",
+          "highlight_id": "hl_weekly-standup_02",
           "position": 6
         },
         {
           "id": "pl_customer-pain_item_07",
           "playlist_id": "pl_customer-pain",
           "meeting_id": null,
-          "highlight_id": "hl_acme-discovery_00",
+          "highlight_id": "hl_weekly-standup_01",
           "position": 7
         }
       ]
@@ -247,7 +253,7 @@
       "workspace_id": "ws_northwind",
       "name": "Q4 decisions",
       "description": "Every decision that shapes the Q4 plan, straight from the calls.",
-      "created_at": "2026-09-20T05:04:35.198Z",
+      "created_at": "2025-10-01T21:00:00.000Z",
       "items": [
         {
           "id": "pl_q4-decisions_item_00",
@@ -274,49 +280,49 @@
           "id": "pl_q4-decisions_item_03",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_weekly-standup_04",
+          "highlight_id": "hl_design-review_02",
           "position": 3
         },
         {
           "id": "pl_q4-decisions_item_04",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_design-review_02",
+          "highlight_id": "hl_design-review_03",
           "position": 4
         },
         {
           "id": "pl_q4-decisions_item_05",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_design-review_03",
+          "highlight_id": "hl_priya-marcus-1on1_03",
           "position": 5
         },
         {
           "id": "pl_q4-decisions_item_06",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_acme-discovery_04",
+          "highlight_id": "hl_weekly-standup_04",
           "position": 6
         },
         {
           "id": "pl_q4-decisions_item_07",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_pricing-page-planning_03",
+          "highlight_id": "hl_acme-discovery_04",
           "position": 7
         },
         {
           "id": "pl_q4-decisions_item_08",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_pricing-page-planning_04",
+          "highlight_id": "hl_pricing-page-planning_03",
           "position": 8
         },
         {
           "id": "pl_q4-decisions_item_09",
           "playlist_id": "pl_q4-decisions",
           "meeting_id": null,
-          "highlight_id": "hl_priya-marcus-1on1_03",
+          "highlight_id": "hl_pricing-page-planning_04",
           "position": 9
         }
       ]

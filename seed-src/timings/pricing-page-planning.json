@@ -1,7 +1,7 @@
 {
   "slug": "pricing-page-planning",
   "media": "/media/pricing-page-planning.m4a",
-  "duration_ms": 586197,
+  "duration_ms": 585317,
   "sample_rate": 24000,
   "lines": [
     {
@@ -332,67 +332,67 @@
       "index": 54,
       "speaker": "tom",
       "start_ms": 501519,
-      "end_ms": 510542
+      "end_ms": 509662
     },
     {
       "index": 55,
       "speaker": "leah",
-      "start_ms": 510898,
-      "end_ms": 517241
+      "start_ms": 510018,
+      "end_ms": 516361
     },
     {
       "index": 56,
       "speaker": "tom",
-      "start_ms": 517804,
-      "end_ms": 528091
+      "start_ms": 516924,
+      "end_ms": 527211
     },
     {
       "index": 57,
       "speaker": "sofia",
-      "start_ms": 528600,
-      "end_ms": 536725
+      "start_ms": 527720,
+      "end_ms": 535845
     },
     {
       "index": 58,
       "speaker": "tom",
-      "start_ms": 537161,
-      "end_ms": 546423
+      "start_ms": 536281,
+      "end_ms": 545543
     },
     {
       "index": 59,
       "speaker": "james",
-      "start_ms": 546811,
-      "end_ms": 554463
+      "start_ms": 545931,
+      "end_ms": 553583
     },
     {
       "index": 60,
       "speaker": "tom",
-      "start_ms": 555130,
-      "end_ms": 564824
+      "start_ms": 554250,
+      "end_ms": 563944
     },
     {
       "index": 61,
       "speaker": "sofia",
-      "start_ms": 565243,
-      "end_ms": 570025
+      "start_ms": 564363,
+      "end_ms": 569145
     },
     {
       "index": 62,
       "speaker": "tom",
-      "start_ms": 570686,
-      "end_ms": 580524
+      "start_ms": 569806,
+      "end_ms": 579644
     },
     {
       "index": 63,
       "speaker": "james",
-      "start_ms": 581201,
-      "end_ms": 583711
+      "start_ms": 580321,
+      "end_ms": 582831
     },
     {
       "index": 64,
       "speaker": "leah",
-      "start_ms": 584402,
-      "end_ms": 585397
+      "start_ms": 583522,
+      "end_ms": 584517
     }
   ]
 }

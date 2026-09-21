@@ -16,10 +16,12 @@ import type {
   PlaylistItem,
   SearchHit,
   SeedMeetingFile,
+  SeedWorkspaceFile,
   Summary,
   UpcomingMeeting,
 } from "@/lib/types";
 import type { Repo } from "./repo";
+import { shiftSeed, type SeedAnchor } from "./seed-time";
 
 /**
  * Keyless demo-mode repository: the static seed JSON (`src/data/seed/`) deep-cloned into an in-memory
@@ -42,12 +44,15 @@ interface Store {
 const g = globalThis as unknown as { __fanthomSeedStore?: Store };
 
 function loadStore(): Store {
+  // Seed JSON is written against a fixed canonical week; move every timestamp forward by whole weeks so the
+  // flagship Q4 meeting is the most recent Thursday and upcoming meetings fall in the next 7 days.
+  const shifted = shiftSeed(seedMeetings as SeedMeetingFile[], seedWorkspace as SeedWorkspaceFile & { anchor?: SeedAnchor });
   const meetings = new Map<string, MeetingRecord>();
-  for (const file of structuredClone(seedMeetings) as SeedMeetingFile[]) {
+  for (const file of shifted.meetings) {
     const { decisions, ...rest } = file;
     meetings.set(file.meeting.id, { ...rest, decisions: decisions ?? null, invited_emails: [] });
   }
-  const ws = structuredClone(seedWorkspace);
+  const ws = shifted.workspace;
   return { meetings, upcoming: ws.upcoming, playlists: ws.playlists, chat: [], workspaceId: ws.workspace.id };
 }
 

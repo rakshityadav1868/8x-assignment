@@ -1,7 +1,7 @@
 {
   "slug": "globex-qbr",
   "media": "/media/globex-qbr.m4a",
-  "duration_ms": 905796,
+  "duration_ms": 906179,
   "sample_rate": 24000,
   "lines": [
     {
@@ -32,601 +32,601 @@
       "index": 4,
       "speaker": "siobhan",
       "start_ms": 27845,
-      "end_ms": 42189
+      "end_ms": 42572
     },
     {
       "index": 5,
       "speaker": "greg",
-      "start_ms": 43258,
-      "end_ms": 51287
+      "start_ms": 43641,
+      "end_ms": 51670
     },
     {
       "index": 6,
       "speaker": "siobhan",
-      "start_ms": 51598,
-      "end_ms": 60509
+      "start_ms": 51981,
+      "end_ms": 60892
     },
     {
       "index": 7,
       "speaker": "greg",
-      "start_ms": 60861,
-      "end_ms": 64942
+      "start_ms": 61244,
+      "end_ms": 65325
     },
     {
       "index": 8,
       "speaker": "siobhan",
-      "start_ms": 65397,
-      "end_ms": 77240
+      "start_ms": 65780,
+      "end_ms": 77623
     },
     {
       "index": 9,
       "speaker": "maya",
-      "start_ms": 77704,
-      "end_ms": 82389
+      "start_ms": 78087,
+      "end_ms": 82772
     },
     {
       "index": 10,
       "speaker": "siobhan",
-      "start_ms": 83410,
-      "end_ms": 93806
+      "start_ms": 83794,
+      "end_ms": 94189
     },
     {
       "index": 11,
       "speaker": "maya",
-      "start_ms": 94397,
-      "end_ms": 99814
+      "start_ms": 94780,
+      "end_ms": 100197
     },
     {
       "index": 12,
       "speaker": "ethan",
-      "start_ms": 100064,
-      "end_ms": 104655
+      "start_ms": 100447,
+      "end_ms": 105038
     },
     {
       "index": 13,
       "speaker": "siobhan",
-      "start_ms": 105777,
-      "end_ms": 116799
+      "start_ms": 106160,
+      "end_ms": 117182
     },
     {
       "index": 14,
       "speaker": "maya",
-      "start_ms": 117390,
-      "end_ms": 133890
+      "start_ms": 117774,
+      "end_ms": 134273
     },
     {
       "index": 15,
       "speaker": "greg",
-      "start_ms": 134369,
-      "end_ms": 143519
+      "start_ms": 134752,
+      "end_ms": 143902
     },
     {
       "index": 16,
       "speaker": "siobhan",
-      "start_ms": 144105,
-      "end_ms": 151481
+      "start_ms": 144488,
+      "end_ms": 151864
     },
     {
       "index": 17,
       "speaker": "maya",
-      "start_ms": 151890,
-      "end_ms": 161760
+      "start_ms": 152273,
+      "end_ms": 162143
     },
     {
       "index": 18,
       "speaker": "siobhan",
-      "start_ms": 162205,
-      "end_ms": 174913
+      "start_ms": 162588,
+      "end_ms": 175296
     },
     {
       "index": 19,
       "speaker": "maya",
-      "start_ms": 175274,
-      "end_ms": 180987
+      "start_ms": 175657,
+      "end_ms": 181370
     },
     {
       "index": 20,
       "speaker": "siobhan",
-      "start_ms": 181596,
-      "end_ms": 188636
+      "start_ms": 181980,
+      "end_ms": 189019
     },
     {
       "index": 21,
       "speaker": "maya",
-      "start_ms": 189042,
-      "end_ms": 192619
+      "start_ms": 189425,
+      "end_ms": 193003
     },
     {
       "index": 22,
       "speaker": "siobhan",
-      "start_ms": 193297,
-      "end_ms": 197901
+      "start_ms": 193681,
+      "end_ms": 198284
     },
     {
       "index": 23,
       "speaker": "greg",
-      "start_ms": 199387,
-      "end_ms": 217296
+      "start_ms": 199770,
+      "end_ms": 217679
     },
     {
       "index": 24,
       "speaker": "ethan",
-      "start_ms": 217955,
-      "end_ms": 222162
+      "start_ms": 218338,
+      "end_ms": 222545
     },
     {
       "index": 25,
       "speaker": "greg",
-      "start_ms": 222529,
-      "end_ms": 231447
+      "start_ms": 222912,
+      "end_ms": 231830
     },
     {
       "index": 26,
       "speaker": "siobhan",
-      "start_ms": 231714,
-      "end_ms": 233910
+      "start_ms": 232097,
+      "end_ms": 234293
     },
     {
       "index": 27,
       "speaker": "greg",
-      "start_ms": 234607,
-      "end_ms": 248390
+      "start_ms": 234990,
+      "end_ms": 248773
     },
     {
       "index": 28,
       "speaker": "maya",
-      "start_ms": 248911,
-      "end_ms": 256587
+      "start_ms": 249294,
+      "end_ms": 256970
     },
     {
       "index": 29,
       "speaker": "siobhan",
-      "start_ms": 256967,
-      "end_ms": 267514
+      "start_ms": 257350,
+      "end_ms": 267897
     },
     {
       "index": 30,
       "speaker": "maya",
-      "start_ms": 268191,
-      "end_ms": 274705
+      "start_ms": 268574,
+      "end_ms": 275088
     },
     {
       "index": 31,
       "speaker": "siobhan",
-      "start_ms": 275008,
-      "end_ms": 282792
+      "start_ms": 275391,
+      "end_ms": 283176
     },
     {
       "index": 32,
       "speaker": "maya",
-      "start_ms": 283477,
-      "end_ms": 287124
+      "start_ms": 283860,
+      "end_ms": 287507
     },
     {
       "index": 33,
       "speaker": "greg",
-      "start_ms": 287519,
-      "end_ms": 292594
+      "start_ms": 287902,
+      "end_ms": 292977
     },
     {
       "index": 34,
       "speaker": "siobhan",
-      "start_ms": 292898,
-      "end_ms": 293492
+      "start_ms": 293281,
+      "end_ms": 293875
     },
     {
       "index": 35,
       "speaker": "greg",
-      "start_ms": 293995,
-      "end_ms": 311416
+      "start_ms": 294378,
+      "end_ms": 311799
     },
     {
       "index": 36,
       "speaker": "ethan",
-      "start_ms": 311892,
-      "end_ms": 317555
+      "start_ms": 312275,
+      "end_ms": 317938
     },
     {
       "index": 37,
       "speaker": "greg",
-      "start_ms": 317884,
-      "end_ms": 323742
+      "start_ms": 318267,
+      "end_ms": 324125
     },
     {
       "index": 38,
       "speaker": "maya",
-      "start_ms": 324356,
-      "end_ms": 332299
+      "start_ms": 324739,
+      "end_ms": 332682
     },
     {
       "index": 39,
       "speaker": "ethan",
-      "start_ms": 332967,
-      "end_ms": 335877
+      "start_ms": 333350,
+      "end_ms": 336260
     },
     {
       "index": 40,
       "speaker": "maya",
-      "start_ms": 336204,
-      "end_ms": 339152
+      "start_ms": 336587,
+      "end_ms": 339536
     },
     {
       "index": 41,
       "speaker": "siobhan",
-      "start_ms": 340207,
-      "end_ms": 356165
+      "start_ms": 340590,
+      "end_ms": 356548
     },
     {
       "index": 42,
       "speaker": "greg",
-      "start_ms": 356599,
-      "end_ms": 370491
+      "start_ms": 356982,
+      "end_ms": 370874
     },
     {
       "index": 43,
       "speaker": "maya",
-      "start_ms": 370769,
-      "end_ms": 377579
+      "start_ms": 371153,
+      "end_ms": 377963
     },
     {
       "index": 44,
       "speaker": "siobhan",
-      "start_ms": 378261,
-      "end_ms": 392103
+      "start_ms": 378644,
+      "end_ms": 392487
     },
     {
       "index": 45,
       "speaker": "maya",
-      "start_ms": 392403,
-      "end_ms": 398279
+      "start_ms": 392786,
+      "end_ms": 398662
     },
     {
       "index": 46,
       "speaker": "siobhan",
-      "start_ms": 398954,
-      "end_ms": 410265
+      "start_ms": 399337,
+      "end_ms": 410648
     },
     {
       "index": 47,
       "speaker": "greg",
-      "start_ms": 410814,
-      "end_ms": 420138
+      "start_ms": 411197,
+      "end_ms": 420521
     },
     {
       "index": 48,
       "speaker": "ethan",
-      "start_ms": 420588,
-      "end_ms": 425829
+      "start_ms": 420971,
+      "end_ms": 426212
     },
     {
       "index": 49,
       "speaker": "greg",
-      "start_ms": 426089,
-      "end_ms": 427135
+      "start_ms": 426472,
+      "end_ms": 427518
     },
     {
       "index": 50,
       "speaker": "ethan",
-      "start_ms": 427555,
-      "end_ms": 446721
+      "start_ms": 427938,
+      "end_ms": 447105
     },
     {
       "index": 51,
       "speaker": "greg",
-      "start_ms": 447145,
-      "end_ms": 453044
+      "start_ms": 447528,
+      "end_ms": 453427
     },
     {
       "index": 52,
       "speaker": "ethan",
-      "start_ms": 453664,
-      "end_ms": 463343
+      "start_ms": 454048,
+      "end_ms": 463726
     },
     {
       "index": 53,
       "speaker": "greg",
-      "start_ms": 463696,
-      "end_ms": 473368
+      "start_ms": 464079,
+      "end_ms": 473751
     },
     {
       "index": 54,
       "speaker": "maya",
-      "start_ms": 473830,
-      "end_ms": 481274
+      "start_ms": 474214,
+      "end_ms": 481657
     },
     {
       "index": 55,
       "speaker": "greg",
-      "start_ms": 481830,
-      "end_ms": 493604
+      "start_ms": 482213,
+      "end_ms": 493987
     },
     {
       "index": 56,
       "speaker": "ethan",
-      "start_ms": 494221,
-      "end_ms": 507749
+      "start_ms": 494604,
+      "end_ms": 508133
     },
     {
       "index": 57,
       "speaker": "siobhan",
-      "start_ms": 508381,
-      "end_ms": 511947
+      "start_ms": 508764,
+      "end_ms": 512330
     },
     {
       "index": 58,
       "speaker": "ethan",
-      "start_ms": 513123,
-      "end_ms": 519330
+      "start_ms": 513507,
+      "end_ms": 519713
     },
     {
       "index": 59,
       "speaker": "greg",
-      "start_ms": 520521,
-      "end_ms": 527779
+      "start_ms": 520904,
+      "end_ms": 528162
     },
     {
       "index": 60,
       "speaker": "siobhan",
-      "start_ms": 528322,
-      "end_ms": 542803
+      "start_ms": 528705,
+      "end_ms": 543186
     },
     {
       "index": 61,
       "speaker": "greg",
-      "start_ms": 543354,
-      "end_ms": 552841
+      "start_ms": 543737,
+      "end_ms": 553224
     },
     {
       "index": 62,
       "speaker": "siobhan",
-      "start_ms": 553395,
-      "end_ms": 562791
+      "start_ms": 553778,
+      "end_ms": 563174
     },
     {
       "index": 63,
       "speaker": "maya",
-      "start_ms": 563092,
-      "end_ms": 567952
+      "start_ms": 563475,
+      "end_ms": 568335
     },
     {
       "index": 64,
       "speaker": "siobhan",
-      "start_ms": 568356,
-      "end_ms": 576710
+      "start_ms": 568740,
+      "end_ms": 577093
     },
     {
       "index": 65,
       "speaker": "greg",
-      "start_ms": 577262,
-      "end_ms": 581140
+      "start_ms": 577645,
+      "end_ms": 581523
     },
     {
       "index": 66,
       "speaker": "siobhan",
-      "start_ms": 581475,
-      "end_ms": 596019
+      "start_ms": 581858,
+      "end_ms": 596402
     },
     {
       "index": 67,
       "speaker": "maya",
-      "start_ms": 596296,
-      "end_ms": 606525
+      "start_ms": 596679,
+      "end_ms": 606908
     },
     {
       "index": 68,
       "speaker": "greg",
-      "start_ms": 607142,
-      "end_ms": 614005
+      "start_ms": 607525,
+      "end_ms": 614388
     },
     {
       "index": 69,
       "speaker": "siobhan",
-      "start_ms": 614550,
-      "end_ms": 628613
+      "start_ms": 614933,
+      "end_ms": 628996
     },
     {
       "index": 70,
       "speaker": "maya",
-      "start_ms": 629028,
-      "end_ms": 638050
+      "start_ms": 629411,
+      "end_ms": 638433
     },
     {
       "index": 71,
       "speaker": "siobhan",
-      "start_ms": 638307,
-      "end_ms": 652411
+      "start_ms": 638690,
+      "end_ms": 652794
     },
     {
       "index": 72,
       "speaker": "greg",
-      "start_ms": 652723,
-      "end_ms": 657908
+      "start_ms": 653107,
+      "end_ms": 658291
     },
     {
       "index": 73,
       "speaker": "maya",
-      "start_ms": 658171,
-      "end_ms": 666395
+      "start_ms": 658554,
+      "end_ms": 666778
     },
     {
       "index": 74,
       "speaker": "siobhan",
-      "start_ms": 666805,
-      "end_ms": 672541
+      "start_ms": 667188,
+      "end_ms": 672924
     },
     {
       "index": 75,
       "speaker": "maya",
-      "start_ms": 672978,
-      "end_ms": 678163
+      "start_ms": 673362,
+      "end_ms": 678546
     },
     {
       "index": 76,
       "speaker": "ethan",
-      "start_ms": 678485,
-      "end_ms": 690387
+      "start_ms": 678868,
+      "end_ms": 690771
     },
     {
       "index": 77,
       "speaker": "greg",
-      "start_ms": 690975,
-      "end_ms": 702307
+      "start_ms": 691358,
+      "end_ms": 702691
     },
     {
       "index": 78,
       "speaker": "ethan",
-      "start_ms": 703592,
-      "end_ms": 708262
+      "start_ms": 703975,
+      "end_ms": 708645
     },
     {
       "index": 79,
       "speaker": "maya",
-      "start_ms": 708883,
-      "end_ms": 720924
+      "start_ms": 709266,
+      "end_ms": 721307
     },
     {
       "index": 80,
       "speaker": "siobhan",
-      "start_ms": 721285,
-      "end_ms": 732589
+      "start_ms": 721669,
+      "end_ms": 732972
     },
     {
       "index": 81,
       "speaker": "maya",
-      "start_ms": 733173,
-      "end_ms": 740303
+      "start_ms": 733557,
+      "end_ms": 740686
     },
     {
       "index": 82,
       "speaker": "siobhan",
-      "start_ms": 740787,
-      "end_ms": 745855
+      "start_ms": 741171,
+      "end_ms": 746238
     },
     {
       "index": 83,
       "speaker": "siobhan",
-      "start_ms": 746173,
-      "end_ms": 754562
+      "start_ms": 746556,
+      "end_ms": 754945
     },
     {
       "index": 84,
       "speaker": "greg",
-      "start_ms": 754927,
-      "end_ms": 766120
+      "start_ms": 755310,
+      "end_ms": 766503
     },
     {
       "index": 85,
       "speaker": "ethan",
-      "start_ms": 766588,
-      "end_ms": 776363
+      "start_ms": 766971,
+      "end_ms": 776746
     },
     {
       "index": 86,
       "speaker": "greg",
-      "start_ms": 776623,
-      "end_ms": 781048
+      "start_ms": 777006,
+      "end_ms": 781431
     },
     {
       "index": 87,
       "speaker": "ethan",
-      "start_ms": 781536,
-      "end_ms": 787999
+      "start_ms": 781920,
+      "end_ms": 788382
     },
     {
       "index": 88,
       "speaker": "siobhan",
-      "start_ms": 788608,
-      "end_ms": 796553
+      "start_ms": 788991,
+      "end_ms": 796936
     },
     {
       "index": 89,
       "speaker": "greg",
-      "start_ms": 796964,
-      "end_ms": 799136
+      "start_ms": 797347,
+      "end_ms": 799519
     },
     {
       "index": 90,
       "speaker": "maya",
-      "start_ms": 799559,
-      "end_ms": 811310
+      "start_ms": 799942,
+      "end_ms": 811693
     },
     {
       "index": 91,
       "speaker": "siobhan",
-      "start_ms": 811753,
-      "end_ms": 819032
+      "start_ms": 812137,
+      "end_ms": 819415
     },
     {
       "index": 92,
       "speaker": "maya",
-      "start_ms": 819718,
-      "end_ms": 823939
+      "start_ms": 820101,
+      "end_ms": 824322
     },
     {
       "index": 93,
       "speaker": "siobhan",
-      "start_ms": 824203,
-      "end_ms": 829510
+      "start_ms": 824586,
+      "end_ms": 829893
     },
     {
       "index": 94,
       "speaker": "greg",
-      "start_ms": 829816,
-      "end_ms": 831796
+      "start_ms": 830199,
+      "end_ms": 832179
     },
     {
       "index": 95,
       "speaker": "siobhan",
-      "start_ms": 832229,
-      "end_ms": 847126
+      "start_ms": 832612,
+      "end_ms": 847509
     },
     {
       "index": 96,
       "speaker": "ethan",
-      "start_ms": 847735,
-      "end_ms": 848470
+      "start_ms": 848119,
+      "end_ms": 848853
     },
     {
       "index": 97,
       "speaker": "siobhan",
-      "start_ms": 848919,
-      "end_ms": 868311
+      "start_ms": 849303,
+      "end_ms": 868694
     },
     {
       "index": 98,
       "speaker": "maya",
-      "start_ms": 868768,
-      "end_ms": 871811
+      "start_ms": 869151,
+      "end_ms": 872194
     },
     {
       "index": 99,
       "speaker": "siobhan",
-      "start_ms": 872491,
-      "end_ms": 880784
+      "start_ms": 872874,
+      "end_ms": 881167
     },
     {
       "index": 100,
       "speaker": "greg",
-      "start_ms": 881097,
-      "end_ms": 893143
+      "start_ms": 881481,
+      "end_ms": 893527
     },
     {
       "index": 101,
       "speaker": "siobhan",
-      "start_ms": 893572,
-      "end_ms": 897803
+      "start_ms": 893955,
+      "end_ms": 898187
     },
     {
       "index": 102,
       "speaker": "ethan",
-      "start_ms": 898373,
-      "end_ms": 901940
+      "start_ms": 898757,
+      "end_ms": 902323
     },
     {
       "index": 103,
       "speaker": "maya",
-      "start_ms": 902539,
-      "end_ms": 904996
+      "start_ms": 902922,
+      "end_ms": 905379
     }
   ]
 }

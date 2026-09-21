@@ -1,7 +1,7 @@
 /**
  * `npm run seed` — idempotently loads the demo seed (src/data/seed/**) into Supabase.
  *
- *   npm run seed                 # rebuilds src/data/seed (dates relative to now), then upserts into Supabase
+ *   npm run seed                 # rebuilds src/data/seed, shifts dates to the current week, upserts into Supabase
  *   node scripts/seed.mts --sql   # prints the same data as idempotent SQL (paste into the Supabase SQL editor / psql)
  *
  * Needs NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY (read from the env or .env.local) and the schema from
@@ -14,6 +14,8 @@ import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createClient } from "@supabase/supabase-js";
 import type { SeedMeetingFile, SeedWorkspaceFile } from "../src/lib/types.ts";
+// @ts-expect-error -- Node runs this script directly (type stripping), which needs the explicit .ts extension.
+import { shiftSeed, type SeedAnchor } from "../src/lib/db/seed-time.ts";
 
 type Row = Record<string, unknown>;
 
@@ -22,10 +24,16 @@ const SEED = join(ROOT, "src/data/seed");
 const SQL_MODE = process.argv.includes("--sql");
 
 const readJson = <T,>(p: string): T => JSON.parse(readFileSync(p, "utf8")) as T;
-const workspaceFile = readJson<SeedWorkspaceFile>(join(SEED, "workspace.json"));
-const meetingFiles = readdirSync(join(SEED, "meetings"))
-  .filter((f) => f.endsWith(".json"))
-  .map((f) => readJson<SeedMeetingFile>(join(SEED, "meetings", f)));
+// Same whole-week shift as SeedRepo: the Q4 meeting lands on the most recent Thursday at seed time
+// (re-run `npm run seed` to refresh dates later).
+const shifted = shiftSeed(
+  readdirSync(join(SEED, "meetings"))
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => readJson<SeedMeetingFile>(join(SEED, "meetings", f))),
+  readJson<SeedWorkspaceFile & { anchor?: SeedAnchor }>(join(SEED, "workspace.json")),
+);
+const workspaceFile = shifted.workspace;
+const meetingFiles = shifted.meetings;
 if (!meetingFiles.length) throw new Error("No seed meetings in src/data/seed/meetings — run `npm run build:seed` first.");
 
 function templates(): Row[] {

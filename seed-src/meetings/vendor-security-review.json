@@ -6,54 +6,207 @@
   "start_time": "13:00",
   "recorded_by": "Kevin Walsh",
   "participants": [
-    {"key": "kevin", "name": "Kevin Walsh", "title": "SRE", "email": "kevin@northwindlabs.io", "is_external": false, "voice": "Ralph"},
-    {"key": "aman", "name": "Aman Gupta", "title": "Backend Engineer", "email": "aman@northwindlabs.io", "is_external": false, "voice": "Aman"},
-    {"key": "laura", "name": "Laura Stein", "title": "Account Security Engineer, Keystone Cloud", "email": "laura.stein@keystonecloud.com", "is_external": true, "voice": "Karen"}
+    {
+      "key": "kevin",
+      "name": "Kevin Walsh",
+      "title": "SRE",
+      "email": "kevin@northwindlabs.io",
+      "is_external": false,
+      "voice": "Ralph"
+    },
+    {
+      "key": "aman",
+      "name": "Aman Gupta",
+      "title": "Backend Engineer",
+      "email": "aman@northwindlabs.io",
+      "is_external": false,
+      "voice": "Aman"
+    },
+    {
+      "key": "laura",
+      "name": "Laura Stein",
+      "title": "Account Security Engineer, Keystone Cloud",
+      "email": "laura.stein@keystonecloud.com",
+      "is_external": true,
+      "voice": "Karen"
+    }
   ],
   "lines": [
-    {"speaker": "kevin", "text": "Hi Laura, thanks for joining. I am Kevin, I am on the SRE team at Northwind, and this is Aman from backend. We are evaluating Keystone for long term log storage, and our security questionnaire had a few open items."},
-    {"speaker": "laura", "text": "Great to meet you both. Yeah, I saw the questionnaire, it was a thorough one. I think we answered about ninety percent of it, so hopefully we can close the rest today."},
-    {"speaker": "aman", "text": "It was a hundred and twelve questions, sorry about that. Our Enterprise customers send us questionnaires that are twice as long, so it all rolls downhill."},
-    {"speaker": "laura", "text": "Ha, believe me, I understand. Where do you want to start?"},
-    {"speaker": "kevin", "text": "Let us start with compliance. You mentioned SOC 2 Type Two. What is the audit period on the current report, and can we get a copy?"},
-    {"speaker": "laura", "text": "Sure. Our current report covers January through June of this year, so a six month window. The next one covers the full twelve months and should be out in February. I can share the current one as soon as we have a mutual NDA in place."},
-    {"speaker": "kevin", "text": "We already signed the NDA last week, I think. Aman, did legal send it back?"},
-    {"speaker": "aman", "text": "Yeah, it was countersigned on Tuesday. I will forward it to Laura after this call."},
-    {"speaker": "laura", "text": "Perfect. Then I will send the report and the bridge letter the same day."},
-    {"speaker": "kevin", "text": "Were there any exceptions in the report?"},
-    {"speaker": "laura", "text": "One. There was an access review that was completed eleven days late in Q2. It is noted in the report along with the remediation, which was automating the review reminders. Nothing related to data handling."},
-    {"speaker": "kevin", "text": "Okay, that is honestly reassuring, better than a suspiciously perfect report. Next, data residency. About thirty percent of our revenue is from European customers, and several of them require EU only storage."},
-    {"speaker": "laura", "text": "We have a Frankfurt region and a Dublin region. If you pin a workspace to the EU, data at rest never leaves those two regions, including backups. The one exception is support metadata, like ticket contents, which lives in our US support tool."},
-    {"speaker": "aman", "text": "Wait, does support metadata ever include log contents? Like if one of our engineers pastes a log line into a ticket?"},
-    {"speaker": "laura", "text": "Only if your engineer pastes it. Our support staff do not pull customer log data into tickets, and they cannot access your logs without a time limited approval from your admin."},
-    {"speaker": "kevin", "text": "Okay. We will need to put that in our internal guidance then. No pasting customer data into vendor tickets. Aman, can you add that to the runbook?"},
-    {"speaker": "aman", "text": "Yep, I will add it to the data handling runbook this week."},
-    {"speaker": "kevin", "text": "Next item, identity. We use Okta. Do you support SAML SSO and SCIM provisioning on the plan we are looking at?"},
-    {"speaker": "laura", "text": "SAML SSO, yes, on all business plans. SCIM is where I have to be honest. It is only on the Enterprise tier right now. On the Business tier, you would have to deprovision users manually."},
-    {"speaker": "kevin", "text": "Hmm. That is a problem for us. We had an audit finding last year about a former contractor still having access to a vendor tool for three weeks. SCIM is kind of a must have."},
-    {"speaker": "aman", "text": "And Enterprise was, what, about double the price in the quote?"},
-    {"speaker": "laura", "text": "Roughly, yeah. But I have seen our sales team include SCIM as an add on for Business customers with a security requirement. I cannot promise it, but I will ask your account executive today."},
-    {"speaker": "kevin", "text": "Please do. If you can do SCIM on Business for, say, under two thousand a year extra, that is probably a yes from us."},
-    {"speaker": "laura", "text": "Noted. I will get you an answer by Thursday."},
-    {"speaker": "kevin", "text": "Retention. We need to keep application logs for thirteen months for one of our customers' audit requirements, and then hard delete. How does deletion actually work?"},
-    {"speaker": "laura", "text": "Retention policies are set per index. When data ages out, it is deleted from primary storage within twenty four hours, and from backups within thirty five days, because backups rotate on a thirty five day cycle. We can give you a deletion certificate on request."},
-    {"speaker": "aman", "text": "What about a customer deletion request, like a GDPR erasure for a specific user? Can we delete specific records, or only whole indices?"},
-    {"speaker": "laura", "text": "You can delete by query through the API. It is not instant, it runs as a background job, typically done within six hours. Same thirty five day backup caveat."},
-    {"speaker": "aman", "text": "Okay. We will probably try to never send personal data to the logs in the first place, but good to know. Honestly, we still have a couple of services logging email addresses, which I am not proud of."},
-    {"speaker": "kevin", "text": "Yeah, let us fix that regardless. That is on us, not Keystone."},
-    {"speaker": "kevin", "text": "Penetration testing. When was your last external pen test, and can we see the summary?"},
-    {"speaker": "laura", "text": "The last one was in July, run by an external firm. There were two medium findings and no highs or criticals. Both mediums were fixed within thirty days. I can share the executive summary under the same NDA."},
-    {"speaker": "kevin", "text": "Great. And encryption, I assume AES two fifty six at rest, TLS one point two plus in transit?"},
-    {"speaker": "laura", "text": "Correct. And on Enterprise you can bring your own key through AWS KMS. On Business it is our managed keys."},
-    {"speaker": "aman", "text": "Is that also Enterprise only? Everything good is Enterprise only."},
-    {"speaker": "laura", "text": "Ha, I know, I know. That one really is Enterprise only, sorry."},
-    {"speaker": "kevin", "text": "Okay, last one. The DPA. Our legal team had redlines on the sub processor notification period. Your standard is fourteen days, we asked for thirty."},
-    {"speaker": "laura", "text": "I saw that. Legal told me thirty days is fine, they just need to update the template. You should get the revised DPA from them early next week."},
-    {"speaker": "kevin", "text": "Perfect. So let me summarize what I heard. You are sending the SOC 2 report, the bridge letter, and the pen test summary once you get the NDA. You are checking on SCIM as an add on for Business by Thursday. And legal sends the revised DPA next week."},
-    {"speaker": "laura", "text": "That is right. And if anything else comes up, email me directly, it is usually faster than going through the account team."},
-    {"speaker": "kevin", "text": "On our side, Aman forwards the NDA today and updates the runbook. I will write up the vendor risk assessment once we have the reports, target end of next week. And the decision hinges on SCIM."},
-    {"speaker": "aman", "text": "And I will open a ticket to scrub the email addresses from our logs, independent of all this."},
-    {"speaker": "laura", "text": "Sounds like a plan. Thanks both, this was a really efficient one."},
-    {"speaker": "kevin", "text": "Thanks Laura, talk soon."}
+    {
+      "speaker": "kevin",
+      "text": "Hi Laura, thanks for joining. I am Kevin, I am on the SRE team at Northwind, and this is Aman from backend. We are evaluating Keystone for long term log storage, and our security questionnaire had a few open items."
+    },
+    {
+      "speaker": "laura",
+      "text": "Great to meet you both. Yeah, I saw the questionnaire, it was a thorough one. I think we answered about ninety percent of it, so hopefully we can close the rest today."
+    },
+    {
+      "speaker": "aman",
+      "text": "It was a hundred and twelve questions, sorry about that. Our Enterprise customers send us questionnaires that are twice as long, so it all rolls downhill."
+    },
+    {
+      "speaker": "laura",
+      "text": "Ha, believe me, I understand. Where do you want to start?"
+    },
+    {
+      "speaker": "kevin",
+      "text": "Let us start with compliance. You mentioned SOC 2 Type Two. What is the audit period on the current report, and can we get a copy?"
+    },
+    {
+      "speaker": "laura",
+      "text": "Sure. Our current report covers January through June of this year, so a six month window. The next one covers the full twelve months and should be out in February. I can share the current one as soon as we have a mutual NDA in place."
+    },
+    {
+      "speaker": "kevin",
+      "text": "We already signed the NDA last week, I think. Aman, did legal send it back?"
+    },
+    {
+      "speaker": "aman",
+      "text": "Yeah, it was countersigned on Tuesday. I will forward it to Laura after this call."
+    },
+    {
+      "speaker": "laura",
+      "text": "Perfect. Then I will send the report and the bridge letter the same day."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Were there any exceptions in the report?"
+    },
+    {
+      "speaker": "laura",
+      "text": "One. There was an access review that was completed eleven days late in Q2. It is noted in the report along with the remediation, which was automating the review reminders. Nothing related to data handling."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Okay, that is honestly reassuring, better than a suspiciously perfect report. Next, data residency. About thirty percent of our revenue is from European customers, and several of them require EU only storage."
+    },
+    {
+      "speaker": "laura",
+      "text": "We have a Frankfurt region and a Dublin region. If you pin a workspace to the EU, data at rest never leaves those two regions, including backups. The one exception is support metadata, like ticket contents, which lives in our US support tool."
+    },
+    {
+      "speaker": "aman",
+      "text": "Wait, does support metadata ever include log contents? Like if one of our engineers pastes a log line into a ticket?"
+    },
+    {
+      "speaker": "laura",
+      "text": "Only if your engineer pastes it. Our support staff do not pull customer log data into tickets, and they cannot access your logs without a time limited approval from your admin."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Okay. We will need to put that in our internal guidance then. No pasting customer data into vendor tickets. Aman, can you add that to the runbook?"
+    },
+    {
+      "speaker": "aman",
+      "text": "Yep, I will add it to the data handling runbook this week."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Next item, identity. We use Okta. Do you support SAML SSO and SCIM provisioning on the plan we are looking at?"
+    },
+    {
+      "speaker": "laura",
+      "text": "SAML SSO, yes, on all business plans. SCIM is where I have to be honest. It is only on the Enterprise tier right now. On the Business tier, you would have to deprovision users manually."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Hmm. That is a problem for us. We had an audit finding last year about a former contractor still having access to a vendor tool for three weeks. SCIM is kind of a must have."
+    },
+    {
+      "speaker": "aman",
+      "text": "And Enterprise was, what, about double the price in the quote?"
+    },
+    {
+      "speaker": "laura",
+      "text": "Roughly, yeah. But I have seen our sales team include SCIM as an add on for Business customers with a security requirement. I cannot promise it, but I will ask your account executive today."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Please do. If you can do SCIM on Business for, say, under two thousand a year extra, that is probably a yes from us."
+    },
+    {
+      "speaker": "laura",
+      "text": "Noted. I will get you an answer by Thursday."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Retention. We need to keep application logs for thirteen months for one of our customers' audit requirements, and then hard delete. How does deletion actually work?"
+    },
+    {
+      "speaker": "laura",
+      "text": "Retention policies are set per index. When data ages out, it is deleted from primary storage within twenty four hours, and from backups within thirty five days, because backups rotate on a thirty five day cycle. We can give you a deletion certificate on request."
+    },
+    {
+      "speaker": "aman",
+      "text": "What about a customer deletion request, like a GDPR erasure for a specific user? Can we delete specific records, or only whole indices?"
+    },
+    {
+      "speaker": "laura",
+      "text": "You can delete by query through the API. It is not instant, it runs as a background job, typically done within six hours. Same thirty five day backup caveat."
+    },
+    {
+      "speaker": "aman",
+      "text": "Okay. We will probably try to never send personal data to the logs in the first place, but good to know. Honestly, we still have a couple of services logging email addresses, which I am not proud of."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Yeah, let us fix that regardless. That is on us, not Keystone."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Penetration testing. When was your last external pen test, and can we see the summary?"
+    },
+    {
+      "speaker": "laura",
+      "text": "The last one was in July, run by an external firm. There were two medium findings and no highs or criticals. Both mediums were fixed within thirty days. I can share the executive summary under the same NDA."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Great. And encryption, I assume AES two fifty six at rest, TLS one point two plus in transit?"
+    },
+    {
+      "speaker": "laura",
+      "text": "Correct. And on Enterprise you can bring your own key through AWS KMS. On Business it is our managed keys."
+    },
+    {
+      "speaker": "aman",
+      "text": "Is that also Enterprise only? Everything good is Enterprise only."
+    },
+    {
+      "speaker": "laura",
+      "text": "Ha, I know, I know. That one really is Enterprise only, sorry."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Okay, last one. The DPA. Our legal team had redlines on the sub processor notification period. Your standard is fourteen days, we asked for thirty."
+    },
+    {
+      "speaker": "laura",
+      "text": "I saw that. Legal told me thirty days is fine, they just need to update the template. You should get the revised DPA from them early next week."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Perfect. So let me summarize what I heard. You are sending the SOC 2 report, the bridge letter, and the pen test summary once you get the NDA. You are checking on SCIM as an add on for Business by Thursday. And legal sends the revised DPA next week."
+    },
+    {
+      "speaker": "laura",
+      "text": "That is right. And if anything else comes up, email me directly, it is usually faster than going through the account team."
+    },
+    {
+      "speaker": "kevin",
+      "text": "On our side, Aman forwards the NDA today and updates the runbook. I will write up the vendor risk assessment once we have the reports, target end of next week. And the decision hinges on SCIM."
+    },
+    {
+      "speaker": "aman",
+      "text": "And I will open a ticket to scrub the email addresses from our logs, independent of all this."
+    },
+    {
+      "speaker": "laura",
+      "text": "Sounds like a plan. Thanks both, this was a really efficient one."
+    },
+    {
+      "speaker": "kevin",
+      "text": "Thanks Laura, talk soon."
+    }
   ]
 }

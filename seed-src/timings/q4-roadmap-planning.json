@@ -1,7 +1,7 @@
 {
   "slug": "q4-roadmap-planning",
   "media": "/media/q4-roadmap-planning.m4a",
-  "duration_ms": 3485453,
+  "duration_ms": 3483085,
   "sample_rate": 24000,
   "lines": [
     {
@@ -2054,2101 +2054,2101 @@
       "index": 341,
       "speaker": "priya",
       "start_ms": 1814083,
-      "end_ms": 1820244
+      "end_ms": 1820813
     },
     {
       "index": 342,
       "speaker": "tom",
-      "start_ms": 1820717,
-      "end_ms": 1823484
+      "start_ms": 1821286,
+      "end_ms": 1824053
     },
     {
       "index": 343,
       "speaker": "dana",
-      "start_ms": 1823756,
-      "end_ms": 1825614
+      "start_ms": 1824325,
+      "end_ms": 1826183
     },
     {
       "index": 344,
       "speaker": "tom",
-      "start_ms": 1826633,
-      "end_ms": 1834856
+      "start_ms": 1827202,
+      "end_ms": 1835425
     },
     {
       "index": 345,
       "speaker": "priya",
-      "start_ms": 1835456,
-      "end_ms": 1840899
+      "start_ms": 1836025,
+      "end_ms": 1841468
     },
     {
       "index": 346,
       "speaker": "tom",
-      "start_ms": 1841569,
-      "end_ms": 1844832
+      "start_ms": 1842138,
+      "end_ms": 1845400
     },
     {
       "index": 347,
       "speaker": "sofia",
-      "start_ms": 1845113,
-      "end_ms": 1850423
+      "start_ms": 1845682,
+      "end_ms": 1850992
     },
     {
       "index": 348,
       "speaker": "priya",
-      "start_ms": 1850899,
-      "end_ms": 1859535
+      "start_ms": 1851467,
+      "end_ms": 1860104
     },
     {
       "index": 349,
       "speaker": "tom",
-      "start_ms": 1859878,
-      "end_ms": 1862101
+      "start_ms": 1860447,
+      "end_ms": 1862670
     },
     {
       "index": 350,
       "speaker": "priya",
-      "start_ms": 1862531,
-      "end_ms": 1867908
+      "start_ms": 1863100,
+      "end_ms": 1868477
     },
     {
       "index": 351,
       "speaker": "tom",
-      "start_ms": 1868300,
-      "end_ms": 1870459
+      "start_ms": 1868869,
+      "end_ms": 1871028
     },
     {
       "index": 352,
       "speaker": "priya",
-      "start_ms": 1870903,
-      "end_ms": 1871370
+      "start_ms": 1871472,
+      "end_ms": 1871938
     },
     {
       "index": 353,
       "speaker": "james",
-      "start_ms": 1872024,
-      "end_ms": 1878353
+      "start_ms": 1872593,
+      "end_ms": 1878922
     },
     {
       "index": 354,
       "speaker": "priya",
-      "start_ms": 1878868,
-      "end_ms": 1882769
+      "start_ms": 1879437,
+      "end_ms": 1883338
     },
     {
       "index": 355,
       "speaker": "priya",
-      "start_ms": 1883084,
-      "end_ms": 1885238
+      "start_ms": 1883653,
+      "end_ms": 1885807
     },
     {
       "index": 356,
       "speaker": "james",
-      "start_ms": 1885906,
-      "end_ms": 1888002
+      "start_ms": 1886475,
+      "end_ms": 1888571
     },
     {
       "index": 357,
       "speaker": "priya",
-      "start_ms": 1888501,
-      "end_ms": 1890022
+      "start_ms": 1889069,
+      "end_ms": 1890591
     },
     {
       "index": 358,
       "speaker": "james",
-      "start_ms": 1890329,
-      "end_ms": 1893006
+      "start_ms": 1890898,
+      "end_ms": 1893575
     },
     {
       "index": 359,
       "speaker": "dana",
-      "start_ms": 1893467,
-      "end_ms": 1899569
+      "start_ms": 1894036,
+      "end_ms": 1900138
     },
     {
       "index": 360,
       "speaker": "arjun",
-      "start_ms": 1899968,
-      "end_ms": 1904539
+      "start_ms": 1900536,
+      "end_ms": 1905108
     },
     {
       "index": 361,
       "speaker": "arjun",
-      "start_ms": 1904760,
-      "end_ms": 1908663
+      "start_ms": 1905329,
+      "end_ms": 1909232
     },
     {
       "index": 362,
       "speaker": "arjun",
-      "start_ms": 1908850,
-      "end_ms": 1912620
+      "start_ms": 1909418,
+      "end_ms": 1913189
     },
     {
       "index": 363,
       "speaker": "dana",
-      "start_ms": 1913048,
-      "end_ms": 1913852
+      "start_ms": 1913617,
+      "end_ms": 1914420
     },
     {
       "index": 364,
       "speaker": "arjun",
-      "start_ms": 1914154,
-      "end_ms": 1920119
+      "start_ms": 1914723,
+      "end_ms": 1920688
     },
     {
       "index": 365,
       "speaker": "dana",
-      "start_ms": 1920572,
-      "end_ms": 1922246
+      "start_ms": 1921141,
+      "end_ms": 1922815
     },
     {
       "index": 366,
       "speaker": "priya",
-      "start_ms": 1922903,
-      "end_ms": 1929204
+      "start_ms": 1923472,
+      "end_ms": 1929773
     },
     {
       "index": 367,
       "speaker": "dana",
-      "start_ms": 1929902,
-      "end_ms": 1935685
+      "start_ms": 1930471,
+      "end_ms": 1936254
     },
     {
       "index": 368,
       "speaker": "siobhan",
-      "start_ms": 1936183,
-      "end_ms": 1940341
+      "start_ms": 1936752,
+      "end_ms": 1940910
     },
     {
       "index": 369,
       "speaker": "dana",
-      "start_ms": 1940598,
-      "end_ms": 1944004
+      "start_ms": 1941166,
+      "end_ms": 1944572
     },
     {
       "index": 370,
       "speaker": "siobhan",
-      "start_ms": 1944494,
-      "end_ms": 1951545
+      "start_ms": 1945063,
+      "end_ms": 1952114
     },
     {
       "index": 371,
       "speaker": "siobhan",
-      "start_ms": 1951788,
-      "end_ms": 1956476
+      "start_ms": 1952357,
+      "end_ms": 1957044
     },
     {
       "index": 372,
       "speaker": "arjun",
-      "start_ms": 1957026,
-      "end_ms": 1961927
+      "start_ms": 1957595,
+      "end_ms": 1962496
     },
     {
       "index": 373,
       "speaker": "siobhan",
-      "start_ms": 1962373,
-      "end_ms": 1969301
+      "start_ms": 1962942,
+      "end_ms": 1969870
     },
     {
       "index": 374,
       "speaker": "priya",
-      "start_ms": 1969901,
-      "end_ms": 1975671
+      "start_ms": 1970470,
+      "end_ms": 1976240
     },
     {
       "index": 375,
       "speaker": "tom",
-      "start_ms": 1976319,
-      "end_ms": 1979646
+      "start_ms": 1976888,
+      "end_ms": 1980215
     },
     {
       "index": 376,
       "speaker": "siobhan",
-      "start_ms": 1981071,
-      "end_ms": 1985615
+      "start_ms": 1981640,
+      "end_ms": 1986184
     },
     {
       "index": 377,
       "speaker": "james",
-      "start_ms": 1985937,
-      "end_ms": 1988613
+      "start_ms": 1986505,
+      "end_ms": 1989182
     },
     {
       "index": 378,
       "speaker": "siobhan",
-      "start_ms": 1989009,
-      "end_ms": 1990439
+      "start_ms": 1989578,
+      "end_ms": 1991007
     },
     {
       "index": 379,
       "speaker": "dana",
-      "start_ms": 1991099,
-      "end_ms": 1999124
+      "start_ms": 1991668,
+      "end_ms": 1999693
     },
     {
       "index": 380,
       "speaker": "dana",
-      "start_ms": 1999451,
-      "end_ms": 2002846
+      "start_ms": 2000019,
+      "end_ms": 2003415
     },
     {
       "index": 381,
       "speaker": "dana",
-      "start_ms": 2003145,
-      "end_ms": 2009214
+      "start_ms": 2003714,
+      "end_ms": 2009783
     },
     {
       "index": 382,
       "speaker": "dana",
-      "start_ms": 2009495,
-      "end_ms": 2012239
+      "start_ms": 2010063,
+      "end_ms": 2012807
     },
     {
       "index": 383,
       "speaker": "arjun",
-      "start_ms": 2012497,
-      "end_ms": 2021699
+      "start_ms": 2013066,
+      "end_ms": 2022268
     },
     {
       "index": 384,
       "speaker": "arjun",
-      "start_ms": 2021890,
-      "end_ms": 2025513
+      "start_ms": 2022459,
+      "end_ms": 2026082
     },
     {
       "index": 385,
       "speaker": "dana",
-      "start_ms": 2025869,
-      "end_ms": 2026534
+      "start_ms": 2026438,
+      "end_ms": 2027102
     },
     {
       "index": 386,
       "speaker": "arjun",
-      "start_ms": 2026844,
-      "end_ms": 2032054
+      "start_ms": 2027413,
+      "end_ms": 2032623
     },
     {
       "index": 387,
       "speaker": "priya",
-      "start_ms": 2032654,
-      "end_ms": 2035414
+      "start_ms": 2033223,
+      "end_ms": 2035983
     },
     {
       "index": 388,
       "speaker": "priya",
-      "start_ms": 2035703,
-      "end_ms": 2039537
+      "start_ms": 2036272,
+      "end_ms": 2040106
     },
     {
       "index": 389,
       "speaker": "dana",
-      "start_ms": 2039937,
-      "end_ms": 2042132
+      "start_ms": 2040506,
+      "end_ms": 2042700
     },
     {
       "index": 390,
       "speaker": "priya",
-      "start_ms": 2042540,
-      "end_ms": 2048475
+      "start_ms": 2043109,
+      "end_ms": 2049044
     },
     {
       "index": 391,
       "speaker": "dana",
-      "start_ms": 2048864,
-      "end_ms": 2051688
+      "start_ms": 2049433,
+      "end_ms": 2052257
     },
     {
       "index": 392,
       "speaker": "arjun",
-      "start_ms": 2052201,
-      "end_ms": 2056609
+      "start_ms": 2052770,
+      "end_ms": 2057178
     },
     {
       "index": 393,
       "speaker": "dana",
-      "start_ms": 2057295,
-      "end_ms": 2062339
+      "start_ms": 2057863,
+      "end_ms": 2062908
     },
     {
       "index": 394,
       "speaker": "priya",
-      "start_ms": 2063027,
-      "end_ms": 2064428
+      "start_ms": 2063596,
+      "end_ms": 2064997
     },
     {
       "index": 395,
       "speaker": "dana",
-      "start_ms": 2065026,
-      "end_ms": 2069069
+      "start_ms": 2065595,
+      "end_ms": 2069638
     },
     {
       "index": 396,
       "speaker": "priya",
-      "start_ms": 2069568,
-      "end_ms": 2074649
+      "start_ms": 2070137,
+      "end_ms": 2075218
     },
     {
       "index": 397,
       "speaker": "priya",
-      "start_ms": 2074872,
-      "end_ms": 2080558
+      "start_ms": 2075441,
+      "end_ms": 2081127
     },
     {
       "index": 398,
       "speaker": "james",
-      "start_ms": 2081161,
-      "end_ms": 2087722
+      "start_ms": 2081730,
+      "end_ms": 2088291
     },
     {
       "index": 399,
       "speaker": "priya",
-      "start_ms": 2088130,
-      "end_ms": 2092364
+      "start_ms": 2088699,
+      "end_ms": 2092933
     },
     {
       "index": 400,
       "speaker": "priya",
-      "start_ms": 2092636,
-      "end_ms": 2100127
+      "start_ms": 2093205,
+      "end_ms": 2100696
     },
     {
       "index": 401,
       "speaker": "priya",
-      "start_ms": 2100338,
-      "end_ms": 2101931
+      "start_ms": 2100907,
+      "end_ms": 2102500
     },
     {
       "index": 402,
       "speaker": "james",
-      "start_ms": 2102619,
-      "end_ms": 2104531
+      "start_ms": 2103188,
+      "end_ms": 2105100
     },
     {
       "index": 403,
       "speaker": "priya",
-      "start_ms": 2105106,
-      "end_ms": 2108558
+      "start_ms": 2105675,
+      "end_ms": 2109127
     },
     {
       "index": 404,
       "speaker": "priya",
-      "start_ms": 2108726,
-      "end_ms": 2112787
+      "start_ms": 2109295,
+      "end_ms": 2112880
     },
     {
       "index": 405,
       "speaker": "james",
-      "start_ms": 2113276,
-      "end_ms": 2117380
+      "start_ms": 2113368,
+      "end_ms": 2117473
     },
     {
       "index": 406,
       "speaker": "siobhan",
-      "start_ms": 2117738,
-      "end_ms": 2125652
+      "start_ms": 2117831,
+      "end_ms": 2125745
     },
     {
       "index": 407,
       "speaker": "dana",
-      "start_ms": 2125930,
-      "end_ms": 2129681
+      "start_ms": 2126023,
+      "end_ms": 2129774
     },
     {
       "index": 408,
       "speaker": "priya",
-      "start_ms": 2130095,
-      "end_ms": 2134552
+      "start_ms": 2130188,
+      "end_ms": 2134645
     },
     {
       "index": 409,
       "speaker": "dana",
-      "start_ms": 2135182,
-      "end_ms": 2143068
+      "start_ms": 2135275,
+      "end_ms": 2143160
     },
     {
       "index": 410,
       "speaker": "dana",
-      "start_ms": 2143377,
-      "end_ms": 2146238
+      "start_ms": 2143469,
+      "end_ms": 2146331
     },
     {
       "index": 411,
       "speaker": "priya",
-      "start_ms": 2146582,
-      "end_ms": 2148665
+      "start_ms": 2146675,
+      "end_ms": 2148757
     },
     {
       "index": 412,
       "speaker": "tom",
-      "start_ms": 2149286,
-      "end_ms": 2152478
+      "start_ms": 2149378,
+      "end_ms": 2152571
     },
     {
       "index": 413,
       "speaker": "dana",
-      "start_ms": 2152878,
-      "end_ms": 2153489
+      "start_ms": 2152971,
+      "end_ms": 2153582
     },
     {
       "index": 414,
       "speaker": "tom",
-      "start_ms": 2153752,
-      "end_ms": 2158887
+      "start_ms": 2153845,
+      "end_ms": 2158980
     },
     {
       "index": 415,
       "speaker": "tom",
-      "start_ms": 2159202,
-      "end_ms": 2165569
+      "start_ms": 2159295,
+      "end_ms": 2165662
     },
     {
       "index": 416,
       "speaker": "tom",
-      "start_ms": 2165898,
-      "end_ms": 2170232
+      "start_ms": 2165990,
+      "end_ms": 2170325
     },
     {
       "index": 417,
       "speaker": "priya",
-      "start_ms": 2170863,
-      "end_ms": 2174510
+      "start_ms": 2170956,
+      "end_ms": 2174603
     },
     {
       "index": 418,
       "speaker": "arjun",
-      "start_ms": 2175116,
-      "end_ms": 2176671
+      "start_ms": 2175209,
+      "end_ms": 2176764
     },
     {
       "index": 419,
       "speaker": "dana",
-      "start_ms": 2177922,
-      "end_ms": 2181915
+      "start_ms": 2178015,
+      "end_ms": 2182008
     },
     {
       "index": 420,
       "speaker": "tom",
-      "start_ms": 2182230,
-      "end_ms": 2185172
+      "start_ms": 2182323,
+      "end_ms": 2185264
     },
     {
       "index": 421,
       "speaker": "dana",
-      "start_ms": 2185834,
-      "end_ms": 2189233
+      "start_ms": 2185927,
+      "end_ms": 2189326
     },
     {
       "index": 422,
       "speaker": "sofia",
-      "start_ms": 2189916,
-      "end_ms": 2195051
+      "start_ms": 2190009,
+      "end_ms": 2195144
     },
     {
       "index": 423,
       "speaker": "james",
-      "start_ms": 2196460,
-      "end_ms": 2199689
+      "start_ms": 2196553,
+      "end_ms": 2199782
     },
     {
       "index": 424,
       "speaker": "sofia",
-      "start_ms": 2200248,
-      "end_ms": 2205383
+      "start_ms": 2200341,
+      "end_ms": 2205476
     },
     {
       "index": 425,
       "speaker": "sofia",
-      "start_ms": 2205572,
-      "end_ms": 2215587
+      "start_ms": 2205665,
+      "end_ms": 2215680
     },
     {
       "index": 426,
       "speaker": "sofia",
-      "start_ms": 2215760,
-      "end_ms": 2221758
+      "start_ms": 2215853,
+      "end_ms": 2221851
     },
     {
       "index": 427,
       "speaker": "sofia",
-      "start_ms": 2221948,
-      "end_ms": 2224836
+      "start_ms": 2222041,
+      "end_ms": 2224929
     },
     {
       "index": 428,
       "speaker": "siobhan",
-      "start_ms": 2225430,
-      "end_ms": 2226553
+      "start_ms": 2225522,
+      "end_ms": 2226646
     },
     {
       "index": 429,
       "speaker": "sofia",
-      "start_ms": 2227745,
-      "end_ms": 2232847
+      "start_ms": 2227837,
+      "end_ms": 2232940
     },
     {
       "index": 430,
       "speaker": "sofia",
-      "start_ms": 2233029,
-      "end_ms": 2240723
+      "start_ms": 2233122,
+      "end_ms": 2240816
     },
     {
       "index": 431,
       "speaker": "dana",
-      "start_ms": 2241003,
-      "end_ms": 2243820
+      "start_ms": 2241096,
+      "end_ms": 2243913
     },
     {
       "index": 432,
       "speaker": "sofia",
-      "start_ms": 2244252,
-      "end_ms": 2247994
+      "start_ms": 2244345,
+      "end_ms": 2248087
     },
     {
       "index": 433,
       "speaker": "dana",
-      "start_ms": 2248583,
-      "end_ms": 2249818
+      "start_ms": 2248676,
+      "end_ms": 2249911
     },
     {
       "index": 434,
       "speaker": "sofia",
-      "start_ms": 2250075,
-      "end_ms": 2258666
+      "start_ms": 2250168,
+      "end_ms": 2258759
     },
     {
       "index": 435,
       "speaker": "sofia",
-      "start_ms": 2259010,
-      "end_ms": 2265137
+      "start_ms": 2259103,
+      "end_ms": 2265230
     },
     {
       "index": 436,
       "speaker": "sofia",
-      "start_ms": 2265331,
-      "end_ms": 2274977
+      "start_ms": 2265424,
+      "end_ms": 2275070
     },
     {
       "index": 437,
       "speaker": "james",
-      "start_ms": 2275622,
-      "end_ms": 2280604
+      "start_ms": 2275715,
+      "end_ms": 2280697
     },
     {
       "index": 438,
       "speaker": "sofia",
-      "start_ms": 2280970,
-      "end_ms": 2288553
+      "start_ms": 2281063,
+      "end_ms": 2288646
     },
     {
       "index": 439,
       "speaker": "james",
-      "start_ms": 2288941,
-      "end_ms": 2290410
+      "start_ms": 2289034,
+      "end_ms": 2290503
     },
     {
       "index": 440,
       "speaker": "sofia",
-      "start_ms": 2290754,
-      "end_ms": 2296976
+      "start_ms": 2290847,
+      "end_ms": 2297069
     },
     {
       "index": 441,
       "speaker": "sofia",
-      "start_ms": 2297289,
-      "end_ms": 2300470
+      "start_ms": 2297382,
+      "end_ms": 2300563
     },
     {
       "index": 442,
       "speaker": "sofia",
-      "start_ms": 2300720,
-      "end_ms": 2305886
+      "start_ms": 2300813,
+      "end_ms": 2305979
     },
     {
       "index": 443,
       "speaker": "sofia",
-      "start_ms": 2306062,
-      "end_ms": 2313277
+      "start_ms": 2306155,
+      "end_ms": 2313370
     },
     {
       "index": 444,
       "speaker": "sofia",
-      "start_ms": 2313500,
-      "end_ms": 2317562
+      "start_ms": 2313593,
+      "end_ms": 2317655
     },
     {
       "index": 445,
       "speaker": "tom",
-      "start_ms": 2318149,
-      "end_ms": 2321219
+      "start_ms": 2318242,
+      "end_ms": 2321312
     },
     {
       "index": 446,
       "speaker": "sofia",
-      "start_ms": 2321613,
-      "end_ms": 2334443
+      "start_ms": 2321705,
+      "end_ms": 2334536
     },
     {
       "index": 447,
       "speaker": "siobhan",
-      "start_ms": 2335134,
-      "end_ms": 2343195
+      "start_ms": 2335226,
+      "end_ms": 2343288
     },
     {
       "index": 448,
       "speaker": "dana",
-      "start_ms": 2343567,
-      "end_ms": 2346147
+      "start_ms": 2343660,
+      "end_ms": 2346240
     },
     {
       "index": 449,
       "speaker": "sofia",
-      "start_ms": 2346757,
-      "end_ms": 2351474
+      "start_ms": 2346850,
+      "end_ms": 2351567
     },
     {
       "index": 450,
       "speaker": "sofia",
-      "start_ms": 2351708,
-      "end_ms": 2357675
+      "start_ms": 2351801,
+      "end_ms": 2357768
     },
     {
       "index": 451,
       "speaker": "james",
-      "start_ms": 2358330,
-      "end_ms": 2364995
+      "start_ms": 2358422,
+      "end_ms": 2365088
     },
     {
       "index": 452,
       "speaker": "sofia",
-      "start_ms": 2365332,
-      "end_ms": 2370195
+      "start_ms": 2365425,
+      "end_ms": 2370288
     },
     {
       "index": 453,
       "speaker": "sofia",
-      "start_ms": 2370375,
-      "end_ms": 2374342
+      "start_ms": 2370468,
+      "end_ms": 2374435
     },
     {
       "index": 454,
       "speaker": "james",
-      "start_ms": 2374673,
-      "end_ms": 2379614
+      "start_ms": 2374766,
+      "end_ms": 2379707
     },
     {
       "index": 455,
       "speaker": "sofia",
-      "start_ms": 2380257,
-      "end_ms": 2382464
+      "start_ms": 2380350,
+      "end_ms": 2382557
     },
     {
       "index": 456,
       "speaker": "james",
-      "start_ms": 2382817,
-      "end_ms": 2387224
+      "start_ms": 2382910,
+      "end_ms": 2387317
     },
     {
       "index": 457,
       "speaker": "dana",
-      "start_ms": 2387839,
-      "end_ms": 2390270
+      "start_ms": 2387932,
+      "end_ms": 2390362
     },
     {
       "index": 458,
       "speaker": "sofia",
-      "start_ms": 2390801,
-      "end_ms": 2398272
+      "start_ms": 2390894,
+      "end_ms": 2398365
     },
     {
       "index": 459,
       "speaker": "sofia",
-      "start_ms": 2398468,
-      "end_ms": 2401666
+      "start_ms": 2398561,
+      "end_ms": 2401759
     },
     {
       "index": 460,
       "speaker": "dana",
-      "start_ms": 2402275,
-      "end_ms": 2409486
+      "start_ms": 2402368,
+      "end_ms": 2409579
     },
     {
       "index": 461,
       "speaker": "james",
-      "start_ms": 2410162,
-      "end_ms": 2414784
+      "start_ms": 2410255,
+      "end_ms": 2414877
     },
     {
       "index": 462,
       "speaker": "james",
-      "start_ms": 2414950,
-      "end_ms": 2421105
+      "start_ms": 2415043,
+      "end_ms": 2421198
     },
     {
       "index": 463,
       "speaker": "dana",
-      "start_ms": 2421394,
-      "end_ms": 2426293
+      "start_ms": 2421487,
+      "end_ms": 2426386
     },
     {
       "index": 464,
       "speaker": "dana",
-      "start_ms": 2426461,
-      "end_ms": 2429214
+      "start_ms": 2426554,
+      "end_ms": 2429307
     },
     {
       "index": 465,
       "speaker": "james",
-      "start_ms": 2429879,
-      "end_ms": 2435174
+      "start_ms": 2429971,
+      "end_ms": 2435267
     },
     {
       "index": 466,
       "speaker": "dana",
-      "start_ms": 2435855,
-      "end_ms": 2438690
+      "start_ms": 2435948,
+      "end_ms": 2438783
     },
     {
       "index": 467,
       "speaker": "sofia",
-      "start_ms": 2439305,
-      "end_ms": 2444487
+      "start_ms": 2439398,
+      "end_ms": 2444580
     },
     {
       "index": 468,
       "speaker": "sofia",
-      "start_ms": 2444785,
-      "end_ms": 2448410
+      "start_ms": 2444878,
+      "end_ms": 2448503
     },
     {
       "index": 469,
       "speaker": "sofia",
-      "start_ms": 2448671,
-      "end_ms": 2454125
+      "start_ms": 2448764,
+      "end_ms": 2454218
     },
     {
       "index": 470,
       "speaker": "tom",
-      "start_ms": 2454679,
-      "end_ms": 2457957
+      "start_ms": 2454772,
+      "end_ms": 2458050
     },
     {
       "index": 471,
       "speaker": "sofia",
-      "start_ms": 2458259,
-      "end_ms": 2467041
+      "start_ms": 2458352,
+      "end_ms": 2467134
     },
     {
       "index": 472,
       "speaker": "sofia",
-      "start_ms": 2467306,
-      "end_ms": 2469657
+      "start_ms": 2467399,
+      "end_ms": 2469750
     },
     {
       "index": 473,
       "speaker": "dana",
-      "start_ms": 2469931,
-      "end_ms": 2476655
+      "start_ms": 2470023,
+      "end_ms": 2476748
     },
     {
       "index": 474,
       "speaker": "arjun",
-      "start_ms": 2477141,
-      "end_ms": 2483456
+      "start_ms": 2477234,
+      "end_ms": 2483549
     },
     {
       "index": 475,
       "speaker": "arjun",
-      "start_ms": 2483654,
-      "end_ms": 2486542
+      "start_ms": 2483747,
+      "end_ms": 2486635
     },
     {
       "index": 476,
       "speaker": "sofia",
-      "start_ms": 2487230,
-      "end_ms": 2490653
+      "start_ms": 2487323,
+      "end_ms": 2490745
     },
     {
       "index": 477,
       "speaker": "sofia",
-      "start_ms": 2490815,
-      "end_ms": 2498317
+      "start_ms": 2490907,
+      "end_ms": 2498410
     },
     {
       "index": 478,
       "speaker": "arjun",
-      "start_ms": 2499784,
-      "end_ms": 2508047
+      "start_ms": 2499877,
+      "end_ms": 2508140
     },
     {
       "index": 479,
       "speaker": "sofia",
-      "start_ms": 2508569,
-      "end_ms": 2514872
+      "start_ms": 2508662,
+      "end_ms": 2514964
     },
     {
       "index": 480,
       "speaker": "arjun",
-      "start_ms": 2515541,
-      "end_ms": 2517365
+      "start_ms": 2515634,
+      "end_ms": 2517458
     },
     {
       "index": 481,
       "speaker": "dana",
-      "start_ms": 2517785,
-      "end_ms": 2518361
+      "start_ms": 2517878,
+      "end_ms": 2518454
     },
     {
       "index": 482,
       "speaker": "siobhan",
-      "start_ms": 2518978,
-      "end_ms": 2525659
+      "start_ms": 2519071,
+      "end_ms": 2525752
     },
     {
       "index": 483,
       "speaker": "dana",
-      "start_ms": 2526162,
-      "end_ms": 2526575
+      "start_ms": 2526255,
+      "end_ms": 2526668
     },
     {
       "index": 484,
       "speaker": "tom",
-      "start_ms": 2526871,
-      "end_ms": 2533493
+      "start_ms": 2526963,
+      "end_ms": 2533586
     },
     {
       "index": 485,
       "speaker": "tom",
-      "start_ms": 2533831,
-      "end_ms": 2537301
+      "start_ms": 2533924,
+      "end_ms": 2537394
     },
     {
       "index": 486,
       "speaker": "tom",
-      "start_ms": 2537529,
-      "end_ms": 2541912
+      "start_ms": 2537622,
+      "end_ms": 2542005
     },
     {
       "index": 487,
       "speaker": "james",
-      "start_ms": 2542266,
-      "end_ms": 2548479
+      "start_ms": 2542359,
+      "end_ms": 2548571
     },
     {
       "index": 488,
       "speaker": "tom",
-      "start_ms": 2548793,
-      "end_ms": 2552728
+      "start_ms": 2548886,
+      "end_ms": 2552821
     },
     {
       "index": 489,
       "speaker": "tom",
-      "start_ms": 2552998,
-      "end_ms": 2558164
+      "start_ms": 2553091,
+      "end_ms": 2558257
     },
     {
       "index": 490,
       "speaker": "arjun",
-      "start_ms": 2558579,
-      "end_ms": 2561001
+      "start_ms": 2558672,
+      "end_ms": 2561094
     },
     {
       "index": 491,
       "speaker": "tom",
-      "start_ms": 2561536,
-      "end_ms": 2565823
+      "start_ms": 2561629,
+      "end_ms": 2565916
     },
     {
       "index": 492,
       "speaker": "arjun",
-      "start_ms": 2567118,
-      "end_ms": 2567809
+      "start_ms": 2567211,
+      "end_ms": 2567902
     },
     {
       "index": 493,
       "speaker": "james",
-      "start_ms": 2568136,
-      "end_ms": 2572642
+      "start_ms": 2568229,
+      "end_ms": 2572735
     },
     {
       "index": 494,
       "speaker": "dana",
-      "start_ms": 2573214,
-      "end_ms": 2585452
+      "start_ms": 2573307,
+      "end_ms": 2585545
     },
     {
       "index": 495,
       "speaker": "dana",
-      "start_ms": 2585657,
-      "end_ms": 2589339
+      "start_ms": 2585750,
+      "end_ms": 2589432
     },
     {
       "index": 496,
       "speaker": "dana",
-      "start_ms": 2589496,
-      "end_ms": 2593039
+      "start_ms": 2589588,
+      "end_ms": 2593132
     },
     {
       "index": 497,
       "speaker": "dana",
-      "start_ms": 2593258,
-      "end_ms": 2598054
+      "start_ms": 2593350,
+      "end_ms": 2598146
     },
     {
       "index": 498,
       "speaker": "dana",
-      "start_ms": 2598239,
-      "end_ms": 2604657
+      "start_ms": 2598332,
+      "end_ms": 2604750
     },
     {
       "index": 499,
       "speaker": "sofia",
-      "start_ms": 2605316,
-      "end_ms": 2608525
+      "start_ms": 2605409,
+      "end_ms": 2608618
     },
     {
       "index": 500,
       "speaker": "james",
-      "start_ms": 2609171,
-      "end_ms": 2613573
+      "start_ms": 2609264,
+      "end_ms": 2613666
     },
     {
       "index": 501,
       "speaker": "sofia",
-      "start_ms": 2614176,
-      "end_ms": 2620462
+      "start_ms": 2614269,
+      "end_ms": 2620555
     },
     {
       "index": 502,
       "speaker": "dana",
-      "start_ms": 2620799,
-      "end_ms": 2623256
+      "start_ms": 2620892,
+      "end_ms": 2623349
     },
     {
       "index": 503,
       "speaker": "james",
-      "start_ms": 2623890,
-      "end_ms": 2631717
+      "start_ms": 2623983,
+      "end_ms": 2631810
     },
     {
       "index": 504,
       "speaker": "dana",
-      "start_ms": 2632227,
-      "end_ms": 2636155
+      "start_ms": 2632320,
+      "end_ms": 2636248
     },
     {
       "index": 505,
       "speaker": "dana",
-      "start_ms": 2636309,
-      "end_ms": 2640638
+      "start_ms": 2636402,
+      "end_ms": 2640731
     },
     {
       "index": 506,
       "speaker": "james",
-      "start_ms": 2641113,
-      "end_ms": 2643483
+      "start_ms": 2641206,
+      "end_ms": 2643575
     },
     {
       "index": 507,
       "speaker": "dana",
-      "start_ms": 2644177,
-      "end_ms": 2647883
+      "start_ms": 2644270,
+      "end_ms": 2647976
     },
     {
       "index": 508,
       "speaker": "priya",
-      "start_ms": 2648362,
-      "end_ms": 2651125
+      "start_ms": 2648455,
+      "end_ms": 2651218
     },
     {
       "index": 509,
       "speaker": "priya",
-      "start_ms": 2651325,
-      "end_ms": 2657852
+      "start_ms": 2651418,
+      "end_ms": 2657945
     },
     {
       "index": 510,
       "speaker": "priya",
-      "start_ms": 2658021,
-      "end_ms": 2663803
+      "start_ms": 2658114,
+      "end_ms": 2663896
     },
     {
       "index": 511,
       "speaker": "priya",
-      "start_ms": 2664140,
-      "end_ms": 2668350
+      "start_ms": 2664232,
+      "end_ms": 2668443
     },
     {
       "index": 512,
       "speaker": "priya",
-      "start_ms": 2668526,
-      "end_ms": 2673726
+      "start_ms": 2668619,
+      "end_ms": 2673819
     },
     {
       "index": 513,
       "speaker": "arjun",
-      "start_ms": 2674396,
-      "end_ms": 2679836
+      "start_ms": 2674488,
+      "end_ms": 2679929
     },
     {
       "index": 514,
       "speaker": "dana",
-      "start_ms": 2680487,
-      "end_ms": 2681853
+      "start_ms": 2680580,
+      "end_ms": 2681946
     },
     {
       "index": 515,
       "speaker": "priya",
-      "start_ms": 2682334,
-      "end_ms": 2687846
+      "start_ms": 2682427,
+      "end_ms": 2687938
     },
     {
       "index": 516,
       "speaker": "dana",
-      "start_ms": 2688415,
-      "end_ms": 2690880
+      "start_ms": 2688508,
+      "end_ms": 2690973
     },
     {
       "index": 517,
       "speaker": "dana",
-      "start_ms": 2691091,
-      "end_ms": 2696335
+      "start_ms": 2691184,
+      "end_ms": 2696427
     },
     {
       "index": 518,
       "speaker": "priya",
-      "start_ms": 2696718,
-      "end_ms": 2699329
+      "start_ms": 2696811,
+      "end_ms": 2699422
     },
     {
       "index": 519,
       "speaker": "dana",
-      "start_ms": 2699995,
-      "end_ms": 2701345
+      "start_ms": 2700088,
+      "end_ms": 2701437
     },
     {
       "index": 520,
       "speaker": "priya",
-      "start_ms": 2702697,
-      "end_ms": 2708481
+      "start_ms": 2702789,
+      "end_ms": 2708574
     },
     {
       "index": 521,
       "speaker": "dana",
-      "start_ms": 2709098,
-      "end_ms": 2710947
+      "start_ms": 2709191,
+      "end_ms": 2711040
     },
     {
       "index": 522,
       "speaker": "siobhan",
-      "start_ms": 2711355,
-      "end_ms": 2718206
+      "start_ms": 2711448,
+      "end_ms": 2718299
     },
     {
       "index": 523,
       "speaker": "siobhan",
-      "start_ms": 2718445,
-      "end_ms": 2725485
+      "start_ms": 2718538,
+      "end_ms": 2725578
     },
     {
       "index": 524,
       "speaker": "dana",
-      "start_ms": 2726066,
-      "end_ms": 2728186
+      "start_ms": 2726159,
+      "end_ms": 2728279
     },
     {
       "index": 525,
       "speaker": "siobhan",
-      "start_ms": 2728635,
-      "end_ms": 2730972
+      "start_ms": 2728728,
+      "end_ms": 2731065
     },
     {
       "index": 526,
       "speaker": "dana",
-      "start_ms": 2731456,
-      "end_ms": 2732653
+      "start_ms": 2731548,
+      "end_ms": 2732745
     },
     {
       "index": 527,
       "speaker": "hannah",
-      "start_ms": 2733188,
-      "end_ms": 2738739
+      "start_ms": 2733281,
+      "end_ms": 2738831
     },
     {
       "index": 528,
       "speaker": "dana",
-      "start_ms": 2738998,
-      "end_ms": 2745258
+      "start_ms": 2739091,
+      "end_ms": 2745351
     },
     {
       "index": 529,
       "speaker": "dana",
-      "start_ms": 2745584,
-      "end_ms": 2747160
+      "start_ms": 2745677,
+      "end_ms": 2747252
     },
     {
       "index": 530,
       "speaker": "tom",
-      "start_ms": 2747831,
-      "end_ms": 2752198
+      "start_ms": 2747924,
+      "end_ms": 2752290
     },
     {
       "index": 531,
       "speaker": "priya",
-      "start_ms": 2752752,
-      "end_ms": 2757393
+      "start_ms": 2752845,
+      "end_ms": 2757486
     },
     {
       "index": 532,
       "speaker": "priya",
-      "start_ms": 2757617,
-      "end_ms": 2760890
+      "start_ms": 2757710,
+      "end_ms": 2760983
     },
     {
       "index": 533,
       "speaker": "tom",
-      "start_ms": 2761428,
-      "end_ms": 2765457
+      "start_ms": 2761521,
+      "end_ms": 2765550
     },
     {
       "index": 534,
       "speaker": "siobhan",
-      "start_ms": 2765795,
-      "end_ms": 2771812
+      "start_ms": 2765888,
+      "end_ms": 2771905
     },
     {
       "index": 535,
       "speaker": "tom",
-      "start_ms": 2772441,
-      "end_ms": 2774327
+      "start_ms": 2772533,
+      "end_ms": 2774420
     },
     {
       "index": 536,
       "speaker": "siobhan",
-      "start_ms": 2775524,
-      "end_ms": 2781983
+      "start_ms": 2775617,
+      "end_ms": 2782076
     },
     {
       "index": 537,
       "speaker": "tom",
-      "start_ms": 2782262,
-      "end_ms": 2785685
+      "start_ms": 2782355,
+      "end_ms": 2785778
     },
     {
       "index": 538,
       "speaker": "dana",
-      "start_ms": 2786002,
-      "end_ms": 2790123
+      "start_ms": 2786095,
+      "end_ms": 2790215
     },
     {
       "index": 539,
       "speaker": "hannah",
-      "start_ms": 2790449,
-      "end_ms": 2794912
+      "start_ms": 2790542,
+      "end_ms": 2795004
     },
     {
       "index": 540,
       "speaker": "hannah",
-      "start_ms": 2795237,
-      "end_ms": 2799747
+      "start_ms": 2795330,
+      "end_ms": 2799840
     },
     {
       "index": 541,
       "speaker": "tom",
-      "start_ms": 2801148,
-      "end_ms": 2805146
+      "start_ms": 2801241,
+      "end_ms": 2805239
     },
     {
       "index": 542,
       "speaker": "dana",
-      "start_ms": 2805614,
-      "end_ms": 2810684
+      "start_ms": 2805706,
+      "end_ms": 2810777
     },
     {
       "index": 543,
       "speaker": "dana",
-      "start_ms": 2810971,
-      "end_ms": 2816849
+      "start_ms": 2811063,
+      "end_ms": 2816942
     },
     {
       "index": 544,
       "speaker": "dana",
-      "start_ms": 2817028,
-      "end_ms": 2820644
+      "start_ms": 2817121,
+      "end_ms": 2820737
     },
     {
       "index": 545,
       "speaker": "siobhan",
-      "start_ms": 2821241,
-      "end_ms": 2824234
+      "start_ms": 2821334,
+      "end_ms": 2824326
     },
     {
       "index": 546,
       "speaker": "dana",
-      "start_ms": 2825384,
-      "end_ms": 2830888
+      "start_ms": 2825477,
+      "end_ms": 2830981
     },
     {
       "index": 547,
       "speaker": "priya",
-      "start_ms": 2831165,
-      "end_ms": 2835980
+      "start_ms": 2831258,
+      "end_ms": 2836073
     },
     {
       "index": 548,
       "speaker": "priya",
-      "start_ms": 2836240,
-      "end_ms": 2838493
+      "start_ms": 2836333,
+      "end_ms": 2838586
     },
     {
       "index": 549,
       "speaker": "dana",
-      "start_ms": 2839162,
-      "end_ms": 2842113
+      "start_ms": 2839255,
+      "end_ms": 2842206
     },
     {
       "index": 550,
       "speaker": "dana",
-      "start_ms": 2842429,
-      "end_ms": 2846605
+      "start_ms": 2842522,
+      "end_ms": 2846697
     },
     {
       "index": 551,
       "speaker": "dana",
-      "start_ms": 2846891,
-      "end_ms": 2851218
+      "start_ms": 2846984,
+      "end_ms": 2851311
     },
     {
       "index": 552,
       "speaker": "dana",
-      "start_ms": 2851377,
-      "end_ms": 2853501
+      "start_ms": 2851470,
+      "end_ms": 2853594
     },
     {
       "index": 553,
       "speaker": "james",
-      "start_ms": 2854043,
-      "end_ms": 2856651
+      "start_ms": 2854136,
+      "end_ms": 2856744
     },
     {
       "index": 554,
       "speaker": "dana",
-      "start_ms": 2856929,
-      "end_ms": 2859254
+      "start_ms": 2857022,
+      "end_ms": 2859346
     },
     {
       "index": 555,
       "speaker": "james",
-      "start_ms": 2859882,
-      "end_ms": 2860847
+      "start_ms": 2859975,
+      "end_ms": 2860940
     },
     {
       "index": 556,
       "speaker": "dana",
-      "start_ms": 2862188,
-      "end_ms": 2869680
+      "start_ms": 2862281,
+      "end_ms": 2869773
     },
     {
       "index": 557,
       "speaker": "dana",
-      "start_ms": 2869855,
-      "end_ms": 2879983
+      "start_ms": 2869948,
+      "end_ms": 2880076
     },
     {
       "index": 558,
       "speaker": "arjun",
-      "start_ms": 2881239,
-      "end_ms": 2882954
+      "start_ms": 2881332,
+      "end_ms": 2883047
     },
     {
       "index": 559,
       "speaker": "tom",
-      "start_ms": 2883489,
-      "end_ms": 2888111
+      "start_ms": 2883581,
+      "end_ms": 2888204
     },
     {
       "index": 560,
       "speaker": "siobhan",
-      "start_ms": 2888716,
-      "end_ms": 2890306
+      "start_ms": 2888809,
+      "end_ms": 2890398
     },
     {
       "index": 561,
       "speaker": "tom",
-      "start_ms": 2890859,
-      "end_ms": 2892932
+      "start_ms": 2890952,
+      "end_ms": 2893025
     },
     {
       "index": 562,
       "speaker": "dana",
-      "start_ms": 2893497,
-      "end_ms": 2898415
+      "start_ms": 2893590,
+      "end_ms": 2898508
     },
     {
       "index": 563,
       "speaker": "priya",
-      "start_ms": 2898771,
-      "end_ms": 2902134
+      "start_ms": 2898864,
+      "end_ms": 2902227
     },
     {
       "index": 564,
       "speaker": "dana",
-      "start_ms": 2902433,
-      "end_ms": 2902939
+      "start_ms": 2902526,
+      "end_ms": 2903032
     },
     {
       "index": 565,
       "speaker": "arjun",
-      "start_ms": 2903463,
-      "end_ms": 2906282
+      "start_ms": 2903556,
+      "end_ms": 2906374
     },
     {
       "index": 566,
       "speaker": "dana",
-      "start_ms": 2906877,
-      "end_ms": 2907291
+      "start_ms": 2906970,
+      "end_ms": 2907384
     },
     {
       "index": 567,
       "speaker": "tom",
-      "start_ms": 2907804,
-      "end_ms": 2915003
+      "start_ms": 2907897,
+      "end_ms": 2915096
     },
     {
       "index": 568,
       "speaker": "dana",
-      "start_ms": 2915585,
-      "end_ms": 2916480
+      "start_ms": 2915678,
+      "end_ms": 2916573
     },
     {
       "index": 569,
       "speaker": "tom",
-      "start_ms": 2916821,
-      "end_ms": 2921202
+      "start_ms": 2916914,
+      "end_ms": 2921295
     },
     {
       "index": 570,
       "speaker": "dana",
-      "start_ms": 2921511,
-      "end_ms": 2922874
+      "start_ms": 2921604,
+      "end_ms": 2922967
     },
     {
       "index": 571,
       "speaker": "sofia",
-      "start_ms": 2923276,
-      "end_ms": 2926388
+      "start_ms": 2923368,
+      "end_ms": 2926481
     },
     {
       "index": 572,
       "speaker": "dana",
-      "start_ms": 2926938,
-      "end_ms": 2927469
+      "start_ms": 2927031,
+      "end_ms": 2927562
     },
     {
       "index": 573,
       "speaker": "james",
-      "start_ms": 2928034,
-      "end_ms": 2931124
+      "start_ms": 2928127,
+      "end_ms": 2931217
     },
     {
       "index": 574,
       "speaker": "dana",
-      "start_ms": 2931755,
-      "end_ms": 2932331
+      "start_ms": 2931847,
+      "end_ms": 2932424
     },
     {
       "index": 575,
       "speaker": "siobhan",
-      "start_ms": 2932774,
-      "end_ms": 2935515
+      "start_ms": 2932867,
+      "end_ms": 2935608
     },
     {
       "index": 576,
       "speaker": "dana",
-      "start_ms": 2936074,
-      "end_ms": 2936537
+      "start_ms": 2936167,
+      "end_ms": 2936630
     },
     {
       "index": 577,
       "speaker": "hannah",
-      "start_ms": 2937007,
-      "end_ms": 2941918
+      "start_ms": 2937100,
+      "end_ms": 2942011
     },
     {
       "index": 578,
       "speaker": "dana",
-      "start_ms": 2942301,
-      "end_ms": 2947715
+      "start_ms": 2942394,
+      "end_ms": 2947808
     },
     {
       "index": 579,
       "speaker": "dana",
-      "start_ms": 2947900,
-      "end_ms": 2959442
+      "start_ms": 2947993,
+      "end_ms": 2959535
     },
     {
       "index": 580,
       "speaker": "dana",
-      "start_ms": 2959762,
-      "end_ms": 2970473
+      "start_ms": 2959855,
+      "end_ms": 2970566
     },
     {
       "index": 581,
       "speaker": "dana",
-      "start_ms": 2970683,
-      "end_ms": 2974482
+      "start_ms": 2970776,
+      "end_ms": 2974575
     },
     {
       "index": 582,
       "speaker": "tom",
-      "start_ms": 2974760,
-      "end_ms": 2977766
+      "start_ms": 2974853,
+      "end_ms": 2977859
     },
     {
       "index": 583,
       "speaker": "siobhan",
-      "start_ms": 2979248,
-      "end_ms": 2980121
+      "start_ms": 2979341,
+      "end_ms": 2980214
     },
     {
       "index": 584,
       "speaker": "tom",
-      "start_ms": 2980447,
-      "end_ms": 2981726
+      "start_ms": 2980540,
+      "end_ms": 2981818
     },
     {
       "index": 585,
       "speaker": "dana",
-      "start_ms": 2982047,
-      "end_ms": 2988191
+      "start_ms": 2982140,
+      "end_ms": 2988284
     },
     {
       "index": 586,
       "speaker": "dana",
-      "start_ms": 2988463,
-      "end_ms": 2993935
+      "start_ms": 2988556,
+      "end_ms": 2994028
     },
     {
       "index": 587,
       "speaker": "dana",
-      "start_ms": 2994194,
-      "end_ms": 2999827
+      "start_ms": 2994287,
+      "end_ms": 2999920
     },
     {
       "index": 588,
       "speaker": "tom",
-      "start_ms": 3001228,
-      "end_ms": 3004709
+      "start_ms": 3001321,
+      "end_ms": 3004802
     },
     {
       "index": 589,
       "speaker": "dana",
-      "start_ms": 3005279,
-      "end_ms": 3011135
+      "start_ms": 3005372,
+      "end_ms": 3011228
     },
     {
       "index": 590,
       "speaker": "arjun",
-      "start_ms": 3011434,
-      "end_ms": 3014508
+      "start_ms": 3011527,
+      "end_ms": 3014601
     },
     {
       "index": 591,
       "speaker": "dana",
-      "start_ms": 3015838,
-      "end_ms": 3024902
+      "start_ms": 3015930,
+      "end_ms": 3024995
     },
     {
       "index": 592,
       "speaker": "dana",
-      "start_ms": 3025062,
-      "end_ms": 3028940
+      "start_ms": 3025155,
+      "end_ms": 3029033
     },
     {
       "index": 593,
       "speaker": "tom",
-      "start_ms": 3029333,
-      "end_ms": 3031716
+      "start_ms": 3029426,
+      "end_ms": 3031808
     },
     {
       "index": 594,
       "speaker": "dana",
-      "start_ms": 3032248,
-      "end_ms": 3036760
+      "start_ms": 3032341,
+      "end_ms": 3036853
     },
     {
       "index": 595,
       "speaker": "dana",
-      "start_ms": 3037080,
-      "end_ms": 3040467
+      "start_ms": 3037172,
+      "end_ms": 3040560
     },
     {
       "index": 596,
       "speaker": "tom",
-      "start_ms": 3041003,
-      "end_ms": 3046074
+      "start_ms": 3041096,
+      "end_ms": 3046167
     },
     {
       "index": 597,
       "speaker": "dana",
-      "start_ms": 3046566,
-      "end_ms": 3056890
+      "start_ms": 3046659,
+      "end_ms": 3056983
     },
     {
       "index": 598,
       "speaker": "james",
-      "start_ms": 3057294,
-      "end_ms": 3059611
+      "start_ms": 3057387,
+      "end_ms": 3059704
     },
     {
       "index": 599,
       "speaker": "dana",
-      "start_ms": 3059903,
-      "end_ms": 3061914
+      "start_ms": 3059996,
+      "end_ms": 3062007
     },
     {
       "index": 600,
       "speaker": "priya",
-      "start_ms": 3062226,
-      "end_ms": 3070508
+      "start_ms": 3062318,
+      "end_ms": 3069046
     },
     {
       "index": 601,
       "speaker": "priya",
-      "start_ms": 3070683,
-      "end_ms": 3077989
+      "start_ms": 3069220,
+      "end_ms": 3076526
     },
     {
       "index": 602,
       "speaker": "priya",
-      "start_ms": 3078246,
-      "end_ms": 3082451
+      "start_ms": 3076783,
+      "end_ms": 3080083
     },
     {
       "index": 603,
       "speaker": "dana",
-      "start_ms": 3082981,
-      "end_ms": 3084962
+      "start_ms": 3080612,
+      "end_ms": 3082593
     },
     {
       "index": 604,
       "speaker": "priya",
-      "start_ms": 3085512,
-      "end_ms": 3092334
+      "start_ms": 3083143,
+      "end_ms": 3089965
     },
     {
       "index": 605,
       "speaker": "priya",
-      "start_ms": 3092570,
-      "end_ms": 3094098
+      "start_ms": 3090201,
+      "end_ms": 3091730
     },
     {
       "index": 606,
       "speaker": "dana",
-      "start_ms": 3094532,
-      "end_ms": 3095039
+      "start_ms": 3092164,
+      "end_ms": 3092671
     },
     {
       "index": 607,
       "speaker": "arjun",
-      "start_ms": 3095714,
-      "end_ms": 3103885
+      "start_ms": 3093346,
+      "end_ms": 3101517
     },
     {
       "index": 608,
       "speaker": "arjun",
-      "start_ms": 3104078,
-      "end_ms": 3107330
+      "start_ms": 3101709,
+      "end_ms": 3104961
     },
     {
       "index": 609,
       "speaker": "dana",
-      "start_ms": 3107666,
-      "end_ms": 3110465
+      "start_ms": 3105298,
+      "end_ms": 3108097
     },
     {
       "index": 610,
       "speaker": "arjun",
-      "start_ms": 3111772,
-      "end_ms": 3123488
+      "start_ms": 3109403,
+      "end_ms": 3121119
     },
     {
       "index": 611,
       "speaker": "siobhan",
-      "start_ms": 3123895,
-      "end_ms": 3125177
+      "start_ms": 3121526,
+      "end_ms": 3122808
     },
     {
       "index": 612,
       "speaker": "dana",
-      "start_ms": 3125571,
-      "end_ms": 3126034
+      "start_ms": 3123202,
+      "end_ms": 3123666
     },
     {
       "index": 613,
       "speaker": "hannah",
-      "start_ms": 3126460,
-      "end_ms": 3134619
+      "start_ms": 3124092,
+      "end_ms": 3132250
     },
     {
       "index": 614,
       "speaker": "hannah",
-      "start_ms": 3134808,
-      "end_ms": 3140647
+      "start_ms": 3132439,
+      "end_ms": 3138278
     },
     {
       "index": 615,
       "speaker": "dana",
-      "start_ms": 3141150,
-      "end_ms": 3143967
+      "start_ms": 3138782,
+      "end_ms": 3141599
     },
     {
       "index": 616,
       "speaker": "hannah",
-      "start_ms": 3144304,
-      "end_ms": 3150046
+      "start_ms": 3141935,
+      "end_ms": 3147677
     },
     {
       "index": 617,
       "speaker": "dana",
-      "start_ms": 3150560,
-      "end_ms": 3151877
+      "start_ms": 3148191,
+      "end_ms": 3149508
     },
     {
       "index": 618,
       "speaker": "tom",
-      "start_ms": 3152460,
-      "end_ms": 3160251
+      "start_ms": 3150092,
+      "end_ms": 3157883
     },
     {
       "index": 619,
       "speaker": "tom",
-      "start_ms": 3160554,
-      "end_ms": 3166775
+      "start_ms": 3158186,
+      "end_ms": 3164407
     },
     {
       "index": 620,
       "speaker": "dana",
-      "start_ms": 3167318,
-      "end_ms": 3169908
+      "start_ms": 3164949,
+      "end_ms": 3167540
     },
     {
       "index": 621,
       "speaker": "tom",
-      "start_ms": 3170296,
-      "end_ms": 3176229
+      "start_ms": 3167928,
+      "end_ms": 3173861
     },
     {
       "index": 622,
       "speaker": "dana",
-      "start_ms": 3176583,
-      "end_ms": 3177757
+      "start_ms": 3174215,
+      "end_ms": 3175388
     },
     {
       "index": 623,
       "speaker": "siobhan",
-      "start_ms": 3178217,
-      "end_ms": 3186601
+      "start_ms": 3175849,
+      "end_ms": 3184232
     },
     {
       "index": 624,
       "speaker": "siobhan",
-      "start_ms": 3186820,
-      "end_ms": 3194839
+      "start_ms": 3184452,
+      "end_ms": 3192471
     },
     {
       "index": 625,
       "speaker": "siobhan",
-      "start_ms": 3195062,
-      "end_ms": 3198501
+      "start_ms": 3192693,
+      "end_ms": 3196133
     },
     {
       "index": 626,
       "speaker": "dana",
-      "start_ms": 3198955,
-      "end_ms": 3200686
+      "start_ms": 3196586,
+      "end_ms": 3198317
     },
     {
       "index": 627,
       "speaker": "siobhan",
-      "start_ms": 3201369,
-      "end_ms": 3206816
+      "start_ms": 3199001,
+      "end_ms": 3204447
     },
     {
       "index": 628,
       "speaker": "siobhan",
-      "start_ms": 3206986,
-      "end_ms": 3210041
+      "start_ms": 3204618,
+      "end_ms": 3207672
     },
     {
       "index": 629,
       "speaker": "dana",
-      "start_ms": 3210653,
-      "end_ms": 3211949
+      "start_ms": 3208284,
+      "end_ms": 3209580
     },
     {
       "index": 630,
       "speaker": "sofia",
-      "start_ms": 3212558,
-      "end_ms": 3218540
+      "start_ms": 3210189,
+      "end_ms": 3216172
     },
     {
       "index": 631,
       "speaker": "sofia",
-      "start_ms": 3218867,
-      "end_ms": 3226081
+      "start_ms": 3216498,
+      "end_ms": 3223713
     },
     {
       "index": 632,
       "speaker": "sofia",
-      "start_ms": 3226419,
-      "end_ms": 3230801
+      "start_ms": 3224050,
+      "end_ms": 3228433
     },
     {
       "index": 633,
       "speaker": "siobhan",
-      "start_ms": 3231171,
-      "end_ms": 3233379
+      "start_ms": 3228803,
+      "end_ms": 3231010
     },
     {
       "index": 634,
       "speaker": "sofia",
-      "start_ms": 3234045,
-      "end_ms": 3235099
+      "start_ms": 3231676,
+      "end_ms": 3232731
     },
     {
       "index": 635,
       "speaker": "dana",
-      "start_ms": 3235484,
-      "end_ms": 3236016
+      "start_ms": 3233116,
+      "end_ms": 3233647
     },
     {
       "index": 636,
       "speaker": "james",
-      "start_ms": 3236711,
-      "end_ms": 3241717
+      "start_ms": 3234343,
+      "end_ms": 3239348
     },
     {
       "index": 637,
       "speaker": "james",
-      "start_ms": 3241932,
-      "end_ms": 3249607
+      "start_ms": 3239563,
+      "end_ms": 3247239
     },
     {
       "index": 638,
       "speaker": "james",
-      "start_ms": 3249911,
-      "end_ms": 3257447
+      "start_ms": 3247542,
+      "end_ms": 3255078
     },
     {
       "index": 639,
       "speaker": "dana",
-      "start_ms": 3258608,
-      "end_ms": 3259657
+      "start_ms": 3256240,
+      "end_ms": 3257289
     },
     {
       "index": 640,
       "speaker": "james",
-      "start_ms": 3260051,
-      "end_ms": 3261056
+      "start_ms": 3257682,
+      "end_ms": 3258687
     },
     {
       "index": 641,
       "speaker": "dana",
-      "start_ms": 3262408,
-      "end_ms": 3270037
+      "start_ms": 3260040,
+      "end_ms": 3267669
     },
     {
       "index": 642,
       "speaker": "dana",
-      "start_ms": 3270374,
-      "end_ms": 3273192
+      "start_ms": 3268005,
+      "end_ms": 3270823
     },
     {
       "index": 643,
       "speaker": "james",
-      "start_ms": 3273874,
-      "end_ms": 3276063
+      "start_ms": 3271506,
+      "end_ms": 3273695
     },
     {
       "index": 644,
       "speaker": "dana",
-      "start_ms": 3276627,
-      "end_ms": 3278474
+      "start_ms": 3274259,
+      "end_ms": 3276106
     },
     {
       "index": 645,
       "speaker": "dana",
-      "start_ms": 3278678,
-      "end_ms": 3284304
+      "start_ms": 3276310,
+      "end_ms": 3281935
     },
     {
       "index": 646,
       "speaker": "priya",
-      "start_ms": 3284794,
-      "end_ms": 3287081
+      "start_ms": 3282426,
+      "end_ms": 3284713
     },
     {
       "index": 647,
       "speaker": "dana",
-      "start_ms": 3287335,
-      "end_ms": 3287794
+      "start_ms": 3284967,
+      "end_ms": 3285426
     },
     {
       "index": 648,
       "speaker": "priya",
-      "start_ms": 3288410,
-      "end_ms": 3291800
+      "start_ms": 3286041,
+      "end_ms": 3289431
     },
     {
       "index": 649,
       "speaker": "priya",
-      "start_ms": 3291992,
-      "end_ms": 3295011
+      "start_ms": 3289623,
+      "end_ms": 3292642
     },
     {
       "index": 650,
       "speaker": "priya",
-      "start_ms": 3295244,
-      "end_ms": 3298572
+      "start_ms": 3292875,
+      "end_ms": 3296203
     },
     {
       "index": 651,
       "speaker": "dana",
-      "start_ms": 3298924,
-      "end_ms": 3304340
+      "start_ms": 3296556,
+      "end_ms": 3301972
     },
     {
       "index": 652,
       "speaker": "dana",
-      "start_ms": 3304651,
-      "end_ms": 3308433
+      "start_ms": 3302283,
+      "end_ms": 3306065
     },
     {
       "index": 653,
       "speaker": "priya",
-      "start_ms": 3308684,
-      "end_ms": 3310578
+      "start_ms": 3306316,
+      "end_ms": 3308210
     },
     {
       "index": 654,
       "speaker": "dana",
-      "start_ms": 3310862,
-      "end_ms": 3318353
+      "start_ms": 3308494,
+      "end_ms": 3315985
     },
     {
       "index": 655,
       "speaker": "dana",
-      "start_ms": 3318557,
-      "end_ms": 3321571
+      "start_ms": 3316189,
+      "end_ms": 3319203
     },
     {
       "index": 656,
       "speaker": "arjun",
-      "start_ms": 3321952,
-      "end_ms": 3329743
+      "start_ms": 3319583,
+      "end_ms": 3327374
     },
     {
       "index": 657,
       "speaker": "dana",
-      "start_ms": 3330253,
-      "end_ms": 3338394
+      "start_ms": 3327885,
+      "end_ms": 3336026
     },
     {
       "index": 658,
       "speaker": "priya",
-      "start_ms": 3338965,
-      "end_ms": 3341190
+      "start_ms": 3336596,
+      "end_ms": 3338821
     },
     {
       "index": 659,
       "speaker": "siobhan",
-      "start_ms": 3341826,
-      "end_ms": 3342839
+      "start_ms": 3339457,
+      "end_ms": 3340471
     },
     {
       "index": 660,
       "speaker": "priya",
-      "start_ms": 3343914,
-      "end_ms": 3344931
+      "start_ms": 3341545,
+      "end_ms": 3342563
     },
     {
       "index": 661,
       "speaker": "dana",
-      "start_ms": 3345298,
-      "end_ms": 3350223
+      "start_ms": 3342930,
+      "end_ms": 3347855
     },
     {
       "index": 662,
       "speaker": "dana",
-      "start_ms": 3350508,
-      "end_ms": 3356743
+      "start_ms": 3348139,
+      "end_ms": 3354374
     },
     {
       "index": 663,
       "speaker": "dana",
-      "start_ms": 3357000,
-      "end_ms": 3366587
+      "start_ms": 3354632,
+      "end_ms": 3364218
     },
     {
       "index": 664,
       "speaker": "dana",
-      "start_ms": 3366775,
-      "end_ms": 3376260
+      "start_ms": 3364406,
+      "end_ms": 3373892
     },
     {
       "index": 665,
       "speaker": "dana",
-      "start_ms": 3376447,
-      "end_ms": 3382383
+      "start_ms": 3374078,
+      "end_ms": 3380015
     },
     {
       "index": 666,
       "speaker": "dana",
-      "start_ms": 3382625,
-      "end_ms": 3391131
+      "start_ms": 3380257,
+      "end_ms": 3388762
     },
     {
       "index": 667,
       "speaker": "dana",
-      "start_ms": 3391353,
-      "end_ms": 3394666
+      "start_ms": 3388985,
+      "end_ms": 3392297
     },
     {
       "index": 668,
       "speaker": "dana",
-      "start_ms": 3394918,
-      "end_ms": 3399870
+      "start_ms": 3392549,
+      "end_ms": 3397502
     },
     {
       "index": 669,
       "speaker": "dana",
-      "start_ms": 3400201,
-      "end_ms": 3410320
+      "start_ms": 3397832,
+      "end_ms": 3407951
     },
     {
       "index": 670,
       "speaker": "dana",
-      "start_ms": 3410471,
-      "end_ms": 3411731
+      "start_ms": 3408102,
+      "end_ms": 3409362
     },
     {
       "index": 671,
       "speaker": "tom",
-      "start_ms": 3412101,
-      "end_ms": 3415619
+      "start_ms": 3409733,
+      "end_ms": 3413251
     },
     {
       "index": 672,
       "speaker": "sofia",
-      "start_ms": 3416062,
-      "end_ms": 3417133
+      "start_ms": 3413694,
+      "end_ms": 3414764
     },
     {
       "index": 673,
       "speaker": "james",
-      "start_ms": 3418386,
-      "end_ms": 3419542
+      "start_ms": 3416018,
+      "end_ms": 3417174
     },
     {
       "index": 674,
       "speaker": "dana",
-      "start_ms": 3420053,
-      "end_ms": 3427329
+      "start_ms": 3417685,
+      "end_ms": 3424960
     },
     {
       "index": 675,
       "speaker": "tom",
-      "start_ms": 3427845,
-      "end_ms": 3432468
+      "start_ms": 3425477,
+      "end_ms": 3430099
     },
     {
       "index": 676,
       "speaker": "dana",
-      "start_ms": 3432839,
-      "end_ms": 3435363
+      "start_ms": 3430470,
+      "end_ms": 3432995
     },
     {
       "index": 677,
       "speaker": "dana",
-      "start_ms": 3435523,
-      "end_ms": 3442480
+      "start_ms": 3433154,
+      "end_ms": 3440111
     },
     {
       "index": 678,
       "speaker": "priya",
-      "start_ms": 3442831,
-      "end_ms": 3445997
+      "start_ms": 3440463,
+      "end_ms": 3443629
     },
     {
       "index": 679,
       "speaker": "dana",
-      "start_ms": 3446595,
-      "end_ms": 3450659
+      "start_ms": 3444226,
+      "end_ms": 3448291
     },
     {
       "index": 680,
       "speaker": "james",
-      "start_ms": 3451277,
-      "end_ms": 3454675
+      "start_ms": 3448908,
+      "end_ms": 3452306
     },
     {
       "index": 681,
       "speaker": "siobhan",
-      "start_ms": 3454990,
-      "end_ms": 3457484
+      "start_ms": 3452621,
+      "end_ms": 3455116
     },
     {
       "index": 682,
       "speaker": "james",
-      "start_ms": 3458046,
-      "end_ms": 3459109
+      "start_ms": 3455678,
+      "end_ms": 3456741
     },
     {
       "index": 683,
       "speaker": "dana",
-      "start_ms": 3459410,
-      "end_ms": 3464317
+      "start_ms": 3457042,
+      "end_ms": 3461949
     },
     {
       "index": 684,
       "speaker": "priya",
-      "start_ms": 3465712,
-      "end_ms": 3470755
+      "start_ms": 3463343,
+      "end_ms": 3468386
     },
     {
       "index": 685,
       "speaker": "priya",
-      "start_ms": 3471084,
-      "end_ms": 3472834
+      "start_ms": 3468716,
+      "end_ms": 3470465
     },
     {
       "index": 686,
       "speaker": "dana",
-      "start_ms": 3473429,
-      "end_ms": 3477788
+      "start_ms": 3471061,
+      "end_ms": 3475419
     },
     {
       "index": 687,
       "speaker": "tom",
-      "start_ms": 3478092,
-      "end_ms": 3479579
+      "start_ms": 3475724,
+      "end_ms": 3477210
     },
     {
       "index": 688,
       "speaker": "arjun",
-      "start_ms": 3480106,
-      "end_ms": 3481445
+      "start_ms": 3477737,
+      "end_ms": 3479076
     },
     {
       "index": 689,
       "speaker": "hannah",
-      "start_ms": 3481829,
-      "end_ms": 3482610
+      "start_ms": 3479461,
+      "end_ms": 3480242
     },
     {
       "index": 690,
       "speaker": "sofia",
-      "start_ms": 3483008,
-      "end_ms": 3484653
+      "start_ms": 3480639,
+      "end_ms": 3482285
     }
   ]
 }

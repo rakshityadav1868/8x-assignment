@@ -8,11 +8,11 @@ import type { SeedMeetingFile, SeedWorkspaceFile } from "@/lib/types";
 
 import workspace from "./workspace.json";
 import q4RoadmapPlanning from "./meetings/q4-roadmap-planning.json";
-import weeklyStandup from "./meetings/weekly-standup.json";
 import designReview from "./meetings/design-review.json";
+import priyaMarcus1on1 from "./meetings/priya-marcus-1on1.json";
+import weeklyStandup from "./meetings/weekly-standup.json";
 import acmeDiscovery from "./meetings/acme-discovery.json";
 import pricingPagePlanning from "./meetings/pricing-page-planning.json";
-import priyaMarcus1on1 from "./meetings/priya-marcus-1on1.json";
 import staffEngineerInterview from "./meetings/staff-engineer-interview.json";
 import globexQbr from "./meetings/globex-qbr.json";
 import vendorSecurityReview from "./meetings/vendor-security-review.json";
@@ -22,11 +22,11 @@ export const seedWorkspace = workspace as unknown as SeedWorkspaceFile;
 /** Newest first. */
 export const seedMeetings = [
   q4RoadmapPlanning,
-  weeklyStandup,
   designReview,
+  priyaMarcus1on1,
+  weeklyStandup,
   acmeDiscovery,
   pricingPagePlanning,
-  priyaMarcus1on1,
   staffEngineerInterview,
   globexQbr,
   vendorSecurityReview,

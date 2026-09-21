@@ -48,7 +48,7 @@
         {
           "heading": "Next steps",
           "bullets": [
-            { "text": "Priya sends the code yellow staffing plan by Friday, October 3rd, and the Olivia Grant offer by October 8th.", "line": 600 },
+            { "text": "Priya sends the code yellow staffing plan by end of day tomorrow, and the Olivia Grant offer by next Wednesday.", "line": 600 },
             { "text": "Arjun delivers the Kafka design doc by October 9th, cutover by October 30th, and the Globex rollup pilot by November 6th.", "line": 607 },
             { "text": "Hannah sends eval updates every two weeks starting October 16th and makes the go/no-go call on November 13th.", "line": 613 },
             { "text": "Siobhan signs up 10 design partners by October 24th and holds the Globex call with Greg Holloway by October 10th.", "line": 623 },
@@ -138,9 +138,9 @@
     }
   ],
   "action_items": [
-    { "description": "Send the code yellow plan to engineering, showing who is pulled from what, by Friday October 3rd", "assignee": "priya", "line": 600, "completed": true },
+    { "description": "Send the code yellow plan to engineering, showing who is pulled from what, by end of day tomorrow", "assignee": "priya", "line": 600, "completed": true },
     { "description": "Ship SAML SSO GA by November 2nd and SCIM by November 16th, with a status post every Friday", "assignee": "priya", "line": 601, "completed": false },
-    { "description": "Send the offer to Olivia Grant (staff engineer) by Wednesday October 8th", "assignee": "priya", "line": 602, "completed": false },
+    { "description": "Send the offer to Olivia Grant (staff engineer) by next Wednesday", "assignee": "priya", "line": 602, "completed": false },
     { "description": "Kevin: get the public status page live by October 24th (Priya to confirm with him)", "assignee": null, "line": 604, "completed": false },
     { "description": "Kevin: clean up on-call alerting for 60% fewer pages by October 17th", "assignee": null, "line": 657, "completed": false },
     { "description": "Write the Kafka ingestion design doc by October 9th and complete the cutover by October 30th", "assignee": "arjun", "line": 607, "completed": false },

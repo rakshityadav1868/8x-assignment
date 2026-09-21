@@ -1,7 +1,7 @@
 {
   "slug": "weekly-standup",
   "media": "/media/weekly-standup.m4a",
-  "duration_ms": 448229,
+  "duration_ms": 447330,
   "sample_rate": 24000,
   "lines": [
     {
@@ -320,91 +320,91 @@
       "index": 52,
       "speaker": "aman",
       "start_ms": 351511,
-      "end_ms": 355659
+      "end_ms": 354864
     },
     {
       "index": 53,
       "speaker": "priya",
-      "start_ms": 356178,
-      "end_ms": 368302
+      "start_ms": 355383,
+      "end_ms": 367508
     },
     {
       "index": 54,
       "speaker": "marcus",
-      "start_ms": 368917,
-      "end_ms": 371962
+      "start_ms": 368122,
+      "end_ms": 371167
     },
     {
       "index": 55,
       "speaker": "priya",
-      "start_ms": 372513,
-      "end_ms": 377215
+      "start_ms": 371719,
+      "end_ms": 376421
     },
     {
       "index": 56,
       "speaker": "marcus",
-      "start_ms": 378690,
-      "end_ms": 383864
+      "start_ms": 377895,
+      "end_ms": 383069
     },
     {
       "index": 57,
       "speaker": "priya",
-      "start_ms": 384231,
-      "end_ms": 392547
+      "start_ms": 383436,
+      "end_ms": 391752
     },
     {
       "index": 58,
       "speaker": "kevin",
-      "start_ms": 392931,
-      "end_ms": 398568
+      "start_ms": 392136,
+      "end_ms": 397773
     },
     {
       "index": 59,
       "speaker": "nina",
-      "start_ms": 399056,
-      "end_ms": 404223
+      "start_ms": 398262,
+      "end_ms": 403428
     },
     {
       "index": 60,
       "speaker": "kevin",
-      "start_ms": 404556,
-      "end_ms": 407256
+      "start_ms": 403761,
+      "end_ms": 406461
     },
     {
       "index": 61,
       "speaker": "priya",
-      "start_ms": 407620,
-      "end_ms": 415106
+      "start_ms": 406825,
+      "end_ms": 414312
     },
     {
       "index": 62,
       "speaker": "marcus",
-      "start_ms": 415429,
-      "end_ms": 417586
+      "start_ms": 414634,
+      "end_ms": 416791
     },
     {
       "index": 63,
       "speaker": "priya",
-      "start_ms": 418255,
-      "end_ms": 439565
+      "start_ms": 417460,
+      "end_ms": 438666
     },
     {
       "index": 64,
       "speaker": "aman",
-      "start_ms": 440067,
-      "end_ms": 440670
+      "start_ms": 439167,
+      "end_ms": 439771
     },
     {
       "index": 65,
       "speaker": "priya",
-      "start_ms": 441003,
-      "end_ms": 445795
+      "start_ms": 440104,
+      "end_ms": 444896
     },
     {
       "index": 66,
       "speaker": "kevin",
-      "start_ms": 446064,
-      "end_ms": 447429
+      "start_ms": 445165,
+      "end_ms": 446530
     }
   ]
 }

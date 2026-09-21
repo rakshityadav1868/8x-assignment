@@ -2,100 +2,375 @@
   "slug": "acme-discovery",
   "title": "Acme Logistics <> Northwind: Discovery Call",
   "meeting_type": "sales",
-  "days_ago": 3,
+  "days_ago": 6,
   "start_time": "11:00",
   "recorded_by": "Ethan Brooks",
   "participants": [
-    {"key": "ethan", "name": "Ethan Brooks", "title": "Account Executive", "email": "ethan@northwindlabs.io", "is_external": false, "voice": "Eddy (English (US))"},
-    {"key": "rachel", "name": "Rachel Moreno", "title": "VP Operations, Acme Logistics", "email": "rachel.moreno@acmelogistics.com", "is_external": true, "voice": "Kathy"}
+    {
+      "key": "ethan",
+      "name": "Ethan Brooks",
+      "title": "Account Executive",
+      "email": "ethan@northwindlabs.io",
+      "is_external": false,
+      "voice": "Eddy (English (US))"
+    },
+    {
+      "key": "rachel",
+      "name": "Rachel Moreno",
+      "title": "VP Operations, Acme Logistics",
+      "email": "rachel.moreno@acmelogistics.com",
+      "is_external": true,
+      "voice": "Kathy"
+    }
   ],
   "lines": [
-    {"speaker": "ethan", "text": "Hey Rachel, can you hear me okay? I think my headset just decided to update itself thirty seconds before the call."},
-    {"speaker": "rachel", "text": "Yeah, I can hear you fine. Classic. Mine did that yesterday in front of our CFO, so you're in good company."},
-    {"speaker": "ethan", "text": "Ha, perfect. Well, thanks for making the time. I know it's a Friday and you're probably buried in end of month stuff."},
-    {"speaker": "rachel", "text": "It's fine. Honestly this is the most interesting meeting on my calendar today, which says a lot about my calendar."},
-    {"speaker": "ethan", "text": "I'll take it. So I've got us for thirty minutes. My goal is mostly to listen and understand what's going on at Acme, and then if it makes sense, we can talk about next steps. Does that work?"},
-    {"speaker": "rachel", "text": "Works for me. I have a hard stop at eleven thirty though, I have a carrier review right after."},
-    {"speaker": "ethan", "text": "Got it, I'll keep an eye on the clock. So to start, you filled out the form on our site mentioning shipment delay analytics. Can you walk me through what's happening today?"},
-    {"speaker": "rachel", "text": "Sure. So we move about eleven thousand shipments a week, mostly regional freight across the Midwest and the Southeast. And our on time rate dropped from ninety four percent to about eighty seven percent over the last two quarters."},
-    {"speaker": "ethan", "text": "Seven points is a lot. Do you know why yet?"},
-    {"speaker": "rachel", "text": "That's the problem, we kind of don't. We have theories. Some of it is carrier capacity, some of it is our warehouse in Memphis, which has been, let's say, a character building experience. But we can't slice the data fast enough to prove anything."},
-    {"speaker": "ethan", "text": "Okay. And where does that data live right now?"},
-    {"speaker": "rachel", "text": "It's all in Snowflake. Events from our TMS, scan events from the warehouses, and the carrier API feeds. Then we've got Looker on top of it, which is where the pain really starts."},
-    {"speaker": "ethan", "text": "Tell me about the Looker pain. I hear that a lot, but I want to hear your version."},
-    {"speaker": "rachel", "text": "So every time an ops manager has a question, like, why were Tuesday shipments out of Memphis late, they file a ticket with our data team. And our data team is two people. The average turnaround is something like six business days."},
-    {"speaker": "ethan", "text": "Six days. So by the time the answer comes back, the problem's already--"},
-    {"speaker": "rachel", "text": "Already moved, yeah. Or it fixed itself, or it got worse. It's like getting a weather report for last week."},
-    {"speaker": "ethan", "text": "That's a great way to put it. And what does that cost you, roughly? Like if you had to put a number on the late shipments."},
-    {"speaker": "rachel", "text": "We actually did that exercise for the board. Late deliveries cost us about three hundred and forty thousand dollars last quarter in penalties and credits to customers. And that doesn't count the churn. We lost one account, Hartwell Foods, partly because of reliability."},
-    {"speaker": "ethan", "text": "Ouch. How big was Hartwell?"},
-    {"speaker": "rachel", "text": "About one point two million a year. So, you know, it stung. My CEO still brings it up in every staff meeting."},
-    {"speaker": "ethan", "text": "Yeah, I bet. Okay so if I'm hearing you right, the core need is: ops managers need to answer delay questions themselves, same day, without waiting on the data team. Is that fair?"},
-    {"speaker": "rachel", "text": "That's exactly it. And ideally get alerted before it becomes a problem. Like, if Memphis dwell time spikes on a Monday, I want to know Monday, not the following Friday."},
-    {"speaker": "ethan", "text": "Got it. So alerting on leading indicators, not just reporting on lagging ones."},
-    {"speaker": "rachel", "text": "Yes. You should put that on a slide."},
-    {"speaker": "ethan", "text": "Ha, it probably already is on one somewhere. Okay, so who would actually use this day to day? How many people are we talking about?"},
-    {"speaker": "rachel", "text": "Core users, probably twelve ops managers, plus my two regional directors, plus me. Then maybe another thirty people who'd just look at dashboards, like account managers who want to show customers their on time numbers."},
-    {"speaker": "ethan", "text": "Okay, so roughly fifteen power users and thirty viewers. That's helpful. And the two people on the data team, would they be involved?"},
-    {"speaker": "rachel", "text": "Oh, very. Tariq runs the data team, and honestly he's going to be the one who decides if the integration is real or if it's a toy. He's been burned before."},
-    {"speaker": "ethan", "text": "Burned how?"},
-    {"speaker": "rachel", "text": "We tried a tool two years ago, I won't say the name, but it basically required us to re-instrument everything and send events to their cloud. It took four months and we gave up. So Tariq's first question is going to be, do you sit on top of Snowflake or do we have to move data."},
-    {"speaker": "ethan", "text": "Good question, and I'll give you the short answer now. We connect directly to Snowflake with a read only role. No data movement required for the core dashboards. For real time alerting we can also ingest a stream, but that's optional."},
-    {"speaker": "rachel", "text": "Okay, that's, yeah, that's the right answer. He'll still want to see it."},
-    {"speaker": "ethan", "text": "Of course. I'd love to set up a technical session with Tariq and our solutions engineer. Is that something you could help arrange?"},
-    {"speaker": "rachel", "text": "Yeah, I can do that. He's out next week at a conference, but the week after should be fine."},
-    {"speaker": "ethan", "text": "Great. Let's come back to that. Can I ask about budget? I don't want to waste your time if we're way off."},
-    {"speaker": "rachel", "text": "Sure, no, I appreciate you asking directly. We've set aside somewhere between sixty and eighty thousand a year for this. That's approved in principle by our CFO, Dan Whitley."},
-    {"speaker": "ethan", "text": "Okay. And is that new budget or is it replacing something?"},
-    {"speaker": "rachel", "text": "Partly replacing. We pay about forty five thousand for Looker right now, and that contract ends January thirty first. If we find something better, Dan's happy to redirect that money plus some."},
-    {"speaker": "ethan", "text": "That's really helpful. So there's a natural forcing date there, January thirty first."},
-    {"speaker": "rachel", "text": "Right. And honestly I'd rather not renew Looker for another full year just because we ran out of time. That's kind of my nightmare scenario."},
-    {"speaker": "ethan", "text": "Makes sense. So who ultimately signs off? Is it you, is it Dan, is there a committee?"},
-    {"speaker": "rachel", "text": "So I'm the one who owns the problem and I'll make the recommendation. Dan signs anything over fifty thousand. And Tariq basically has a veto on the technical side. He can't say yes alone, but he can definitely say no."},
-    {"speaker": "ethan", "text": "Ha, the classic technical veto. Okay. And is there anyone in procurement or legal we should know about?"},
-    {"speaker": "rachel", "text": "Yeah, we have a procurement person, Janet, and a security questionnaire that is, I'm not kidding, a hundred and twelve questions. Last vendor took three weeks to get through it."},
-    {"speaker": "ethan", "text": "We have a SOC 2 Type Two report and a pre filled answer set for most of the standard questionnaires, so hopefully we can beat three weeks. Could you send me the questionnaire early so we can start in parallel?"},
-    {"speaker": "rachel", "text": "Yeah, that's smart. I'll ask Janet to send it over. Probably Monday."},
-    {"speaker": "ethan", "text": "Perfect. And what does the paper process look like after security? Like, redlines, MSA, that kind of thing?"},
-    {"speaker": "rachel", "text": "We usually want to use our own MSA. Legal takes about two weeks for redlines. Then Dan signs. So if you add it up, from a verbal yes to a signature, call it five weeks."},
-    {"speaker": "ethan", "text": "Okay, so working backwards from January thirty first, you'd want a decision by around mid December."},
-    {"speaker": "rachel", "text": "I'd actually like to decide by end of Q4, so December nineteenth at the latest. Everyone disappears after that for the holidays."},
-    {"speaker": "ethan", "text": "Understood. December nineteenth. I'll write that down in big letters. Are you looking at anyone else right now?"},
-    {"speaker": "rachel", "text": "Yeah, I'll be honest. We're talking to Amplitude and we're also looking at just hiring a third data analyst and staying on Looker."},
-    {"speaker": "ethan", "text": "That's fair, and I appreciate the honesty. What do you like about the Amplitude option so far?"},
-    {"speaker": "rachel", "text": "They're well known, the board has heard of them. But the demo felt very web product focused, like funnels and signups. We don't have signups, we have trucks."},
-    {"speaker": "ethan", "text": "Ha, yeah, trucks don't sign up very often. And the analyst option, what's the thinking there?"},
-    {"speaker": "rachel", "text": "It's roughly the same money, maybe a hundred and ten thousand fully loaded. But it doesn't fix the core problem, which is that questions go into a queue. It just makes the queue a bit shorter."},
-    {"speaker": "ethan", "text": "Right. It scales the bottleneck instead of removing it."},
-    {"speaker": "rachel", "text": "Exactly. That's the argument I'm going to make to Dan, so feel free to help me make it."},
-    {"speaker": "ethan", "text": "Happy to. Actually, that brings up something I wanted to ask. What would success look like for you in, say, six months? If we did this and it went well."},
-    {"speaker": "rachel", "text": "Honestly? On time rate back above ninety two percent. And the ops managers never filing a ticket for a delay question again. If I could show Dan a number like that, penalties down by half, that pays for this ten times over."},
-    {"speaker": "ethan", "text": "That's a really clear success metric. Ninety two percent on time, penalties cut in half. I'd love to build the business case around those."},
-    {"speaker": "rachel", "text": "Please do. I'm terrible at business cases. I just want the trucks to be on time."},
-    {"speaker": "ethan", "text": "That's what we're here for. Quick question about the data itself. Do your scan events have a consistent shipment ID across the TMS and the warehouse systems?"},
-    {"speaker": "rachel", "text": "Mostly. Memphis uses a different WMS that was, uh, inherited from an acquisition, and their IDs have a prefix. Tariq has a mapping table for it."},
-    {"speaker": "ethan", "text": "Okay, that's very normal. We can handle that with a join in the model. I'll flag it for our SE so it's in the technical session."},
-    {"speaker": "rachel", "text": "Good. That's exactly the kind of thing that killed the last project."},
-    {"speaker": "ethan", "text": "Noted. So let me try to summarize and you tell me what I got wrong."},
-    {"speaker": "rachel", "text": "Go for it."},
-    {"speaker": "ethan", "text": "On time rate dropped from ninety four to eighty seven percent. Late deliveries cost about three hundred forty thousand last quarter, plus you lost Hartwell. Ops managers wait six days for answers from a two person data team. You need self serve analysis and proactive alerting on top of Snowflake."},
-    {"speaker": "rachel", "text": "Yep. So far so good."},
-    {"speaker": "ethan", "text": "Budget is sixty to eighty thousand, approved in principle by Dan Whitley. You make the recommendation, Dan signs, Tariq has a technical veto, Janet runs procurement. Looker ends January thirty first, and you want a decision by December nineteenth. You're also looking at Amplitude and at hiring an analyst."},
-    {"speaker": "rachel", "text": "That's, yeah, that's scarily accurate. Did you record this?"},
-    {"speaker": "ethan", "text": "Ha, I did, with your permission at the start. It's how I don't forget anything."},
-    {"speaker": "rachel", "text": "Right, right. Okay. So what are next steps from your side?"},
-    {"speaker": "ethan", "text": "Three things. First, I'll send you a recap email today with everything we just said, so you can forward it to Dan and Tariq. Second, I'll set up a technical deep dive with Tariq and our SE, Arjun, for the week of October fifth. And third, once Janet sends the security questionnaire, we'll turn it around within five business days."},
-    {"speaker": "rachel", "text": "That sounds great. Can we also do a demo with some of our actual data? Like a sandbox? The ops managers won't believe it unless it's their own shipments."},
-    {"speaker": "ethan", "text": "Yes, absolutely. We do a two week proof of value. If Tariq can give us a read only role on a sample schema, we can have Memphis dwell time dashboards and alerts running in a couple of days."},
-    {"speaker": "rachel", "text": "Okay, I love that. Let's aim for that right after the technical session."},
-    {"speaker": "ethan", "text": "Deal. And one more ask. Would you be open to being the internal champion for this? Mostly it means helping me understand what Dan needs to see to say yes."},
-    {"speaker": "rachel", "text": "Yeah, I'm already the champion, I just didn't have the title. Dan is going to want payback period, and he's going to want a reference customer in logistics."},
-    {"speaker": "ethan", "text": "We have a couple. Coastline Freight is probably the closest match, similar size. I'll ask their VP of ops if she'd take a twenty minute call with you."},
-    {"speaker": "rachel", "text": "That would help a lot. Dan trusts peers more than vendors. No offense."},
-    {"speaker": "ethan", "text": "None taken, I wouldn't trust me either. Alright, I'll have the recap to you by end of day, the reference intro by Wednesday, and I'll send calendar options for the technical session."},
-    {"speaker": "rachel", "text": "Perfect. And I'll get Janet to send the questionnaire Monday and I'll talk to Tariq about the read only role."},
-    {"speaker": "ethan", "text": "Awesome. Thanks Rachel, this was genuinely one of the clearest discovery calls I've had in a while."},
-    {"speaker": "rachel", "text": "Thanks Ethan. Go fix your headset."},
-    {"speaker": "ethan", "text": "Ha, it's first on my list. Have a good carrier review."}
+    {
+      "speaker": "ethan",
+      "text": "Hey Rachel, can you hear me okay? I think my headset just decided to update itself thirty seconds before the call."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yeah, I can hear you fine. Classic. Mine did that yesterday in front of our CFO, so you're in good company."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, perfect. Well, thanks for making the time. I know it's a Friday and you're probably buried in end of month stuff."
+    },
+    {
+      "speaker": "rachel",
+      "text": "It's fine. Honestly this is the most interesting meeting on my calendar today, which says a lot about my calendar."
+    },
+    {
+      "speaker": "ethan",
+      "text": "I'll take it. So I've got us for thirty minutes. My goal is mostly to listen and understand what's going on at Acme, and then if it makes sense, we can talk about next steps. Does that work?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Works for me. I have a hard stop at eleven thirty though, I have a carrier review right after."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Got it, I'll keep an eye on the clock. So to start, you filled out the form on our site mentioning shipment delay analytics. Can you walk me through what's happening today?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Sure. So we move about eleven thousand shipments a week, mostly regional freight across the Midwest and the Southeast. And our on time rate dropped from ninety four percent to about eighty seven percent over the last two quarters."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Seven points is a lot. Do you know why yet?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "That's the problem, we kind of don't. We have theories. Some of it is carrier capacity, some of it is our warehouse in Memphis, which has been, let's say, a character building experience. But we can't slice the data fast enough to prove anything."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Okay. And where does that data live right now?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "It's all in Snowflake. Events from our TMS, scan events from the warehouses, and the carrier API feeds. Then we've got Looker on top of it, which is where the pain really starts."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Tell me about the Looker pain. I hear that a lot, but I want to hear your version."
+    },
+    {
+      "speaker": "rachel",
+      "text": "So every time an ops manager has a question, like, why were Tuesday shipments out of Memphis late, they file a ticket with our data team. And our data team is two people. The average turnaround is something like six business days."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Six days. So by the time the answer comes back, the problem's already--"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Already moved, yeah. Or it fixed itself, or it got worse. It's like getting a weather report for last week."
+    },
+    {
+      "speaker": "ethan",
+      "text": "That's a great way to put it. And what does that cost you, roughly? Like if you had to put a number on the late shipments."
+    },
+    {
+      "speaker": "rachel",
+      "text": "We actually did that exercise for the board. Late deliveries cost us about three hundred and forty thousand dollars last quarter in penalties and credits to customers. And that doesn't count the churn. We lost one account, Hartwell Foods, partly because of reliability."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ouch. How big was Hartwell?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "About one point two million a year. So, you know, it stung. My CEO still brings it up in every staff meeting."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Yeah, I bet. Okay so if I'm hearing you right, the core need is: ops managers need to answer delay questions themselves, same day, without waiting on the data team. Is that fair?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "That's exactly it. And ideally get alerted before it becomes a problem. Like, if Memphis dwell time spikes on a Monday, I want to know Monday, not the following Friday."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Got it. So alerting on leading indicators, not just reporting on lagging ones."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yes. You should put that on a slide."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, it probably already is on one somewhere. Okay, so who would actually use this day to day? How many people are we talking about?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Core users, probably twelve ops managers, plus my two regional directors, plus me. Then maybe another thirty people who'd just look at dashboards, like account managers who want to show customers their on time numbers."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Okay, so roughly fifteen power users and thirty viewers. That's helpful. And the two people on the data team, would they be involved?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Oh, very. Tariq runs the data team, and honestly he's going to be the one who decides if the integration is real or if it's a toy. He's been burned before."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Burned how?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "We tried a tool two years ago, I won't say the name, but it basically required us to re-instrument everything and send events to their cloud. It took four months and we gave up. So Tariq's first question is going to be, do you sit on top of Snowflake or do we have to move data."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Good question, and I'll give you the short answer now. We connect directly to Snowflake with a read only role. No data movement required for the core dashboards. For real time alerting we can also ingest a stream, but that's optional."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Okay, that's, yeah, that's the right answer. He'll still want to see it."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Of course. I'd love to set up a technical session with Tariq and our solutions engineer. Is that something you could help arrange?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yeah, I can do that. He's out next week at a conference, but the week after should be fine."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Great. Let's come back to that. Can I ask about budget? I don't want to waste your time if we're way off."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Sure, no, I appreciate you asking directly. We've set aside somewhere between sixty and eighty thousand a year for this. That's approved in principle by our CFO, Dan Whitley."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Okay. And is that new budget or is it replacing something?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Partly replacing. We pay about forty five thousand for Looker right now, and that contract ends January thirty first. If we find something better, Dan's happy to redirect that money plus some."
+    },
+    {
+      "speaker": "ethan",
+      "text": "That's really helpful. So there's a natural forcing date there, January thirty first."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Right. And honestly I'd rather not renew Looker for another full year just because we ran out of time. That's kind of my nightmare scenario."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Makes sense. So who ultimately signs off? Is it you, is it Dan, is there a committee?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "So I'm the one who owns the problem and I'll make the recommendation. Dan signs anything over fifty thousand. And Tariq basically has a veto on the technical side. He can't say yes alone, but he can definitely say no."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, the classic technical veto. Okay. And is there anyone in procurement or legal we should know about?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yeah, we have a procurement person, Janet, and a security questionnaire that is, I'm not kidding, a hundred and twelve questions. Last vendor took three weeks to get through it."
+    },
+    {
+      "speaker": "ethan",
+      "text": "We have a SOC 2 Type Two report and a pre filled answer set for most of the standard questionnaires, so hopefully we can beat three weeks. Could you send me the questionnaire early so we can start in parallel?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yeah, that's smart. I'll ask Janet to send it over. Probably Monday."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Perfect. And what does the paper process look like after security? Like, redlines, MSA, that kind of thing?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "We usually want to use our own MSA. Legal takes about two weeks for redlines. Then Dan signs. So if you add it up, from a verbal yes to a signature, call it five weeks."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Okay, so working backwards from January thirty first, you'd want a decision by around mid December."
+    },
+    {
+      "speaker": "rachel",
+      "text": "I'd actually like to decide by end of Q4, so December nineteenth at the latest. Everyone disappears after that for the holidays."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Understood. December nineteenth. I'll write that down in big letters. Are you looking at anyone else right now?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yeah, I'll be honest. We're talking to Amplitude and we're also looking at just hiring a third data analyst and staying on Looker."
+    },
+    {
+      "speaker": "ethan",
+      "text": "That's fair, and I appreciate the honesty. What do you like about the Amplitude option so far?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "They're well known, the board has heard of them. But the demo felt very web product focused, like funnels and signups. We don't have signups, we have trucks."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, yeah, trucks don't sign up very often. And the analyst option, what's the thinking there?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "It's roughly the same money, maybe a hundred and ten thousand fully loaded. But it doesn't fix the core problem, which is that questions go into a queue. It just makes the queue a bit shorter."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Right. It scales the bottleneck instead of removing it."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Exactly. That's the argument I'm going to make to Dan, so feel free to help me make it."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Happy to. Actually, that brings up something I wanted to ask. What would success look like for you in, say, six months? If we did this and it went well."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Honestly? On time rate back above ninety two percent. And the ops managers never filing a ticket for a delay question again. If I could show Dan a number like that, penalties down by half, that pays for this ten times over."
+    },
+    {
+      "speaker": "ethan",
+      "text": "That's a really clear success metric. Ninety two percent on time, penalties cut in half. I'd love to build the business case around those."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Please do. I'm terrible at business cases. I just want the trucks to be on time."
+    },
+    {
+      "speaker": "ethan",
+      "text": "That's what we're here for. Quick question about the data itself. Do your scan events have a consistent shipment ID across the TMS and the warehouse systems?"
+    },
+    {
+      "speaker": "rachel",
+      "text": "Mostly. Memphis uses a different WMS that was, uh, inherited from an acquisition, and their IDs have a prefix. Tariq has a mapping table for it."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Okay, that's very normal. We can handle that with a join in the model. I'll flag it for our SE so it's in the technical session."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Good. That's exactly the kind of thing that killed the last project."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Noted. So let me try to summarize and you tell me what I got wrong."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Go for it."
+    },
+    {
+      "speaker": "ethan",
+      "text": "On time rate dropped from ninety four to eighty seven percent. Late deliveries cost about three hundred forty thousand last quarter, plus you lost Hartwell. Ops managers wait six days for answers from a two person data team. You need self serve analysis and proactive alerting on top of Snowflake."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yep. So far so good."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Budget is sixty to eighty thousand, approved in principle by Dan Whitley. You make the recommendation, Dan signs, Tariq has a technical veto, Janet runs procurement. Looker ends January thirty first, and you want a decision by December nineteenth. You're also looking at Amplitude and at hiring an analyst."
+    },
+    {
+      "speaker": "rachel",
+      "text": "That's, yeah, that's scarily accurate. Did you record this?"
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, I did, with your permission at the start. It's how I don't forget anything."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Right, right. Okay. So what are next steps from your side?"
+    },
+    {
+      "speaker": "ethan",
+      "text": "Three things. First, I'll send you a recap email today with everything we just said, so you can forward it to Dan and Tariq. Second, I'll set up a technical deep dive with Tariq and our SE, Arjun, for the week after next, once he is back. And third, once Janet sends the security questionnaire, we'll turn it around within five business days."
+    },
+    {
+      "speaker": "rachel",
+      "text": "That sounds great. Can we also do a demo with some of our actual data? Like a sandbox? The ops managers won't believe it unless it's their own shipments."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Yes, absolutely. We do a two week proof of value. If Tariq can give us a read only role on a sample schema, we can have Memphis dwell time dashboards and alerts running in a couple of days."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Okay, I love that. Let's aim for that right after the technical session."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Deal. And one more ask. Would you be open to being the internal champion for this? Mostly it means helping me understand what Dan needs to see to say yes."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Yeah, I'm already the champion, I just didn't have the title. Dan is going to want payback period, and he's going to want a reference customer in logistics."
+    },
+    {
+      "speaker": "ethan",
+      "text": "We have a couple. Coastline Freight is probably the closest match, similar size. I'll ask their VP of ops if she'd take a twenty minute call with you."
+    },
+    {
+      "speaker": "rachel",
+      "text": "That would help a lot. Dan trusts peers more than vendors. No offense."
+    },
+    {
+      "speaker": "ethan",
+      "text": "None taken, I wouldn't trust me either. Alright, I'll have the recap to you by end of day, the reference intro by Wednesday, and I'll send calendar options for the technical session."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Perfect. And I'll get Janet to send the questionnaire Monday and I'll talk to Tariq about the read only role."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Awesome. Thanks Rachel, this was genuinely one of the clearest discovery calls I've had in a while."
+    },
+    {
+      "speaker": "rachel",
+      "text": "Thanks Ethan. Go fix your headset."
+    },
+    {
+      "speaker": "ethan",
+      "text": "Ha, it's first on my list. Have a good carrier review."
+    }
   ]
 }
