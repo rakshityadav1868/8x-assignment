@@ -17,7 +17,7 @@ Contracts change **additively only**; record changes in the changelog at the bot
 flowchart LR
   subgraph Browser
     L["/ landing"]
-    UI["App: /calls, /calls/[id], /search, /upload, /settings"]
+    UI["App: /calls, /calls/[id], /search, /upload, /settings<br/>Phase 5: /record, /calendar, /insights, /trackers, /deals, /team, /folders, /welcome"]
     PUB["Public: /share/[token], /clip/[token]"]
   end
 
@@ -37,6 +37,7 @@ flowchart LR
     ST[("Supabase Storage<br/>recordings bucket")]
     ANT["Anthropic API"]
     DGA["Deepgram API"]
+    HOOK["User webhook URLs<br/>+ Slack incoming webhook"]
   end
 
   UI --> RSC & API
@@ -50,6 +51,7 @@ flowchart LR
   DG -->|DEEPGRAM_API_KEY| DGA
   UI -. signed upload URL .-> ST
   DG -. reads media .-> ST
+  API -->|"events.ts: meeting.ready, meeting.shared, …"| HOOK
 ```
 
 ## 2. Data flow
@@ -133,9 +135,11 @@ Result click → `/calls/:id?t=<seconds>` which seeks the player.
 | `/upload` | Drag-and-drop upload → signed upload → process → status polling; honest keys notice when keyless | `(app)` |
 | `/playlists` | Smart "All highlights" playlist + user playlists, highlights library with type filter | `(app)` |
 | `/playlists/[id]` | Playlist detail, Play all (sequential clip player) | `(app)` |
-| `/settings` | System status (capabilities), note/share defaults, honestly stubbed integrations | `(app)` |
+| `/settings` | Tabs general / recording / notifications / integrations (server prefs, webhooks, Slack, CRM preview) — see §10 | `(app)` |
 | `/share/[token]` | Public read-only call view (player, transcript, summary); forbidden / not-found gates | `(public)` |
 | `/clip/[token]` | Public highlight clip: bounded playback, replay, transcript excerpt, copy link | `(public)` |
+
+Phase 5 pages (`/record`, `/calendar`, `/insights`, `/trackers`, `/deals`, `/team`, `/folders/[id]`, `/welcome`, `/pricing`, `/features`, `/integrations`) are listed in §10.1.
 
 Unknown call/share/clip ids return a real 404.
 
@@ -251,9 +255,13 @@ flowchart LR
 | `npm run build:seed` | Validates `seed-src/ai` and builds `src/data/seed/**` (no dependencies) |
 | `npm run seed` | `build:seed`, then loads Supabase idempotently (seed meetings are replaced wholesale) using `.env.local` |
 | `node scripts/seed.mts --sql` | Prints the same data as idempotent SQL, to paste into the Supabase SQL editor |
+| `npm run check:ask` | Regression checks for the demo-mode Ask retrieval (`scripts/check-demo-ask.mts`) |
+| `npm run check:phase5` | Phase 5 sanity checks: coaching, SRT/VTT, trackers, insights, deals, bot state machine, CRM, Slack, real signed webhook POST (`scripts/check-phase5.mts`) |
 | `npm run dev / build / lint` | Next.js |
 
-Schema: `supabase/migrations/0001_init.sql` (tables, `tsv` generated column + GIN, `(meeting_id, start_ms)` index, `search_segments` RPC).
+Schema: `supabase/migrations/0001_init.sql` (tables, `tsv` generated column + GIN, `(meeting_id, start_ms)` index, `search_segments` RPC)
+and `0002_parity.sql` (Phase 5: folders, trackers, comments, reactions, webhooks + deliveries, Slack config, CRM logs,
+bot sessions, calendar events, prefs, team, notifications).
 
 ## 6. Folder structure
 
@@ -264,18 +272,23 @@ src/
     (marketing)/page.tsx       "/" landing
     (app)/layout.tsx           sidebar + top bar shell (mobile: sheet), ⌘K command palette
     (app)/calls/(list), calls/[id], search, ask, upload, playlists/(list), playlists/[id], settings
+    (app)/record, calendar, insights, trackers/(list|[id]), deals/(list|[domain]), team, folders/[id]   Phase 5
+    (marketing)/pricing, features, integrations                                                  Phase 5
+    (onboarding)/welcome                                                                         Phase 5
     (public)/share/[token], (public)/clip/[token]
     api/**                     route handlers (see route map)
   components/
-    brand/ shell/ call/ transcript/ summary/ playlists/ ui/
+    brand/ shell/ call/ transcript/ summary/ playlists/ search/ upload/ public/ common/ ui/
+    calls/ folders/ record/ calendar/ team/ onboarding/ settings/ marketing/ insights/ trackers/ deals/   Phase 5
   lib/
     types.ts contracts.ts routes.ts templates.ts capabilities.ts
-    db/                        repo.ts, index.ts (getRepo), seed-repo.ts, supabase-repo.ts, seed-time.ts
+    db/                        repo.ts, index.ts (getRepo), seed-repo.ts, supabase-repo.ts, seed-time.ts, clip-token.ts, bot-token.ts
     ai/                        Ask + demo (extractive) implementations, transcript formatting
     llm/                       Claude client, JSON extraction + retry
     prompts/                   one builder per job (summary, action items, chapters, highlights, decisions, …)
     deepgram/                  transcription client
-    server/                    api route wrapper, errors, rate-limit, demo-session, pipeline, storage, ndjson
+    server/                    api route wrapper, errors, rate-limit, demo-session, pipeline, storage, ndjson,
+                               events (meeting.ready side effects, bot sync), summaries (default template), collab, team
     search/ ui/                text helpers, client API + formatting
     analytics/ export/ integrations/   Phase 5 pure logic: coaching, insights, trackers, deals, library filters; downloads; webhooks/Slack/CRM/bot
   data/seed/                   built seed JSON
@@ -293,10 +306,12 @@ supabase/migrations/           SQL schema
 | **P1** | Built | Highlights → clips · per-meeting Ask with citations · upload-and-transcribe (with keys) · follow-up email |
 | **P2** | Built | Chapters rail · speaker timeline, talk-time % and filter · decisions · "what did X commit to?" · catch me up · shortcuts · virtualized transcript · participant stage |
 | **P3** | Built | Playlists (+ play all) · cross-meeting Ask · summary language · transcript segment edit API |
+| **Phase 5** | Built | Fathom parity (§10): library/folders/trash, recorder, simulated bot, calendar + auto-record rules, coaching, insights, trackers, deals, comments/@mentions/reactions, downloads, clip trim, real webhooks + Slack, CRM/email previews, team, onboarding, notifications, marketing pages |
 
-**Stubbed on purpose:** live recording bot and calendar OAuth (replaced by upload + seeded upcoming meetings); real auth/SSO
-(one demo workspace user; `same_domain` / `invited` share modes are stored but show a gated screen); CRM / Slack /
-Asana / Zapier (honest "coming soon" cards on Settings); billing.
+**Stubbed on purpose:** the meeting bot is a simulated state machine (a real one needs platform approvals + media
+infrastructure); calendar and CRM OAuth (calendar is seeded, CRM "Sync" only logs); email sending (recap and invites are
+previews); real auth/SSO (one demo user "Priya Raman", `auth_mode: "demo"` in both data modes; `same_domain` / `invited`
+share modes are stored but show a gated screen); billing.
 
 ## 8. Ownership
 
@@ -402,8 +417,9 @@ App-shell nav (frontend-A) adds: Record, Calendar, Insights, Trackers, Deals, Te
 | `GET /api/notifications?unread&limit` | `ListNotificationsQuery` → `ListNotificationsResponse` |
 | `POST /api/notifications/read` | `MarkNotificationsReadRequest` → `MarkNotificationsReadResponse` |
 
-New error code in use: `not_implemented` (501) — thrown by the temporary repo stubs in
-`src/lib/db/phase5-stubs.ts` until the database agent implements each method.
+Error code `not_implemented` (501) was used by temporary repo stubs during the build; `phase5-stubs.ts` has since been
+deleted and every Repo method is implemented in both `SeedRepo` and `SupabaseRepo`. The client (`src/lib/ui/use-api.ts`)
+still treats a 501 as "not available" and degrades gracefully.
 
 ### 10.3 Where logic lives
 
@@ -422,7 +438,10 @@ New error code in use: `not_implemented` (501) — thrown by the temporary repo 
   `BOT_AUTO_ADVANCE_MS`), `webhooks.ts` (`buildWebhookPayload`, `signWebhookBody`, `validateWebhookUrl`,
   `deliverWebhook`, `dispatchEvent`), `slack.ts` (`buildSlackRecap`, `postToSlack`, `toSlackConfigView`),
   `crm.ts` (`buildCrmPreview`).
-  All ship as `throw new Error("TODO")` stubs with JSDoc describing behaviour; backend implements them.
+  All implemented (they started as JSDoc'd `TODO` stubs from the architect).
+- **Server glue** (`src/lib/server/`): `events.ts` (`onMeetingReady`, `fireEvent`, `syncBotSession`,
+  `actOnBotSession`), `summaries.ts` (`withDefaultSummary`, `chooseSummary`, `pickDefaultSummary`, `safePrefs`),
+  `collab.ts` (comment @mention → notification), `team.ts`.
 
 ### 10.4 Phase 5 ownership
 
@@ -435,3 +454,32 @@ New error code in use: `not_implemented` (501) — thrown by the temporary repo 
 | architect | Contracts (`types.ts`, `contracts.ts`, `routes.ts`, `repo.ts`), this document, README |
 
 Contract-change protocol is unchanged: additive only, logged in §9.
+
+### 10.5 As built (notes that go beyond the contract)
+
+- **Pages.** Everything in §10.1 shipped. `/welcome` lives in its own `(onboarding)` route group (no app shell). The
+  ⌘K command palette also jumps to the Phase 5 pages. The call page moves overflowing tabs into a width-aware "More"
+  menu on narrow panels. The library shows a setup banner that links to `/welcome` until onboarding is done.
+- **APIs.** Every row of §10.2 exists under `src/app/api/**`.
+- **Side effects (`src/lib/server/events.ts`).** `onMeetingReady(meetingId, origin)` runs when the upload pipeline finishes
+  and when a bot session reaches `done`. It creates a "meeting ready" notification (if `prefs.notify_meeting_ready`),
+  dispatches `meeting.ready` webhooks, and auto-posts to Slack if `auto_post_on_ready` is set. It never throws.
+  `fireEvent` is used for `meeting.shared`, `highlight.created` and `action_item.completed`. Webhook bodies are
+  HMAC-signed (`signWebhookBody`); each delivery is logged, and the delivery id matches the payload id.
+- **Stateless bot sessions.** `advanceBot` is a pure state machine (`BOT_NEXT`; 409 on illegal transitions).
+  `autoAdvanceBot` derives the current state from event timestamps (joining 3 s → waiting room 5 s → recording until
+  "stop" or 10 min → processing 4 s → done). `syncBotSession` / `actOnBotSession` serialise per-session work with an
+  in-instance lock so "done" clones exactly one meeting (`cloneMeetingFromTemplate`), then send a `bot_status`
+  notification and call `onMeetingReady`.
+- **Self-contained tokens (seed mode).** Like clip tokens (`c_…`, §4), bot session ids are
+  `b_` + base64url(JSON `{u: meeting_url, p: platform, c: created_at ms, t?: title}`) (`src/lib/db/bot-token.ts`). Any
+  instance can rebuild and replay the session. The meeting it produces has the deterministic id `m_bot_<token body>`,
+  which any instance can materialise from the template on demand. In Supabase mode sessions are ordinary rows with
+  random ids (the produced meeting is still `m_bot_<session id>`).
+- **Checks.** `npm run check:phase5` (`scripts/check-phase5.mts`) and `npm run check:ask` (`scripts/check-demo-ask.mts`).
+- **Env.** One new optional variable: `WORKSPACE_DOMAIN` (fallback for the internal email domain; default
+  `northwindlabs.io`).
+- **Known limits.** In seed mode, other edits (folders, comments, stars, trackers, webhooks, prefs) are still
+  per-instance memory, and a bot-created call may be missing from another instance's list until that instance
+  materialises it. Library filters are not in the URL. Seeded calendar events sit in US Eastern business hours. The
+  `<video>` path in `media-stage.tsx` is untested with real video (seed media is audio-only).
