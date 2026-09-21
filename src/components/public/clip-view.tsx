@@ -16,17 +16,39 @@ import { alpha, formatClock, longDate } from "@/lib/ui/format";
 import type { ClipDetail } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-export function ClipView({ clip }: { clip: ClipDetail }) {
+export function ClipView({
+  clip,
+  autoPlay = false,
+  onEnded,
+  embedded = false,
+}: {
+  clip: ClipDetail;
+  autoPlay?: boolean;
+  onEnded?: () => void;
+  embedded?: boolean;
+}) {
   const { highlight, meeting } = clip;
   const bounds = { startMs: highlight.start_ms, endMs: Math.max(highlight.end_ms, highlight.start_ms + 1000) };
   return (
     <PlayerProvider durationMs={Math.max(meeting.duration_sec * 1000, bounds.endMs)} bounds={bounds} virtual={!meeting.media_url}>
-      <ClipBody clip={clip} bounds={bounds} />
+      <ClipBody clip={clip} bounds={bounds} autoPlay={autoPlay} onEnded={onEnded} embedded={embedded} />
     </PlayerProvider>
   );
 }
 
-function ClipBody({ clip, bounds }: { clip: ClipDetail; bounds: { startMs: number; endMs: number } }) {
+function ClipBody({
+  clip,
+  bounds,
+  autoPlay,
+  onEnded,
+  embedded,
+}: {
+  clip: ClipDetail;
+  bounds: { startMs: number; endMs: number };
+  autoPlay: boolean;
+  onEnded?: () => void;
+  embedded: boolean;
+}) {
   const { highlight, meeting, participants, segments } = clip;
   const store = usePlayerStore();
   const meta = HIGHLIGHT_META[highlight.type];
@@ -35,6 +57,15 @@ function ClipBody({ clip, bounds }: { clip: ClipDetail; bounds: { startMs: numbe
   const byId = new Map(participants.map((p) => [p.id, p]));
   const speakers = participants.filter((p) => segments.some((s) => s.participant_id === p.id));
   const ended = usePlayer((s) => !s.playing && s.currentMs >= bounds.endMs - 50);
+  useEffect(() => {
+    if (autoPlay) store.play();
+  }, [autoPlay, store]);
+  useEffect(() => {
+    if (ended && onEnded) {
+      const id = setTimeout(onEnded, 700);
+      return () => clearTimeout(id);
+    }
+  }, [ended, onEnded]);
 
   const copy = async () => {
     if (await copyText(window.location.href)) {
@@ -45,7 +76,7 @@ function ClipBody({ clip, bounds }: { clip: ClipDetail; bounds: { startMs: numbe
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-6 md:py-10">
+    <div className={cn("mx-auto w-full max-w-3xl", !embedded && "px-4 py-6 md:py-10")}>
       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
         <span
           className="inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 font-medium"
@@ -77,7 +108,7 @@ function ClipBody({ clip, bounds }: { clip: ClipDetail; bounds: { startMs: numbe
           segments={segments}
           chapters={[]}
         />
-        {ended && (
+        {ended && !onEnded && (
           <button
             type="button"
             onClick={() => store.seek(bounds.startMs, { play: true })}
