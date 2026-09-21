@@ -96,7 +96,7 @@ export class PlayerStore {
       this.startLoop();
     });
     on("pause", () => {
-      this.set({ playing: false, currentMs: Math.round(el.currentTime * 1000) });
+      this.set({ playing: false, ...(el.readyState >= 1 ? { currentMs: Math.round(el.currentTime * 1000) } : {}) });
       this.stopLoop();
     });
     on("ended", () => {
@@ -106,26 +106,57 @@ export class PlayerStore {
     on("waiting", () => this.set({ buffering: true }));
     on("playing", () => this.set({ buffering: false }));
     on("canplay", () => this.set({ buffering: false }));
-    on("error", () => {
-      // Media missing/unplayable → keep the experience working with a simulated clock.
-      this.el = null;
-      this.set({ virtual: true, buffering: false });
-    });
+    on("error", () => this.fallbackToVirtual());
+    // The element may have failed before hydration attached our listeners.
+    if (el.error || el.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+      this.fallbackToVirtual();
+      return;
+    }
+    // Some browsers sit in NETWORK_LOADING on a 404 without firing "error": preflight the URL.
+    const src = el.currentSrc || el.getAttribute("src");
+    if (src && el.readyState < 1) {
+      fetch(src, { method: "HEAD" })
+        .then((r) => {
+          if (!r.ok && this.el === el) this.fallbackToVirtual();
+        })
+        .catch(() => {});
+    }
     if (this.state.currentMs > 0) {
       if (el.readyState >= 1) el.currentTime = this.state.currentMs / 1000;
       else this.pendingSeekMs = this.state.currentMs;
     }
   }
 
+  /** Media missing/unplayable → keep the experience working with a simulated clock. */
+  private fallbackToVirtual() {
+    const wasPlaying = this.state.playing;
+    this.detachFns.forEach((f) => f());
+    this.detachFns = [];
+    const dead = this.el;
+    this.el = null;
+    try {
+      dead?.pause();
+    } catch {}
+    this.set({ virtual: true, buffering: false });
+    if (wasPlaying) this.startLoop();
+  }
+
   private startLoop() {
     cancelAnimationFrame(this.raf);
     this.lastTick = performance.now();
+    const startedAt = this.lastTick;
     const tick = (now: number) => {
       const dt = now - this.lastTick;
       this.lastTick = now;
       let t: number;
+      if (this.el && this.el.readyState < 1 && now - startedAt > 4000) {
+        // Stalled with no metadata → media is unusable; continue on the simulated clock.
+        this.fallbackToVirtual();
+        return;
+      }
       if (this.el) {
-        t = Math.round(this.el.currentTime * 1000);
+        // Before metadata loads, currentTime is 0 — keep our (possibly seeked) position.
+        t = this.el.readyState >= 1 ? Math.round(this.el.currentTime * 1000) : this.state.currentMs;
       } else {
         t = Math.min(this.state.currentMs + dt * this.state.rate, this.state.durationMs);
       }
@@ -149,8 +180,14 @@ export class PlayerStore {
     const end = this.bounds?.endMs ?? this.state.durationMs;
     if (this.state.currentMs >= end - 250) this.seek(this.bounds?.startMs ?? 0);
     if (this.el && !this.state.virtual) {
-      this.el.play().catch(() => {
-        /* autoplay policies — user can press play again */
+      const el = this.el;
+      el.play().catch((err: unknown) => {
+        if (el.error || (err instanceof DOMException && err.name === "NotSupportedError")) {
+          this.fallbackToVirtual();
+          this.set({ playing: true });
+          this.startLoop();
+        }
+        // NotAllowedError (autoplay policy) → user can press play again.
       });
     } else {
       this.set({ playing: true });

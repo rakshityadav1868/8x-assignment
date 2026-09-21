@@ -24,12 +24,20 @@ export function TimestampChip({
   onClick,
   className,
   title,
+  inert = false,
 }: {
   ms: number;
   onClick?: () => void;
   className?: string;
   title?: string;
+  /** Render as a non-interactive span (use inside an already-clickable row). */
+  inert?: boolean;
 }) {
+  const cls = cn(
+    "inline-flex h-5 shrink-0 items-center rounded-md bg-primary/12 px-1.5 font-mono text-[11px] font-medium tabular-nums text-sky-300 ring-1 ring-primary/25 transition-colors hover:bg-primary/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    className,
+  );
+  if (inert) return <span className={cls}>{formatClock(ms)}</span>;
   return (
     <button
       type="button"

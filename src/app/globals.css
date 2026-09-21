@@ -152,3 +152,30 @@
   .glass { background: var(--card); backdrop-filter: blur(16px); border: 1px solid var(--border); }
   .text-balance { text-wrap: balance; }
 }
+
+/* Frontend: player + landing animations */
+@keyframes eq {
+  0%, 100% { height: 25%; }
+  50% { height: 100%; }
+}
+@utility animate-eq {
+  animation: eq 0.9s ease-in-out infinite;
+  height: 40%;
+}
+@keyframes shimmer-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@utility animate-rise {
+  animation: shimmer-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+mark {
+  background: oklch(0.623 0.214 259.815 / 28%);
+  color: #dbeafe;
+  border-radius: 3px;
+  padding: 0 2px;
+  box-shadow: 0 0 0 1px oklch(0.623 0.214 259.815 / 35%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-eq, .animate-rise, .animate-ping { animation: none !important; }
+}
