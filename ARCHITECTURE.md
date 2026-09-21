@@ -92,8 +92,10 @@ sequenceDiagram
 - Keyless: `/api/meetings/:id/process` returns `503 {code:"transcription_unavailable"}`; the upload page
   explains that real transcription needs the key (honest stub). `GET /api/capabilities` lets the UI know up front.
 - With Deepgram but no Anthropic key: transcript is real; AI artifacts come from the deterministic fallback (`ai_mode: "demo"`).
-- Processing runs inside the route handler with `export const maxDuration = 300` (Vercel `after()` / waitUntil
-  for the post-response work). No queue — acceptable for a demo; documented as a limitation.
+- Processing runs in `src/lib/server/pipeline.ts`, started from the route handler (`maxDuration = 300`, post-response work via
+  `after()`). There is no job queue. That's fine for a demo and listed as a known gap.
+- Uploads also need Supabase Storage (`SUPABASE_RECORDINGS_BUCKET`, default `recordings`). Without it `/api/upload` returns 503
+  `storage_unavailable`, and `/upload` shows the keys notice plus a simulated preview of the pipeline stages.
 
 ### Reading a meeting
 
@@ -121,176 +123,175 @@ Result click → `/calls/:id?t=<seconds>` which seeks the player.
 
 ### Pages
 
-| Route | Purpose | Group | Priority |
-|---|---|---|---|
-| `/` | Marketing landing (particle/glow hero, app preview, features, CTA → `/calls`) | `(marketing)` | P0 |
-| `/calls` | My Calls grouped by date + upcoming strip (seeded) | `(app)` | P0 |
-| `/calls/[id]` | Call page: player/timeline left; tabs Summary · Transcript · Action items · Ask right. `?t=` seconds deep link | `(app)` | P0 |
-| `/search` | Global search → exact moment | `(app)` | P0 |
-| `/upload` | Upload recording + progress | `(app)` | P1 |
-| `/playlists` | Playlists / folders | `(app)` | P3 |
-| `/settings` | Workspace, stubbed integrations (Slack, HubSpot, Salesforce, Asana, Zapier), capability status | `(app)` | P1 |
-| `/share/[token]` | Public read-only meeting (video, transcript, summary) | `(public)` no sidebar | P0 |
-| `/clip/[token]` | Public highlight clip | `(public)` | P1 |
+| Route | Purpose | Group |
+|---|---|---|
+| `/` | Marketing landing: floating pill nav, hand-drawn particle-dome canvas hero, live mini call-page preview, feature bento, closing CTA → `/calls` | `(marketing)` |
+| `/calls` | My Calls: grouped by day, upcoming strip (seeded), filter, skeleton/empty/error states. Server-rendered with a tz cookie | `(app)` |
+| `/calls/[id]` | Call page: participant-tile stage (active speaker glows, captions), player controls, chapter rail, speaker timeline, highlight markers; tabs Summary · Transcript · Action items · Ask. `?t=<sec>` deep link | `(app)` |
+| `/search` | Global transcript search grouped by call, `<mark>` snippets, jump to moment (also ⌘K palette) | `(app)` |
+| `/ask` | Cross-meeting Ask Fanthom with citations into any call | `(app)` |
+| `/upload` | Drag-and-drop upload → signed upload → process → status polling; honest keys notice when keyless | `(app)` |
+| `/playlists` | Smart "All highlights" playlist + user playlists, highlights library with type filter | `(app)` |
+| `/playlists/[id]` | Playlist detail, Play all (sequential clip player) | `(app)` |
+| `/settings` | System status (capabilities), note/share defaults, honestly stubbed integrations | `(app)` |
+| `/share/[token]` | Public read-only call view (player, transcript, summary); forbidden / not-found gates | `(public)` |
+| `/clip/[token]` | Public highlight clip: bounded playback, replay, transcript excerpt, copy link | `(public)` |
 
-### API (all bodies/responses in `contracts.ts`; `ROUTES.api` has the builders)
+Unknown call/share/clip ids return a real 404.
+
+### API (bodies/responses in `contracts.ts`; builders in `ROUTES.api` from `src/lib/routes.ts`, a zod-free module that client bundles can import)
 
 | Method & path | Request → Response |
 |---|---|
 | `GET /api/capabilities` | → `CapabilitiesResponse` |
 | `GET /api/meetings` | → `ListMeetingsResponse` |
-| `GET /api/meetings/:id` | → `GetMeetingResponse` (MeetingDetail) |
-| `PATCH /api/meetings/:id` | `UpdateMeetingRequest` → `UpdateMeetingResponse` (type badge / rename) |
+| `GET / PATCH /api/meetings/:id` | → `MeetingDetail` / `UpdateMeetingRequest` → `UpdateMeetingResponse` |
 | `POST /api/upload` | `UploadRequest` → `UploadResponse` |
 | `POST /api/meetings/:id/process` | `ProcessRequest` → `ProcessResponse` |
 | `GET /api/meetings/:id/status` | → `StatusResponse` |
-| `GET /api/meetings/:id/summary?template&language` | → `GetSummaryResponse` (cache only) |
-| `POST /api/meetings/:id/summary` | `RegenerateSummaryRequest` → `RegenerateSummaryResponse` |
-| `GET /api/meetings/:id/ask` | → `AskHistoryResponse` |
-| `POST /api/meetings/:id/ask` | `AskRequest` → NDJSON stream of `AskStreamEvent` (`start`, `delta`…, `citations`, `done` \| `error`) |
-| `POST /api/ask` (P3) | cross-meeting Ask, same stream |
-| `GET /api/search?q&meeting_id&limit` | `SearchQuery` → `SearchResponse` |
-| `GET/POST /api/meetings/:id/highlights` | → `ListHighlightsResponse` / `CreateHighlightRequest` → `HighlightResponse` |
-| `PATCH/DELETE /api/highlights/:id` | `UpdateHighlightRequest` → `HighlightResponse` / `Ok` |
+| `GET / POST /api/meetings/:id/summary` | cache lookup / `RegenerateSummaryRequest` → `RegenerateSummaryResponse` |
+| `GET / POST /api/meetings/:id/ask` | history / NDJSON stream of `AskStreamEvent` |
+| `POST /api/ask` | cross-meeting Ask, same NDJSON stream |
+| `GET /api/search?q&meeting_id&limit` | → `SearchResponse` |
+| `GET / POST /api/meetings/:id/highlights` | list / `CreateHighlightRequest` → `HighlightResponse` |
+| `PATCH / DELETE /api/highlights/:id` | `UpdateHighlightRequest` → `HighlightResponse` / `Ok` |
 | `POST /api/highlights/:id/share` | → `HighlightShareResponse` |
 | `GET /api/clip/:token` | → `ClipResponse` |
 | `POST /api/meetings/:id/action-items` | `CreateActionItemRequest` → `ActionItemResponse` |
-| `GET /api/meetings/:id/action-items` | → `{ action_items: ActionItem[] }` (convenience; additive) |
-| `GET /api/ask` | → `AskHistoryResponse` for cross-meeting Ask (additive) |
-| `PATCH/DELETE /api/action-items/:id` | `UpdateActionItemRequest` → `ActionItemResponse` / `Ok` |
-| `POST/DELETE /api/meetings/:id/share` | `CreateShareRequest` → `CreateShareResponse` / `Ok` |
-| `GET /api/share/:token` | → `ShareAccessResponse` (403 `forbidden` unless `anyone_with_link`) |
+| `PATCH / DELETE /api/action-items/:id` | `UpdateActionItemRequest` → `ActionItemResponse` / `Ok` |
+| `POST / DELETE /api/meetings/:id/share` | `CreateShareRequest` → `CreateShareResponse` / `Ok` |
+| `GET /api/share/:token` | → `MeetingDetail` (403 unless `anyone_with_link`) |
 | `POST /api/meetings/:id/follow-up-email` | `FollowUpEmailRequest` → `FollowUpEmailResponse` |
 | `POST /api/meetings/:id/catch-up` | `CatchUpRequest` → `CatchUpResponse` |
-| `GET/POST /api/meetings/:id/decisions` | → `DecisionsResponse` (GET cached, POST regenerates) |
+| `GET / POST /api/meetings/:id/decisions` | → `DecisionsResponse` |
 | `POST /api/meetings/:id/commitments` | `CommitmentsRequest` → `CommitmentsResponse` |
-| `GET /api/playlists/:id` | → `GetPlaylistResponse` `{playlist, items: [{…item, meeting, clip}]}` |
-| `DELETE /api/playlists/:id/items/:itemId` | → `Ok` |
-| `PATCH /api/segments/:id` (P3) | `UpdateSegmentRequest` → `UpdateSegmentResponse` |
-| `GET/POST /api/playlists`, `POST /api/playlists/:id/items` (P3) | `ListPlaylistsResponse` / `CreatePlaylistRequest` → `{playlist}` (201) / `AddPlaylistItemRequest` → `{item}` (201) |
+| `PATCH /api/segments/:id` | `UpdateSegmentRequest` → `UpdateSegmentResponse` |
+| `GET / POST /api/playlists` | list / create |
+| `GET / PATCH / DELETE /api/playlists/:id` | playlist detail / rename / delete |
+| `POST /api/playlists/:id/items`, `DELETE /api/playlists/:id/items/:itemId` | add / remove item (positions renumbered) |
 
-Errors: always `ApiError {error, code?}` with a 4xx/5xx status. Codes: `not_found` (404), `forbidden` (403), `validation` (400),
-`llm_failed` (502), `transcription_unavailable` (503), `storage_unavailable` (503), `internal` (500).
-Handlers are wrapped with `route()` from `src/lib/server/api.ts`; repos throw `NotFoundError` (`src/lib/server/errors.ts`) → 404.
-Create endpoints (`POST …/highlights`, `…/action-items`, `/api/upload`, playlists) return **201**; `POST …/process` returns **202**.
+Errors are always `ApiError {error, code?}`. Codes: `not_found`, `forbidden`, `validation`, `rate_limited`,
+`llm_failed`, `transcription_unavailable`, `storage_unavailable`.
 
-### Seed data files (keyless demo mode)
+### Contract decisions
 
-- `src/data/seed/meetings/<slug>.json` — one file per meeting: exactly `SeedMeetingFile` (= `MeetingDetail` + `decisions: Decision[]`).
-  Stable string ids: meeting `m_<slug>`, participants `p_<slug>_<key>`, segments `seg_<slug>_<0000>`, summaries `sum_<slug>_<template>_<lang>`,
-  action items `ai_<slug>_<n>`, highlights `hl_<slug>_<n>` (share_token e.g. `clip-<slug>-<n>`), chapters `ch_<slug>_<n>`.
-  `media_url = "/media/<slug>.m4a"`, `synthetic: true`, `status/processing_stage = "ready"`.
-- `src/data/seed/workspace.json` — `SeedWorkspaceFile`: `{ workspace, user, upcoming: UpcomingMeeting[], playlists: (Playlist & {items: PlaylistItem[]})[] }`.
-- `src/data/seed/index.ts` — **generated** barrel that statically imports every JSON (so Vercel bundles them; no fs/glob at runtime)
-  and exports `seedWorkspace` + `seedMeetings`. Whoever adds/removes a meeting file regenerates it.
-- `SeedRepo` deep-clones these into a `globalThis` store; mutations (share, highlights, action items, summaries, chat…) live per server instance.
-
-### Demo-mode AI (no `ANTHROPIC_API_KEY`) — `src/lib/ai/demo.ts`
-
-All responses say `ai_mode: "demo"`; everything is extractive, so every bullet is a real transcript moment.
-- **Summary regenerate**: returns the cached/seeded summary for that template when there are no custom instructions (even with `force`);
-  otherwise builds a template-shaped extractive summary (per-heading cue words + TF-IDF salience; Next steps from action items,
-  Decisions from decisions, Topics from chapters). Custom instructions boost matching lines and add a "Focus: your instructions" section.
-  Demo mode cannot translate: the returned `summary.language` is `"en"` even if another language was requested.
-- **Ask**: intent routing (commitments of a named person, action items, decisions, overview) else BM25 retrieval (+ small synonym map),
-  answer composed from quoted lines with `[n]` citations, streamed a few words at a time.
-- **Catch me up**: chapters overlapping the range + their key lines + decisions/action items in range.
-- **Follow-up email**: templated from the cached summary + action items (tone variants).
-- **Commitments**: the person's action items + their "I'll / I will / I can / let me…" lines. **Decisions POST** keeps seeded decisions.
-- With a key, Claude (`claude-sonnet-5`) is used; if a live call fails the endpoint falls back to demo output (logged) rather than erroring.
-
-### Contract decisions other agents must know
-
-- **snake_case everywhere** on the wire (including request bodies: `custom_instructions`, not `customInstructions`).
-- **Milliseconds** for all media offsets (`start_ms`, `end_ms`, `timestamp_ms`); `duration_sec` only on meetings.
-  Deep links use seconds: `/calls/:id?t=123` (`ROUTES.pages.callAt`).
-- `meetings` has two status columns: `status` (processing|ready|failed) and `processing_stage` (awaiting_upload|queued|transcribing|analyzing|ready|failed) + `processing_error`.
-- Additional columns beyond the SPEC schema: `meetings.recorded_by`, `meetings.processing_stage`, `meetings.processing_error`,
-  `meetings.transcript_language`, `highlights.user_generated`, a `workspaces.domain`, and decisions storage
-  (`meeting_insights(meeting_id pk, decisions jsonb)` or a `meetings.decisions jsonb` column — database agent's choice behind `Repo`).
-  Upcoming meetings: seeded (`upcoming_meetings` table or seed JSON) → `UpcomingMeeting`.
-- `Summary.sections` (`[{heading, bullets:[{text, start_ms}]}]`) is the UI source of truth; `markdown` is for copy/export.
-  Default template shown = `defaultTemplateFor(meeting.meeting_type)` in English, else the newest summary.
+- Everything on the wire is **snake_case** and all media offsets are **ms**. Deep links use seconds (`/calls/:id?t=123`).
+- `meetings.status` (processing|ready|failed) + `processing_stage` + `processing_error`.
+- The UI renders from `Summary.sections`; `markdown` exists for copy/export.
 - `SearchHit.snippet` is HTML-escaped text where only `<mark>` is raw HTML.
-- Ask citations: assistant text contains inline `[n]` markers → `Citation.index`. Stream is NDJSON (`application/x-ndjson`).
-- Every AI response has `ai_mode`. Seeded meetings ship pre-authored summaries (all key templates), action items,
-  chapters, highlights and decisions so nothing needs generating on the live URL.
-- Seed media: `media_url = "/media/<meeting-slug>.m4a"` (public/, synthetic multi-voice `say` + ffmpeg audio with exact
-  timestamps), `media_kind = "audio"`, `synthetic = true`. For audio meetings the player renders a meeting-style
-  participant-tile grid with the active speaker glowing (driven by the transcript).
-- `getRepo()` is cached on `globalThis` per server instance. Seed-mode mutations are in-memory and reset on cold start (labelled "demo mode").
+- Ask citations appear inline as `[n]`, matching `Citation.index`. The stream is NDJSON.
+- Every AI response carries `ai_mode`.
 
-## 4. Folder structure
+## 4. Demo mode vs live mode
+
+The same build runs in either mode. The UI never branches on which data store is active; it reads `ai_mode` only to show a badge.
+
+| Concern | Keyless (demo) | With keys (live) |
+|---|---|---|
+| **Data** (`getRepo()` in `src/lib/db/index.ts`) | `SeedRepo`: static JSON from `src/data/seed/` loaded in memory, keyword search, and mutations kept in memory per server instance (reset on cold start) | `SupabaseRepo` when `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` are set. Postgres FTS (`search_segments`, `ts_headline`) |
+| **AI** (`src/lib/ai`, `src/lib/llm`) | Seeded meetings carry pre-authored summaries, action items, chapters, highlights and decisions. Regenerate / Ask / catch-up / email / commitments use deterministic extractive fallbacks (`src/lib/ai/demo.ts`) → `ai_mode: "demo"` + "AI offline – demo mode" badge | `ANTHROPIC_API_KEY` → Claude (`claude-sonnet-5`, override with `ANTHROPIC_MODEL`), zod-validated JSON, retry once, map-reduce for long calls → `ai_mode: "live"` |
+| **Transcription** | `/upload` explains that it needs keys and shows a simulated stage preview | `DEEPGRAM_API_KEY` (nova, diarize, utterances; `DEEPGRAM_MODEL`), AssemblyAI as fallback |
+| **Capabilities** | `GET /api/capabilities` → `{ai_mode, transcription, data_mode}`, shown on `/settings` | same |
+
+### Abuse protection (`src/proxy.ts`, `src/lib/server/{demo-session,rate-limit,api}.ts`)
+
+- **Demo-session cookie.** `src/proxy.ts` sets the httpOnly `fanthom_demo` cookie on the landing page and app pages
+  (`/`, `/calls`, `/search`, `/upload`, `/playlists`, `/settings`). API **write** routes require it (`route()` in `api.ts`),
+  so anyone holding only a public `/share` or `/clip` link can view but gets `403 forbidden` if they try to change anything. Public pages and GET APIs don't need the cookie.
+- **Rate limits.** In-memory limits per server instance, applied on every LLM and transcription route:
+  - A per-IP token bucket: burst `RATE_LIMIT_IP_BURST` (default 20), refilling at `RATE_LIMIT_IP_PER_MIN` (default 10) per minute.
+  - A per-meeting cap on paid generations: `RATE_LIMIT_MEETING_PER_HOUR` (default 30), counted only when a key is set, or when Deepgram is used.
+  - Exceeding either returns `429 rate_limited` with `Retry-After`. A shared Redis store would be the production upgrade.
+
+## 5. Seed pipeline
+
+```mermaid
+flowchart LR
+  A["seed-src/meetings/{slug}.json<br/>scripts: participants + lines"] --> B["npm run seed:audio<br/>scripts/generate-seed-audio.mjs<br/>macOS say (voice per speaker) + ffmpeg"]
+  B --> C["public/media/{slug}.m4a"]
+  B --> D["seed-src/timings/{slug}.json<br/>exact per-line ms"]
+  E["seed-src/ai/{slug}.json<br/>pre-authored summaries, action items,<br/>chapters, highlights, decisions"] --> F
+  A --> F["npm run build:seed<br/>scripts/build-seed.mjs<br/>(+ validate-seed-ai.mjs)"]
+  D --> F
+  F --> G["src/data/seed/**<br/>static JSON, canonical week"]
+  G --> H["SeedRepo at runtime<br/>seed-time.ts whole-week shift"]
+  G --> I["npm run seed → Supabase<br/>npm run seed -- --sql → SQL"]
+```
+
+- **Audio.** Every line is rendered separately with its own `say` voice and stitched together with ffmpeg, so each transcript timestamp matches the audio exactly.
+  Output is mono AAC `.m4a`. Seed meetings are flagged `synthetic: true`.
+- **Dates.** The JSON is static and written against a fixed canonical week in which the flagship "Q4 Roadmap Planning" is on a Thursday at 10:00 ET.
+  At load time, `src/lib/db/seed-time.ts` shifts every timestamp forward by **whole weeks**, with a DST correction, so the flagship is always the most recent Thursday.
+  Upcoming meetings move to their next future occurrence. Because the shift is whole weeks, weekdays spoken in the calls ("see you Thursday") stay true.
+- **Nine meetings.** Sales discovery, weekly stand-up, 1:1, CS QBR (external), staff-engineer interview, pricing-page planning, design review,
+  vendor security review, and the 8-person, ~58-minute Q4 Roadmap Planning call (11 chapters).
+
+### npm scripts
+
+| Script | What it does |
+|---|---|
+| `npm run seed:audio` | Regenerates `public/media/*.m4a` + `seed-src/timings/*.json` (macOS only: `say` + ffmpeg; `TTS_CONCURRENCY`) |
+| `npm run build:seed` | Validates `seed-src/ai` and builds `src/data/seed/**` (no dependencies) |
+| `npm run seed` | `build:seed`, then loads Supabase idempotently (seed meetings are replaced wholesale) using `.env.local` |
+| `node scripts/seed.mts --sql` | Prints the same data as idempotent SQL, to paste into the Supabase SQL editor |
+| `npm run dev / build / lint` | Next.js |
+
+Schema: `supabase/migrations/0001_init.sql` (tables, `tsv` generated column + GIN, `(meeting_id, start_ms)` index, `search_segments` RPC).
+
+## 6. Folder structure
 
 ```
 src/
+  proxy.ts                     demo-session cookie on app pages
   app/
-    layout.tsx                 root: <html class="dark">, Inter, Toaster, TooltipProvider
-    globals.css                dark theme tokens (navy bg, electric-blue --primary/--brand, .glass, .glow)
     (marketing)/page.tsx       "/" landing
-    (app)/layout.tsx           sidebar + top bar shell (mobile: sheet)
-    (app)/calls/…              My Calls, call page [id]
-    (app)/search|upload|playlists|settings/
-    (public)/share/[token]/, (public)/clip/[token]/   no app chrome
-    api/…                      route handlers (see route map)
+    (app)/layout.tsx           sidebar + top bar shell (mobile: sheet), ⌘K command palette
+    (app)/calls/(list), calls/[id], search, ask, upload, playlists/(list), playlists/[id], settings
+    (public)/share/[token], (public)/clip/[token]
+    api/**                     route handlers (see route map)
   components/
-    brand/                     Logo, PillLink (white pill CTA w/ circular arrow)
-    shell/                     AppSidebar, TopBar, nav items
-    call/                      player, participant tiles, timeline (markers, chapter rail, speaker bars), header
-    transcript/                virtualized transcript, speaker filter, highlight "+"
-    summary/                   summary sections, template/language menus, action items, follow-up email
-    ui/                        shadcn/ui primitives (radix-nova, neutral base, restyled dark)
+    brand/ shell/ call/ transcript/ summary/ playlists/ ui/
   lib/
-    types.ts contracts.ts templates.ts capabilities.ts utils.ts
-    db/                        repo.ts (interface), index.ts (getRepo), seed-repo.ts, supabase-repo.ts
-    llm/                       Claude client, JSON-with-retry, demo fallbacks (extractive)
-    prompts/                   prompt builders per job/template
-    deepgram/                  transcription client + utterance → segment mapping
-  data/seed/                   seed JSON (meetings, participants, segments, summaries, …)
-public/media/                  seed audio <slug>.m4a
-supabase/migrations/           SQL schema, FTS indexes
-scripts/                       seed audio generation, `npm run seed` (Supabase)
-seed-src/                      human-authored seed scripts/timings (input to audio + JSON generation)
+    types.ts contracts.ts routes.ts templates.ts capabilities.ts
+    db/                        repo.ts, index.ts (getRepo), seed-repo.ts, supabase-repo.ts, seed-time.ts
+    ai/                        Ask + demo (extractive) implementations, transcript formatting
+    llm/                       Claude client, JSON extraction + retry
+    prompts/                   one builder per job (summary, action items, chapters, highlights, decisions, …)
+    deepgram/                  transcription client
+    server/                    api route wrapper, errors, rate-limit, demo-session, pipeline, storage, ndjson
+    search/ ui/                text helpers, client API + formatting
+  data/seed/                   built seed JSON
+public/media/                  seed audio
+seed-src/                      scripts, timings, pre-authored AI
+scripts/                       generate-seed-audio, build-seed, validate-seed-ai, seed.mts
+supabase/migrations/           SQL schema
 ```
 
-## 5. Scope decisions
+## 7. Scope decisions
 
-| Priority | Built | Why |
+| Priority | Status | Scope |
 |---|---|---|
-| **P0** | Seeded calls list · call page with player↔transcript sync (auto-scroll, active line, click-to-seek) · AI summary with template switcher + timestamped bullets · action items · public share page · global search → moment | The core Fathom loop: find a call, read the notes, jump to the moment, share it. |
-| **P1** | Highlights → clips (`/clip/[token]`) · per-meeting Ask with citations · upload-and-transcribe · follow-up email | Next most-used Fathom surfaces; Ask differentiates. |
-| **P2** | Chapters + chapter rail · speaker timeline + talk-time %, click to filter · Decisions + "What did X commit to?" · Catch me up from minute X · shortcuts (Space, J/L, ⌘K, speed) · virtualized transcript | "Better than Fathom" for the 8-person, 60-minute call. |
-| **P3** | Playlists · cross-meeting Ask · transcript edit / reassign speaker · summary language | Nice-to-have; built only if time allows. |
+| **P0** | Built | Seeded calls list · call page with player↔transcript sync · summary with template switcher and timestamped bullets · action items · public share · global search → moment |
+| **P1** | Built | Highlights → clips · per-meeting Ask with citations · upload-and-transcribe (with keys) · follow-up email |
+| **P2** | Built | Chapters rail · speaker timeline, talk-time % and filter · decisions · "what did X commit to?" · catch me up · shortcuts · virtualized transcript · participant stage |
+| **P3** | Built | Playlists (+ play all) · cross-meeting Ask · summary language · transcript segment edit API |
 
-**Stubbed on purpose**
+**Stubbed on purpose:** live recording bot and calendar OAuth (replaced by upload + seeded upcoming meetings); real auth/SSO
+(one demo workspace user; `same_domain` / `invited` share modes are stored but show a gated screen); CRM / Slack /
+Asana / Zapier (honest "coming soon" cards on Settings); billing.
 
-| Stub | Replacement / reason |
-|---|---|
-| Live recording bot, calendar OAuth | Upload flow + seeded upcoming meetings. Bots need meeting-platform approvals — out of scope. |
-| Real auth / SSO | Single demo workspace user, no login. Share access modes `same_domain` / `invited` are stored and shown as a gated screen; only `anyone_with_link` opens. |
-| CRM / Slack / Asana / Zapier integrations | Settings shows honest "Coming soon" cards. |
-| Billing | Not relevant for a demo. |
-| Keys absent (keyless-first) | Seed repo instead of Supabase; deterministic extractive AI fallback (`ai_mode: "demo"`); upload explains transcription needs a key. |
-| Seed media | Synthetic multi-voice audio (macOS `say` + ffmpeg), flagged `synthetic: true` and disclosed in README. |
-
-## 6. Ownership
+## 8. Ownership
 
 | Agent | Owns |
 |---|---|
-| architect | `ARCHITECTURE.md`, `README.md`, `src/lib/types.ts`, `src/lib/contracts.ts`, `src/lib/templates.ts`, `src/lib/capabilities.ts`, `src/lib/db/repo.ts`, scaffold, theme tokens, app shell, Vercel deploys |
-| database | `supabase/migrations/`, `src/lib/db/supabase-repo.ts`, `src/data/seed/`, `scripts/seed*`, seed audio (`public/media/`, `seed-src/`) |
-| backend | `src/app/api/**`, `src/lib/{llm,prompts,deepgram,ai,search,server}/`, `src/lib/db/seed-repo.ts`, demo AI fallbacks |
-| frontend | `src/app/(marketing)`, `src/app/(app)/**` pages, `src/app/(public)/**`, `src/components/{call,transcript,summary,brand,shell}` |
+| architect | `ARCHITECTURE.md`, `README.md`, `WALKTHROUGH.md`, contracts (`types.ts`, `contracts.ts`, `templates.ts`, `capabilities.ts`, `db/repo.ts`), scaffold, theme, app shell, deploys |
+| database | `supabase/migrations/`, `src/lib/db/*` implementations + `seed-time.ts`, `seed-src/`, `scripts/*seed*`, `public/media/`, `src/data/seed/` |
+| backend | `src/app/api/**`, `src/lib/{ai,llm,prompts,deepgram,server}/`, `src/proxy.ts` |
+| frontend | `src/app/(marketing|app|public)/**`, `src/components/**`, `src/lib/ui/`, `src/lib/routes.ts` page helpers |
 | reviewer | Acceptance checks per phase, live-URL smoke tests, hand-in checklist |
 
-## 7. Contract changelog
+## 9. Contract changelog
 
-- **Phase 2 (backend, review fixes)** — additive: error code `rate_limited` (429 + `Retry-After`) and `not_implemented` (501);
-  all non-GET API routes require the `fanthom_demo` cookie (set by `src/proxy.ts` on `/`, `/calls`, `/search`, `/upload`, `/playlists`, `/settings`;
-  missing → 403 `forbidden`, so share/clip viewers are read-only); per-IP token bucket (burst 20, 10/min) on LLM/transcription routes and a
-  per-meeting cap of 30 paid generations/hour (`src/lib/server/rate-limit.ts`, env-tunable); `GET /api/playlists/:id` → `GetPlaylistResponse`,
-  `DELETE /api/playlists/:id/items/:itemId` → `Ok`; optional `Repo.getPlaylist` / `Repo.removePlaylistItem` (routes return 501 until implemented).
-- **Phase 1 (backend)** — additive: `MeetingDetail.decisions?: Decision[]` (+ `MeetingDetailSchema.decisions` optional);
-  `SeedMeetingFile` / `SeedWorkspaceFile` types; `GET /api/meetings/:id/action-items`; `GET /api/ask` (global history);
-  error code `internal`; playlist create/add-item response shapes `{playlist}` / `{item}`.
-- **Phase 0** — initial contract. Added `ai_mode` on all AI responses, `GET /api/capabilities`, `Repo` interface, dark theme, `/` = landing and My Calls at `/calls` (per SPEC overrides).
+- **Phase 0**: initial contract; `ai_mode` on all AI responses; `GET /api/capabilities`; `Repo` interface; dark theme; `/` is the landing page and My Calls lives at `/calls`.
+- **Phase 1–3**: `routes.ts` split out of `contracts.ts` (zod-free, re-exported); `ROUTES.pages.playlist` and `ROUTES.pages.ask` added;
+  `Repo.getPlaylist` / `removePlaylistItem` added; playlist detail/delete APIs; `rate_limited` error code; demo-session cookie required for writes.
