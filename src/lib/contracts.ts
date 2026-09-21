@@ -11,6 +11,8 @@
  */
 import { z } from "zod";
 import {
+  AI_MODES,
+  DATA_MODES,
   CHAT_ROLES,
   HIGHLIGHT_TYPES,
   MEDIA_KINDS,
@@ -21,6 +23,7 @@ import {
   SUMMARY_LANGUAGES,
   SUMMARY_TEMPLATE_KEYS,
   type ActionItem,
+  type Capabilities,
   type Chapter,
   type ChatMessage,
   type Citation,
@@ -61,6 +64,8 @@ export const ProcessingStageSchema = z.enum(PROCESSING_STAGES);
 export const MediaKindSchema = z.enum(MEDIA_KINDS);
 export const ShareAccessSchema = z.enum(SHARE_ACCESS);
 export const ChatRoleSchema = z.enum(CHAT_ROLES);
+export const AiModeSchema = z.enum(AI_MODES);
+export const DataModeSchema = z.enum(DATA_MODES);
 
 export const ApiErrorSchema = z.object({
   error: z.string(),
@@ -298,6 +303,18 @@ export const FollowUpEmailSchema = z.object({
 }) satisfies z.ZodType<FollowUpEmail>;
 
 // ---------------------------------------------------------------------------
+// Capabilities (keyless-first)
+// ---------------------------------------------------------------------------
+
+/** GET /api/capabilities */
+export const CapabilitiesResponse = z.object({
+  ai_mode: AiModeSchema,
+  transcription: z.boolean(),
+  data_mode: DataModeSchema,
+}) satisfies z.ZodType<Capabilities>;
+export type CapabilitiesResponse = z.infer<typeof CapabilitiesResponse>;
+
+// ---------------------------------------------------------------------------
 // Meetings
 // ---------------------------------------------------------------------------
 
@@ -329,7 +346,8 @@ export type UpdateMeetingResponse = z.infer<typeof UpdateMeetingResponse>;
 
 export const MAX_UPLOAD_BYTES = 500 * 1024 * 1024;
 
-/** POST /api/upload — creates a `processing` meeting and a Supabase signed upload URL. */
+/**
+ * POST /api/upload — creates a `processing` meeting and a Supabase signed upload URL. */
 export const UploadRequest = z.object({
   filename: z.string().min(1),
   content_type: z.string().regex(/^(audio|video)\//, "Must be an audio or video file"),
@@ -352,7 +370,11 @@ export const UploadResponse = z.object({
 });
 export type UploadResponse = z.infer<typeof UploadResponse>;
 
-/** POST /api/meetings/:id/process — kicks off Deepgram + parallel LLM jobs. Returns immediately. */
+/**
+ * POST /api/meetings/:id/process — kicks off Deepgram + parallel LLM jobs. Returns immediately.
+ * Without DEEPGRAM_API_KEY: 503 ApiError {code:"transcription_unavailable"} (honest stub; UI explains).
+ * Without ANTHROPIC_API_KEY but with Deepgram: transcript is real, AI artifacts use the demo fallback.
+ */
 export const ProcessRequest = z.object({
   language: z.string().optional(), // hint for Deepgram; default auto/en
 });
@@ -388,7 +410,7 @@ export const RegenerateSummaryRequest = z.object({
   force: z.boolean().optional(),
 });
 export type RegenerateSummaryRequest = z.infer<typeof RegenerateSummaryRequest>;
-export const RegenerateSummaryResponse = z.object({ summary: SummarySchema });
+export const RegenerateSummaryResponse = z.object({ summary: SummarySchema, ai_mode: AiModeSchema });
 export type RegenerateSummaryResponse = z.infer<typeof RegenerateSummaryResponse>;
 
 /** LLM output schema for summary generation (what the model must return). */
@@ -417,10 +439,10 @@ export type AskRequest = z.infer<typeof AskRequest>;
  * Assistant text references citations inline as `[1]`, `[2]` (Citation.index).
  */
 export const AskStreamEvent = z.discriminatedUnion("type", [
-  z.object({ type: z.literal("start"), user_message: ChatMessageSchema }),
+  z.object({ type: z.literal("start"), user_message: ChatMessageSchema, ai_mode: AiModeSchema }),
   z.object({ type: z.literal("delta"), text: z.string() }),
   z.object({ type: z.literal("citations"), citations: z.array(CitationSchema) }),
-  z.object({ type: z.literal("done"), message: ChatMessageSchema }),
+  z.object({ type: z.literal("done"), message: ChatMessageSchema, ai_mode: AiModeSchema }),
   z.object({ type: z.literal("error"), error: z.string() }),
 ]);
 export type AskStreamEvent = z.infer<typeof AskStreamEvent>;
@@ -560,7 +582,7 @@ export const FollowUpEmailRequest = z.object({
   recipient_participant_id: id.nullable().optional(),
 });
 export type FollowUpEmailRequest = z.infer<typeof FollowUpEmailRequest>;
-export const FollowUpEmailResponse = FollowUpEmailSchema;
+export const FollowUpEmailResponse = FollowUpEmailSchema.extend({ ai_mode: AiModeSchema });
 export type FollowUpEmailResponse = z.infer<typeof FollowUpEmailResponse>;
 
 /** POST /api/meetings/:id/catch-up — summarise [from_ms, to_ms ?? end]. */
@@ -573,11 +595,12 @@ export const CatchUpResponse = z.object({
   from_ms: ms,
   to_ms: ms,
   bullets: z.array(CatchUpBulletSchema),
+  ai_mode: AiModeSchema,
 });
 export type CatchUpResponse = z.infer<typeof CatchUpResponse>;
 
 /** GET /api/meetings/:id/decisions — cached; POST same path regenerates. */
-export const DecisionsResponse = z.object({ decisions: z.array(DecisionSchema) });
+export const DecisionsResponse = z.object({ decisions: z.array(DecisionSchema), ai_mode: AiModeSchema });
 export type DecisionsResponse = z.infer<typeof DecisionsResponse>;
 
 /** POST /api/meetings/:id/commitments — "What did <person> commit to?" */
@@ -586,6 +609,7 @@ export type CommitmentsRequest = z.infer<typeof CommitmentsRequest>;
 export const CommitmentsResponse = z.object({
   participant_id: id,
   commitments: z.array(CommitmentSchema),
+  ai_mode: AiModeSchema,
 });
 export type CommitmentsResponse = z.infer<typeof CommitmentsResponse>;
 
@@ -650,7 +674,8 @@ export type AddPlaylistItemRequest = z.infer<typeof AddPlaylistItemRequest>;
 
 export const ROUTES = {
   pages: {
-    home: "/",
+    landing: "/", // marketing page
+    calls: "/calls", // app home: My Calls
     call: (id: string) => `/calls/${id}`,
     callAt: (id: string, ms: number) => `/calls/${id}?t=${Math.floor(ms / 1000)}`,
     share: (token: string) => `/share/${token}`,
@@ -661,6 +686,7 @@ export const ROUTES = {
     settings: "/settings",
   },
   api: {
+    capabilities: "/api/capabilities", // GET
     meetings: "/api/meetings", // GET
     meeting: (id: string) => `/api/meetings/${id}`, // GET, PATCH
     upload: "/api/upload", // POST

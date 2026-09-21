@@ -72,6 +72,17 @@ export type MediaKind = (typeof MEDIA_KINDS)[number];
 export const SHARE_ACCESS = ["anyone_with_link", "same_domain", "invited"] as const;
 export type ShareAccess = (typeof SHARE_ACCESS)[number];
 
+/**
+ * Keyless-first: every AI response says whether Claude produced it ("live") or the
+ * deterministic local fallback did ("demo" — UI shows a subtle "AI offline – demo mode" badge).
+ */
+export const AI_MODES = ["live", "demo"] as const;
+export type AiMode = (typeof AI_MODES)[number];
+
+/** Which repository implementation is active (UI must not branch on this; informational only). */
+export const DATA_MODES = ["supabase", "seed"] as const;
+export type DataMode = (typeof DATA_MODES)[number];
+
 export const CHAT_ROLES = ["user", "assistant"] as const;
 export type ChatRole = (typeof CHAT_ROLES)[number];
 
@@ -102,7 +113,11 @@ export interface Meeting {
   recording_start: string | null;
   recording_end: string | null;
   duration_sec: number;
-  media_url: string | null; // public or signed URL playable by <video>/<audio>
+  /**
+   * Playable URL. Seed meetings: "/media/<meeting-slug>.m4a" served from public/media/
+   * (synthetic multi-voice audio, exact timestamps). Uploads: Supabase Storage signed/public URL.
+   */
+  media_url: string | null;
   media_kind: MediaKind;
   status: MeetingStatus;
   processing_stage: ProcessingStage;
@@ -347,4 +362,11 @@ export interface CatchUpBullet {
 export interface FollowUpEmail {
   subject: string;
   body_markdown: string;
+}
+
+/** GET /api/capabilities — lets the UI show demo badges / explain disabled upload. */
+export interface Capabilities {
+  ai_mode: AiMode; // "live" iff ANTHROPIC_API_KEY is set
+  transcription: boolean; // true iff DEEPGRAM_API_KEY (or ASSEMBLYAI_API_KEY) is set
+  data_mode: DataMode;
 }
