@@ -1,6 +1,6 @@
 # Fanthom: 5-minute walkthrough
 
-Live URL: LIVE_URL_TBD. Before starting, open the URL once in a normal window and keep an incognito window ready.
+Live URL: https://fanthom.vercel.app. Before starting, open the URL once in a normal window and keep an incognito window ready.
 
 | Time | Segment |
 |---|---|

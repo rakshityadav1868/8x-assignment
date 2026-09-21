@@ -2,7 +2,7 @@
 
 **An AI meeting notetaker in the style of Fathom. Every call becomes a synced recording, a transcript, notes you can re-cut with templates, and answers with citations.**
 
-**Live demo:** LIVE_URL_TBD (open it signed out; no login and no keys needed)
+**Live demo:** https://fanthom.vercel.app (open it signed out; no login and no keys needed)
 
 ## What Fanthom does
 
