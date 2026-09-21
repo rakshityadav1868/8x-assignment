@@ -198,7 +198,7 @@ export function CrmDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-3xl [&>*]:min-w-0">
         <DialogHeader>
           <DialogTitle>Sync to CRM</DialogTitle>
           <DialogDescription>
@@ -254,7 +254,7 @@ export function CrmDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
         ) : preview.fields.length === 0 ? (
           <p className="rounded-xl border border-white/8 p-4 text-sm text-muted-foreground">Nothing to map for this call.</p>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-white/8">
+          <div className="min-w-0 overflow-x-auto rounded-xl border border-white/8">
             <table className="w-full min-w-[520px] text-left text-xs">
               <thead className="bg-white/[0.03] text-[10px] uppercase tracking-wider text-muted-foreground">
                 <tr>
@@ -264,8 +264,8 @@ export function CrmDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.05]">
-                {preview.fields.map((f) => (
-                  <tr key={`${f.crm_object}.${f.crm_field}`} className="align-top">
+                {preview.fields.map((f, i) => (
+                  <tr key={`${f.crm_object}.${f.crm_field}.${i}`} className="align-top">
                     <td className="px-3 py-2">
                       <span className="block">{f.label}</span>
                       <span className="text-[10px] text-muted-foreground">{f.source.replace("_", " ")}</span>
