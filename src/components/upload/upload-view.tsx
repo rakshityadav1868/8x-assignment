@@ -25,7 +25,7 @@ import { formatClock } from "@/lib/ui/format";
 import type { Capabilities, ProcessingStage } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-type Phase = "idle" | "uploading" | ProcessingStage;
+export type Phase = "idle" | "uploading" | ProcessingStage;
 
 const STAGES: { key: Phase; label: string; hint: string }[] = [
   { key: "uploading", label: "Uploading", hint: "Sending your file to secure storage" },
@@ -35,13 +35,13 @@ const STAGES: { key: Phase; label: string; hint: string }[] = [
   { key: "ready", label: "Ready", hint: "Your call page is ready" },
 ];
 
-function formatBytes(n: number) {
+export function formatBytes(n: number) {
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(0)} KB`;
   if (n < 1024 * 1024 * 1024) return `${(n / 1024 / 1024).toFixed(1)} MB`;
   return `${(n / 1024 / 1024 / 1024).toFixed(2)} GB`;
 }
 
-function putWithProgress(url: string, file: File, onProgress: (pct: number) => void): Promise<void> {
+export function putWithProgress(url: string, file: Blob, onProgress: (pct: number) => void): Promise<void> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", url);
@@ -291,7 +291,7 @@ export function UploadView({ capabilities }: { capabilities: Capabilities }) {
   );
 }
 
-function KeysNotice({ capabilities }: { capabilities: Capabilities }) {
+export function KeysNotice({ capabilities }: { capabilities: Capabilities }) {
   const missing = [
     !capabilities.transcription && { k: "DEEPGRAM_API_KEY", why: "speech-to-text with speaker labels" },
     capabilities.data_mode !== "supabase" && { k: "Supabase URL + service key", why: "storage for the uploaded file" },
@@ -324,7 +324,7 @@ function KeysNotice({ capabilities }: { capabilities: Capabilities }) {
   );
 }
 
-function Progress({
+export function Progress({
   phase,
   uploadPct,
   simulated,
