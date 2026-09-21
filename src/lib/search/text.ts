@@ -75,6 +75,11 @@ export class Bm25<T extends Bm25Doc> {
     this.avgLen = docs.reduce((n, d) => n + d.terms.length, 0) / Math.max(1, docs.length);
   }
 
+  /** Number of docs containing `term`. */
+  docFreq(term: string): number {
+    return this.df.get(term) ?? 0;
+  }
+
   idf(term: string): number {
     const n = this.df.get(term) ?? 0;
     return Math.log(1 + (this.docs.length - n + 0.5) / (n + 0.5));

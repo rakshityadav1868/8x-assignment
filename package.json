@@ -9,7 +9,8 @@
     "lint": "eslint",
     "build:seed": "node scripts/build-seed.mjs",
     "seed:audio": "node scripts/generate-seed-audio.mjs",
-    "seed": "node scripts/build-seed.mjs && node --env-file-if-exists=.env.local scripts/seed.mts"
+    "seed": "node scripts/build-seed.mjs && node --env-file-if-exists=.env.local scripts/seed.mts",
+    "check:ask": "node --experimental-transform-types --no-warnings scripts/check-demo-ask.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.127.0",

@@ -365,7 +365,11 @@ export function demoAsk(detail: MeetingDetail, question: string): DemoAnswer {
 
   // Intent: commitments of a person
   if (person && /\b(commit|promis|agree|own|take on|responsible|to do|todo|action|will do|signed up)/.test(q)) {
-    const cs = demoCommitments(detail, person.id);
+    // Assigned action items are the curated commitments; fall back to "I'll…" lines from the transcript.
+    const owned = detail.action_items
+      .filter((a) => a.assignee_participant_id === person.id)
+      .map((a) => ({ text: a.description, start_ms: a.timestamp_ms ?? 0, due: null as string | null }));
+    const cs = owned.length ? owned : demoCommitments(detail, person.id);
     if (!cs.length) return { text: `I couldn't find any explicit commitments from **${person.name}** in this meeting.`, citations };
     const lines = cs.slice(0, 6).map((c) => {
       const s = segmentAt(ctx, c.start_ms);
@@ -425,26 +429,25 @@ export function demoAsk(detail: MeetingDetail, question: string): DemoAnswer {
   }
 
   // Retrieval
-  const topicWords = words(question).filter(
-    (w) => !STOP_Q.has(w) && !(person && person.name.toLowerCase().split(/\s+/).includes(w)) && w.length > 2,
-  );
-  const queryTerms = expand(terms(topicWords.join(" ")));
+  const topic = topicOf(question, person);
   const genericAsk = /\b(say|said|think|thought|mention|talk|feel|opinion|view|position|take)\b/.test(q);
+  const whenQ = WHEN_RX.test(q);
+  const ownerQ = OWNER_RX.test(q);
   let hits: SegInfo[] = [];
-  if (queryTerms.length) {
-    const scored = ctx.infos
-      .map((i) => {
-        let s = ctx.bm25.score(i.idx, queryTerms);
-        // neighbour context helps short answers ("Yes, next Monday")
-        const prev = ctx.infos[i.idx - 1];
-        if (prev) s += 0.3 * ctx.bm25.score(prev.idx, queryTerms);
-        if (person && i.seg.participant_id !== person.id) s *= 0.35;
-        return { i, s: s * (0.6 + Math.min(i.salience, 3) / 5) };
-      })
-      .filter((x) => x.s > 0.5)
-      .sort((a, b) => b.s - a.s);
-    const top = scored[0]?.s ?? 0;
-    hits = scored.filter((x) => x.s >= top * 0.3).slice(0, 4).map((x) => x.i);
+  if (topic.groups.length) {
+    // Segments inside a chapter whose title names the topic ("Hiring & capacity") get a boost.
+    const topicTerms = new Set(topic.groups.flatMap((g) => [g.term, ...g.alts.filter((a) => a.length === 1).flat()]));
+    const onTopicChapters = detail.chapters.filter((c) => terms(c.title).some((t) => topicTerms.has(t)));
+    const inChapter = (ms: number) => onTopicChapters.some((c) => ms >= c.start_ms && ms < c.end_ms);
+    const ranked = rankByTopic(ctx.bm25, ctx.infos.length, topic.groups, (k) => {
+      const i = ctx.infos[k];
+      let m = 0.6 + Math.min(i.salience, 3) / 5;
+      if (inChapter(i.seg.start_ms)) m *= 1.6;
+      if (person && i.seg.participant_id !== person.id) m *= 0.35;
+      if (whenQ && DATE_RX.test(i.seg.text)) m *= 1.8;
+      return m;
+    });
+    hits = ranked.slice(0, 4).map((x) => ctx.infos[x.idx]);
     // A question on its own isn't an answer: pull in the reply that follows it.
     for (const h of [...hits]) {
       const next = ctx.infos[h.idx + 1];
@@ -460,51 +463,90 @@ export function demoAsk(detail: MeetingDetail, question: string): DemoAnswer {
   }
   hits.sort((a, b) => a.idx - b.idx);
 
+  const label = topic.label ? `**${topic.label}**` : "that";
   if (!hits.length) {
     const chapters = (detail.chapters.length ? detail.chapters : demoChapters(detail)).slice(0, 5).map((c) => c.title);
     return {
       text:
-        `I couldn't find anything about ${topicWords.length ? `**${topicWords.slice(0, 4).join(" ")}**` : "that"} in this meeting.` +
+        `I couldn't find anything about ${label} in this meeting.` +
         (chapters.length ? ` The call covered **${chapters.join("**, **")}** — try asking about one of those, or about action items and decisions.` : ""),
       citations,
     };
   }
 
-  const topic = topicWords.length ? `**${topicWords.slice(0, 4).join(" ")}**` : "that";
+  const boost = topic.groups.flatMap((g) => [g.term, ...g.alts.flat()]);
+  // Key terms judged on the whole transcript, not on the handful of decisions / action items.
+  const key = keyGroups(ctx.bm25, topic.groups);
   const intro = person
-    ? `Here's what **${person.name}** said${topicWords.length ? ` about ${topic}` : ""}:`
-    : `Here's what came up about ${topic}:`;
+    ? `Here's what **${person.name}** said${topic.label ? ` about ${label}` : ""}:`
+    : `Here's what came up about ${label}:`;
   const lines = hits.map((i) => {
     const who = nameOf(ctx, i.seg.participant_id);
-    return `- **${who}** (${fmtTs(i.seg.start_ms)}): ${bestSentence(i.seg.text, undefined, queryTerms)} ${cite(citations, i.seg)}`;
+    return `- **${who}** (${fmtTs(i.seg.start_ms)}): ${bestSentence(i.seg.text, undefined, boost)} ${cite(citations, i.seg)}`;
   });
-  return { text: `${intro}\n\n${lines.join("\n")}`, citations };
+  let text = `${intro}\n\n${lines.join("\n")}`;
+
+  // Back the transcript lines with the matching decision(s), and for "who owns…" the owned action items.
+  if (!person && topic.groups.length) {
+    const ds = bestMatches(detail.decisions?.length ? detail.decisions : demoDecisions(detail), (d) => d.text, topic.groups, 2, key);
+    if (ds.length) {
+      const dl = ds.map((d) => {
+        const s = segmentAt(ctx, d.start_ms);
+        return `- ${d.text} ${s ? cite(citations, s.seg) : ""}`.trimEnd();
+      });
+      text += `\n\n**Decided:**\n${dl.join("\n")}`;
+    }
+  }
+  if (ownerQ && !person && topic.groups.length) {
+    const items = bestMatches(
+      (detail.action_items.length ? detail.action_items : demoActionItems(detail)).filter((a) => a.assignee_participant_id),
+      (a) => a.description,
+      topic.groups,
+      3,
+      key,
+    );
+    if (items.length) {
+      const ol = items.map((a) => {
+        const s = segmentAt(ctx, a.timestamp_ms);
+        return `- **${nameOf(ctx, a.assignee_participant_id)}**: ${a.description} ${s ? cite(citations, s.seg) : ""}`.trimEnd();
+      });
+      const owners = [...new Set(items.map((a) => nameOf(ctx, a.assignee_participant_id)))];
+      text += `\n\n**Owner${owners.length > 1 ? "s" : ""}: ${owners.join(", ")}**\n${ol.join("\n")}`;
+    }
+  }
+  return { text, citations };
 }
 
-/**
- * Narrow a list (decisions / action items) to the ones about the question's remaining topic words
- * ("what did we decide about pricing" → pricing-related decisions). If nothing matches, keep all.
- */
-function onTopic<T>(items: T[], text: (t: T) => string, question: string, person: Participant | null, intentRx: RegExp): T[] {
-  const rest = question.toLowerCase().replace(intentRx, " ");
-  const topic = words(rest).filter((w) => !STOP_Q.has(w) && w.length > 2 && !(person && person.name.toLowerCase().split(/\s+/).includes(w)));
-  const q = expand(terms(topic.join(" ")));
-  if (!q.length || !items.length) return items;
-  const bm = new Bm25(items.map((i) => ({ terms: terms(text(i)) })));
-  const scored = items.map((item, k) => ({ item, s: bm.score(k, q) })).filter((x) => x.s > 0);
-  if (!scored.length) return items;
-  const keep = new Set(scored.map((x) => x.item));
-  return items.filter((i) => keep.has(i)); // keep chronological order
-}
+// ---------------------------------------------------------------------------
+// Topic extraction + IDF-weighted retrieval (shared by per-meeting and cross-meeting Ask)
+// ---------------------------------------------------------------------------
 
 /** Question words that aren't the topic ("what did they say about pricing" → "pricing"). */
 const STOP_Q = new Set(
-  "what who whom whose when where why how did does do was were is are the a an about we our say said says tell me us talk talked talking discuss discussed mention mentioned think thought feel felt anything something any there their they them this that call meeting on of in for to and or with regarding re any".split(
+  "what who whom whose when where why how which did does do was were is are the a an about we our say said says tell me us talk talked talking discuss discussed mention mentioned think thought feel felt anything something any there their they them this that call meeting meetings on of in for to and or with regarding re will would should could can be been being has have had get gets happen happens happening".split(
     " ",
   ),
 );
 
-/** Tiny synonym expansion so demo retrieval finds "$19 per seat" for "pricing". */
+/** Intent words: they shape the answer (owner / date) but are never the topic ("who owns SSO" → "SSO"). */
+const INTENT_Q = new Set(
+  "own owns owned owning owner owners ownership responsible accountable charge driving handling go goes going gone status eta".split(" "),
+);
+
+/** Verbs describing *when* something happens ("when is X shipping / going live"). */
+const EVENT_VERBS = new Set(
+  "ship ships shipping shipped launch launches launching launched release releases releasing released land lands landing landed live happen done ready start starts starting due".split(" "),
+);
+
+/** Two-letter words worth keeping as topics even when typed in lowercase. */
+const ACRONYM_2 = new Set("ga qa ai cs ui ux pm ml hr bi db vp os ar ap pr ci cd".split(" "));
+
+const OWNER_RX = /\b(who(?:'s| is| will)? (?:own|owns|owning|driv|handl|lead|responsible|in charge|doing|on)\w*|owns?|owner|owned|responsible|accountable|in charge)\b/;
+const WHEN_RX = /\b(when|what date|which date|by when|deadline|timeline|eta|date)\b/;
+const DATE_RX =
+  /\b(january|february|march|april|may|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|q[1-4]|next (?:week|month|quarter|year)|end of (?:the )?(?:day|week|month|quarter|year)|\d{1,2}(?:st|nd|rd|th))\b/i;
+
+/** Tiny synonym expansion so demo retrieval finds "$19 per seat" for "pricing". Multi-word alts must all match. */
 const SYNONYMS: Record<string, string[]> = {
   pric: ["cost", "dollar", "seat", "budget", "discount", "plan"],
   cost: ["pric", "dollar", "budget", "spend"],
@@ -512,42 +554,190 @@ const SYNONYMS: Record<string, string[]> = {
   security: ["soc", "dpa", "complianc", "retention", "privacy"],
   timelin: ["date", "deadline", "week", "month", "quarter", "monday", "friday"],
   deadlin: ["date", "week", "month", "friday", "monday"],
-  risk: ["concern", "worri", "block"],
+  risk: ["concern", "worri", "block", "churn"],
   concern: ["worri", "risk", "hesitat"],
   blocker: ["block", "stuck", "wait"],
   competitor: ["competit", "alternativ", "vendor"],
-  hir: ["candidat", "interview", "role", "offer"],
+  hir: ["headcount", "req", "recruit", "candidat", "offer"],
+  ga: ["generally available", "general availability"],
+  renewal: ["renew", "contract"],
+  renew: ["renewal", "contract"],
 };
 
-function expand(ts: string[]): string[] {
-  const out = new Set(ts);
-  for (const t of ts) for (const syn of SYNONYMS[t] ?? []) out.add(syn);
-  return [...out];
+interface TermGroup {
+  term: string;
+  /** Synonyms (each a list of terms that must all occur). */
+  alts: string[][];
+}
+
+interface Topic {
+  /** Topic words as typed ("SSO GA"). */
+  label: string;
+  groups: TermGroup[];
+}
+
+/** Topic terms of a question: drops question/intent words and the asked-about person, keeps acronyms ("GA", "QA"). */
+function topicOf(question: string, person: Participant | null, strip?: RegExp): Topic {
+  const src = (strip ? question.replace(strip, " ") : question).replace(/’/g, "'");
+  const raw = src.match(/[\p{L}\p{N}]+(?:'[\p{L}]+)*/gu) ?? [];
+  const nameParts = person ? words(person.name) : [];
+  // "When is SCIM shipping?": in a when-question the event verb isn't the topic (unless it's all there is).
+  const whenQ = WHEN_RX.test(src.toLowerCase());
+  const topical = raw.filter((t) => !STOP_Q.has(t.toLowerCase()) && !INTENT_Q.has(t.toLowerCase()) && !EVENT_VERBS.has(t.toLowerCase()));
+  const dropVerbs = whenQ && topical.some((t) => t.length > 2 || /^[A-Z]{2}$/.test(t));
+  const kept: string[] = [];
+  const groups: TermGroup[] = [];
+  for (const tok of raw) {
+    const w = tok.toLowerCase();
+    if (STOP_Q.has(w) || INTENT_Q.has(w) || nameParts.includes(w.replace(/'s$/, "")) || (dropVerbs && EVENT_VERBS.has(w))) continue;
+    const acronym = /^[A-Z]{2}$/.test(tok) || ACRONYM_2.has(w);
+    if (w.length <= 2 && !/\d/.test(w) && !acronym) continue;
+    const t = acronym ? w : terms(w)[0];
+    if (!t) continue;
+    if (!kept.some((k) => k.toLowerCase() === w)) kept.push(tok);
+    if (groups.some((g) => g.term === t)) continue;
+    groups.push({ term: t, alts: (SYNONYMS[t] ?? []).map((a) => terms(a)).filter((a) => a.length) });
+  }
+  return { label: kept.slice(0, 5).join(" "), groups };
+}
+
+interface Ranked {
+  idx: number;
+  s: number;
+  /** Number of topic groups matched. */
+  k: number;
+  /** Contains one of the rarest topic terms. */
+  keyHit: boolean;
+}
+
+function groupIdf(bm: Bm25<{ terms: string[] }>, g: TermGroup): number | null {
+  if (bm.docFreq(g.term) > 0) return bm.idf(g.term);
+  const present = g.alts.filter((a) => a.every((t) => bm.docFreq(t) > 0)).map((a) => Math.max(...a.map((t) => bm.idf(t))));
+  return present.length ? Math.min(...present) : null;
+}
+
+/** The rarest topic term group(s) in a corpus (within 80% of the highest IDF). */
+function keyGroups(bm: Bm25<{ terms: string[] }>, groups: TermGroup[]): Set<TermGroup> {
+  const present = groups.map((g) => ({ g, idf: groupIdf(bm, g) })).filter((x): x is { g: TermGroup; idf: number } => x.idf != null);
+  const maxIdf = Math.max(0, ...present.map((x) => x.idf));
+  return new Set(present.filter((x) => x.idf >= 0.8 * maxIdf).map((x) => x.g));
+}
+
+function groupScore(bm: Bm25<{ terms: string[] }>, idx: number, g: TermGroup): number {
+  let s = bm.score(idx, [g.term]);
+  for (const alt of g.alts) {
+    const parts = alt.map((t) => bm.score(idx, [t]));
+    if (parts.every((p) => p > 0)) s = Math.max(s, (0.7 * parts.reduce((a, b) => a + b, 0)) / parts.length);
+  }
+  return s;
+}
+
+/**
+ * Rank docs for a topic: each term group is weighted by its IDF (so the rarest topic term dominates), docs that
+ * match several groups are strongly boosted, and when any doc contains one of the rarest ("key") terms only such
+ * docs qualify. Returns docs within 35% of the best score, best first.
+ */
+function rankByTopic(
+  bm: Bm25<{ terms: string[] }>,
+  n: number,
+  groups: TermGroup[],
+  mult: (idx: number) => number,
+  keyOverride?: Set<TermGroup>,
+): Ranked[] {
+  const present = groups.map((g) => ({ g, idf: groupIdf(bm, g) })).filter((x): x is { g: TermGroup; idf: number } => x.idf != null);
+  if (!present.length) return [];
+  const maxIdf = Math.max(...present.map((x) => x.idf));
+  const key = keyOverride ?? keyGroups(bm, groups);
+  const out: Ranked[] = [];
+  for (let idx = 0; idx < n; idx++) {
+    let s = 0;
+    let k = 0;
+    let keyHit = false;
+    for (const { g, idf } of present) {
+      const gs = groupScore(bm, idx, g);
+      if (gs <= 0) continue;
+      s += gs * (idf / maxIdf);
+      k++;
+      if (key.has(g)) keyHit = true;
+    }
+    if (s <= 0) continue;
+    s *= 1 + 1.5 * (k - 1);
+    out.push({ idx, s: s * mult(idx), k, keyHit });
+  }
+  let pool = out.some((x) => x.keyHit) ? out.filter((x) => x.keyHit) : out;
+  // Coverage: when several docs match (nearly) every topic term, drop the ones that match only part of it.
+  const maxK = Math.max(0, ...pool.map((x) => x.k));
+  if (maxK >= 2) {
+    const need = present.length >= 3 ? maxK - 1 : maxK;
+    if (pool.filter((x) => x.k >= need).length >= 2) pool = pool.filter((x) => x.k >= need);
+  }
+  pool.sort((a, b) => b.s - a.s);
+  const top = pool[0]?.s ?? 0;
+  return pool.filter((x) => x.s >= top * 0.35 && x.s > 0.3);
+}
+
+/** Items (decisions / action items) that best match the topic: only those covering the most topic terms. */
+function bestMatches<T>(items: T[], text: (t: T) => string, groups: TermGroup[], max: number, key?: Set<TermGroup>): T[] {
+  if (!items.length || !groups.length) return [];
+  const bm = new Bm25(items.map((i) => ({ terms: terms(text(i)) })));
+  const ranked = rankByTopic(bm, items.length, groups, () => 1, key).filter((r) => r.keyHit);
+  const maxK = ranked[0] ? Math.max(...ranked.map((r) => r.k)) : 0;
+  return ranked
+    .filter((r) => r.k === maxK && r.s >= (ranked[0]?.s ?? 0) * 0.5)
+    .slice(0, max)
+    .sort((a, b) => a.idx - b.idx)
+    .map((r) => items[r.idx]);
+}
+
+/**
+ * Narrow a list (decisions / action items) to the ones about the question's remaining topic words
+ * ("what did we decide about pricing" → pricing-related decisions). If nothing matches, keep all.
+ */
+function onTopic<T>(items: T[], text: (t: T) => string, question: string, person: Participant | null, intentRx: RegExp): T[] {
+  const { groups } = topicOf(question.toLowerCase(), person, intentRx);
+  if (!groups.length || !items.length) return items;
+  const bm = new Bm25(items.map((i) => ({ terms: terms(text(i)) })));
+  const ranked = rankByTopic(bm, items.length, groups, () => 1);
+  if (!ranked.length) return items;
+  const keep = new Set(ranked.map((r) => r.idx));
+  return items.filter((_, k) => keep.has(k)); // keep chronological order
 }
 
 /** Cross-meeting Ask: retrieve across meetings, group by meeting. */
 export function demoAskAcross(details: MeetingDetail[], question: string): DemoAnswer {
   const citations: Citation[] = [];
-  const queryTerms = terms(question);
-  if (!queryTerms.length) return { text: "Ask me about something discussed in your meetings — a topic, a customer, or a person.", citations };
+  const topic = topicOf(question, null);
+  if (!topic.groups.length) return { text: "Ask me about something discussed in your meetings — a topic, a customer, or a person.", citations };
   const all = details.flatMap((d) => context(d).infos.map((i) => ({ d, i, ctx: context(d) })));
   const bm = new Bm25(all.map((x) => ({ terms: x.i.terms })));
-  const scored = all
-    .map((x, k) => ({ ...x, s: bm.score(k, queryTerms) * (0.6 + Math.min(x.i.salience, 3) / 5) }))
-    .filter((x) => x.s > 0.5)
-    .sort((a, b) => b.s - a.s)
-    .slice(0, 5);
-  if (!scored.length) return { text: "I couldn't find that in any of your meetings. Try different keywords, or search for an exact phrase.", citations };
-  const byMeeting = new Map<string, typeof scored>();
-  for (const x of scored) byMeeting.set(x.d.meeting.id, [...(byMeeting.get(x.d.meeting.id) ?? []), x]);
+  const whenQ = WHEN_RX.test(question.toLowerCase());
+  const ranked = rankByTopic(bm, all.length, topic.groups, (k) => {
+    const x = all[k];
+    return (0.6 + Math.min(x.i.salience, 3) / 5) * (whenQ && DATE_RX.test(x.i.seg.text) ? 1.8 : 1);
+  });
+  // Up to 6 hits, at most 3 per meeting so one long call doesn't crowd out the rest.
+  const perMeeting = new Map<string, number>();
+  const picked: ((typeof all)[number] & { s: number })[] = [];
+  for (const r of ranked) {
+    const x = all[r.idx];
+    const n = perMeeting.get(x.d.meeting.id) ?? 0;
+    if (n >= 3) continue;
+    perMeeting.set(x.d.meeting.id, n + 1);
+    picked.push({ ...x, s: r.s });
+    if (picked.length >= 6) break;
+  }
+  if (!picked.length) return { text: "I couldn't find that in any of your meetings. Try different keywords, or search for an exact phrase.", citations };
+  const boost = topic.groups.flatMap((g) => [g.term, ...g.alts.flat()]);
+  const byMeeting = new Map<string, typeof picked>();
+  for (const x of picked) byMeeting.set(x.d.meeting.id, [...(byMeeting.get(x.d.meeting.id) ?? []), x]);
   const blocks = [...byMeeting.values()].map((xs) => {
     const d = xs[0].d;
     const lines = xs
       .sort((a, b) => a.i.idx - b.i.idx)
-      .map((x) => `- **${nameOf(x.ctx, x.i.seg.participant_id)}** (${fmtTs(x.i.seg.start_ms)}): ${bestSentence(x.i.seg.text, undefined, queryTerms)} ${cite(citations, x.i.seg)}`);
+      .map((x) => `- **${nameOf(x.ctx, x.i.seg.participant_id)}** (${fmtTs(x.i.seg.start_ms)}): ${bestSentence(x.i.seg.text, undefined, boost)} ${cite(citations, x.i.seg)}`);
     return `**${d.meeting.title}**\n${lines.join("\n")}`;
   });
-  return { text: `Here's what I found across your meetings:\n\n${blocks.join("\n\n")}`, citations };
+  return { text: `Here's what I found about **${topic.label}** across your meetings:\n\n${blocks.join("\n\n")}`, citations };
 }
 
 // ---------------------------------------------------------------------------
