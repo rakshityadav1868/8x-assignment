@@ -79,7 +79,7 @@ export function Kpi({
       )}
     >
       <p className="truncate text-[13px] font-medium text-white/80">{label}</p>
-      <p className="mt-2 truncate text-2xl font-semibold tracking-tight tabular-nums">{value}</p>
+      <div className="mt-2 truncate text-2xl font-semibold tracking-tight tabular-nums">{value}</div>
       {sub && <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{sub}</p>}
     </div>
   );
@@ -126,4 +126,9 @@ export function InlineBar({ frac, color = "#3b82f6", className }: { frac: number
       <span className="block h-full rounded-full" style={{ width: `${Math.max(f > 0 ? 3 : 0, f * 100)}%`, backgroundColor: color }} />
     </span>
   );
+}
+
+/** Inline (phrasing-content-safe) skeleton for use inside spans/links. */
+export function SkelSpan({ className }: { className?: string }) {
+  return <span aria-hidden className={cn("block animate-pulse rounded-md bg-muted", className)} />;
 }
