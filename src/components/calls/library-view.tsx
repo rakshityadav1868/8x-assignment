@@ -10,6 +10,7 @@ import {
   Mic,
   RotateCcw,
   Search,
+  Sparkles,
   Star,
   StarOff,
   Trash2,
@@ -24,7 +25,7 @@ import { useTimeZone } from "@/components/common/time-zone";
 import { MoveToFolderDialog, useFolders } from "@/components/folders/folder-dialogs";
 import { SendBotButton } from "@/components/record/send-bot-dialog";
 import { ROUTES } from "@/lib/routes";
-import type { BulkMeetingsResponse, ListMeetingsResponse, UpdateMeetingResponse } from "@/lib/contracts";
+import type { BulkMeetingsResponse, ListMeetingsResponse, PrefsResponse, UpdateMeetingResponse } from "@/lib/contracts";
 import { api } from "@/lib/ui/api";
 import { errorMessage, invalidate, useApi, useDebounced } from "@/lib/ui/use-api";
 import { dayKey, dayLabel, formatDuration } from "@/lib/ui/format";
@@ -122,6 +123,7 @@ export function LibraryView({
   const facetsReq = useApi<ListMeetingsResponse>(`${ROUTES.api.meetings}?scope=all`, { tags: ["meetings"] });
   const facets = useFacets(facetsReq.data?.meetings ?? []);
   const { data: foldersData } = useFolders();
+  const prefs = useApi<PrefsResponse>(folderId ? null : ROUTES.api.prefs, { tags: ["prefs"] }).data?.prefs;
   const folderList = foldersData?.folders ?? data?.folders;
   const folderById = useMemo(() => new Map((folderList ?? []).map((f) => [f.id, f])), [folderList]);
   const folder = folderId ? (folderById.get(folderId) ?? initialFolder ?? null) : null;
@@ -364,6 +366,20 @@ export function LibraryView({
       <div className="mt-4">
         <LibraryFilterBar value={filters} onChange={setFilters} facets={facets} />
       </div>
+
+      {!folderId && prefs && !prefs.onboarding_completed && (
+        <Link
+          href={ROUTES.pages.welcome}
+          className="mt-6 flex items-center gap-3 rounded-2xl border border-primary/25 bg-primary/[0.07] p-3.5 text-sm transition-colors hover:bg-primary/[0.1]"
+        >
+          <Sparkles className="size-4 shrink-0 text-sky-300" />
+          <span className="flex-1">
+            Finish setting up Fanthom
+            <span className="block text-xs text-muted-foreground">Connect a calendar, pick your notes template and capture a first call.</span>
+          </span>
+          <ArrowRight className="size-4 text-muted-foreground" />
+        </Link>
+      )}
 
       {!folderId && scope === "mine" && !filtered && !filters.trash && upcoming.length > 0 && (
         <UpcomingStrip upcoming={upcoming} nowIso={nowIso} />
