@@ -1,7 +1,8 @@
 import { CreateWebhookRequest, type ListWebhooksResponse, type WebhookResponse } from "@/lib/contracts";
 import { getRepo } from "@/lib/db";
-import { validateWebhookUrl } from "@/lib/integrations/webhooks";
+import { checkWebhookUrl } from "@/lib/integrations/webhooks";
 import { HttpError, parseBody, route } from "@/lib/server/api";
+import { enforceActionLimit } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +15,8 @@ export const GET = route(async () => {
 /** POST /api/integrations/webhooks — https only, public hosts only (SSRF guard); server generates the secret. */
 export const POST = route(async (req: Request) => {
   const body = await parseBody(req, CreateWebhookRequest);
-  const invalid = validateWebhookUrl(body.url);
+  enforceActionLimit(req, "webhook-create", { burst: 10, perMin: 5 });
+  const invalid = await checkWebhookUrl(body.url);
   if (invalid) throw new HttpError(400, "validation", invalid);
   const webhook = await getRepo().createWebhook({
     url: body.url.trim(),

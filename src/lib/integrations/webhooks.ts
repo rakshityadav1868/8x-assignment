@@ -134,7 +134,7 @@ export function validateWebhookUrl(url: string): string | null {
 }
 
 /** Resolve the host and make sure none of its addresses are private (DNS-rebinding guard). */
-async function resolvedHostError(url: string): Promise<string | null> {
+export async function resolvedHostError(url: string): Promise<string | null> {
   const host = new URL(url).hostname.replace(/^\[|\]$/g, "");
   if (isIP(host)) return null; // literal already checked
   if (isDev() && isLoopbackHost(host)) return null;
@@ -202,6 +202,11 @@ export async function deliverWebhook(
     const timeout = e?.name === "TimeoutError" || e?.name === "AbortError";
     return fail(timeout ? `Timed out after ${WEBHOOK_TIMEOUT_MS / 1000}s.` : `Network error: ${e?.message ?? "request failed"}`);
   }
+}
+
+/** Full create/update-time check: static SSRF rules + DNS resolution (rejects hosts resolving to private IPs). */
+export async function checkWebhookUrl(url: string): Promise<string | null> {
+  return validateWebhookUrl(url) ?? (await resolvedHostError(url.trim()));
 }
 
 /** Deliver + persist (updates last_status / last_delivery_at). Never throws; returns the stored delivery. */

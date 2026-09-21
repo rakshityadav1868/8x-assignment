@@ -274,6 +274,8 @@ check("webhooks: signature", wh.signWebhookBody("s3cret", "{}") === `sha256=${cr
 const bad = ["http://example.com/x", "https://localhost/x", "https://127.0.0.1/x", "https://10.1.2.3/x", "https://169.254.169.254/latest", "https://[::1]/x", "https://user:pw@example.com/x", "https://intranet/x", "https://foo.internal/x", "ftp://example.com", "https://192.168.1.1:8443/x", "https://[fd00::1]/"];
 const badResults = bad.map((u) => [u, wh.validateWebhookUrl(u)]);
 check("webhooks: SSRF guard rejects private/loopback/non-https", badResults.every(([, e]) => e !== null), badResults.filter(([, e]) => e === null));
+const rebind = await wh.checkWebhookUrl("https://localtest.me/hook");
+check("webhooks: DNS check rejects hosts resolving to loopback (localtest.me)", rebind !== null, rebind);
 check("webhooks: public https accepted", wh.validateWebhookUrl("https://hooks.zapier.com/hooks/catch/1/abc/") === null);
 const payload = wh.buildWebhookPayload("meeting.ready", acmeDetail, acmeDetail.summaries[0], { origin: "https://fanthom.test/", deliveryId: "whd_1", test: true });
 check("webhooks: payload URLs absolute", payload.data.url === "https://fanthom.test/calls/m_acme-discovery" && payload.data.highlights!.every((h) => h.url.startsWith("https://fanthom.test/clip/")));

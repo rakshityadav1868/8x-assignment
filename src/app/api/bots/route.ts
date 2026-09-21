@@ -31,6 +31,9 @@ export const POST = route(async (req: Request) => {
   }
   if (url.protocol !== "https:" && url.protocol !== "http:") throw new HttpError(400, "validation", "Meeting links must start with https://");
   const platform = detectPlatform(body.meeting_url);
+  if (platform === "unknown") {
+    throw new HttpError(400, "validation", "Paste a Zoom, Google Meet or Microsoft Teams meeting link.");
+  }
   const session = await getRepo().createBotSession({
     meeting_url: body.meeting_url,
     platform,

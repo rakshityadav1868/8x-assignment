@@ -1,7 +1,8 @@
 import { UpdateWebhookRequest, type WebhookResponse } from "@/lib/contracts";
 import { getRepo } from "@/lib/db";
-import { validateWebhookUrl } from "@/lib/integrations/webhooks";
+import { checkWebhookUrl } from "@/lib/integrations/webhooks";
 import { HttpError, NotFoundError, ok, parseBody, route } from "@/lib/server/api";
+import { enforceActionLimit } from "@/lib/server/rate-limit";
 import type { IdCtx } from "@/lib/server/route-types";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +20,8 @@ export const PATCH = route(async (req: Request, { params }: IdCtx) => {
   const { id } = await params;
   const body = await parseBody(req, UpdateWebhookRequest);
   if (body.url !== undefined) {
-    const invalid = validateWebhookUrl(body.url);
+    enforceActionLimit(req, "webhook-create", { burst: 10, perMin: 5 });
+    const invalid = await checkWebhookUrl(body.url);
     if (invalid) throw new HttpError(400, "validation", invalid);
   }
   const webhook = await getRepo().updateWebhook(id, {
