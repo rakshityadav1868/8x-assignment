@@ -69,7 +69,12 @@ export function CallExtrasProvider({ children }: { children: React.ReactNode }) 
   const [reactions, setReactions] = useState<ReactionSummary[]>([]);
   const [reactionsReady, setReactionsReady] = useState(false);
   const [trackers, setTrackers] = useState<Load<{ trackers: Tracker[]; hits: TrackerHit[] }>>({ status: "loading" });
-  const [focusedCommentId, setFocusedCommentId] = useState<string | null>(null);
+  // Deep link: /calls/:id?t=…#comment-<id> → focus that comment (and open the Comments tab, below).
+  const [focusedCommentId, setFocusedCommentId] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    const m = /^#comment-(.+)$/.exec(window.location.hash);
+    return m ? decodeURIComponent(m[1]) : null;
+  });
   const ownIds = useRef(new Set<string>());
 
   useEffect(() => {
@@ -110,12 +115,8 @@ export function CallExtrasProvider({ children }: { children: React.ReactNode }) 
     return () => ctrl.abort();
   }, [meetingId]);
 
-  // Deep link: /calls/:id?t=…#comment-<id> → open the Comments tab and focus it.
   useEffect(() => {
-    const m = /^#comment-(.+)$/.exec(window.location.hash);
-    if (!m) return;
-    setFocusedCommentId(decodeURIComponent(m[1]));
-    setTab("comments");
+    if (/^#comment-/.test(window.location.hash)) setTab("comments");
   }, [setTab]);
 
   const reloadComments = useCallback(() => {

@@ -6,10 +6,11 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { HIGHLIGHT_META } from "@/components/common/bits";
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
 import { indexAt, usePlayer, usePlayerStore } from "@/hooks/use-player";
-import { alpha, firstName, formatClock, formatDuration } from "@/lib/ui/format";
+import { alpha, firstName, formatClock, formatDuration, initials } from "@/lib/ui/format";
 import type { Chapter, Highlight, SpeakerStat, TranscriptSegment } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useCall } from "./call-context";
+import { useCallExtras } from "./call-extras";
 
 const LABEL_W = 148; // px, speaker label column
 
@@ -187,6 +188,88 @@ export function HighlightMarkers({ highlights, durationMs }: { highlights: Highl
   );
 }
 
+/** Comment markers: author-initial bubbles (neutral white ring, distinct from colored highlight icons). */
+function CommentMarkers({ durationMs }: { durationMs: number }) {
+  const { comments, focusComment } = useCallExtras();
+  const { setTab } = useCall();
+  const store = usePlayerStore();
+  const list = useMemo(
+    () => (comments.status === "ready" ? comments.data.filter((c) => c.timestamp_ms != null && !c.parent_id) : []),
+    [comments],
+  );
+  if (list.length === 0) return null;
+  return (
+    <div className="mt-1.5 flex items-center">
+      <div className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground" style={{ width: LABEL_W }}>
+        Comments
+      </div>
+      <div className="relative h-5 flex-1">
+        {list.map((c) => (
+          <Tooltip key={c.id}>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                onClick={() => {
+                  store.seek(c.timestamp_ms!);
+                  setTab("comments");
+                  focusComment(c.id);
+                }}
+                aria-label={`Comment by ${c.author_name} at ${formatClock(c.timestamp_ms!)}`}
+                className="absolute top-0 flex size-5 -translate-x-1/2 items-center justify-center rounded-full rounded-bl-none border border-white/70 bg-[#0b1120] text-[8px] font-semibold text-white transition-transform hover:z-10 hover:scale-125"
+                style={{ left: `${(c.timestamp_ms! / Math.max(1, durationMs)) * 100}%` }}
+              >
+                {initials(c.author_name)}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-64">
+              <span className="font-medium">{c.author_name}</span> · {formatClock(c.timestamp_ms!)}
+              <div className="mt-0.5 line-clamp-3 text-white/85">{c.body}</div>
+            </TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Tracker hits: thin colored ticks. */
+function TrackerMarkers({ durationMs }: { durationMs: number }) {
+  const { trackers } = useCallExtras();
+  const store = usePlayerStore();
+  if (trackers.status !== "ready" || trackers.data.hits.length === 0) return null;
+  const byId = new Map(trackers.data.trackers.map((t) => [t.id, t]));
+  return (
+    <div className="mt-1.5 flex items-center">
+      <div className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground" style={{ width: LABEL_W }}>
+        Trackers
+      </div>
+      <div className="relative h-4 flex-1 rounded-sm bg-white/[0.02]">
+        {trackers.data.hits.map((h) => {
+          const t = byId.get(h.tracker_id);
+          const color = t?.color ?? "#60a5fa";
+          return (
+            <Tooltip key={`${h.tracker_id}-${h.segment_id}-${h.keyword}`}>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  onClick={() => store.seek(h.start_ms)}
+                  aria-label={`${t?.name ?? "Tracker"}: “${h.keyword}” at ${formatClock(h.start_ms)}`}
+                  className="absolute inset-y-0 w-[3px] -translate-x-1/2 rounded-full transition-transform hover:z-10 hover:scale-x-[2.2]"
+                  style={{ left: `${(h.start_ms / Math.max(1, durationMs)) * 100}%`, backgroundColor: color }}
+                />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-64">
+                <span style={{ color }}>{t?.name ?? "Tracker"}</span> · “{h.keyword}” · {formatClock(h.start_ms)}
+                <div className="mt-0.5 text-white/85">{firstName(h.speaker_name)}</div>
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function CallTimeline() {
   const { detail, segments, highlights, speakerStats, speakerFilter, setSpeakerFilter, setTab, meeting } = useCall();
   const chapters = detail.chapters;
@@ -223,6 +306,8 @@ export function CallTimeline() {
             <HighlightMarkers highlights={highlights} durationMs={durationMs} />
           </div>
         </div>
+        <CommentMarkers durationMs={durationMs} />
+        <TrackerMarkers durationMs={durationMs} />
         <div className="mb-1.5 mt-3 flex items-center justify-between">
           <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Speakers · talk time

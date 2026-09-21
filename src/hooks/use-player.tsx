@@ -217,6 +217,11 @@ export class PlayerStore {
     if (opts?.play) this.play();
   };
 
+  /** Restrict playback to a window (clip trim preview); null = whole recording. */
+  setBounds = (b: { startMs: number; endMs: number } | null) => {
+    this.bounds = b;
+  };
+
   skip = (deltaMs: number) => this.seek(this.state.currentMs + deltaMs);
 
   setRate = (rate: number) => {

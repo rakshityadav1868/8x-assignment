@@ -2,7 +2,22 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Check, ChevronDown, Clock, Keyboard, Link2, Mail, MoreHorizontal, Users } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  ChevronDown,
+  Clock,
+  Database,
+  Download,
+  FileText,
+  Hash,
+  Inbox,
+  Keyboard,
+  Link2,
+  Mail,
+  MoreHorizontal,
+  Users,
+} from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +27,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -28,11 +46,13 @@ import { formatClock, formatDuration, longDate, timeOfDay } from "@/lib/ui/forma
 import { MEETING_TYPES, type MeetingType } from "@/lib/types";
 import { useCall } from "./call-context";
 import { ShareDialog } from "./share-dialog";
+import { CrmDialog, EmailRecapDialog, SlackDialog } from "./integration-dialogs";
 
 export function CallHeader({ onShowShortcuts }: { onShowShortcuts: () => void }) {
-  const { meeting, setMeeting, participants, setSummaryTemplate, summaries, readOnly } = useCall();
+  const { meeting, setMeeting, participants, setSummaryTemplate, summaryTemplate, summaries, readOnly } = useCall();
   const store = usePlayerStore();
   const [emailOpen, setEmailOpen] = useState(false);
+  const [dialog, setDialog] = useState<"slack" | "crm" | "recap" | null>(null);
   const tz = useTimeZone();
   const when = meeting.recording_start ?? meeting.scheduled_start ?? meeting.created_at;
   const external = participants.filter((p) => p.is_external).length;
@@ -165,6 +185,20 @@ export function CallHeader({ onShowShortcuts }: { onShowShortcuts: () => void })
               <DropdownMenuItem onSelect={copyMoment}>
                 <Link2 /> Copy link at current time
               </DropdownMenuItem>
+              <DownloadsSub meetingId={meeting.id} hasMedia={!!meeting.media_url} template={summaryTemplate} />
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                Send &amp; sync
+              </DropdownMenuLabel>
+              <DropdownMenuItem onSelect={() => setDialog("slack")}>
+                <Hash /> Send to Slack
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setDialog("crm")}>
+                <Database /> Sync to CRM
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setDialog("recap")}>
+                <Inbox /> Email recap preview
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onSelect={onShowShortcuts}>
                 <Keyboard /> Keyboard shortcuts <DropdownMenuShortcut>?</DropdownMenuShortcut>
@@ -172,8 +206,62 @@ export function CallHeader({ onShowShortcuts }: { onShowShortcuts: () => void })
             </DropdownMenuContent>
           </DropdownMenu>
           <FollowUpEmailDialog open={emailOpen} onOpenChange={setEmailOpen} />
+          <SlackDialog open={dialog === "slack"} onOpenChange={(o) => setDialog(o ? "slack" : null)} />
+          <CrmDialog open={dialog === "crm"} onOpenChange={(o) => setDialog(o ? "crm" : null)} />
+          <EmailRecapDialog open={dialog === "recap"} onOpenChange={(o) => setDialog(o ? "recap" : null)} />
         </div>
       )}
     </header>
+  );
+}
+
+const DOWNLOADS: { format: string; label: string; ext: string }[] = [
+  { format: "transcript_txt", label: "Transcript", ext: "TXT" },
+  { format: "transcript_srt", label: "Subtitles", ext: "SRT" },
+  { format: "transcript_vtt", label: "Subtitles", ext: "VTT" },
+  { format: "transcript_md", label: "Transcript", ext: "Markdown" },
+];
+
+function DownloadsSub({ meetingId, hasMedia, template }: { meetingId: string; hasMedia: boolean; template: string }) {
+  const item = (href: string, children: React.ReactNode) => (
+    <DropdownMenuItem asChild key={href}>
+      <a href={href} download>
+        {children}
+      </a>
+    </DropdownMenuItem>
+  );
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <Download className="size-4" /> Download
+      </DropdownMenuSubTrigger>
+      <DropdownMenuSubContent className="w-56">
+        {DOWNLOADS.map((d) =>
+          item(
+            ROUTES.api.download(meetingId, d.format),
+            <span className="flex w-full items-center gap-2">
+              <FileText className="size-4" /> {d.label}
+              <span className="ml-auto font-mono text-[10px] text-muted-foreground">{d.ext}</span>
+            </span>,
+          ),
+        )}
+        <DropdownMenuSeparator />
+        {item(
+          ROUTES.api.download(meetingId, "summary_md", { template }),
+          <span className="flex w-full items-center gap-2">
+            <FileText className="size-4" /> Summary
+            <span className="ml-auto font-mono text-[10px] text-muted-foreground">Markdown</span>
+          </span>,
+        )}
+        {hasMedia &&
+          item(
+            ROUTES.api.download(meetingId, "recording"),
+            <span className="flex w-full items-center gap-2">
+              <Download className="size-4" /> Recording
+              <span className="ml-auto font-mono text-[10px] text-muted-foreground">Media</span>
+            </span>,
+          )}
+      </DropdownMenuSubContent>
+    </DropdownMenuSub>
   );
 }

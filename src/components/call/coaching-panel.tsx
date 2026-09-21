@@ -132,8 +132,8 @@ function CoachingBody({ m }: { m: CoachingMetrics }) {
         <StatCard
           icon={Megaphone}
           label="Talk ratio"
-          value={hasExternal ? `${Math.round(m.internal_talk_pct)}/${Math.round(m.external_talk_pct)}` : `${speakers.length}`}
-          hint={hasExternal ? "Our team / external" : "Speakers"}
+          value={hasExternal ? `${Math.round(m.internal_talk_pct)}/${Math.round(m.external_talk_pct)}` : `${Math.round(speakers[0].talk_pct)}%`}
+          hint={hasExternal ? "Our team / external" : `Top talker: ${firstName(speakers[0].name)} · ${speakers.length} speakers`}
           tone={hasExternal ? (m.internal_talk_pct <= 60 ? "good" : "warn") : null}
         >
           {hasExternal && (

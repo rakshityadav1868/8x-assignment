@@ -140,12 +140,12 @@ function CallLayout({ initialSeconds, fullHeightClass }: { initialSeconds: numbe
             </PanelTab>
             {!readOnly && <PanelTab value="ask">Ask</PanelTab>}
             {/* Wide panels show every tab; narrow ones fold Comments/Coaching into "More". */}
-            <PanelTab value="comments" className="hidden @min-[470px]:inline-flex">
+            <PanelTab value="comments" className="hidden @min-[560px]:inline-flex">
               Comments
               <CommentCount />
             </PanelTab>
             {!shareMode && (
-              <PanelTab value="coaching" className="hidden @min-[470px]:inline-flex">
+              <PanelTab value="coaching" className="hidden @min-[560px]:inline-flex">
                 Coaching
               </PanelTab>
             )}
@@ -210,7 +210,7 @@ function MoreTabs({ tab, setTab, showCoaching }: { tab: CallTab; setTab: (t: Cal
           type="button"
           data-active={activeOverflow ? "" : undefined}
           className={cn(
-            "relative inline-flex h-full shrink-0 items-center gap-1 px-2.5 text-[13px] font-medium text-white/55 hover:text-white @min-[470px]:hidden",
+            "relative inline-flex h-full shrink-0 items-center gap-1 px-2.5 text-[13px] font-medium text-white/55 hover:text-white @min-[560px]:hidden",
             activeOverflow &&
               "text-white after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-sky-400 after:shadow-[0_0_10px_rgba(56,189,248,0.8)]",
           )}

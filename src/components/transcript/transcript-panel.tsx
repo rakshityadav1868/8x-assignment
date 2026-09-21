@@ -14,7 +14,9 @@ import {
   MoreHorizontal,
   Pencil,
   Plus,
+  Scissors,
   Search,
+  SmilePlus,
   Trash2,
   UserRoundPen,
   X,
@@ -34,12 +36,22 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { EmptyState, HIGHLIGHT_META } from "@/components/common/bits";
 import { ParticipantAvatar } from "@/components/common/participant-avatar";
 import { useCall } from "@/components/call/call-context";
+import { useCallExtras } from "@/components/call/call-extras";
+import { ClipTrimDialog, type TrimTarget } from "@/components/call/clip-trim-dialog";
 import { usePlayer, usePlayerStore, indexAt } from "@/hooks/use-player";
 import { ROUTES } from "@/lib/routes";
-import type { HighlightResponse, ListPlaylistsResponse, UpdateSegmentResponse } from "@/lib/contracts";
+import type { ListPlaylistsResponse, UpdateSegmentResponse } from "@/lib/contracts";
 import { api, copyText } from "@/lib/ui/api";
 import { escapeRegExp, firstName, formatClock } from "@/lib/ui/format";
-import { HIGHLIGHT_TYPES, type Highlight, type HighlightType, type Participant, type TranscriptSegment } from "@/lib/types";
+import {
+  HIGHLIGHT_TYPES,
+  REACTION_EMOJIS,
+  type Highlight,
+  type Participant,
+  type ReactionEmoji,
+  type ReactionSummary,
+  type TranscriptSegment,
+} from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface Row {
@@ -56,6 +68,9 @@ export function TranscriptPanel({ active }: { active: boolean }) {
   const [cursor, setCursor] = useState(0);
   const [autoSync, setAutoSync] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [trim, setTrim] = useState<TrimTarget | null>(null);
+  const closeTrim = useCallback(() => setTrim(null), []);
+  const { reactionsBySegment, toggleReaction } = useCallExtras();
   const onEdit = useCallback((id: string | null) => {
     setEditingId(id);
     if (id) setAutoSync(false);
@@ -316,6 +331,9 @@ export function TranscriptPanel({ active }: { active: boolean }) {
                       onEdit={onEdit}
                       readOnly={readOnly}
                       onSeek={onSeek}
+                      reactions={reactionsBySegment.get(r.seg.id)}
+                      onReact={toggleReaction}
+                      onTrim={setTrim}
                     />
                   </div>
                 );
@@ -337,6 +355,7 @@ export function TranscriptPanel({ active }: { active: boolean }) {
           </button>
         )}
       </div>
+      {!readOnly && <ClipTrimDialog target={trim} onClose={closeTrim} />}
     </div>
   );
 }
@@ -400,6 +419,9 @@ const TranscriptRow = memo(function TranscriptRow({
   onSeek,
   editing,
   onEdit,
+  reactions,
+  onReact,
+  onTrim,
 }: {
   row: Row;
   speaker?: Participant;
@@ -411,6 +433,9 @@ const TranscriptRow = memo(function TranscriptRow({
   onSeek: (seg: TranscriptSegment) => void;
   editing: boolean;
   onEdit: (id: string | null) => void;
+  reactions?: ReactionSummary[];
+  onReact: (segmentId: string, emoji: ReactionEmoji) => void;
+  onTrim: (t: TrimTarget) => void;
 }) {
   const { seg } = row;
   const hasMatch = matchRe ? new RegExp(matchRe.source, "i").test(seg.text) : false;
@@ -443,7 +468,7 @@ const TranscriptRow = memo(function TranscriptRow({
           if (e.key === "Enter" && !editing && e.target === e.currentTarget) onSeek(seg);
         }}
         className={cn(
-          "group/row relative ml-8 cursor-pointer rounded-lg py-1.5 pl-2.5 pr-14 text-[13.5px] leading-relaxed transition-colors",
+          "group/row relative ml-8 cursor-pointer rounded-lg py-1.5 pl-2.5 pr-[5.25rem] text-[13.5px] leading-relaxed transition-colors",
           active
             ? "bg-sky-400/[0.13] text-white shadow-[inset_2px_0_0_0_#60a5fa,0_0_0_1px_rgba(96,165,250,0.18)]"
             : "text-white/72 hover:bg-white/[0.04] hover:text-white/95",
@@ -464,13 +489,17 @@ const TranscriptRow = memo(function TranscriptRow({
         {tags && tags.length > 0 && !editing && (
           <span className="ml-1.5 inline-flex translate-y-[1px] gap-0.5 align-baseline">
             {tags.map((h) => (
-              <HighlightTag key={h.id} h={h} readOnly={readOnly} />
+              <HighlightTag key={h.id} h={h} readOnly={readOnly} onTrim={onTrim} />
             ))}
           </span>
         )}
+        {reactions && reactions.length > 0 && !editing && (
+          <ReactionChips segId={seg.id} reactions={reactions} readOnly={readOnly} onReact={onReact} />
+        )}
         {!readOnly && !editing && (
           <>
-            <AddHighlight seg={seg} />
+            <ReactButton segId={seg.id} onReact={onReact} />
+            <AddHighlight seg={seg} onTrim={onTrim} />
             <RowMenu seg={seg} onEdit={() => onEdit(seg.id)} />
           </>
         )}
@@ -479,37 +508,8 @@ const TranscriptRow = memo(function TranscriptRow({
   );
 });
 
-function AddHighlight({ seg }: { seg: TranscriptSegment }) {
-  const { meeting, setHighlights } = useCall();
+function AddHighlight({ seg, onTrim }: { seg: TranscriptSegment; onTrim: (t: TrimTarget) => void }) {
   const [open, setOpen] = useState(false);
-  const [saving, setSaving] = useState<HighlightType | null>(null);
-
-  const create = async (type: HighlightType) => {
-    setSaving(type);
-    try {
-      const title = seg.text.length > 90 ? `${seg.text.slice(0, 87).trimEnd()}…` : seg.text;
-      const res = await api<HighlightResponse>(ROUTES.api.highlights(meeting.id), {
-        method: "POST",
-        json: { start_ms: seg.start_ms, end_ms: Math.max(seg.end_ms, seg.start_ms + 1000), type, title },
-      });
-      setHighlights((prev) => [...prev, res.highlight].sort((a, b) => a.start_ms - b.start_ms));
-      setOpen(false);
-      const url = `${window.location.origin}${ROUTES.pages.clip(res.highlight.share_token)}`;
-      toast.success(`${HIGHLIGHT_META[type].label} highlight saved`, {
-        description: `Clip at ${formatClock(seg.start_ms)}`,
-        action: {
-          label: "Copy clip link",
-          onClick: () => {
-            void copyText(url).then(() => toast.success("Clip link copied"));
-          },
-        },
-      });
-    } catch (e) {
-      toast.error("Couldn't save highlight", { description: e instanceof Error ? e.message : undefined });
-    } finally {
-      setSaving(null);
-    }
-  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -537,8 +537,10 @@ function AddHighlight({ seg }: { seg: TranscriptSegment }) {
             <button
               key={t}
               type="button"
-              disabled={!!saving}
-              onClick={() => create(t)}
+              onClick={() => {
+                setOpen(false);
+                onTrim({ kind: "create", type: t, seg });
+              }}
               className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-white/[0.07] disabled:opacity-50"
             >
               <span
@@ -548,10 +550,89 @@ function AddHighlight({ seg }: { seg: TranscriptSegment }) {
                 <Icon className="size-3" />
               </span>
               {meta.label}
-              {saving === t && <span className="ml-auto text-[11px] text-muted-foreground">Saving…</span>}
             </button>
           );
         })}
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function ReactionChips({
+  segId,
+  reactions,
+  readOnly,
+  onReact,
+}: {
+  segId: string;
+  reactions: ReactionSummary[];
+  readOnly: boolean;
+  onReact: (segmentId: string, emoji: ReactionEmoji) => void;
+}) {
+  const ordered = [...reactions].sort((a, b) => REACTION_EMOJIS.indexOf(a.emoji) - REACTION_EMOJIS.indexOf(b.emoji));
+  return (
+    <span className="mt-1 flex flex-wrap gap-1">
+      {ordered.map((r) => (
+        <button
+          key={r.emoji}
+          type="button"
+          disabled={readOnly}
+          title={r.user_names.join(", ")}
+          aria-pressed={r.reacted_by_me}
+          aria-label={`${r.emoji} ${r.count}${r.reacted_by_me ? ", including you" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onReact(segId, r.emoji);
+          }}
+          className={cn(
+            "inline-flex h-[22px] items-center gap-1 rounded-full border px-1.5 text-xs leading-none transition-colors disabled:cursor-default",
+            r.reacted_by_me
+              ? "border-sky-400/50 bg-primary/20 text-white"
+              : "border-white/10 bg-white/[0.04] text-white/75 enabled:hover:bg-white/[0.08]",
+          )}
+        >
+          <span>{r.emoji}</span>
+          <span className="font-mono text-[10px] tabular-nums">{r.count}</span>
+        </button>
+      ))}
+    </span>
+  );
+}
+
+function ReactButton({ segId, onReact }: { segId: string; onReact: (segmentId: string, emoji: ReactionEmoji) => void }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          onClick={(e) => e.stopPropagation()}
+          aria-label="Add reaction"
+          className={cn(
+            "absolute right-[3.625rem] top-1.5 flex size-6 items-center justify-center rounded-md border border-white/10 bg-[#0d1426] text-white/70 opacity-0 transition-opacity hover:border-sky-400/50 hover:text-sky-300 focus-visible:opacity-100 group-hover/row:opacity-100",
+            open && "opacity-100",
+          )}
+        >
+          <SmilePlus className="size-3.5" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-auto p-1" onClick={(e) => e.stopPropagation()}>
+        <div className="flex gap-0.5" role="group" aria-label="Reactions">
+          {REACTION_EMOJIS.map((em) => (
+            <button
+              key={em}
+              type="button"
+              onClick={() => {
+                onReact(segId, em);
+                setOpen(false);
+              }}
+              className="flex size-8 items-center justify-center rounded-md text-lg transition-transform hover:scale-125 hover:bg-white/[0.08]"
+              aria-label={`React ${em}`}
+            >
+              {em}
+            </button>
+          ))}
+        </div>
       </PopoverContent>
     </Popover>
   );
@@ -663,7 +744,7 @@ function EditSegment({ seg, onDone }: { seg: TranscriptSegment; onDone: () => vo
   );
 }
 
-function HighlightTag({ h, readOnly }: { h: Highlight; readOnly: boolean }) {
+function HighlightTag({ h, readOnly, onTrim }: { h: Highlight; readOnly: boolean; onTrim: (t: TrimTarget) => void }) {
   const { setHighlights } = useCall();
   const meta = HIGHLIGHT_META[h.type];
   const Icon = meta.icon;
@@ -717,6 +798,18 @@ function HighlightTag({ h, readOnly }: { h: Highlight; readOnly: boolean }) {
           >
             <Link2 className="size-3.5" /> Copy clip link
           </button>
+          {!readOnly && (
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                onTrim({ kind: "edit", highlight: h });
+              }}
+              className="flex items-center gap-2 rounded-md px-1.5 py-1.5 text-left text-sm hover:bg-white/[0.07]"
+            >
+              <Scissors className="size-3.5" /> Edit clip
+            </button>
+          )}
           {!readOnly && <AddToPlaylist highlightId={h.id} onDone={() => setOpen(false)} />}
           {!readOnly && (
             <button
