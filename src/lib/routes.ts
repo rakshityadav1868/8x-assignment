@@ -16,6 +16,8 @@ export const ROUTES = {
     search: (q?: string) => (q ? `/search?q=${encodeURIComponent(q)}` : "/search"),
     upload: "/upload",
     playlists: "/playlists",
+    playlist: (id: string) => `/playlists/${id}`, // additive
+    ask: "/ask", // cross-meeting Ask (additive)
     settings: "/settings",
   },
   api: {

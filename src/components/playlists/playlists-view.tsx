@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Link2, ListVideo, Loader2, Play, Plus, SkipBack, SkipForward, Sparkles, X } from "lucide-react";
+import { Link2, ListVideo, Loader2, Play, Plus, SkipBack, SkipForward, Sparkles, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -18,7 +18,27 @@ import { cn } from "@/lib/utils";
 
 type PlaylistRow = Playlist & { item_count: number };
 
-export function PlaylistsView({ playlists, clips, error }: { playlists: PlaylistRow[]; clips: ClipDetail[]; error: string | null }) {
+export function PlaylistsView({
+  playlists,
+  clips: initialClips,
+  error,
+}: {
+  playlists: PlaylistRow[];
+  clips: ClipDetail[];
+  error: string | null;
+}) {
+  const [clips, setClips] = useState(initialClips);
+  const removeClip = async (c: ClipDetail) => {
+    setPlaying(null);
+    setClips((prev) => prev.filter((x) => x.highlight.id !== c.highlight.id));
+    try {
+      await api(ROUTES.api.highlight(c.highlight.id), { method: "DELETE" });
+      toast.success("Highlight deleted");
+    } catch (e) {
+      setClips(initialClips);
+      toast.error("Couldn't delete highlight", { description: e instanceof Error ? e.message : undefined });
+    }
+  };
   const [type, setType] = useState<HighlightType | "all">("all");
   const [playing, setPlaying] = useState<number | null>(null);
   const filtered = useMemo(() => (type === "all" ? clips : clips.filter((c) => c.highlight.type === type)), [clips, type]);
@@ -58,14 +78,18 @@ export function PlaylistsView({ playlists, clips, error }: { playlists: Playlist
           </Button>
         </div>
         {playlists.map((p) => (
-          <div key={p.id} className="glass rounded-2xl p-4">
-            <ListVideo className="size-4 text-muted-foreground" />
+          <Link
+            key={p.id}
+            href={ROUTES.pages.playlist(p.id)}
+            className="glass group rounded-2xl p-4 transition-colors hover:border-sky-400/25 hover:bg-white/[0.04]"
+          >
+            <ListVideo className="size-4 text-muted-foreground group-hover:text-sky-300" />
             <p className="mt-3 truncate font-medium">{p.name}</p>
             <p className="line-clamp-1 text-xs text-muted-foreground">{p.description ?? "No description"}</p>
             <p className="mt-3 text-xs text-white/60">
-              {p.item_count} {p.item_count === 1 ? "item" : "items"}
+              {p.item_count} {p.item_count === 1 ? "item" : "items"} · Open →
             </p>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -156,6 +180,14 @@ export function PlaylistsView({ playlists, clips, error }: { playlists: Playlist
                     className="flex size-8 items-center justify-center rounded-lg text-muted-foreground opacity-60 hover:bg-white/10 hover:text-foreground group-hover:opacity-100"
                   >
                     <Link2 className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Delete highlight"
+                    onClick={() => removeClip(c)}
+                    className="flex size-8 items-center justify-center rounded-lg text-muted-foreground opacity-60 hover:bg-red-400/10 hover:text-red-300 group-hover:opacity-100"
+                  >
+                    <Trash2 className="size-4" />
                   </button>
                 </li>
               );

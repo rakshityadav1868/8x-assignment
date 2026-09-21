@@ -1,4 +1,4 @@
-import { Home, ListVideo, Search, Settings, Upload, type LucideIcon } from "lucide-react";
+import { Home, ListVideo, Search, Settings, Sparkles, Upload, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
   href: string;
@@ -12,6 +12,7 @@ export const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     items: [
       { href: "/calls", label: "Home", icon: Home },
       { href: "/search", label: "Search", icon: Search },
+      { href: "/ask", label: "Ask Fanthom", icon: Sparkles },
       { href: "/upload", label: "Upload", icon: Upload },
       { href: "/playlists", label: "Playlists", icon: ListVideo },
     ],

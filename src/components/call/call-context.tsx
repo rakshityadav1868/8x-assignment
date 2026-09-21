@@ -24,6 +24,7 @@ export interface CallContextValue {
   participants: Participant[];
   participantById: Map<string, Participant>;
   segments: TranscriptSegment[];
+  updateSegment: (seg: TranscriptSegment) => void;
   highlights: Highlight[];
   setHighlights: React.Dispatch<React.SetStateAction<Highlight[]>>;
   actionItems: ActionItem[];
@@ -110,6 +111,11 @@ export function CallProvider({
 }) {
   const [meeting, setMeeting] = useState(detail.meeting);
   const [highlights, setHighlights] = useState(detail.highlights);
+  const [segments, setSegments] = useState(detail.segments);
+  const updateSegment = useCallback(
+    (seg: TranscriptSegment) => setSegments((prev) => prev.map((s) => (s.id === seg.id ? seg : s))),
+    [],
+  );
   const [actionItems, setActionItems] = useState(detail.action_items);
   const [summaries, setSummaries] = useState(detail.summaries);
   const [speakerFilter, setSpeakerFilter] = useState<string | null>(null);
@@ -123,8 +129,8 @@ export function CallProvider({
 
   const participantById = useMemo(() => new Map(detail.participants.map((p) => [p.id, p])), [detail.participants]);
   const speakerStats = useMemo(
-    () => computeSpeakerStats(detail.segments, detail.participants),
-    [detail.segments, detail.participants],
+    () => computeSpeakerStats(segments, detail.participants),
+    [segments, detail.participants],
   );
   const addSummary = useCallback((s: Summary) => setSummaries((prev) => [s, ...prev.filter((x) => x.id !== s.id)]), []);
   const noteAiMode = useCallback((m: AiMode) => setAiMode(m), []);
@@ -136,7 +142,8 @@ export function CallProvider({
       setMeeting,
       participants: detail.participants,
       participantById,
-      segments: detail.segments,
+      segments,
+      updateSegment,
       highlights,
       setHighlights,
       actionItems,
@@ -159,6 +166,8 @@ export function CallProvider({
       detail,
       meeting,
       participantById,
+      segments,
+      updateSegment,
       highlights,
       actionItems,
       summaries,

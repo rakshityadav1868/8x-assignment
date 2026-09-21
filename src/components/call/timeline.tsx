@@ -28,8 +28,20 @@ export function ChapterRail({ chapters, durationMs }: { chapters: Chapter[]; dur
   const store = usePlayerStore();
   const activeIdx = usePlayer((s) => indexAt(chapters, s.currentMs));
   if (chapters.length === 0) return null;
+  const cur = activeIdx >= 0 ? chapters[activeIdx] : null;
   return (
     <div>
+      {cur && (
+        <p className="mb-2 flex items-baseline gap-2 truncate text-xs text-white/60">
+          <span className="font-mono tabular-nums text-white/40">
+            {activeIdx + 1}/{chapters.length}
+          </span>
+          <span className="truncate font-medium text-white/90">{cur.title}</span>
+          <span className="shrink-0 font-mono tabular-nums text-white/40">
+            {formatClock(cur.start_ms)}–{formatClock(cur.end_ms)}
+          </span>
+        </p>
+      )}
       <div className="flex h-9 gap-[3px]">
         {chapters.map((c, i) => {
           const w = Math.max(0.5, ((c.end_ms - c.start_ms) / Math.max(1, durationMs)) * 100);
@@ -48,7 +60,9 @@ export function ChapterRail({ chapters, durationMs }: { chapters: Chapter[]; dur
                   )}
                   style={{ flexBasis: `${w}%`, flexGrow: 0, flexShrink: 1 }}
                 >
-                  <span className="block truncate">{c.title}</span>
+                  <span className={cn("block truncate", w < 8 && "text-center font-mono tabular-nums")}>
+                    {w < 8 ? i + 1 : c.title}
+                  </span>
                 </button>
               </TooltipTrigger>
               <TooltipContent className="max-w-72">

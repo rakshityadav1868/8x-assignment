@@ -19,6 +19,7 @@ export function openCommandPalette() {
 const NAV = [
   { label: "My Calls", href: ROUTES.pages.calls, icon: Home },
   { label: "Search all transcripts", href: ROUTES.pages.search(), icon: Search },
+  { label: "Ask Fanthom across all calls", href: ROUTES.pages.ask, icon: Sparkles },
   { label: "Upload a recording", href: ROUTES.pages.upload, icon: Upload },
   { label: "Playlists", href: ROUTES.pages.playlists, icon: ListVideo },
   { label: "Settings", href: ROUTES.pages.settings, icon: Settings },
