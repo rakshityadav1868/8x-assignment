@@ -277,6 +277,7 @@ src/
     deepgram/                  transcription client
     server/                    api route wrapper, errors, rate-limit, demo-session, pipeline, storage, ndjson
     search/ ui/                text helpers, client API + formatting
+    analytics/ export/ integrations/   Phase 5 pure logic: coaching, insights, trackers, deals, library filters; downloads; webhooks/Slack/CRM/bot
   data/seed/                   built seed JSON
 public/media/                  seed audio
 seed-src/                      scripts, timings, pre-authored AI
@@ -310,5 +311,116 @@ Asana / Zapier (honest "coming soon" cards on Settings); billing.
 ## 9. Contract changelog
 
 - **Phase 0**: initial contract; `ai_mode` on all AI responses; `GET /api/capabilities`; `Repo` interface; dark theme; `/` is the landing page and My Calls lives at `/calls`.
+- **Phase 5**: see §10. Additive only: optional `Meeting.folder_id/starred/deleted_at`; optional `MeetingListItem`
+  library fields; `UpdateMeetingRequest` gains `folder_id/starred/deleted`; `ListMeetingsResponse.folders?`;
+  `Repo.listMeetings(opts?)`; ~50 new Repo methods, new schemas/routes for every Phase 5 endpoint.
 - **Phase 1–3**: `routes.ts` split out of `contracts.ts` (zod-free, re-exported); `ROUTES.pages.playlist` and `ROUTES.pages.ask` added;
   `Repo.getPlaylist` / `removePlaylistItem` added; playlist detail/delete APIs; `rate_limited` error code; demo-session cookie required for writes.
+
+## 10. Phase 5 — full Fathom parity (contract)
+
+Scope: `docs/SPEC.md` "PHASE 5" (A library, B capture, C insights, D collaboration & export, E account & team,
+F marketing). Keyless-first still holds: every feature works in seed mode; integrations that can be real with
+only a user-supplied URL (outgoing webhooks, Slack incoming webhook) ARE real; the meeting bot, calendar OAuth,
+CRM OAuth, team invites and email sending are simulated and labelled as such in the UI.
+
+### 10.1 New pages (`ROUTES.pages`)
+
+| Route | Purpose | Owner |
+|---|---|---|
+| `/calls` (extended) | Tabs My calls / Shared with me / Team, filters (type, participant, company, date, has action items, starred), sort, rename/star/delete, multi-select bulk move, trash | frontend-A |
+| `/folders/[id]` | Folder library page (sidebar lists folders) | frontend-A |
+| `/record` | In-browser recorder (mic + optional screen/tab via getDisplayMedia, MediaRecorder, timer, level meter → upload pipeline) and "Send Fanthom to a live meeting" bot panel (simulated) | frontend-A |
+| `/calendar` | Week view of upcoming events, per-event Record toggle, auto-record rule picker | frontend-A |
+| `/team` | Members, roles, invite (stub) | frontend-A |
+| `/welcome` | Onboarding: connect calendar (stub) → default template → record first meeting | frontend-A |
+| `/settings?tab=` | general / recording / notifications / integrations (webhooks, Slack, CRM) — server prefs | frontend-A |
+| `/pricing`, `/features`, `/integrations` | Marketing pages (+ FAQ, footer) | frontend-A |
+| `/calls/[id]` (extended) | Coaching metrics panel, comments + timeline markers + @mentions, emoji reactions, downloads menu, clip trim editor, tracker markers, `<video>` for `media_kind: "video"`, Slack/CRM/email-recap actions | frontend-B |
+| `/insights` | Team dashboard: totals, weekly trends, per-person averages, meeting load heatmap | frontend-B |
+| `/trackers`, `/trackers/[id]` | Tracker CRUD; hits across calls with jump-to-moment | frontend-B |
+| `/deals`, `/deals/[domain]` | Companies from external calls; timeline, stakeholders, latest summary, next steps, BANT/MEDDPICC (editable) | frontend-B |
+
+App-shell nav (frontend-A) adds: Record, Calendar, Insights, Trackers, Deals, Team, folders list, notification bell, "Demo workspace" badge.
+
+### 10.2 New API (schemas in `contracts.ts` "PHASE 5"; builders in `ROUTES.api`)
+
+| Method & path | Request → Response |
+|---|---|
+| `GET /api/meetings?…` | `ListMeetingsQuery` → `ListMeetingsResponse` (+ `folders`) |
+| `PATCH /api/meetings/:id` | `UpdateMeetingRequest` (+ `folder_id`, `starred`, `deleted`) → `UpdateMeetingResponse` |
+| `DELETE /api/meetings/:id` | → `Ok` (soft delete) |
+| `POST /api/meetings/bulk` | `BulkMeetingsRequest` → `BulkMeetingsResponse` |
+| `GET / POST /api/folders` | → `ListFoldersResponse` / `CreateFolderRequest` → `FolderResponse` |
+| `PATCH / DELETE /api/folders/:id` | `UpdateFolderRequest` → `FolderResponse` / `Ok` |
+| `POST /api/folders/:id/meetings` | `MoveToFolderRequest` → `MoveToFolderResponse` (`:id` = `none` removes from folder) |
+| `GET /api/meetings/:id/coaching` | → `CoachingResponse` |
+| `GET /api/meetings/:id/trackers` | → `MeetingTrackerHitsResponse` |
+| `GET /api/insights?range&internal_only` | `InsightsQuery` → `InsightsResponse` |
+| `GET / POST /api/trackers` | → `ListTrackersResponse` / `CreateTrackerRequest` → `TrackerResponse` |
+| `PATCH / DELETE /api/trackers/:id` | `UpdateTrackerRequest` → `TrackerResponse` / `Ok` |
+| `GET /api/trackers/:id/hits` | `TrackerHitsQuery` → `TrackerHitsResponse` |
+| `GET /api/deals` | → `ListDealsResponse` |
+| `GET / PATCH /api/deals/:domain` | → `DealResponse` / `UpdateDealRequest` → `DealResponse` |
+| `GET / POST /api/meetings/:id/comments` | → `ListCommentsResponse` / `CreateCommentRequest` → `CommentResponse` |
+| `PATCH / DELETE /api/comments/:id` | `UpdateCommentRequest` → `CommentResponse` / `Ok` |
+| `GET /api/meetings/:id/reactions` | → `ListReactionsResponse` |
+| `POST /api/segments/:id/reactions` | `ToggleReactionRequest` → `ToggleReactionResponse` |
+| `GET /api/meetings/:id/download?format&template&language` | `DownloadQuery` → file attachment (`recording` → 302 to media) |
+| `PATCH /api/highlights/:id` (trim) | existing `UpdateHighlightRequest`; handler validates with `TrimHighlightRequest` |
+| `GET / POST /api/integrations/webhooks` | → `ListWebhooksResponse` / `CreateWebhookRequest` → `WebhookResponse` |
+| `PATCH / DELETE /api/integrations/webhooks/:id` | `UpdateWebhookRequest` → `WebhookResponse` / `Ok` |
+| `POST /api/integrations/webhooks/:id/test` | `TestWebhookRequest` → `WebhookDeliveryResponse` (real POST) |
+| `GET /api/integrations/webhooks/:id/deliveries` | → `ListWebhookDeliveriesResponse` |
+| `GET / PUT /api/integrations/slack` | → `SlackConfigResponse` / `UpdateSlackConfigRequest` → `SlackConfigResponse` |
+| `POST /api/integrations/slack/test` | → `SendToSlackResponse` (real POST) |
+| `POST /api/meetings/:id/slack` | `SendToSlackRequest` → `SendToSlackResponse` (real POST) |
+| `GET / POST /api/meetings/:id/crm` | `CrmPreviewQuery` → `CrmPreviewResponse` / `CrmSyncRequest` → `CrmSyncResponse` (simulated, logged) |
+| `GET /api/integrations/crm/logs?meeting_id` | → `CrmLogsResponse` |
+| `POST /api/meetings/:id/email-recap` | `EmailRecapRequest` → `EmailRecapResponse` (preview only) |
+| `GET / POST /api/bots` | → `ListBotSessionsResponse` / `CreateBotSessionRequest` → `BotSessionResponse` |
+| `GET /api/bots/:id` | → `BotSessionResponse` (may auto-advance by elapsed time) |
+| `POST /api/bots/:id/advance` | `AdvanceBotSessionRequest` → `BotSessionResponse` (409 on illegal transition) |
+| `GET /api/calendar?from&to` | `CalendarQuery` → `CalendarResponse` |
+| `PATCH /api/calendar/:eventId` | `UpdateCalendarEventRequest` → `CalendarEventResponse` |
+| `GET / PATCH /api/prefs` | → `PrefsResponse` / `UpdatePrefsRequest` → `PrefsResponse` |
+| `GET /api/me` | → `MeResponse` |
+| `GET /api/team` | → `ListTeamResponse` |
+| `POST /api/team/invite` | `InviteTeamRequest` → `InviteTeamResponse` (stub: no email) |
+| `PATCH / DELETE /api/team/:id` | `UpdateTeamMemberRequest` → `TeamMemberResponse` / `Ok` |
+| `GET /api/notifications?unread&limit` | `ListNotificationsQuery` → `ListNotificationsResponse` |
+| `POST /api/notifications/read` | `MarkNotificationsReadRequest` → `MarkNotificationsReadResponse` |
+
+New error code in use: `not_implemented` (501) — thrown by the temporary repo stubs in
+`src/lib/db/phase5-stubs.ts` until the database agent implements each method.
+
+### 10.3 Where logic lives
+
+- **Repo** (`src/lib/db/repo.ts`, "Phase 5" block): persistence only — folders, trackers, deal overrides, comments,
+  reactions, webhooks + deliveries, Slack config, CRM logs, bot sessions, `cloneMeetingFromTemplate`, calendar
+  events + record override, prefs, current session, team, notifications, plus `listMeetingDetails` and
+  `updateMeetings` (bulk).
+- **Pure analytics** (`src/lib/analytics/`, isomorphic): `coaching.ts` (`computeCoachingMetrics`),
+  `insights.ts` (`computeInsights`, `rangeStart`), `trackers.ts` (`findTrackerHits`, `findMeetingTrackerHits`,
+  `withTrackerStats`), `deals.ts` (`emailDomain`, `companyNameFromDomain`, `primaryCompany`, `deriveDealFields`,
+  `applyDealOverrides`, `groupCompanies`, `buildCompanyDetail`), `library.ts` (`filterMeetings`),
+  `calendar.ts` (`ruleRecords`, `effectiveRecord`).
+- **Export** (`src/lib/export/`): `transcript.ts` (`transcriptToTxt/Srt/Vtt/Markdown`, `formatCueTime`),
+  `summary.ts` (`summaryToMarkdown`, `buildEmailRecap`), `download.ts` (`buildDownload`, `slugify`).
+- **Integrations** (`src/lib/integrations/`): `bot.ts` (`detectPlatform`, `advanceBot`, `BOT_NEXT`,
+  `BOT_AUTO_ADVANCE_MS`), `webhooks.ts` (`buildWebhookPayload`, `signWebhookBody`, `validateWebhookUrl`,
+  `deliverWebhook`, `dispatchEvent`), `slack.ts` (`buildSlackRecap`, `postToSlack`, `toSlackConfigView`),
+  `crm.ts` (`buildCrmPreview`).
+  All ship as `throw new Error("TODO")` stubs with JSDoc describing behaviour; backend implements them.
+
+### 10.4 Phase 5 ownership
+
+| Agent | Owns |
+|---|---|
+| database | Every Phase 5 Repo method in `seed-repo.ts` + `supabase-repo.ts` (replace `phase5RepoStubs`, then delete `phase5-stubs.ts`); `supabase/migrations/0002_parity.sql`; seed data for folders, comments, reactions, trackers, team (~14 Northwind people), webhooks, notifications, calendar events (with meeting URLs/platforms), prefs; `recorded_by`/`share_invited_emails` variety so the three library tabs are populated |
+| backend | All Phase 5 API routes under `src/app/api/**`; `src/lib/analytics/*`, `src/lib/export/*`, `src/lib/integrations/*` (real webhook + Slack fetch, bot state machine, CRM preview); pipeline hook: on `meeting.ready` → notifications + `dispatchEvent` + Slack auto-post |
+| frontend-A | App shell nav + folders sidebar + notification bell + demo badge; library (tabs, filters, sort, star/rename/delete, bulk move, trash); `/folders/[id]`; `/record` + bot flow; `/calendar`; `/team`; `/welcome`; settings (server prefs, integrations config UI: webhooks, Slack, CRM); marketing `/pricing`, `/features`, `/integrations` + landing links |
+| frontend-B | Call page additions (coaching panel, comments + timeline markers + @mentions, reactions, downloads menu, clip trim editor, `<video>` playback, tracker markers, Slack/CRM/email-recap actions); `/insights`; `/trackers`, `/trackers/[id]`; `/deals`, `/deals/[domain]` |
+| architect | Contracts (`types.ts`, `contracts.ts`, `routes.ts`, `repo.ts`), this document, README |
+
+Contract-change protocol is unchanged: additive only, logged in §9.

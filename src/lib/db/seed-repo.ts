@@ -23,6 +23,7 @@ import type {
 } from "@/lib/types";
 import { CLIP_TOKEN_PREFIX, decodeClipToken, encodeClipToken } from "./clip-token";
 import type { Repo } from "./repo";
+import { phase5RepoStubs } from "./phase5-stubs";
 import { shiftSeed, type SeedAnchor } from "./seed-time";
 
 /**
@@ -131,6 +132,7 @@ const normInstr = (s: string | null | undefined) => (s ?? "").trim() || null;
 
 export function createSeedRepo(): Repo {
   return {
+    ...phase5RepoStubs("seed"), // TEMP: database agent replaces (Phase 5)
     async listMeetings(): Promise<MeetingListItem[]> {
       return [...store().meetings.values()]
         .map((r) => ({

@@ -1,0 +1,33 @@
+-- 0002_parity.sql — Phase 5 (full Fathom parity). TODO(database agent): write the SQL.
+-- This file is intentionally comments-only (a no-op) until then. Contract: src/lib/types.ts "PHASE 5".
+--
+-- ALTER meetings: folder_id uuid null references folders on delete set null, starred boolean not null default false,
+--                 deleted_at timestamptz null  (+ index on (workspace_id, deleted_at))
+-- ALTER users:    (none; team data lives in team_members)
+--
+-- New tables (all with workspace_id + RLS matching 0001; service role bypasses):
+--   folders              (id, workspace_id, name, color, created_at)
+--   (scope "shared" uses existing meetings.share_invited_emails from 0001 — no new table)
+--   trackers             (id, workspace_id, name, description, keywords text[], color, created_at)
+--   deal_overrides       (workspace_id, domain, name, stage, amount, close_date, bant jsonb, meddpicc jsonb, updated_at; pk(workspace_id, domain))
+--   comments             (id, meeting_id → meetings cascade, timestamp_ms int null, body, mentions text[], author_id,
+--                         author_name, author_color, parent_id → comments cascade, created_at, updated_at)
+--   reactions            (id, meeting_id cascade, segment_id → transcript_segments cascade, emoji, user_id, user_name,
+--                         created_at; unique(segment_id, user_id, emoji))
+--   webhooks             (id, workspace_id, url, description, events text[], secret, active, last_status int,
+--                         last_delivery_at, created_at)
+--   webhook_deliveries   (id, webhook_id cascade, event, test, request_body text, status_code int, ok, response_body,
+--                         error, duration_ms int, created_at)
+--   slack_configs        (workspace_id pk, webhook_url, channel_label, auto_post_on_ready, include_summary,
+--                         include_action_items, include_highlights, updated_at)
+--   crm_sync_logs        (id, meeting_id cascade, provider, status, field_count, fields jsonb, message, created_at)
+--   bot_sessions         (id, workspace_id, meeting_url, platform, title, state, simulated, meeting_id null, error,
+--                         events jsonb, created_at, joined_at, admitted_at, recording_ended_at, completed_at, updated_at)
+--   calendar_events      (extends/replaces upcoming_meetings: + meeting_url, platform, organizer_email, is_external,
+--                         source, record_override boolean null)
+--   user_prefs           (user_id pk, default_template, default_language, default_share_access, auto_record_rule,
+--                         email_recap_enabled, notify_meeting_ready, notify_mentions, notify_shared,
+--                         calendar_connected, onboarding_completed, updated_at)
+--   team_members         (id, workspace_id, name, email unique per workspace, role, title, team, color, status,
+--                         invited_at, joined_at)
+--   notifications        (id, user_id, kind, title, body, href, meeting_id null, actor_name, read_at, created_at)

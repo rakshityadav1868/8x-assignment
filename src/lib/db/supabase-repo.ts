@@ -21,6 +21,7 @@ import type {
   UpcomingMeeting,
 } from "@/lib/types";
 import type { Repo } from "./repo";
+import { phase5RepoStubs } from "./phase5-stubs";
 
 /**
  * Supabase (Postgres) repository — used when NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY are set.
@@ -128,6 +129,7 @@ export function createSupabaseRepo(): Repo {
   }
 
   return {
+    ...phase5RepoStubs("supabase"), // TEMP: database agent replaces (Phase 5)
     // ------------------------------------------------------------------ meetings
     async listMeetings(): Promise<MeetingListItem[]> {
       const rows = data(
